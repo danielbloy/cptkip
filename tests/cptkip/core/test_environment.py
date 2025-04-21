@@ -1,3 +1,7 @@
+import sys
+
+sys.path.append('../../cptkip')
+
 import cptkip.core.environment as environment
 
 
