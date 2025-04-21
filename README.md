@@ -1,4 +1,4 @@
-# pico-interactive-2
+# Circuit Python Toolkit for Interactive Projects (CPTKIP)
 
 Please see my website [Code Club Adventures](http://codeclubadventures.com/) for more coding materials.
 
@@ -10,10 +10,25 @@ project so I've decided to make it and new project rather than a version 2 of
 [pico-interactive](https://github.com/danielbloy/pico-interactive) which I will continue to spport
 as I use it in lots of my existing projects.
 
+Rather than focus on a single universal framework (aimed primarily at Raspberry Pi Pico based
+boards), this project aims to be more of a toolkit that supports a wide range of CircuitPython devides
+as well as standard Python on a computer. It is designed to be modular so you can select the specific
+bits of functionality you need with a pick and mix approach. One of the principles behind this approach
+is to reduce the memory overheads of using the toolkit as well as make it more flexible.
+
 ## Overview
 
-Below you will find the proposed roadmap of functionality that I am planning to build into
-the `pico-interactive-2` project. This is all subject to change and no timelines are provided.
+The initial structure of the project will be the following modules:
+
+* environment - provides information about execution environment.
+* config - provides functionality to load configuration data.
+* runner - provies an async thread runner that works across all supported platforms (CircuitPython and Python
+
+## Migrated roadmap
+
+Below you will find the proposed roadmap of functionality that I was planning to build into
+the version 2 of the `pico-interactive` project before I decided to spin it out into it's own
+project. This is all subject to change and no timelines are provided.
 
 The following are the set of changes I plan to make compared to [pico-interactive](https://github.com/danielbloy/pico-interactive).
 These changes are written with respect to that project and I'll be updating here are I go along.
