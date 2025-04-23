@@ -18,28 +18,15 @@ is to reduce the memory overheads of using the toolkit as well as make it more f
 
 ## Overview
 
+For information on how to setup a development environment, see
+[development_environment.md](development_environment.md).
+
 The initial structure of the project will be the following modules:
 
 * core - required for every `cptkip` project as it provides information about execution environment
   and logging. It has no dependencies on other cptkip packages.
-* task - provies an async thread runner that works across all supported platforms (CircuitPython and
+* task - provides an async thread runner that works across all supported platforms (CircuitPython and
   Python). Has a dependency on `core`.
-
-## How To
-
-### Setup Blinka
-
-### Setup PyCharm and venv
-
-### Setup and run tests in Pycharm
-
-This is done on a desktop.
-
-### Setup device and run tests
-
-The mule device will be a Pico W.
-
-Run each module in a specific order to validate there are no dependencies other than those documented.
 
 ## Migrated roadmap
 
