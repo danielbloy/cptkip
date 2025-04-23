@@ -5,16 +5,17 @@ Please see my website [Code Club Adventures](http://codeclubadventures.com/) for
 ## Origins
 
 For details of the origins of this project, see [pico-interactive](https://github.com/danielbloy/pico-interactive).
-This project is expected to be significantly different in structure and principles from the original
-project, so I've decided to make it and new project rather than a version 2 of
-[pico-interactive](https://github.com/danielbloy/pico-interactive) which I will continue to support
-as I use it in lots of my existing projects.
+This project is expected to be significantly different in structure and principles from the
+original project, so I've decided to make it and new project rather than a version 2 of
+[pico-interactive](https://github.com/danielbloy/pico-interactive) which I will continue to
+support as I use it in lots of my existing projects.
 
 Rather than focus on a single universal framework (aimed primarily at Raspberry Pi Pico based
-boards), this project aims to be more of a toolkit that supports a wide range of CircuitPython divides
-as well as standard Python on a computer. It is designed to be modular so you can select the specific
-bits of functionality you need with a pick and mix approach. One of the principles behind this approach
-is to reduce the memory overheads of using the toolkit as well as make it more flexible.
+boards), this project aims to be more of a toolkit that supports a wide range of CircuitPython
+divides as well as standard Python on a computer. It is designed to be modular so you can select
+the specific bits of functionality you need with a pick and mix approach. One of the principles
+behind this approach is to reduce the memory overheads of using the toolkit as well as make it
+more flexible.
 
 ## Overview
 
@@ -23,10 +24,10 @@ For information on how to setup a development environment, see
 
 The initial structure of the project will be the following modules:
 
-* core - required for every `cptkip` project as it provides information about execution environment
-  and logging. It has no dependencies on other `cptkip` packages.
-* task - provides an async thread runner that works across all supported platforms (CircuitPython and
-  Python). Has a dependency on `core`.
+* core - required for every `cptkip` project as it provides information about execution
+  environment and logging. It has no dependencies on other `cptkip` packages.
+* task - provides an async thread runner that works across all supported platforms (CircuitPython
+  and Python). Has a dependency on `core`.
 
 ## Migrated roadmap
 
