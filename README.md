@@ -24,7 +24,7 @@ For information on how to setup a development environment, see
 The initial structure of the project will be the following modules:
 
 * core - required for every `cptkip` project as it provides information about execution environment
-  and logging. It has no dependencies on other cptkip packages.
+  and logging. It has no dependencies on other `cptkip` packages.
 * task - provides an async thread runner that works across all supported platforms (CircuitPython and
   Python). Has a dependency on `core`.
 
