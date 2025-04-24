@@ -1,6 +1,9 @@
 def execute():
     import cptkip.core.environment as environment
     import cptkip.core.log as log
+    import cptkip.core.memory as memory
+
+    memory.report_memory_usage()
 
     # Output some information about the environment we are executing in.
     log.set_log_level(log.INFO)
@@ -24,6 +27,8 @@ def execute():
     log.warn('This text should appear')
     log.info('This text should appear')
     log.debug('ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR')
+
+    memory.report_memory_usage_and_free()
 
 
 if __name__ == '__main__':
