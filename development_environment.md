@@ -79,3 +79,5 @@ are required for each `cptkip` package your project uses. The dependencies need 
 to the `lib` directory on the CircuitPython device. These dependencies can be found
 in `CircuitPython/<version>/lib` using a directory structure corresponding to the `cptkip`
 directory structure to make it easy to find only the dependencies you need.
+
+TODO: Add in an example that can be used by a complete novice with no experience of CircuitPython.
