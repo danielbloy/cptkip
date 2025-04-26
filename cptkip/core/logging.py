@@ -1,9 +1,5 @@
 # To reduce memory footprint of logging to as small as possible on CircuitPython
-# devices, this is about as trivial as logging can get. If you want a more
-# comprehensive logging mechanism for both desktop and CircuitPython then use
-# the `cptkip.logging` package.
-import cptkip.core.environment as environment
-
+# devices, this is about as trivial as logging can get.
 CRITICAL: int = 0
 ERROR: int = 1
 WARNING: int = 2
@@ -36,13 +32,8 @@ def stacktrace(e: Exception) -> None:
     :param e: The exception whose stack trace we want to log.
     """
     import traceback
-    if environment.is_running_on_desktop():
-        # This is to support Python 3.9 as well as Python 3.12.
-        for s in traceback.format_exception(e, value=None, tb=None):
-            debug(s)
-    else:
-        for s in traceback.format_exception(e):
-            debug(s)
+    for s in traceback.format_exception(e):
+        debug(s)
 
 
 def log(level, message: str):
