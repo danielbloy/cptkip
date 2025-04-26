@@ -4,18 +4,53 @@
 # where complex logging is simply not available.
 import cptkip.core.environment as environment
 
+logger = None
+
 if environment.is_running_on_desktop():
     import logging
-    from logging import CRITICAL, ERROR, WARNING, INFO, DEBUG, NOTSET
+    from logging import CRITICAL, ERROR, WARNING, INFO, DEBUG
 
     FORMAT = '%(asctime)s %(message)s'
     logging.basicConfig(format=FORMAT, level=WARNING)
 
-else:
-    import adafruit_logging as logging
-    from adafruit_logging import CRITICAL, ERROR, WARNING, INFO, DEBUG, NOTSET
+    logger = logging.getLogger(__name__)
 
-logger = logging.getLogger(__name__)
+else:
+    CRITICAL: int = 0
+    ERROR: int = 1
+    WARNING: int = 2
+    INFO: int = 3
+    DEBUG: int = 4
+
+
+    class Logger:
+        def __init__(self):
+            self.level = INFO
+
+        def setLevel(self, level: int):
+            self.level = level
+
+        def log(self, level: int, message: str):
+            if level <= self.level:
+                print(message)
+
+        def debug(self, message: str) -> None:
+            self.log(DEBUG, message)
+
+        def info(self, message: str) -> None:
+            self.log(INFO, message)
+
+        def warning(self, message: str) -> None:
+            self.log(WARNING, message)
+
+        def error(self, message: str) -> None:
+            self.log(ERROR, message)
+
+        def critical(self, message: str) -> None:
+            self.log(CRITICAL, message)
+
+
+    logger = Logger()
 
 # Prevents PyCharm from clearing up the unused imports.
 __CRITICAL = CRITICAL
@@ -23,7 +58,6 @@ __ERROR = ERROR
 __WARNING = WARNING
 __INFO = INFO
 __DEBUG = DEBUG
-__NOTSET = NOTSET
 
 
 def set_log_level(level) -> None:
