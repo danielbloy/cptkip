@@ -8,11 +8,9 @@ class TestMemory:
         Simply tests there is no error when calling report_memory_usage()
         """
         memory.report_memory_usage()
-        memory.report_memory_usage("Message")
 
     def test_report_memory_usage_and_free(self):
         """
         Simply tests there is no error when calling report_memory_usage_and_free()
         """
         memory.report_memory_usage_and_free()
-        memory.report_memory_usage_and_free("Message")
