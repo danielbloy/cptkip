@@ -61,11 +61,11 @@ import adafruit_logging as logging
 | RAM at Finish before GC | Used: 5,456 bytes, Free: 16,1904 bytes                             |
 | RAM at Finish after GC  | Used: 5,136 bytes, Free: 16,2224 bytes                             |
 
-| `cptkip.core.memory.py` | `examples/cptkip/core/memory.py`        |
-|-------------------------|-----------------------------------------|
-| Ram at Start            | Used: 12,832 bytes, Free: 15,4528 bytes |
-| RAM at Finish before GC | Used: 14,240 bytes, Free: 153,120 bytes |
-| RAM at Finish after GC  | Used: 12,928 bytes, Free: 154,432 bytes |
+| `cptkip.core.memory.py` | `examples/cptkip/core/memory.py`       |
+|-------------------------|----------------------------------------|
+| Ram at Start            | Used: 5,312 bytes, Free: 16,2048 bytes |
+| RAM at Finish before GC | Used: 5,552 bytes, Free: 16,1808 bytes |
+| RAM at Finish after GC  | Used: 5,392 bytes, Free: 16,1968 bytes |
 
 ## TODO
 

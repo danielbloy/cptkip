@@ -1,72 +1,32 @@
-# This is a very thin layer over the top of Python and CircuitPython logging.
-# It offers a very basic set of functions using the single fallback logger.
-# This is for simplicity as we are expecting this to run on a microcontroller
-# where complex logging is simply not available.
+# To reduce memory footprint of logging to as small as possible on CircuitPython
+# devices, this is about as trivial as logging can get. If you want a more
+# comprehensive logging mechanism for both desktop and CircuitPython then use
+# the `cptkip.logging` package.
 import cptkip.core.environment as environment
 
-logger = None
+CRITICAL: int = 0
+ERROR: int = 1
+WARNING: int = 2
+INFO: int = 3
+DEBUG: int = 4
+LEVEL = WARNING
 
-if environment.is_running_on_desktop():
-    import logging
-    from logging import CRITICAL, ERROR, WARNING, INFO, DEBUG
-
-    FORMAT = '%(asctime)s %(message)s'
-    logging.basicConfig(format=FORMAT, level=WARNING)
-
-    logger = logging.getLogger(__name__)
-
-else:
-    CRITICAL: int = 0
-    ERROR: int = 1
-    WARNING: int = 2
-    INFO: int = 3
-    DEBUG: int = 4
-
-
-    class Logger:
-        def __init__(self):
-            self.level = INFO
-
-        def setLevel(self, level: int):
-            self.level = level
-
-        def log(self, level: int, message: str):
-            if level <= self.level:
-                print(message)
-
-        def debug(self, message: str) -> None:
-            self.log(DEBUG, message)
-
-        def info(self, message: str) -> None:
-            self.log(INFO, message)
-
-        def warning(self, message: str) -> None:
-            self.log(WARNING, message)
-
-        def error(self, message: str) -> None:
-            self.log(ERROR, message)
-
-        def critical(self, message: str) -> None:
-            self.log(CRITICAL, message)
-
-
-    logger = Logger()
-
-# Prevents PyCharm from clearing up the unused imports.
-__CRITICAL = CRITICAL
-__ERROR = ERROR
-__WARNING = WARNING
-__INFO = INFO
-__DEBUG = DEBUG
+C = "CRITICAL"
+E = "ERROR"
+W = "WARN "
+I = "INFO "
+D = "DEBUG"
+N = "NONE "
 
 
 def set_log_level(level) -> None:
     """
     Sets the logging level to use in the same way as Logging. Defaults to WARNING.
 
-    :param level: A number, usually oOne of CRITICAL, ERROR, WARNING, INFO, DEBUG, NOTSET
+    :param level: A number, usually one of CRITICAL, ERROR, WARNING, INFO, DEBUG.
     """
-    logger.setLevel(level)
+    global LEVEL
+    LEVEL = level
 
 
 def stacktrace(e: Exception) -> None:
@@ -79,37 +39,51 @@ def stacktrace(e: Exception) -> None:
     if environment.is_running_on_desktop():
         # This is to support Python 3.9 as well as Python 3.12.
         for s in traceback.format_exception(e, value=None, tb=None):
-            logger.debug(s)
+            debug(s)
     else:
         for s in traceback.format_exception(e):
-            logger.debug(s)
+            debug(s)
 
 
 def log(level, message: str):
     """Writes message at the specified log level."""
-    logger.log(level, message)
+    if level <= LEVEL:
+
+        l = N
+        if level == CRITICAL:
+            l = C
+        elif level == ERROR:
+            l = E
+        elif level == WARNING:
+            l = W
+        elif level == INFO:
+            l = I
+        elif level == DEBUG:
+            l = D
+
+        print(l, ": ", message)
 
 
 def debug(message: str) -> None:
     """Writes message at the DEBUG log level."""
-    logger.debug(message)
+    log(DEBUG, message)
 
 
 def info(message: str) -> None:
     """Writes message at the INFO log level."""
-    logger.info(message)
+    log(INFO, message)
 
 
 def warn(message: str) -> None:
     """Writes message at the WARNING log level."""
-    logger.warning(message)
+    log(WARNING, message)
 
 
 def error(message: str) -> None:
     """Writes message at the ERROR log level."""
-    logger.error(message)
+    log(ERROR, message)
 
 
 def critical(message: str) -> None:
     """Writes message at the CRITICAL log level."""
-    logger.critical(message)
+    log(CRITICAL, message)
