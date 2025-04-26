@@ -49,19 +49,19 @@ def log(level, message: str):
     """Writes message at the specified log level."""
     if level <= LEVEL:
 
-        l = N
+        prefix = N
         if level == CRITICAL:
-            l = C
+            prefix = C
         elif level == ERROR:
-            l = E
+            prefix = E
         elif level == WARNING:
-            l = W
+            prefix = W
         elif level == INFO:
-            l = I
+            prefix = I
         elif level == DEBUG:
-            l = D
+            prefix = D
 
-        print(l, ": ", message)
+        print(prefix, ": ", message)
 
 
 def debug(message: str) -> None:

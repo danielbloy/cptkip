@@ -51,15 +51,15 @@ import adafruit_logging as logging
 
 | `cptkip.core.log.py`    | `examples/cptkip/core/logging.py` with removal of adafruit_logging |
 |-------------------------|--------------------------------------------------------------------|
-| Ram at Start            | Used: 2032 bytes, Free: 165648 bytes                               |
-| RAM at Finish before GC | Used: 4832 bytes, Free: 162528 bytes                               |
-| RAM at Finish after GC  | Used: 4512 bytes, Free: 162848 bytes                               |
+| Ram at Start            | Used: 2,032 bytes, Free: 165,648 bytes                             |
+| RAM at Finish before GC | Used: 4,848 bytes, Free: 162,512 bytes                             |
+| RAM at Finish after GC  | Used: 4,528 bytes, Free: 162,832 bytes                             |
 
 | `cptkip.core.memory.py` | `examples/cptkip/core/memory.py`       |
 |-------------------------|----------------------------------------|
-| Ram at Start            | Used: 5,312 bytes, Free: 16,2048 bytes |
-| RAM at Finish before GC | Used: 5,552 bytes, Free: 16,1808 bytes |
-| RAM at Finish after GC  | Used: 5,392 bytes, Free: 16,1968 bytes |
+| Ram at Start            | Used: 4,752 bytes, Free: 162,608 bytes |
+| RAM at Finish before GC | Used: 4,992 bytes, Free: 162,368 bytes |
+| RAM at Finish after GC  | Used: 4,832 bytes, Free: 162,528 bytes |
 
 ## TODO
 
@@ -73,5 +73,10 @@ import adafruit_logging as logging
 ## Lessons learned
 
 * Prefer small module with only a few items of functionality over larger modules to save RAM.
-* Logging is expensive when using adadfruit_logging
-* F strings are expensive in temporary memory usage, it's more efficient to 
+* F strings are expensive in temporary memory usage, it's more efficient to
+
+## Notes
+
+* Logging is expensive when using `adadfruit_logging` so the built-in logging package as part of `cptkip.core`
+  has been simplified to remove all dependencies to use far less RAM. If more complex logging is required then
+  use the `cptkip.logging` package which has an identical interface but uses the full logging frameworks.
