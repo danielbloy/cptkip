@@ -1,7 +1,7 @@
 import cptkip.core.logging as log
 
 
-class TestLog:
+class TestLogging:
 
     def test_set_log_level(self):
         """

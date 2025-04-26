@@ -8,11 +8,10 @@ DEBUG: int = 4
 LEVEL = WARNING
 
 C = "CRITICAL"
-E = "ERROR"
-W = "WARN "
-I = "INFO "
-D = "DEBUG"
-N = "NONE "
+E = "ERROR   "
+W = "WARN    "
+I = "INFO    "
+D = "DEBUG   "
 
 
 def set_log_level(level) -> None:
@@ -40,7 +39,7 @@ def log(level, message: str):
     """Writes message at the specified log level."""
     if level <= LEVEL:
 
-        prefix = N
+        prefix = D
         if level == CRITICAL:
             prefix = C
         elif level == ERROR:
@@ -52,7 +51,7 @@ def log(level, message: str):
         elif level == DEBUG:
             prefix = D
 
-        print(prefix, ": ", message)
+        print(prefix, ":", message)
 
 
 def debug(message: str) -> None:

@@ -11,16 +11,16 @@ Running the following script which is just output RAM usage with the simplest co
 ```python
 import gc
 
-print(f"MEMORY USAGE:")
-print(f"HEAP: Allocated: {gc.mem_alloc()} bytes, Free: {gc.mem_free()} bytes")
+print("MEMORY USAGE:")
+print("HEAP: Allocated: ", gc.mem_alloc(), " bytes, Free: ", gc.mem_free(), " bytes")
 
 # Code under test goes here.
 
-print(f"MEMORY USAGE: before gc")
-print(f"HEAP: Allocated: {gc.mem_alloc()} bytes, Free: {gc.mem_free()} bytes")
+print("MEMORY USAGE: before gc")
+print("HEAP: Allocated: ", gc.mem_alloc(), " bytes, Free: ", gc.mem_free(), " bytes")
 gc.collect()
-print(f"MEMORY USAGE: after gc")
-print(f"HEAP: Allocated: {gc.mem_alloc()} bytes, Free: {gc.mem_free()} bytes")
+print("MEMORY USAGE: after gc")
+print("HEAP: Allocated: ", gc.mem_alloc(), " bytes, Free: ", gc.mem_free(), " bytes")
 ```
 
 | Vanilla Circuit Python  |                                      |
@@ -45,21 +45,21 @@ import adafruit_logging as logging
 
 | `cptkip.core.environment.py` | `examples/cptkip/core/environment.py` with the code from the Vanilla example above to report RAM |
 |------------------------------|--------------------------------------------------------------------------------------------------|
-| Ram at Start                 | Used: 1,520 bytes, Free: 166,160 bytes                                                           |
-| RAM at Finish before GC      | Used: 3,328 bytes, Free: 164,032 bytes                                                           |
-| RAM at Finish after GC       | Used: 3,008 bytes, Free: 164,352 bytes                                                           |
+| Ram at Start                 | Used: 1,488 bytes, Free: 166,192 bytes                                                           |
+| RAM at Finish before GC      | Used: 3,024 bytes, Free: 164,336 bytes                                                           |
+| RAM at Finish after GC       | Used: 3,024 bytes, Free: 164,336 bytes                                                           |
 
-| `cptkip.core.log.py`    | `examples/cptkip/core/logging.py` with removal of adafruit_logging |
-|-------------------------|--------------------------------------------------------------------|
-| Ram at Start            | Used: 2,032 bytes, Free: 165,648 bytes                             |
-| RAM at Finish before GC | Used: 4,800 bytes, Free: 162,560 bytes                             |
-| RAM at Finish after GC  | Used: 4,480 bytes, Free: 162,880 bytes                             |
+| `cptkip.core.logging.py` | `examples/cptkip/core/logging.py` with removal of adafruit_logging |
+|--------------------------|--------------------------------------------------------------------|
+| Ram at Start             | Used: 2,016 bytes, Free: 165,664 bytes                             |
+| RAM at Finish before GC  | Used: 4,784 bytes, Free: 162,576 bytes                             |
+| RAM at Finish after GC   | Used: 4,464 bytes, Free: 162,896 bytes                             |
 
 | `cptkip.core.memory.py` | `examples/cptkip/core/memory.py`       |
 |-------------------------|----------------------------------------|
-| Ram at Start            | Used: 4,704 bytes, Free: 162,656 bytes |
-| RAM at Finish before GC | Used: 4,944 bytes, Free: 162,416 bytes |
-| RAM at Finish after GC  | Used: 4,784 bytes, Free: 162,576 bytes |
+| Ram at Start            | Used: 4,448 bytes, Free: 162,912 bytes |
+| RAM at Finish before GC | Used: 4,576 bytes, Free: 162,784 bytes |
+| RAM at Finish after GC  | Used: 4,512 bytes, Free: 162,848 bytes |
 
 ## Experiments with the old framework
 
