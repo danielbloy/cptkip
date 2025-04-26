@@ -31,11 +31,12 @@ The initial structure of the project will be the following modules:
 
 The packages and their dependencies are illustrated in the table below.
 
-|               | `cptkip.core` | `cptkip.task` | `cptkip.hal` |
-| ------------- | :-----------: | :-----------: | :----------: |
-| `cptkip.core` | n/a           |               |              |
-| `cptkip.task` | Yes           | n/a           |              |
-| `cptkip.hal`  | Yes           |               | n/a          |
+|                 | `cptkip.core` | `cptkip.config` | `cptkip.task` | `cptkip.hal` |
+|-----------------|:-------------:|:---------------:|:-------------:|:------------:|
+| `cptkip.core`   |      n/a      |                 |               |              |      
+| `cptkip.config` |      yes      |       n/a       |               |              |
+| `cptkip.task`   |      Yes      |       n/a       |      n/a      |              |
+| `cptkip.hal`    |      Yes      |                 |               |     n/a      |
 
 ## Migrated roadmap
 
