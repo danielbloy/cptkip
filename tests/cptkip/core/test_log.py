@@ -1,4 +1,4 @@
-from cptkip.core import log
+import cptkip.core.logging as log
 
 
 class TestLog:

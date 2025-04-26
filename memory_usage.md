@@ -49,17 +49,11 @@ import adafruit_logging as logging
 | RAM at Finish before GC      | Used: 3,328 bytes, Free: 164,032 bytes                                                           |
 | RAM at Finish after GC       | Used: 3,008 bytes, Free: 164,352 bytes                                                           |
 
-| `cptkip.core.log.py`    | `examples/cptkip/core/logging.py` with the code from the Vanilla example above to report RAM |
-|-------------------------|----------------------------------------------------------------------------------------------|
-| Ram at Start            | Used: 2,016 bytes, Free: 165,664 bytes                                                       |
-| RAM at Finish before GC | Used: 13,872 bytes, Free: 153,488 bytes                                                      |
-| RAM at Finish after GC  | Used: 11,696 bytes, Free: 155,664 bytes                                                      |
-
 | `cptkip.core.log.py`    | `examples/cptkip/core/logging.py` with removal of adafruit_logging |
 |-------------------------|--------------------------------------------------------------------|
-| Ram at Start            | Used: 2,016 bytes, Free: 16,5664 bytes                             |
-| RAM at Finish before GC | Used: 5,456 bytes, Free: 16,1904 bytes                             |
-| RAM at Finish after GC  | Used: 5,136 bytes, Free: 16,2224 bytes                             |
+| Ram at Start            | Used: 2032 bytes, Free: 165648 bytes                               |
+| RAM at Finish before GC | Used: 4832 bytes, Free: 162528 bytes                               |
+| RAM at Finish after GC  | Used: 4512 bytes, Free: 162848 bytes                               |
 
 | `cptkip.core.memory.py` | `examples/cptkip/core/memory.py`       |
 |-------------------------|----------------------------------------|
@@ -79,4 +73,5 @@ import adafruit_logging as logging
 ## Lessons learned
 
 * Prefer small module with only a few items of functionality over larger modules to save RAM.
-* Logging is expensive
+* Logging is expensive when using adadfruit_logging
+* F strings are expensive in temporary memory usage, it's more efficient to 

@@ -1,9 +1,9 @@
 import asyncio
 
 from cptkip.core.environment import is_running_on_desktop
-from cptkip.core.log import debug, info, warn, error, stacktrace
+from cptkip.core.logging import debug, info, warn, error, stacktrace
 from cptkip.task.control import RUNNER_DEFAULT_CALLBACK_FREQUENCY, SCHEDULER_INTERNAL_LOOP_RATIO
-from cptkip.task.scheduler import new_scheduled_task, terminate_on_cancel, new_loop_task
+from cptkip.task.scheduler import new_scheduled_task, terminate_on_cancel
 
 # collections.abc is not available in CircuitPython.
 if is_running_on_desktop():
@@ -59,15 +59,6 @@ class Runner:
         :param task: The task to add.
         """
         self.__tasks_to_run.append(task)
-
-    def add_loop_task(self, task: Callable[[], Awaitable[None]]) -> None:
-        """
-        Adds a task to the set of background tasks to run; wrapping the
-        callback in an infinite loop.
-
-        :param task: The task to add, wrapped in an infinite loop.
-        """
-        self.__tasks_to_run.append(new_loop_task(task))
 
     def run(self, callback: Callable[[], Awaitable[None]] = None) -> None:
         """

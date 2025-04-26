@@ -1,6 +1,6 @@
 def execute():
     import cptkip.core.environment as environment
-    import cptkip.core.log as log
+    import cptkip.core.logging as log
     import cptkip.core.memory as memory
 
     memory.report_memory_usage()

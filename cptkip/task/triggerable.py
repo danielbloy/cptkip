@@ -1,7 +1,7 @@
 import time
 
 from cptkip.core.environment import is_running_on_desktop
-from cptkip.core.log import debug
+from cptkip.core.logging import debug
 from cptkip.task.scheduler import never_terminate, new_loop_task
 
 # collections.abc is not available in CircuitPython.

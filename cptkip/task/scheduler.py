@@ -2,7 +2,7 @@ import asyncio
 import time
 
 from cptkip.core.environment import is_running_on_desktop
-from cptkip.core.log import debug
+from cptkip.core.logging import debug
 from cptkip.task.control import (NS_PER_SECOND, ASYNC_LOOP_SLEEP_INTERVAL,
                                  SCHEDULER_DEFAULT_FREQUENCY, SCHEDULER_INTERNAL_LOOP_RATIO)
 
