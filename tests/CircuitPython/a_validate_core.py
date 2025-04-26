@@ -1,9 +1,6 @@
 def execute():
     import cptkip.core.environment as environment
     import cptkip.core.logging as log
-    import cptkip.core.memory as memory
-
-    memory.report_memory_usage()
 
     # Output some information about the environment we are executing in.
     log.set_log_level(log.INFO)
@@ -13,22 +10,20 @@ def execute():
     log.info(f'Is running on a desktop .......... : {environment.is_running_on_desktop()}')
     log.info(f'Are pins available ............... : {environment.are_pins_available()}')
 
-    # Set the log level to ERROR. None of the ERROR strings should be output.
+    # Set the log level to ERROR. None of the FAIL strings should be output.
     log.set_log_level(log.ERROR)
-    log.critical('This text should appear')
-    log.error('This text should appear')
-    log.warn('ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR')
-    log.info('ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR')
-    log.debug('ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR')
+    log.critical('PASS')
+    log.error('PASS')
+    log.warn('FAIL FAIL FAIL FAIL')
+    log.info('FAIL FAIL FAIL FAIL')
+    log.debug('FAIL FAIL FAIL FAIL')
 
     log.set_log_level(log.INFO)
-    log.critical('This text should appear')
-    log.error('This text should appear')
-    log.warn('This text should appear')
-    log.info('This text should appear')
-    log.debug('ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR')
-
-    memory.report_memory_usage_and_free()
+    log.critical('PASS')
+    log.error('PASS')
+    log.warn('PASS')
+    log.info('PASS')
+    log.debug('FAIL FAIL FAIL FAIL')
 
 
 if __name__ == '__main__':
