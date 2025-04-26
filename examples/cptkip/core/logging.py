@@ -1,5 +1,5 @@
 import cptkip.core.environment as environment
-import cptkip.core.log as log
+import cptkip.core.logging as log
 
 log.set_log_level(log.INFO)
 log.info(f'Is running in CI ................. : {environment.is_running_in_ci()}')

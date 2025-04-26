@@ -3,7 +3,7 @@
 import gc
 
 import cptkip.core.environment as environment
-import cptkip.core.log as log
+import cptkip.core.logging as log
 
 
 def report_memory_usage(msg: str = ""):
