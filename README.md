@@ -5,32 +5,46 @@ Please see my website [Code Club Adventures](http://codeclubadventures.com/) for
 ## Origins
 
 For details of the origins of this project, see [pico-interactive](https://github.com/danielbloy/pico-interactive).
-This project is expected to be significantly different in structure and principles from the original
-project so I've decided to make it and new project rather than a version 2 of
-[pico-interactive](https://github.com/danielbloy/pico-interactive) which I will continue to spport
-as I use it in lots of my existing projects.
+This project is expected to be significantly different in structure and principles from the
+original project, so I've decided to make it and new project rather than a version 2 of
+[pico-interactive](https://github.com/danielbloy/pico-interactive) which I will continue to
+support as I use it in lots of my existing projects.
 
 Rather than focus on a single universal framework (aimed primarily at Raspberry Pi Pico based
-boards), this project aims to be more of a toolkit that supports a wide range of CircuitPython devides
-as well as standard Python on a computer. It is designed to be modular so you can select the specific
-bits of functionality you need with a pick and mix approach. One of the principles behind this approach
-is to reduce the memory overheads of using the toolkit as well as make it more flexible.
+boards), this project aims to be more of a toolkit that supports a wide range of CircuitPython
+divides as well as standard Python on a computer. It is designed to be modular so you can select
+the specific bits of functionality you need with a pick and mix approach. One of the principles
+behind this approach is to reduce the memory overheads of using the toolkit as well as make it
+more flexible.
 
 ## Overview
 
+For information on how to setup a development environment, see
+[development_environment.md](development_environment.md).
+
 The initial structure of the project will be the following modules:
 
-* environment - provides information about execution environment.
-* config - provides functionality to load configuration data.
-* runner - provies an async thread runner that works across all supported platforms (CircuitPython and Python
+* core - required for every `cptkip` project as it provides information about execution
+  environment, memory and logging. It has no dependencies on other `cptkip` packages.
+* task - provides an async thread runner that works across all supported platforms (CircuitPython
+  and Python). Has a dependency on `core`.
+
+The packages and their dependencies are illustrated in the table below.
+
+|               | `cptkip.core` | `cptkip.task` | `cptkip.hal` |
+| ------------- | :-----------: | :-----------: | :----------: |
+| `cptkip.core` | n/a           |               |              |
+| `cptkip.task` | Yes           | n/a           |              |
+| `cptkip.hal`  | Yes           |               | n/a          |
 
 ## Migrated roadmap
 
 Below you will find the proposed roadmap of functionality that I was planning to build into
-the version 2 of the `pico-interactive` project before I decided to spin it out into it's own
+the version 2 of the `pico-interactive` project before I decided to spin it out into its own
 project. This is all subject to change and no timelines are provided.
 
-The following are the set of changes I plan to make compared to [pico-interactive](https://github.com/danielbloy/pico-interactive).
+The following are the set of changes I plan to make compared
+to [pico-interactive](https://github.com/danielbloy/pico-interactive).
 These changes are written with respect to that project and I'll be updating here are I go along.
 
 ### Structural Changes
