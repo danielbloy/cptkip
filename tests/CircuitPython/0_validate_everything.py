@@ -1,9 +1,10 @@
 import a_validate_core
 import b_validate_config
+import c_validate_cpu
 
 import cptkip.core.memory as memory
 
-modules = [a_validate_core, b_validate_config]
+modules = [a_validate_core, b_validate_config, c_validate_cpu]
 
 
 def execute():

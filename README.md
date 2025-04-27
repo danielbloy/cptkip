@@ -26,17 +26,22 @@ The initial structure of the project will be the following modules:
 
 * core - required for every `cptkip` project as it provides information about execution
   environment, memory and logging. It has no dependencies on other `cptkip` packages.
-* task - provides an async thread runner that works across all supported platforms (CircuitPython
-  and Python). Has a dependency on `core`.
+* config - provides overridable configuration properties.
+* cpu - provides information about the CPU and provides some operations.
+* network - provides a network layer that works across all supported platforms
+  (CircuitPython and Python).
+* task - provides an async thread runners and scheduling that works across all supported
+  platforms (CircuitPython and Python).
 
 The packages and their dependencies are illustrated in the table below.
 
-|                 | `cptkip.core` | `cptkip.config` | `cptkip.task` | `cptkip.hal` |
-|-----------------|:-------------:|:---------------:|:-------------:|:------------:|
-| `cptkip.core`   |      n/a      |                 |               |              |      
-| `cptkip.config` |      yes      |       n/a       |               |              |
-| `cptkip.task`   |      Yes      |       n/a       |      n/a      |              |
-| `cptkip.hal`    |      Yes      |                 |               |     n/a      |
+|                  | `cptkip.core` | `cptkip.config` | `cptkip.cpu` | `cptkip.network` | `cptkip.task` |
+|------------------|:-------------:|:---------------:|:------------:|:----------------:|:-------------:|
+| `cptkip.core`    |      n/a      |                 |              |                  |               |  
+| `cptkip.config`  |      yes      |       n/a       |              |                  |               |
+| `cptkip.cpu`     |      Yes      |                 |     n/a      |                  |               |
+| `cptkip.network` |      Yes      |                 |              |       n/a        |               |
+| `cptkip.task`    |               |                 |              |                  |      n/a      |
 
 ## Migrated roadmap
 
