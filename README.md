@@ -28,20 +28,19 @@ The initial structure of the project will be the following modules:
   environment, memory and logging. It has no dependencies on other `cptkip` packages.
 * config - provides overridable configuration properties.
 * cpu - provides information about the CPU and provides some operations.
-* network - provides a network layer that works across all supported platforms
-  (CircuitPython and Python).
+* hal - provides an abstraction layer to support desktop environments with no pins.
 * task - provides an async thread runners and scheduling that works across all supported
   platforms (CircuitPython and Python).
 
 The packages and their dependencies are illustrated in the table below.
 
-|                  | `cptkip.core` | `cptkip.config` | `cptkip.cpu` | `cptkip.network` | `cptkip.task` |
-|------------------|:-------------:|:---------------:|:------------:|:----------------:|:-------------:|
-| `cptkip.core`    |      n/a      |                 |              |                  |               |  
-| `cptkip.config`  |      yes      |       n/a       |              |                  |               |
-| `cptkip.cpu`     |      Yes      |                 |     n/a      |                  |               |
-| `cptkip.network` |      Yes      |                 |              |       n/a        |               |
-| `cptkip.task`    |               |                 |              |                  |      n/a      |
+|                 | `cptkip.core` | `cptkip.config` | `cptkip.cpu` | `cptkip.hal` | `cptkip.task` |
+|-----------------|:-------------:|:---------------:|:------------:|:------------:|:-------------:|
+| `cptkip.core`   |      n/a      |                 |              |              |               |  
+| `cptkip.config` |      yes      |       n/a       |              |              |               |
+| `cptkip.cpu`    |      Yes      |                 |     n/a      |              |               |
+| `cptkip.hal`    |               |                 |              |     n/a      |               |
+| `cptkip.task`   |               |                 |              |              |      n/a      |
 
 ## Migrated roadmap
 

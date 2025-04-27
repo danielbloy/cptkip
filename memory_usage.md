@@ -95,7 +95,8 @@ Using the memory optimised logging framework.
 ## Lessons learned
 
 * Prefer small module with only a few items of functionality over larger modules to save RAM.
-* F strings are expensive in temporary memory usage, it's more efficient to
+* F strings are expensive in temporary memory usage, it's more efficient to use `print()` with
+  multiple arguments.
 
 ## Notes
 
