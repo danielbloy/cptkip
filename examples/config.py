@@ -1,6 +1,6 @@
-from cptkip.core.logging import DEBUG
+from cptkip.core.logging import INFO
 
-LOG_LEVEL = DEBUG
+LOG_LEVEL = INFO
 
 TEST_VALUE = 123.456
 

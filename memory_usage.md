@@ -1,7 +1,7 @@
 # Memory Usage
 
 The following data is generated from running the various examples on a
-Raspberry Pi Pico H device running CircuitPython 9.2.7 to assess the
+Pimoroni Tiny 2040 device running CircuitPython 9.2.7 to assess the
 memory demands of the various packages.
 
 ## Vanilla Circuit Python
@@ -11,65 +11,125 @@ Running the following script which is just output RAM usage with the simplest co
 ```python
 import gc
 
-print("MEMORY USAGE:")
-print("HEAP: Allocated:", gc.mem_alloc(), "bytes, Free:", gc.mem_free(), "bytes")
+print("START: Used:", gc.mem_alloc(), "bytes, Free:", gc.mem_free(), "bytes")
 
 # Code under test goes here.
 
-print("MEMORY USAGE: before gc")
-print("HEAP: Allocated:", gc.mem_alloc(), "bytes, Free:", gc.mem_free(), "bytes")
+print("BEFORE GC: Used:", gc.mem_alloc(), "bytes, Free:", gc.mem_free(), "bytes")
 gc.collect()
-print("MEMORY USAGE: after gc")
-print("HEAP: Allocated:", gc.mem_alloc(), "bytes, Free:", gc.mem_free(), "bytes")
+print("AFTER GC: Used:", gc.mem_alloc(), "bytes, Free:", gc.mem_free(), "bytes")
 ```
 
 | Vanilla Circuit Python  |                                      |
 |-------------------------|--------------------------------------|
-| Ram at Start            | Used: 656 bytes, Free: 167,024 bytes |
-| RAM at Finish before GC | Used: 832 bytes, Free: 166,848 bytes |
-| RAM at Finish after GC  | Used: 688 bytes, Free: 166,992 bytes |
+| Ram at Start            | Used: 640 bytes, Free: 171,136 bytes |
+| RAM at Finish before GC | Used: 840 bytes, Free: 171,13 bytes  |
+| RAM at Finish after GC  | Used: 640 bytes, Free: 171,13 bytes  |
 
-Running the above script with the following code under test indicates the cost of adafruit logging, almost 8Kb! Ouch.
+## The `adafruit_logging` library
+
+Running the above script with the following code under test indicates the cost of `adafruit_logging`, almost 8Kb! Ouch.
 
 ```python
 import adafruit_logging as logging
 ```
 
-| Vanilla Circuit Python  |                                        |
+| `adafruit_logging`      |                                        |
 |-------------------------|----------------------------------------|
-| Ram at Start            | Used:   976 bytes, Free: 166,704 bytes |
-| RAM at Finish before GC | Used: 8,272 bytes, Free: 15,9088 bytes |
-| RAM at Finish after GC  | Used: 8,272 bytes, Free: 15,9088 bytes |
+| Ram at Start            | Used:   848 bytes, Free: 170,928 bytes |
+| RAM at Finish before GC | Used: 8,016 bytes, Free: 163,504 bytes |
+| RAM at Finish after GC  | Used: 8,016 bytes, Free: 163,504 bytes |
 
-## `cptkip.core`
+## `cptkip.core.environment.py`
 
-| `cptkip.core.environment.py` | `examples/cptkip/core/environment.py` with the code from the Vanilla example above to report RAM |
-|------------------------------|--------------------------------------------------------------------------------------------------|
-| Ram at Start                 | Used: 1,488 bytes, Free: 166,192 bytes                                                           |
-| RAM at Finish before GC      | Used: 3,024 bytes, Free: 164,336 bytes                                                           |
-| RAM at Finish after GC       | Used: 3,024 bytes, Free: 164,336 bytes                                                           |
+Code under test:
 
-| `cptkip.core.logging.py` | `examples/cptkip/core/logging.py` with removal of adafruit_logging |
-|--------------------------|--------------------------------------------------------------------|
-| Ram at Start             | Used: 2,016 bytes, Free: 165,664 bytes                             |
-| RAM at Finish before GC  | Used: 4,784 bytes, Free: 162,576 bytes                             |
-| RAM at Finish after GC   | Used: 4,464 bytes, Free: 162,896 bytes                             |
+```python
+import cptkip.core.environment as environment
 
-| `cptkip.core.memory.py` | `examples/cptkip/core/memory.py`       |
+print('Is running in CI ................. : ', environment.is_running_in_ci())
+print('Is running under test ............ : ', environment.is_running_under_test())
+print('Is running on a microcontroller .. : ', environment.is_running_on_microcontroller())
+print('Is running on a desktop .......... : ', environment.is_running_on_desktop())
+print('Are pins available ............... : ', environment.are_pins_available())
+```
+
+| `cptkip.core.environment.py` |                                        |
+|------------------------------|----------------------------------------|
+| Ram at Start                 | Used: 1,376 bytes, Free: 170,400 bytes |
+| RAM at Finish before GC      | Used: 2,912 bytes, Free: 168,608 bytes |
+| RAM at Finish after GC       | Used: 2,912 bytes, Free: 168,608 bytes |
+
+## `cptkip.core.logging.py`
+
+Code under test:
+
+```python
+import cptkip.core.logging as log
+
+log.critical('This critical text will appear with log level info')
+log.error('This error text will appear with log level info')
+log.warn('This warning text will appear with log level info')
+log.info('This information text will appear with log level info')
+log.debug('This debug text will NOT appear with log level info')
+```
+
+| `cptkip.core.logging.py` |                                        |
+|--------------------------|----------------------------------------|
+| Ram at Start             | Used: 1,312 bytes, Free: 170,464 bytes |
+| RAM at Finish before GC  | Used: 3,856 bytes, Free: 167,664 bytes |
+| RAM at Finish after GC   | Used: 3,856 bytes, Free: 167,664 bytes |
+
+## `cptkip.core.memory.py`
+
+Code under test:
+
+```python
+import cptkip.core.memory as memory
+
+memory.report_memory_usage()
+memory.report_memory_usage_and_free()
+```
+
+| `cptkip.core.memory.py` |                                        |
 |-------------------------|----------------------------------------|
-| Ram at Start            | Used: 4,448 bytes, Free: 162,912 bytes |
-| RAM at Finish before GC | Used: 4,576 bytes, Free: 162,784 bytes |
-| RAM at Finish after GC  | Used: 4,512 bytes, Free: 162,848 bytes |
+| Ram at Start            | Used: 864 bytes, Free: 170,912 bytes   |
+| RAM at Finish before GC | Used: 4,800 bytes, Free: 166,720 bytes |
+| RAM at Finish after GC  | Used: 4,608 bytes, Free: 166,912 bytes |
 
-## `cptkip.config`
+## `cptkip.config/configuration.py`
 
-The configuration package makes use of `cptkip.core.logging.py`.
+Code under test (using the config file form `examples`):
 
-| `cptkip.config.configuration.py` | `examples/cptkip/core/configuration.py` |
-|----------------------------------|-----------------------------------------|
-| Ram at Start                     | Used: 1,360 bytes, Free: 166,320 bytes  |
-| RAM at Finish before GC          | Used: 5,152 bytes, Free: 162,208 bytes  |
-| RAM at Finish after GC           | Used: 5,152 bytes, Free: 162,208 bytes  |
+```python
+import cptkip.config.configuration as config
+
+print('Test value ... :', config.TEST_VALUE)
+print('Test string .. :', config.TEST_STRING)
+print('Debug ........ :', config.DEBUG)
+```
+
+| `cptkip.config.configuration.py` |                                        |
+|----------------------------------|----------------------------------------|
+| Ram at Start                     | Used: 1,040 bytes, Free: 170,736 bytes |
+| RAM at Finish before GC          | Used: 4,688 bytes, Free: 166,832 bytes |
+| RAM at Finish after GC           | Used: 4,688 bytes, Free: 166,832 bytes |
+
+## `cptkip.cpu.cpu.py`
+
+Code under test:
+
+```python
+import cptkip.cpu.cpu as cpu
+
+cpu.info()
+```
+
+| `cptkip.cpu.cpu.py`     |                                        |
+|-------------------------|----------------------------------------|
+| Ram at Start            | Used: 848 bytes, Free: 170,928 bytes   |
+| RAM at Finish before GC | Used: 2,992 bytes, Free: 168,528 bytes |
+| RAM at Finish after GC  | Used: 2,944 bytes, Free: 168,576 bytes |
 
 ## Experiments with the old framework
 

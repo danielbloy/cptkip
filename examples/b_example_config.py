@@ -6,6 +6,6 @@ import cptkip.config.configuration as config
 
 logging.info("This will be displayed as the configuration file changes the log level")
 
-print('Test value ... :', config.TEST_VALUE)
-print('Test string .. :', config.TEST_STRING)
-print('Debug ........ :', config.DEBUG)
+logging.info(f'Test value ... : {config.TEST_VALUE}')
+logging.info(f'Test string .. : {config.TEST_STRING}')
+logging.info(f'Debug ........ : {config.DEBUG}')
