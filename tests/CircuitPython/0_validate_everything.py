@@ -8,8 +8,8 @@ modules = [a_validate_core, b_validate_config, c_validate_cpu]
 
 
 def execute():
+    memory.report_memory_usage()
     for module in modules:
-        memory.report_memory_usage()
         module.execute()
         memory.report_memory_usage_and_free()
 
