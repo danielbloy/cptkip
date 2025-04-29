@@ -1,5 +1,8 @@
 import cptkip.core.environment as environment
 import cptkip.core.logging as log
+import cptkip.core.memory as memory
+
+memory.report_memory_usage()
 
 log.set_log_level(log.INFO)
 log.info(f'Is running in CI ................. : {environment.is_running_in_ci()}')
@@ -13,3 +16,5 @@ log.error('This error text will appear with log level info')
 log.warn('This warning text will appear with log level info')
 log.info('This information text will appear with log level info')
 log.debug('This debug text will NOT appear with log level info')
+
+memory.report_memory_usage_and_free()

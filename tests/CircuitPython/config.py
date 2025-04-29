@@ -1,6 +1,6 @@
-from cptkip.core.logging import WARNING
+from cptkip.core.logging import ERROR
 
-LOG_LEVEL = WARNING
+LOG_LEVEL = ERROR
 
 TEST_VALUE = 123.456
 
