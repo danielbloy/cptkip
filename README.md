@@ -39,7 +39,7 @@ The packages and their dependencies are illustrated in the table below.
 | `cptkip.core`   |      n/a      |                 |              |              |               |  
 | `cptkip.config` |      yes      |       n/a       |              |              |               |
 | `cptkip.cpu`    |      Yes      |                 |     n/a      |              |               |
-| `cptkip.hal`    |               |                 |              |     n/a      |               |
+| `cptkip.hal`    |      Yes      |                 |              |     n/a      |               |
 | `cptkip.task`   |               |                 |              |              |      n/a      |
 
 ## Migrated roadmap

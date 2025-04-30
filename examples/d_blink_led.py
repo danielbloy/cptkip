@@ -1,47 +1,43 @@
-# This is designed to work with a Pimoroni Tiny 2040. If your board
-# differs then adjust for the appropriate pins.
-
 import time
 
 import cptkip.core.environment as environment
 import cptkip.core.logging as log
+import cptkip.core.memory as memory
+import cptkip.hal.pwmpin as pin
 
-LED = None
+memory.report_memory_usage()
+
+LED_PIN = None
 
 if environment.are_pins_available():
     # noinspection PyPackageRequirements
     import board
 
-    LED = board.LED_R
+    LED_PIN = board.LED
 
-log.set_log_level(INFO)
+log.set_log_level(log.INFO)
 
-runner = Runner()
+led = pin.PwmPin(LED_PIN)
 
-led = Led(new_led_pin(LED))
+# Run the loop for 5 seconds
+log.info("Using value for brightness")
+finish = time.monotonic() + 5
 
-led_animation = Blink(led, speed=0.5, color=WHITE)
+while time.monotonic() < finish:
+    led.value = 0.8
+    time.sleep(0.25)
+    led.value = 0.2
+    time.sleep(0.25)
 
+log.info("Using on()/off() for brightness")
+finish = time.monotonic() + 5
 
-async def animate_leds() -> None:
-    if led_animation:
-        led_animation.animate()
-
-
-runner.add_loop_task(animate_leds)
-
-# Allow the application to only run for a defined number of seconds.
-finish = time.monotonic() + 10
-
-
-async def callback() -> None:
-    runner.cancel = time.monotonic() > finish
-
-
-async def cleanup() -> None:
-    led_animation.freeze()
+while time.monotonic() < finish:
+    led.on()
+    time.sleep(0.25)
     led.off()
-    led.show()
+    time.sleep(0.25)
 
+led.off()
 
-runner.run(callback)
+memory.report_memory_usage_and_free()
