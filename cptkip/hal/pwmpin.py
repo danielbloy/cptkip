@@ -21,11 +21,12 @@ class PwmPin:
 
     def __init__(self, pin, value: float = 0.0, inverse: bool = False, frequency: int = 1000):
         self.pin = pin
-        self._value = value
-        self.inverse = inverse
         self._pwm = None
         if environment.are_pins_available():
             self._pwm = pwmio.PWMOut(pin, frequency=frequency)
+
+        self.inverse = inverse
+        self.value = value
 
     def deinit(self) -> None:
         if environment.are_pins_available():

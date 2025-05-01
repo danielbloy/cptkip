@@ -26,7 +26,7 @@ finish = time.monotonic() + 5
 while time.monotonic() < finish:
     led.value = True
     time.sleep(0.25)
-    led.value = True
+    led.value = False
     time.sleep(0.25)
 
 log.info("Using on()/off() to control the LED")
