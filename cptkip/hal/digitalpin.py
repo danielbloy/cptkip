@@ -18,9 +18,9 @@ class DigitalPin:
     """
 
     def __init__(self, pin, value: bool = False, inverse: bool = False):
-        self._value = value
-        self._inverse = inverse
         self.pin = pin
+        self._value = value
+        self.inverse = inverse
         self._pin = None
         if environment.are_pins_available():
             self._pin = digitalio.DigitalInOut(pin)
@@ -49,4 +49,4 @@ class DigitalPin:
         self._value = value
 
         if self._pin:
-            self._pin = not value if self._inverse else value
+            self._pin = not value if self.inverse else value

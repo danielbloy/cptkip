@@ -20,9 +20,9 @@ class PwmPin:
     """
 
     def __init__(self, pin, value: float = 0.0, inverse: bool = False, frequency: int = 1000):
-        self._value = value
-        self._inverse = inverse
         self.pin = pin
+        self._value = value
+        self.inverse = inverse
         self._pwm = None
         if environment.are_pins_available():
             self._pwm = pwmio.PWMOut(pin, frequency=frequency)
@@ -52,4 +52,4 @@ class PwmPin:
         self._value = value
 
         if self._pwm:
-            self._pwm.duty_cycle = int(MAX_DUTY * (1.0 - value if self._inverse else value))
+            self._pwm.duty_cycle = int(MAX_DUTY * (1.0 - value if self.inverse else value))

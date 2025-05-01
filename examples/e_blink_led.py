@@ -20,7 +20,7 @@ log.set_log_level(log.INFO)
 led = pin.DigitalPin(LED_PIN)
 
 # Run the loop for 5 seconds
-log.info("Using value for brightness")
+log.info("Using value to control the LED")
 finish = time.monotonic() + 5
 
 while time.monotonic() < finish:
@@ -29,7 +29,8 @@ while time.monotonic() < finish:
     led.value = True
     time.sleep(0.25)
 
-log.info("Using on()/off() for brightness")
+log.info("Using on()/off() to control the LED")
+# noinspection DuplicatedCode
 finish = time.monotonic() + 5
 
 while time.monotonic() < finish:

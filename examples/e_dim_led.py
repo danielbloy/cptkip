@@ -30,6 +30,7 @@ while time.monotonic() < finish:
     time.sleep(0.25)
 
 log.info("Using on()/off() for brightness")
+# noinspection DuplicatedCode
 finish = time.monotonic() + 5
 
 while time.monotonic() < finish:
