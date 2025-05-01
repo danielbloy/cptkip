@@ -10,9 +10,9 @@ def info():
     """
     if environment.is_running_on_microcontroller():
         return {
-            "temperature": microcontroller.cpu.temperature,
-            "frequency": microcontroller.cpu.frequency,
-            "voltage": microcontroller.cpu.voltage,
+            "temperature": "n/a" if microcontroller.cpu.temperature is None else microcontroller.cpu.temperature,
+            "frequency": "n/a" if microcontroller.cpu.frequency is None else microcontroller.cpu.frequency,
+            "voltage": "n/a" if microcontroller.cpu.voltage is None else microcontroller.cpu.voltage,
         }
 
     else:
