@@ -8,8 +8,8 @@ if environment.are_pins_available():
 
 class PwmPin:
     """
-    Simple Pin using value to control the PWM. This can be used to control
-    the brightness in LEDS for example.
+    Simple Pin using a value between 0.0 (fully off) and 1.0 (fully on) to control PWM on a
+    Pin. This can be used to control the brightness in LEDS for example.
     """
 
     """
@@ -23,14 +23,15 @@ class PwmPin:
         self._value = value
         self._inverse = inverse
         self.pin = pin
-        self.pwm = None
+        self._pwm = None
         if environment.are_pins_available():
-            self.pwm = pwmio.PWMOut(pin, frequency=frequency)
+            self._pwm = pwmio.PWMOut(pin, frequency=frequency)
 
     def deinit(self) -> None:
-        self.pin = None
-        if self.pwm:
+        if environment.are_pins_available():
             self.pin.deinit()
+
+        self._pwm = None
 
     # Turns the PWM fully on.
     def on(self):
@@ -50,5 +51,5 @@ class PwmPin:
 
         self._value = value
 
-        if self.pwm:
-            self.pwm.duty_cycle = int(MAX_DUTY * (1.0 - value if self._inverse else value))
+        if self._pwm:
+            self._pwm.duty_cycle = int(MAX_DUTY * (1.0 - value if self._inverse else value))
