@@ -30,7 +30,7 @@ class PwmPin:
 
     def deinit(self) -> None:
         if environment.are_pins_available():
-            self.pin.deinit()
+            self._pwm.deinit()
 
         self._pwm = None
 

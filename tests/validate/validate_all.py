@@ -15,6 +15,7 @@ def execute():
         log.critical("Executing module {}".format(module))
         module.execute()
         memory.report_memory_usage_and_free()
+        del module
 
 
 if __name__ == '__main__':

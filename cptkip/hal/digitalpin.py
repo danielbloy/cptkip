@@ -29,7 +29,7 @@ class DigitalPin:
 
     def deinit(self) -> None:
         if environment.are_pins_available():
-            self.pin.deinit()
+            self._pin.deinit()
 
         self._pin = None
 

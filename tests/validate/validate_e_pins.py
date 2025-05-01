@@ -15,17 +15,27 @@ def execute():
 
         LED_PIN = board.LED
 
+    pin = digitalpin.DigitalPin(LED_PIN)
     finish = time.monotonic() + 2
+    while time.monotonic() < finish:
+        pin.on()
+        time.sleep(0.25)
+        pin.off()
+        time.sleep(0.25)
 
-    for pin in [digitalpin.DigitalPin(LED_PIN), pwmpin.PwmPin(LED_PIN)]:
+    pin.deinit()
+    del pin
 
-        while time.monotonic() < finish:
-            pin.on()
-            time.sleep(0.25)
-            pin.off()
-            time.sleep(0.25)
+    pin = pwmpin.PwmPin(LED_PIN)
+    finish = time.monotonic() + 2
+    while time.monotonic() < finish:
+        pin.on()
+        time.sleep(0.25)
+        pin.off()
+        time.sleep(0.25)
 
-        pin.deinit()
+    pin.deinit()
+    del pin
 
 
 if __name__ == '__main__':
