@@ -10,6 +10,7 @@ TEST_STRING = "Hello world!"
 DEBUG = True
 
 LED_PIN = None
+LED_INVERT = False
 if environment.are_pins_available():
     # noinspection PyPackageRequirements
     import board
@@ -21,6 +22,7 @@ if environment.are_pins_available():
     except AttributeError:
         try:
             LED_PIN = board.LED_G
+            LED_INVERT = True
             print('Using LED_G')
         except AttributeError:
             pass

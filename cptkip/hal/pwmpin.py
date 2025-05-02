@@ -14,18 +14,18 @@ class PwmPin:
 
     """
     :param value: The initial PWM value between 0.0 and 1.0.
-    :param inverse: Set to True for connected devices where they are active on low.
-                    An example would be the RGB LEDs on a Pimoroni Tiny 2040.
+    :param invert: Set to True for connected devices where they are active on low.
+                   An example would be the RGB LEDs on a Pimoroni Tiny 2040.
     :param frequency: The frequency of the PWM value.
     """
 
-    def __init__(self, pin, value: float = 0.0, inverse: bool = False, frequency: int = 1000):
+    def __init__(self, pin, value: float = 0.0, invert: bool = False, frequency: int = 1000):
         self.pin = pin
         self._pwm = None
         if environment.are_pins_available():
             self._pwm = pwmio.PWMOut(pin, frequency=frequency)
 
-        self.inverse = inverse
+        self.invert = invert
         self.value = value
 
     def deinit(self) -> None:
@@ -53,4 +53,4 @@ class PwmPin:
         self._value = value
 
         if self._pwm:
-            self._pwm.duty_cycle = int(MAX_DUTY * (1.0 - value if self.inverse else value))
+            self._pwm.duty_cycle = int(MAX_DUTY * (1.0 - value if self.invert else value))

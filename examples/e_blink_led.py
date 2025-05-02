@@ -9,7 +9,7 @@ memory.report_memory_usage()
 
 log.set_log_level(log.INFO)
 
-led = pin.DigitalPin(config.LED_PIN)
+led = pin.DigitalPin(config.LED_PIN, invert=config.LED_INVERT)
 
 # Run the loop for 5 seconds
 log.info("Using value to control the LED")

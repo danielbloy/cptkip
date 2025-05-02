@@ -13,18 +13,18 @@ class DigitalPin:
 
     """
     :param value: The initial value of True (on), False (off)..
-    :param inverse: Set to True for connected devices where they are active on low. This essentially
-                    reverses the logic level.
+    :param invert: Set to True for connected devices where they are active on low. This essentially
+                   reverses the logic level.
     """
 
-    def __init__(self, pin, value: bool = False, inverse: bool = False):
+    def __init__(self, pin, value: bool = False, invert: bool = False):
         self.pin = pin
         self._pin = None
         if environment.are_pins_available():
             self._pin = digitalio.DigitalInOut(pin)
             self._pin.direction = digitalio.Direction.OUTPUT
 
-        self.inverse = inverse
+        self.invert = invert
         self.value = value
 
     def deinit(self) -> None:
@@ -50,4 +50,4 @@ class DigitalPin:
         self._value = value
 
         if self._pin:
-            self._pin.value = not value if self.inverse else value
+            self._pin.value = not value if self.invert else value
