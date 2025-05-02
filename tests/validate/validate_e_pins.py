@@ -1,21 +1,11 @@
 def execute():
     import time
-    import cptkip.core.logging as log
-    import cptkip.core.environment as environment
     import cptkip.hal.digitalpin as digitalpin
     import cptkip.hal.pwmpin as pwmpin
 
-    log.set_log_level(log.INFO)
+    import cptkip.config.configuration as config
 
-    LED_PIN = None
-
-    if environment.are_pins_available():
-        # noinspection PyPackageRequirements
-        import board
-
-        LED_PIN = board.LED
-
-    pin = digitalpin.DigitalPin(LED_PIN)
+    pin = digitalpin.DigitalPin(config.LED_PIN)
     finish = time.monotonic() + 2
     while time.monotonic() < finish:
         pin.on()
@@ -26,7 +16,7 @@ def execute():
     pin.deinit()
     del pin
 
-    pin = pwmpin.PwmPin(LED_PIN)
+    pin = pwmpin.PwmPin(config.LED_PIN)
     finish = time.monotonic() + 2
     while time.monotonic() < finish:
         pin.on()
