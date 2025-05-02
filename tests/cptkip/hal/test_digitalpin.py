@@ -1,4 +1,4 @@
-from hal.digitalpin import DigitalPin
+from cptkip.hal.digitalpin import DigitalPin
 
 
 class TestDigitalPin:

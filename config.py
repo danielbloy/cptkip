@@ -23,4 +23,7 @@ if environment.are_pins_available():
             LED_PIN = board.LED_G
             print('Using LED_G')
         except AttributeError:
-            print('No LED found')
+            pass
+
+if not LED_PIN:
+    print('No LED found')
