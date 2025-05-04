@@ -163,3 +163,4 @@ Using the memory optimised logging framework.
 * Logging is expensive when using `adadfruit_logging` so the built-in logging package as part of `cptkip.core`
   has been simplified to remove all dependencies to use far less RAM. If more complex logging is required then
   use the `cptkip.logging` package which has an identical interface but uses the full logging frameworks.
+* The Async library is also expensive for memory, adding around 10Kb to the usage.

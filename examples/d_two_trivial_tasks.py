@@ -1,3 +1,7 @@
+# The disadvantage of this example over the periodic tasks example is
+# that the functions one and two will "drift" from the desired
+# frequencies whereas the period tasks example will not.
+
 import asyncio
 import time
 
@@ -10,19 +14,19 @@ memory.report_memory_usage()
 log.set_log_level(log.INFO)
 
 # Run the loop for 2 seconds
-finish = time.monotonic() + 2
+finish = time.monotonic() + 5
 
 
 async def one() -> None:
     while time.monotonic() < finish:
-        log.info("one")
-        await asyncio.sleep(0)
+        log.info(f"{time.monotonic()}: one")
+        await asyncio.sleep(0.3)
 
 
 async def two() -> None:
     while time.monotonic() < finish:
-        log.info("two")
-        await asyncio.sleep(0)
+        log.info(f"{time.monotonic()}: two")
+        await asyncio.sleep(0.5)
 
 
 runner.run([one, two])

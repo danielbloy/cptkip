@@ -30,10 +30,12 @@ async def operation() -> None:
     log.info(f"{time.monotonic()}: {led.value}")
 
 
+# Executed once at the beginning and before any initial delay.
 async def begin() -> None:
     log.info(f"{time.monotonic()}: BEGIN")
 
 
+# Executed once at the end.
 async def end() -> None:
     log.info(f"{time.monotonic()}: END")
     led.off()

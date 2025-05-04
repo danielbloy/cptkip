@@ -1,10 +1,10 @@
 import cptkip.core.logging as log
 import cptkip.core.memory as memory
-import validate.validate_a_core as a
-import validate.validate_b_config as b
-import validate.validate_c_cpu as c
-import validate.validate_d_tasks as d
-import validate.validate_e_pins as e
+import tests.validate.validate_a_core as a
+import tests.validate.validate_b_config as b
+import tests.validate.validate_c_cpu as c
+import tests.validate.validate_d_tasks as d
+import tests.validate.validate_e_pins as e
 
 modules = [a, b, c, d, e]
 
