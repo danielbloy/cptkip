@@ -5,8 +5,8 @@ import cptkip.config.configuration as config
 import cptkip.core.logging as log
 import cptkip.core.memory as memory
 import cptkip.hal.digitalpin as pin
-import cptkip.task.runner as runner
-from task.periodic_task import new_periodic_task
+import cptkip.task.basic_runner as runner
+import cptkip.task.periodic_task as periodic_task
 
 memory.report_memory_usage()
 
@@ -20,7 +20,7 @@ finish = time.monotonic() + 5
 
 
 # Should we continue to run or not?
-def run() -> bool:
+def should_continue() -> bool:
     return time.monotonic() < finish
 
 
@@ -30,12 +30,21 @@ async def operation() -> None:
     log.info(f"{time.monotonic()}: {led.value}")
 
 
+async def begin() -> None:
+    log.info(f"{time.monotonic()}: BEGIN")
+
+
+async def end() -> None:
+    log.info(f"{time.monotonic()}: END")
+    led.off()
+
+
 # Wrap the operation in a rate limiter function
-blink = new_periodic_task(operation, frequency=4, run_func=run, initial_delay=0)
+blink = periodic_task.create(
+    operation, frequency=4, initial_delay=1.5,
+    continue_func=should_continue,
+    begin_func=begin, end_func=end)
 
 runner.run([blink])
-
-# TODO: need a way to execute terminate code or is this fine here?
-led.off()
 
 memory.report_memory_usage_and_free()
