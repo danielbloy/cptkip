@@ -1,6 +1,9 @@
 import time
 
 
+# TODO: Maybe this isn't the right way to go about it. We will end up with lots of `not thing.cancel`
+
+
 class Cancellable:
     def __init__(self):
         self.cancel = False
