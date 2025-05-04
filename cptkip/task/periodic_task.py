@@ -46,7 +46,7 @@ def create(
         if begin_func:
             await begin_func()
 
-        next_callback_ns = time.monotonic_ns() + int(min(initial_delay, 0.0) * control.NS_PER_SECOND)
+        next_callback_ns = time.monotonic_ns() + int(max(initial_delay, 0.0) * control.NS_PER_SECOND)
         while not continue_func or continue_func():
             if time.monotonic_ns() >= next_callback_ns:
                 next_callback_ns += interval_ns
