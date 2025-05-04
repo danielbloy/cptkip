@@ -9,7 +9,8 @@ if environment.is_running_on_desktop():
 
 def run(funcs: list[Callable[[], Awaitable[None]]]) -> None:
     """
-    TODO: Comments
+    Simply runs a list of functions and waits for them to finish.
+    No error handling is performed.
     """
 
     async def execute() -> None:
