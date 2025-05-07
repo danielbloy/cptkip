@@ -1,6 +1,9 @@
 import asyncio
+import statistics
+import time
 from collections.abc import Callable
 
+from cptkip.task.control import NS_PER_SECOND
 from cptkip.task.periodic_task import create
 
 
@@ -15,6 +18,19 @@ def count_limiter(total: int) -> Callable[[], bool]:
         nonlocal count
         count += 1
         return count <= total
+
+    return func
+
+
+def time_limiter(seconds: float) -> Callable[[], bool]:
+    first = None
+
+    def func() -> bool:
+        nonlocal first
+        now = time.time()
+        if first is None:
+            first = now
+        return (now - first) <= seconds
 
     return func
 
@@ -53,9 +69,35 @@ class TestPeriodicTask:
 
     def test_frequency(self):
         """
-        TODO
+        Validates that the frequency is correct (roughly). We check the function is
+        called the correct number of times (roughly) and that each time is equidistant
+        in time.
         """
-        assert False
+        periods = []
+        first = None
+        last = None
+
+        async def func() -> None:
+            now = time.monotonic_ns()
+            nonlocal first, last, periods
+            if first is None:
+                first = now
+                last = now
+            else:
+                periods.append(now - last)
+                last = now
+
+        # With a frequency of 50 and a time limit of 1 second, this should result in
+        # approximately 50 calls. We can't use a count_limiter with frequency as the
+        # continue function will get called multiple times per func call.
+        task = create(func, frequency=50, continue_func=time_limiter(1))
+
+        asyncio.run(task())
+        print(periods)
+        assert len(periods) == 49  # TODO: this needs to be a range
+        assert statistics.mean(periods) == (1 / 50) * NS_PER_SECOND  # TODO: this needs to be a range.
+
+        # TODO: What other counts will we need?
 
     def test_using_begin_func(self):
         """
