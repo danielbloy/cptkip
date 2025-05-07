@@ -23,7 +23,7 @@ def create(
     of zero is provided then func will be executed as fast as possible. A frequency
     of less than zero is ignored.
 
-    :param func: The function to call
+    :param func: The function to call.
     :param frequency: The frequency to execute the function at. Zero indicates as
         fast as possible.
     :param continue_func: If specified, this will be periodically called to confirm
