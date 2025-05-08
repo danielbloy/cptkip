@@ -77,27 +77,44 @@ class TestPeriodicTask:
         first = None
         last = None
 
+        count: int = 0
+
         async def func() -> None:
             now = time.monotonic_ns()
-            nonlocal first, last, periods
+            nonlocal count, first, last, periods
+            count += 1
             if first is None:
                 first = now
                 last = now
             else:
-                periods.append(now - last)
+                periods.append((now - last) / NS_PER_SECOND)
                 last = now
 
-        # With a frequency of 50 and a time limit of 1 second, this should result in
-        # approximately 50 calls. We can't use a count_limiter with frequency as the
-        # continue function will get called multiple times per func call.
-        task = create(func, frequency=50, continue_func=time_limiter(1))
+        def count_invocations() -> bool:
+            nonlocal count
+            return count != 11
 
+        # With a frequency of 10 and allow for 11 invocations of fun(). This should span exactly
+        # 1 second (with a small error margin). There are 11 invocations not 10 because the first
+        # invocation is when the "timer" starts.
+        task = create(func, frequency=10, continue_func=count_invocations)
         asyncio.run(task())
-        print(periods)
-        assert len(periods) == 49  # TODO: this needs to be a range
-        assert statistics.mean(periods) == (1 / 50) * NS_PER_SECOND  # TODO: this needs to be a range.
 
-        # TODO: What other counts will we need?
+        duration = (last - first) / NS_PER_SECOND
+
+        # The duration should be within 2%
+        assert duration < 1.02
+        assert duration > 0.98
+        assert len(periods) == 10
+
+        # The mean period should be within 2%
+        assert statistics.mean(periods) < 0.102
+        assert statistics.mean(periods) > 0.098
+
+        # Use the smallest and largest periods should be within 15%
+        periods.sort()
+        assert periods[0] > 0.085
+        assert periods[-1] < 0.115
 
     def test_using_begin_func(self):
         """
