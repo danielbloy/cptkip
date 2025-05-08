@@ -1,3 +1,6 @@
+# NOTE: For the tests in here to pass, the file `validate/config/py` needs to be
+#       copied to the root of the CircuitPython drive.
+
 def execute():
     import cptkip.core.logging as log
     log.set_log_level(log.INFO)
