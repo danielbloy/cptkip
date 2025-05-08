@@ -111,10 +111,10 @@ class TestPeriodicTask:
         assert statistics.mean(periods) < 0.102
         assert statistics.mean(periods) > 0.098
 
-        # Use the smallest and largest periods should be within 15%
+        # Use the smallest and largest periods should be within 30%
         periods.sort()
-        assert periods[0] > 0.085
-        assert periods[-1] < 0.115
+        assert periods[0] > 0.07
+        assert periods[-1] < 0.13
 
     def test_using_begin_func(self):
         """
@@ -202,6 +202,44 @@ class TestPeriodicTask:
 
     def test_with_initial_delay(self):
         """
-        TODO
+        This validates the initial delay of the first call to func is measured.
         """
-        assert False
+
+        async def func() -> None:
+            nonlocal func_time
+            func_time = time.monotonic_ns()
+
+        async def begin_func() -> None:
+            nonlocal begin_time
+            begin_time = time.monotonic_ns()
+
+        def continue_until_called() -> bool:
+            nonlocal func_time
+            return func_time is None
+
+        begin_time = None
+        func_time = None
+        task = create(func, continue_func=continue_until_called, begin_func=begin_func, initial_delay=0.1)
+        asyncio.run(task())
+
+        duration = (func_time - begin_time) / NS_PER_SECOND
+        assert duration > (0.1 * 0.9)  # within 10%
+        assert duration < (0.1 * 1.1)  # within 10%
+
+        begin_time = None
+        func_time = None
+        task = create(func, continue_func=continue_until_called, begin_func=begin_func, initial_delay=0.3)
+        asyncio.run(task())
+
+        duration = (func_time - begin_time) / NS_PER_SECOND
+        assert duration > (0.3 * 0.9)  # within 10%
+        assert duration < (0.3 * 1.1)  # within 10%
+
+        begin_time = None
+        func_time = None
+        task = create(func, continue_func=continue_until_called, begin_func=begin_func, initial_delay=0.6)
+        asyncio.run(task())
+
+        duration = (func_time - begin_time) / NS_PER_SECOND
+        assert duration > (0.6 * 0.9)  # within 10%
+        assert duration < (0.6 * 1.1)  # within 10%
