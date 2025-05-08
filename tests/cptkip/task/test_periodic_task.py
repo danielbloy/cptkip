@@ -35,7 +35,7 @@ def time_limiter(seconds: float) -> Callable[[], bool]:
     return func
 
 
-# noinspection PyTypeChecker
+# noinspection PyTypeChecker,PyUnresolvedReferences
 class TestPeriodicTask:
 
     def test_using_default_values(self):
