@@ -12,7 +12,7 @@ memory.report_memory_usage()
 
 log.set_log_level(log.INFO)
 
-led = pin.DigitalPin(config.LED_PIN, invert=config.LED_INVERT)
+led = pin.OutputPin(config.LED_PIN, invert=config.LED_INVERT)
 
 
 async def single_click_handler() -> None:

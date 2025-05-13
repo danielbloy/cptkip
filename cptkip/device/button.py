@@ -1,6 +1,7 @@
 from adafruit_debouncer import Button
 
 import cptkip.core.environment as environment
+import cptkip.hal.digitalpin as digitalpin
 import cptkip.task.periodic_task as periodic_task
 
 # The timeframe to consider button presses to be a sequence for multi-clicks.
@@ -33,14 +34,9 @@ def new(pin, click=None, multi_click=None, long_click=None,
         and before any initial delay.
     :param end: If specified, this will be executed once at the end.
     """
-    # TODO: This needs moving into hal as buttonpin. It'll likely make it simpler than making digital
-    #       pin support both input and output.
-    import digitalio
-    pin = digitalio.DigitalInOut(pin)
-    pin.direction = digitalio.Direction.INPUT
-    pin.pull = digitalio.Pull.UP
+    input_pin = digitalpin.InputPin(pin)
 
-    button = Button(pin, short_duration_ms=BUTTON_SHORT_DURATION_MS, long_duration_ms=BUTTON_LONG_DURATION_MS)
+    button = Button(input_pin, short_duration_ms=BUTTON_SHORT_DURATION_MS, long_duration_ms=BUTTON_LONG_DURATION_MS)
 
     async def operation() -> None:
         button.update()
