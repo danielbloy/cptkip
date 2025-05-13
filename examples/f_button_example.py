@@ -4,6 +4,7 @@ import time
 import cptkip.config.configuration as config
 import cptkip.core.logging as log
 import cptkip.core.memory as memory
+import cptkip.device.button as button
 import cptkip.hal.digitalpin as pin
 import cptkip.task.basic_runner as runner
 
@@ -57,8 +58,8 @@ button = button.new(
     multi_click=multi_click_handler,
     long_click=long_press_handler,
     continue_func=should_continue,
-    begin_func=begin,
-    end_func=end)
+    begin=begin,
+    end=end)
 
 runner.run([button])
 
