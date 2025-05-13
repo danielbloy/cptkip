@@ -134,7 +134,7 @@ class TestPeriodicTask:
             nonlocal begin_count
             begin_count += 1
 
-        task = create(func, continue_func=count_limiter(10), begin_func=begin_func)
+        task = create(func, continue_func=count_limiter(10), begin=begin_func)
 
         asyncio.run(task())
         assert count == 10
@@ -158,7 +158,7 @@ class TestPeriodicTask:
             nonlocal end_count
             end_count += 1
 
-        task = create(func, continue_func=count_limiter(10), end_func=end_func)
+        task = create(func, continue_func=count_limiter(10), end=end_func)
 
         asyncio.run(task())
         assert count == 10
@@ -193,7 +193,7 @@ class TestPeriodicTask:
             nonlocal end_count
             end_count += 1
 
-        task = create(func, continue_func=count_limiter(10), begin_func=begin_func, end_func=end_func)
+        task = create(func, continue_func=count_limiter(10), begin=begin_func, end=end_func)
 
         asyncio.run(task())
         assert count == 10
@@ -219,7 +219,7 @@ class TestPeriodicTask:
 
         begin_time = None
         func_time = None
-        task = create(func, continue_func=continue_until_called, begin_func=begin_func, initial_delay=0.1)
+        task = create(func, continue_func=continue_until_called, begin=begin_func, initial_delay=0.1)
         asyncio.run(task())
 
         duration = (func_time - begin_time) / NS_PER_SECOND
@@ -228,7 +228,7 @@ class TestPeriodicTask:
 
         begin_time = None
         func_time = None
-        task = create(func, continue_func=continue_until_called, begin_func=begin_func, initial_delay=0.3)
+        task = create(func, continue_func=continue_until_called, begin=begin_func, initial_delay=0.3)
         asyncio.run(task())
 
         duration = (func_time - begin_time) / NS_PER_SECOND
@@ -237,7 +237,7 @@ class TestPeriodicTask:
 
         begin_time = None
         func_time = None
-        task = create(func, continue_func=continue_until_called, begin_func=begin_func, initial_delay=0.6)
+        task = create(func, continue_func=continue_until_called, begin=begin_func, initial_delay=0.6)
         asyncio.run(task())
 
         duration = (func_time - begin_time) / NS_PER_SECOND

@@ -36,9 +36,9 @@ def execute():
         nonlocal end_count
         end_count += 1
 
-    task_one = periodic_task.create(one, frequency=3, continue_func=should_continue, begin_func=begin, end_func=end,
+    task_one = periodic_task.create(one, frequency=3, continue_func=should_continue, begin=begin, end=end,
                                     initial_delay=1.5)
-    task_two = periodic_task.create(two, frequency=20, continue_func=should_continue, begin_func=begin, end_func=end)
+    task_two = periodic_task.create(two, frequency=20, continue_func=should_continue, begin=begin, end=end)
 
     runner.run([task_one, task_two])
 

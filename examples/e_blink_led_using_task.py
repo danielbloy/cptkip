@@ -45,7 +45,7 @@ async def end() -> None:
 blink = periodic_task.create(
     operation, frequency=4, initial_delay=1.5,
     continue_func=should_continue,
-    begin_func=begin, end_func=end)
+    begin=begin, end=end)
 
 runner.run([blink])
 
