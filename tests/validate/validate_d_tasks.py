@@ -3,12 +3,14 @@ def execute():
 
     import cptkip.core.logging as log
     import cptkip.task.basic_runner as runner
-    import cptkip.task.periodic_task as periodic_task
+    import cptkip.device.button as button
+    import cptkip.config.configuration as config
 
     log.set_log_level(log.INFO)
 
-    one_count: int = 0
-    two_count: int = 0
+    single_click_count: int = 0
+    multi_click_count: int = 0
+    long_click_count: int = 0
     begin_count: int = 0
     end_count: int = 0
 
@@ -18,13 +20,17 @@ def execute():
     def should_continue() -> bool:
         return time.monotonic() < finish
 
-    async def one() -> None:
-        nonlocal one_count
-        one_count += 1
+    async def single_click_handler() -> None:
+        nonlocal single_click_count
+        single_click_count += 1
 
-    async def two() -> None:
-        nonlocal two_count
-        two_count += 1
+    async def multi_click_handler() -> None:
+        nonlocal multi_click_count
+        multi_click_count += 1
+
+    async def long_press_handler() -> None:
+        nonlocal long_click_count
+        long_click_count += 1
 
     # Executed once at the beginning and before any initial delay.
     async def begin() -> None:
@@ -36,16 +42,22 @@ def execute():
         nonlocal end_count
         end_count += 1
 
-    task_one = periodic_task.create(one, frequency=3, continue_func=should_continue, begin=begin, end=end,
-                                    initial_delay=1.5)
-    task_two = periodic_task.create(two, frequency=20, continue_func=should_continue, begin=begin, end=end)
+    button = button.new(
+        config.BUTTON_PIN,
+        click=single_click_handler,
+        multi_click=multi_click_handler,
+        long_click=long_press_handler,
+        continue_func=should_continue,
+        begin=begin,
+        end=end)
 
-    runner.run([task_one, task_two])
+    runner.run([button])
 
-    assert one_count == 2
-    assert two_count == 40
-    assert begin_count == 2
-    assert end_count == 2
+    assert single_click_count == 0
+    assert multi_click_count == 0
+    assert long_click_count == 0
+    assert begin_count == 1
+    assert end_count == 1
 
 
 if __name__ == '__main__':
