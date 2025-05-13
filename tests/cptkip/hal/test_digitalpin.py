@@ -1,16 +1,48 @@
+from cptkip.hal.digitalpin import InputPin
 from cptkip.hal.digitalpin import OutputPin
 
 
-class TestOutputPin:
-    def test_fail(self):
-        assert False
-
-
 class TestInputPin:
+    def test_default_construction(self):
+        """
+        Construct a new InputPin with default values and validate it has the correct values.
+        """
+        pin = InputPin(3)
+
+        assert pin.pin == 3
+        assert pin.pullup
+
+    def test_construction(self):
+        """
+        Construct a new InputPin with specified values and validate it has the correct values.
+        """
+        pin = InputPin(4, pullup=False)
+
+        assert pin.pin == 4
+        assert not pin.pullup
+
+    def test_multiple_deinit(self):
+        """
+        Call deinit() multiple times without error.
+        """
+        pin = InputPin(3)
+        pin.deinit()
+        pin.deinit()
+        pin.deinit()
+
+    def test_value(self):
+        """
+        Call value multiple times, ensuring it sets the correct value.
+        """
+        for pin in [InputPin(3), InputPin(4, pullup=False)]:
+            assert pin.value == pin.pullup
+
+
+class TestOutputPin:
 
     def test_default_construction(self):
         """
-        Construct a new DigitalPin with default values and validate it has the correct values.
+        Construct a new OutputPin with default values and validate it has the correct values.
         """
         pin = OutputPin(3)
 
@@ -20,7 +52,7 @@ class TestInputPin:
 
     def test_construction(self):
         """
-        Construct a new DigitalPin with specified values and validate it has the correct values.
+        Construct a new OutputPin with specified values and validate it has the correct values.
         """
         pin = OutputPin(4, value=True)
 
@@ -30,7 +62,7 @@ class TestInputPin:
 
     def test_construction2(self):
         """
-        Construct a new DigitalPin with specified values and validate it has the correct values.
+        Construct a new OutputPin with specified values and validate it has the correct values.
         """
         pin = OutputPin(5, invert=True)
 

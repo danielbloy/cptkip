@@ -15,7 +15,7 @@ class InputPin:
     def __init__(self, pin, pullup: bool = True):
         self.pin = pin
         self._pin = None
-        self._pullup = pullup
+        self.pullup = pullup
         if environment.are_pins_available():
             self._pin = digitalio.DigitalInOut(pin)
             self._pin.direction = digitalio.Direction.INPUT
@@ -33,7 +33,7 @@ class InputPin:
 
     @property
     def value(self):
-        return self._pin.value if self._pin else self._pullup
+        return self._pin.value if self._pin else self.pullup
 
     @value.setter
     def value(self, value: bool):
