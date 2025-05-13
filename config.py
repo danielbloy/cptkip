@@ -9,6 +9,9 @@ TEST_STRING = "Hello world!"
 
 DEBUG = True
 
+################################################################################
+# L E D
+################################################################################
 LED_PIN = None
 LED_INVERT = False
 if environment.are_pins_available():
@@ -29,3 +32,18 @@ if environment.are_pins_available():
 
 if not LED_PIN:
     print('No LED found')
+
+################################################################################
+# B U T T O N
+################################################################################
+BUTTON_PIN = None
+BUTTON_INVERT = False
+if environment.are_pins_available():
+    # noinspection PyPackageRequirements
+    import board
+
+    BUTTON_PIN = board.GP27
+    # TODO: Try and load the button from a Tiny.
+
+if not BUTTON_PIN:
+    print('No Button found')

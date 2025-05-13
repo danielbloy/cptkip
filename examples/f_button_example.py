@@ -1,68 +1,65 @@
-# TODO: Convert to cptkip
+import asyncio
 import time
 
-from interactive.button import ButtonController
-from interactive.environment import are_pins_available, is_running_on_microcontroller
-from interactive.log import set_log_level, info, INFO
-from interactive.memory import report_memory_usage_and_free
-from interactive.polyfills.button import new_button
-from interactive.polyfills.led import onboard_led
-from interactive.runner import Runner
+import cptkip.config.configuration as config
+import cptkip.core.logging as log
+import cptkip.core.memory as memory
+import cptkip.hal.digitalpin as pin
+import cptkip.task.basic_runner as runner
 
-REPORT_RAM = is_running_on_microcontroller()
+memory.report_memory_usage()
 
-BUTTON_PIN = None
+log.set_log_level(log.INFO)
 
-if are_pins_available():
-    # noinspection PyPackageRequirements
-    import board
-
-    BUTTON_PIN = board.GP27
-
-if __name__ == '__main__':
-
-    set_log_level(INFO)
-
-    if REPORT_RAM:
-        report_memory_usage_and_free("Before creating Objects")
-
-    led = onboard_led()
+led = pin.DigitalPin(config.LED_PIN, invert=config.LED_INVERT)
 
 
-    async def single_click_handler() -> None:
-        info('Single click!')
-        led.value = not led.value
+async def single_click_handler() -> None:
+    log.info('Single click!')
+    led.value = not led.value
 
 
-    async def multi_click_handler() -> None:
-        info('Multi click!')
+async def multi_click_handler() -> None:
+    log.info('Multi click!')
+    led.value = not led.value
+    await asyncio.sleep(0.25)
+    led.value = not led.value
 
 
-    async def long_press_handler() -> None:
-        info('Long press!')
+async def long_press_handler() -> None:
+    log.info('Long press!')
 
 
-    runner = Runner()
-
-    button = new_button(BUTTON_PIN)
-    button_controller = ButtonController(button)
-    button_controller.add_single_press_handler(single_click_handler)
-    button_controller.add_multi_press_handler(multi_click_handler)
-    button_controller.add_long_press_handler(long_press_handler)
-    button_controller.register(runner)
-
-    # Allow the application to only run for a defined number of seconds.
-    finish = time.monotonic() + 10
+# Run the loop for 10 seconds
+log.info("Press the button to change the LED.")
+finish = time.monotonic() + 10
 
 
-    async def callback() -> None:
-        runner.cancel = time.monotonic() > finish
+# Should we continue to run or not?
+def should_continue() -> bool:
+    return time.monotonic() < finish
 
 
-    if REPORT_RAM:
-        report_memory_usage_and_free("Before running Runner")
+# Executed once at the beginning and before any initial delay.
+async def begin() -> None:
+    log.info(f"{time.monotonic()}: BEGIN")
 
-    runner.run(callback)
 
-    if REPORT_RAM:
-        report_memory_usage_and_free("After running Runner")
+# Executed once at the end.
+async def end() -> None:
+    log.info(f"{time.monotonic()}: END")
+    led.off()
+
+
+button = button.new(
+    config.BUTTON_PIN,
+    click=single_click_handler,
+    multi_click=multi_click_handler,
+    long_click=long_press_handler,
+    continue_func=should_continue,
+    begin_func=begin,
+    end_func=end)
+
+runner.run([button])
+
+memory.report_memory_usage_and_free()
