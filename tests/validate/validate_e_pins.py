@@ -5,7 +5,7 @@ def execute():
 
     import cptkip.config.configuration as config
 
-    pin = digitalpin.DigitalPin(config.LED_PIN, invert=config.LED_INVERT)
+    pin = digitalpin.OutputPin(config.LED_PIN, invert=config.LED_INVERT)
     finish = time.monotonic() + 2
     while time.monotonic() < finish:
         pin.on()

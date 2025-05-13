@@ -1,13 +1,18 @@
-from cptkip.hal.digitalpin import DigitalPin
+from cptkip.hal.digitalpin import OutputPin
 
 
-class TestDigitalPin:
+class TestOutputPin:
+    def test_fail(self):
+        assert False
+
+
+class TestInputPin:
 
     def test_default_construction(self):
         """
         Construct a new DigitalPin with default values and validate it has the correct values.
         """
-        pin = DigitalPin(3)
+        pin = OutputPin(3)
 
         assert pin.pin == 3
         assert not pin.value
@@ -17,7 +22,7 @@ class TestDigitalPin:
         """
         Construct a new DigitalPin with specified values and validate it has the correct values.
         """
-        pin = DigitalPin(4, value=True)
+        pin = OutputPin(4, value=True)
 
         assert pin.pin == 4
         assert pin.value
@@ -27,7 +32,7 @@ class TestDigitalPin:
         """
         Construct a new DigitalPin with specified values and validate it has the correct values.
         """
-        pin = DigitalPin(5, invert=True)
+        pin = OutputPin(5, invert=True)
 
         assert pin.pin == 5
         assert not pin.value
@@ -37,7 +42,7 @@ class TestDigitalPin:
         """
         Call deinit() multiple times without error.
         """
-        pin = DigitalPin(3)
+        pin = OutputPin(3)
         pin.deinit()
         pin.deinit()
         pin.deinit()
@@ -46,7 +51,7 @@ class TestDigitalPin:
         """
         Call on() and off() multiple times, ensuring it sets the correct value.
         """
-        for pin in [DigitalPin(3), DigitalPin(4, invert=True)]:
+        for pin in [OutputPin(3), OutputPin(4, invert=True)]:
             assert not pin.value
 
             pin.off()
@@ -65,7 +70,7 @@ class TestDigitalPin:
         """
         Call value multiple times, ensuring it sets the correct value.
         """
-        for pin in [DigitalPin(3), DigitalPin(4, invert=True)]:
+        for pin in [OutputPin(3), OutputPin(4, invert=True)]:
             assert not pin.value
 
             pin.value = False
