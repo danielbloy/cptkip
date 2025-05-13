@@ -42,8 +42,16 @@ if environment.are_pins_available():
     # noinspection PyPackageRequirements
     import board
 
-    BUTTON_PIN = board.GP27
-    # TODO: Try and load the button from a Tiny.
+    # Support using the button from a Pimoroni Tiny board.
+    try:
+        BUTTON_PIN = board.BUTTON
+        print('Using BUTTON')
+    except AttributeError:
+        try:
+            BUTTON_PIN = board.GP27
+            print('Using GP27')
+        except AttributeError:
+            pass
 
 if not BUTTON_PIN:
     print('No Button found')
