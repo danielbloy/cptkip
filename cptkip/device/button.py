@@ -15,24 +15,27 @@ if environment.is_running_on_desktop():
     from collections.abc import Callable, Awaitable
 
 
-# TODO: Should the handlers accept the button object as a parameter? Can we make it optional live PGZ
-# TODO: Should we add type information for the handlers
-
-def new(pin, click=None, multi_click=None, long_click=None,
-        continue_func=None, begin=None, end=None) -> Callable[[], Awaitable[None]]:
+def new(
+        pin,
+        click: Callable[[], Awaitable[None]] = None,
+        multi_click: Callable[[], Awaitable[None]] = None,
+        long_click: Callable[[], Awaitable[None]] = None,
+        continue_func: Callable[[], bool] = None,
+        begin: Callable[[], Awaitable[None]] = None,
+        end: Callable[[], Awaitable[None]] = None) -> Callable[[], Awaitable[None]]:
     """
-    Returns a task that can be added to a runner.
-    TODO: Write comments
+    Returns a task that will respond to button events and call the `click`, `multi_click`
+    or `long_click` callbacks based on the events on the button.
 
-    :param pin:
-    :param click:
-    :param multi_click:
-    :param long_click:
+    :param pin:           This should be a digital input pin connected to the button.
+    :param click:         Callback that is invoked for a single click event.
+    :param multi_click:   Callback that is invoked for a multiple click event.
+    :param long_click:    Callback that is invoked for a long click event.
     :param continue_func: If specified, this will be periodically called to confirm
-        the func should continue to be called.
-    :param begin: If specified, this will be executed once at the beginning
-        and before any initial delay.
-    :param end: If specified, this will be executed once at the end.
+                          the func should continue to be called.
+    :param begin:         If specified, this will be executed once at the beginning
+                          and before any initial delay.
+    :param end:           If specified, this will be executed once at the end.
     """
 
     button = Button(pin, short_duration_ms=BUTTON_SHORT_DURATION_MS, long_duration_ms=BUTTON_LONG_DURATION_MS)
@@ -47,7 +50,6 @@ def new(pin, click=None, multi_click=None, long_click=None,
                 await click()
 
             elif short_count > 1 and multi_click:
-                # TODO: Should multi-click be passed the number of clicks?
                 await multi_click()
 
         if button.long_press and long_click is not None:
