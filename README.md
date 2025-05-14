@@ -31,16 +31,18 @@ The initial structure of the project will be the following modules:
 * hal - provides an abstraction layer to support desktop environments with no pins.
 * task - provides an async thread runners and scheduling that works across all supported
   platforms (CircuitPython and Python).
+* device - provides abstractions for hardware components.
 
 The packages and their dependencies are illustrated in the table below.
 
-|                 | `cptkip.core` | `cptkip.config` | `cptkip.cpu` | `cptkip.hal` | `cptkip.task` |
-|-----------------|:-------------:|:---------------:|:------------:|:------------:|:-------------:|
-| `cptkip.core`   |      n/a      |                 |              |              |               |  
-| `cptkip.config` |      yes      |       n/a       |              |              |               |
-| `cptkip.cpu`    |      Yes      |                 |     n/a      |              |               |
-| `cptkip.hal`    |      Yes      |                 |              |     n/a      |               |
-| `cptkip.task`   |               |                 |              |              |      n/a      |
+|                 | `cptkip.core` | `cptkip.config` | `cptkip.cpu` | `cptkip.hal` | `cptkip.task` | `cptkip.device` |
+|-----------------|:-------------:|:---------------:|:------------:|:------------:|:-------------:|:---------------:|
+| `cptkip.core`   |      n/a      |                 |              |              |               |                 |
+| `cptkip.config` |      yes      |       n/a       |              |              |               |                 |
+| `cptkip.cpu`    |      Yes      |                 |     n/a      |              |               |                 |
+| `cptkip.hal`    |      Yes      |                 |              |     n/a      |               |                 |
+| `cptkip.task`   |      Yes      |                 |              |              |      n/a      |                 |
+| `cptkip.device` |      Yes      |                 |              |              |      Yes      |       n/a       |
 
 ## Migrated roadmap
 

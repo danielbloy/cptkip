@@ -9,6 +9,9 @@ TEST_STRING = "Hello world!"
 
 DEBUG = True
 
+################################################################################
+# L E D
+################################################################################
 LED_PIN = None
 LED_INVERT = False
 if environment.are_pins_available():
@@ -29,3 +32,26 @@ if environment.are_pins_available():
 
 if not LED_PIN:
     print('No LED found')
+
+################################################################################
+# B U T T O N
+################################################################################
+BUTTON_PIN = None
+BUTTON_INVERT = False
+if environment.are_pins_available():
+    # noinspection PyPackageRequirements
+    import board
+
+    # Support using the button from a Pimoroni Tiny board.
+    try:
+        BUTTON_PIN = board.BUTTON
+        print('Using BUTTON')
+    except AttributeError:
+        try:
+            BUTTON_PIN = board.GP27
+            print('Using GP27')
+        except AttributeError:
+            pass
+
+if not BUTTON_PIN:
+    print('No Button found')

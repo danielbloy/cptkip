@@ -1,30 +1,66 @@
 import cptkip.core.environment as environment
 
-MAX_DUTY = 65535
-
 if environment.are_pins_available():
     import digitalio
 
 
-class DigitalPin:
+class InputPin:
     """
-    Simple Pin using a boolean value (False - off, True - on) to control output logic level on a Pin.
+    Simple Pin using a boolean value for input logic level on a Pin.
+
+    :param pin:    The pin to use as an input pin.
+    :param pullup: Whether the pin should be pulled up or not.
     """
 
+    def __init__(self, pin, pullup: bool = True):
+        self.pin = pin
+        self._pin = None
+        self.pullup = pullup
+        if environment.are_pins_available():
+            self._pin = digitalio.DigitalInOut(pin)
+            self._pin.direction = digitalio.Direction.INPUT
+
+            if pullup:
+                self._pin.pull = digitalio.Pull.UP
+            else:
+                self._pin.pull = digitalio.Pull.DOWN
+
+    def deinit(self) -> None:
+        if environment.are_pins_available():
+            self._pin.deinit()
+
+        self._pin = None
+
+    @property
+    def value(self):
+        return self._pin.value if self._pin else self.pullup
+
+    @value.setter
+    def value(self, value: bool):
+        if self._pin:
+            self._pin.value = value
+
+
+class OutputPin:
     """
-    :param value: The initial value of True (on), False (off)..
+    Simple Pin using a boolean value (False - off, True - on) to control output logic level on a Pin.
+
+    :param pin:    The pin to use as an output pin.
+    :param value:  The initial value of True (on), False (off).
     :param invert: Set to True for connected devices where they are active on low. This essentially
-                   reverses the logic level.
+                   reverses the logic level output and is useful for output that are active on low
+                   such as the LEDs on a Pimoroni Tiny 2040. The value stored by the pin is the
+                   original value.
     """
 
     def __init__(self, pin, value: bool = False, invert: bool = False):
         self.pin = pin
         self._pin = None
+        self.invert = invert
         if environment.are_pins_available():
             self._pin = digitalio.DigitalInOut(pin)
             self._pin.direction = digitalio.Direction.OUTPUT
 
-        self.invert = invert
         self.value = value
 
     def deinit(self) -> None:

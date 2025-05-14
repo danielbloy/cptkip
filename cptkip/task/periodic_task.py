@@ -13,8 +13,8 @@ def create(
         func: Callable[[], Awaitable[None]],
         frequency: int = 0,
         continue_func: Callable[[], bool] = None,
-        begin_func: Callable[[], Awaitable[None]] = None,
-        end_func: Callable[[], Awaitable[None]] = None,
+        begin: Callable[[], Awaitable[None]] = None,
+        end: Callable[[], Awaitable[None]] = None,
         initial_delay: float = 0.0) -> Callable[[], Awaitable[None]]:
     """
     Creates an asynchronous function that will execute the given function at the
@@ -28,9 +28,9 @@ def create(
         fast as possible.
     :param continue_func: If specified, this will be periodically called to confirm
         the func should continue to be called.
-    :param begin_func: If specified, this will be executed once at the beginning
+    :param begin: If specified, this will be executed once at the beginning
         and before any initial delay.
-    :param end_func: If specified, this will be executed once at the end.
+    :param end: If specified, this will be executed once at the end.
     :param initial_delay: If specified, this will delay the first invocation of
         func by the specified number of seconds. A value of less than zero is ignored.
     """
@@ -43,8 +43,8 @@ def create(
     sleep_interval = interval / control.PERIODIC_LOOP_WAIT_RATIO
 
     async def handler() -> None:
-        if begin_func:
-            await begin_func()
+        if begin:
+            await begin()
 
         next_callback_ns = time.monotonic_ns() + int(max(initial_delay, 0.0) * control.NS_PER_SECOND)
         while not continue_func or continue_func():
@@ -54,7 +54,7 @@ def create(
 
             await asyncio.sleep(sleep_interval)
 
-        if end_func:
-            await end_func()
+        if end:
+            await end()
 
     return handler

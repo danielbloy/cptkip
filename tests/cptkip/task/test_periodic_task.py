@@ -1,38 +1,10 @@
 import asyncio
 import statistics
 import time
-from collections.abc import Callable
 
+import tests.cptkip.utilities as utils
 from cptkip.task.control import NS_PER_SECOND
 from cptkip.task.periodic_task import create
-
-
-def stop() -> bool:
-    return False
-
-
-def count_limiter(total: int) -> Callable[[], bool]:
-    count: int = 0
-
-    def func() -> bool:
-        nonlocal count
-        count += 1
-        return count <= total
-
-    return func
-
-
-def time_limiter(seconds: float) -> Callable[[], bool]:
-    first = None
-
-    def func() -> bool:
-        nonlocal first
-        now = time.time()
-        if first is None:
-            first = now
-        return (now - first) <= seconds
-
-    return func
 
 
 # noinspection PyTypeChecker,PyUnresolvedReferences
@@ -49,20 +21,20 @@ class TestPeriodicTask:
             count += 1
 
         # using a continue function that always returns false will result in fun() never being called.
-        task = create(func, continue_func=stop)
+        task = create(func, continue_func=utils.stop)
 
         asyncio.run(task())
         assert count == 0
 
         # Check that a single call occurs.
-        task = create(func, continue_func=count_limiter(1))
+        task = create(func, continue_func=utils.count_limiter(1))
 
         asyncio.run(task())
         assert count == 1
 
         # Check that it gets called 10 times.
         count = 0
-        task = create(func, continue_func=count_limiter(10))
+        task = create(func, continue_func=utils.count_limiter(10))
 
         asyncio.run(task())
         assert count == 10
@@ -134,7 +106,7 @@ class TestPeriodicTask:
             nonlocal begin_count
             begin_count += 1
 
-        task = create(func, continue_func=count_limiter(10), begin_func=begin_func)
+        task = create(func, continue_func=utils.count_limiter(10), begin=begin_func)
 
         asyncio.run(task())
         assert count == 10
@@ -158,7 +130,7 @@ class TestPeriodicTask:
             nonlocal end_count
             end_count += 1
 
-        task = create(func, continue_func=count_limiter(10), end_func=end_func)
+        task = create(func, continue_func=utils.count_limiter(10), end=end_func)
 
         asyncio.run(task())
         assert count == 10
@@ -193,7 +165,7 @@ class TestPeriodicTask:
             nonlocal end_count
             end_count += 1
 
-        task = create(func, continue_func=count_limiter(10), begin_func=begin_func, end_func=end_func)
+        task = create(func, continue_func=utils.count_limiter(10), begin=begin_func, end=end_func)
 
         asyncio.run(task())
         assert count == 10
@@ -219,7 +191,7 @@ class TestPeriodicTask:
 
         begin_time = None
         func_time = None
-        task = create(func, continue_func=continue_until_called, begin_func=begin_func, initial_delay=0.1)
+        task = create(func, continue_func=continue_until_called, begin=begin_func, initial_delay=0.1)
         asyncio.run(task())
 
         duration = (func_time - begin_time) / NS_PER_SECOND
@@ -228,7 +200,7 @@ class TestPeriodicTask:
 
         begin_time = None
         func_time = None
-        task = create(func, continue_func=continue_until_called, begin_func=begin_func, initial_delay=0.3)
+        task = create(func, continue_func=continue_until_called, begin=begin_func, initial_delay=0.3)
         asyncio.run(task())
 
         duration = (func_time - begin_time) / NS_PER_SECOND
@@ -237,7 +209,7 @@ class TestPeriodicTask:
 
         begin_time = None
         func_time = None
-        task = create(func, continue_func=continue_until_called, begin_func=begin_func, initial_delay=0.6)
+        task = create(func, continue_func=continue_until_called, begin=begin_func, initial_delay=0.6)
         asyncio.run(task())
 
         duration = (func_time - begin_time) / NS_PER_SECOND
