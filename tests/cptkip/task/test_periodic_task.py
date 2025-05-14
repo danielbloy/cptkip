@@ -2,7 +2,7 @@ import asyncio
 import statistics
 import time
 
-import cptkip.utilities as utils
+import tests.cptkip.utilities as utils
 from cptkip.task.control import NS_PER_SECOND
 from cptkip.task.periodic_task import create
 
