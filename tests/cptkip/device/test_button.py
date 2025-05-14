@@ -1,7 +1,7 @@
 import asyncio
 
 import cptkip.device.button as button
-import cptkip.utilities as utils
+import tests.cptkip.utilities as utils
 
 
 class MockInputPin:
