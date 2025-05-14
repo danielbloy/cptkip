@@ -53,7 +53,7 @@ async def end() -> None:
 
 
 button = button.new(
-    config.BUTTON_PIN,
+    pin.InputPin(config.BUTTON_PIN),
     click=single_click_handler,
     multi_click=multi_click_handler,
     long_click=long_press_handler,
