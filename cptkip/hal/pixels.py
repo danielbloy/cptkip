@@ -13,6 +13,7 @@ else:
             self.pin = pin
             self.num_pixels = num_pixels
             self.brightness = brightness
+            self.auto_write = auto_write
 
         def deinit(self) -> None:
             pass
