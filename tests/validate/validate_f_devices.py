@@ -43,7 +43,7 @@ def execute():
         nonlocal end_count
         end_count += 1
 
-    button = button.new(
+    button = button.create(
         pin.InputPin(config.BUTTON_PIN),
         click=single_click_handler,
         multi_click=multi_click_handler,

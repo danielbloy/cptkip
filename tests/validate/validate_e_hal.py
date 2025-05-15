@@ -1,7 +1,11 @@
 def execute():
     import time
+
+    from adafruit_led_animation.animation.rainbow import Rainbow
+
     import cptkip.hal.digitalpin as digitalpin
     import cptkip.hal.pwmpin as pwmpin
+    import cptkip.hal.pixels as pixel
 
     import cptkip.config.configuration as config
 
@@ -37,6 +41,23 @@ def execute():
 
     pin.deinit()
     del pin
+
+    # Use the PIXELS pin
+    pixels = pixel.create(config.PIXELS_PIN, 8, brightness=0.5)
+    animation = Rainbow(pixels, speed=0.1, period=2)
+    animation.animate()
+    finish = time.monotonic() + 2
+    while time.monotonic() < finish:
+        animation.animate()
+
+    animation.freeze()
+    del animation
+
+    pixels.fill(pixel.OFF)
+    pixels.write()
+
+    pixels.deinit()
+    del pixels
 
 
 if __name__ == '__main__':

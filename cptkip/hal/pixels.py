@@ -51,11 +51,13 @@ else:
 def create(pin, num_pixels: int, brightness: float = 1.0) -> Pixels:
     """
     Returns a new Pixels object that controls a strand of NeoPixels or
-    other compatible individually addressable pixel device.
+    other compatible individually addressable pixel device. This clamps the
+    brightness between the values 0.0 and 1.0 as well as setting all pixels
+    to off.
 
+    :param pin: The pin connected to the NeoPixels.
     :param num_pixels: The number of pixels in the strand.
     :param brightness: The brightness of the pixels.
-    :param pin: The pin connected to the NeoPixels.
     """
     pixels: Pixels = Pixels(pin, num_pixels, brightness=max(min(brightness, 1.0), 0.0), auto_write=False)
     pixels.fill(OFF)
