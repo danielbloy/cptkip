@@ -28,14 +28,14 @@ class TestPixels:
         """
         Validate that the wrapper function caps the brightness to the allowed range
         """
-        pix = pixels.new(3, 8, -1.0)
+        pix = pixels.create(3, 8, -1.0)
 
         assert pix.pin == 3
         assert pix.num_pixels == 8
         assert pix.brightness == 0.0
         assert not pix.auto_write
 
-        pix = pixels.new(5, 9, 1.5)
+        pix = pixels.create(5, 9, 1.5)
 
         assert pix.pin == 5
         assert pix.num_pixels == 9

@@ -48,7 +48,7 @@ else:
             return 0
 
 
-def new(pin, num_pixels: int, brightness: float = 1.0) -> Pixels:
+def create(pin, num_pixels: int, brightness: float = 1.0) -> Pixels:
     """
     Returns a new Pixels object that controls a strand of NeoPixels or
     other compatible individually addressable pixel device.
