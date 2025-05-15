@@ -15,7 +15,7 @@ if environment.is_running_on_desktop():
     from collections.abc import Callable, Awaitable
 
 
-def new(
+def create(
         pin,
         click: Callable[[], Awaitable[None]] = None,
         multi_click: Callable[[], Awaitable[None]] = None,

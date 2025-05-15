@@ -55,3 +55,17 @@ if environment.are_pins_available():
 
 if not BUTTON_PIN:
     print('No Button found')
+
+################################################################################
+# N E O P I X E L S
+################################################################################
+PIXELS_PIN = None
+
+if environment.are_pins_available():
+    # noinspection PyPackageRequirements
+    import board
+
+    PIXELS_PIN = board.GP28
+
+if not PIXELS_PIN:
+    print('No NeoPixels found')
