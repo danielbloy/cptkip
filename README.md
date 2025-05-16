@@ -24,6 +24,7 @@ For information on how to setup a development environment, see
 
 The initial structure of the project will be the following modules:
 
+* animation - provides additional animations such as `Flicker`.
 * core - required for every `cptkip` project as it provides information about execution
   environment, memory and logging. It has no dependencies on other `cptkip` packages.
 * config - provides overridable configuration properties.
@@ -35,14 +36,15 @@ The initial structure of the project will be the following modules:
 
 The packages and their dependencies are illustrated in the table below.
 
-|                 | `cptkip.core` | `cptkip.config` | `cptkip.cpu` | `cptkip.hal` | `cptkip.task` | `cptkip.device` |
-|-----------------|:-------------:|:---------------:|:------------:|:------------:|:-------------:|:---------------:|
-| `cptkip.core`   |      n/a      |                 |              |              |               |                 |
-| `cptkip.config` |      yes      |       n/a       |              |              |               |                 |
-| `cptkip.cpu`    |      Yes      |                 |     n/a      |              |               |                 |
-| `cptkip.hal`    |      Yes      |                 |              |     n/a      |               |                 |
-| `cptkip.task`   |      Yes      |                 |              |              |      n/a      |                 |
-| `cptkip.device` |      Yes      |                 |              |              |      Yes      |       n/a       |
+|                    | `cptkip.core` | `cptkip.config` | `cptkip.cpu` | `cptkip.hal` | `cptkip.task` | `cptkip.device` |
+|--------------------|:-------------:|:---------------:|:------------:|:------------:|:-------------:|:---------------:|
+| `cptkip.core`      |      n/a      |                 |              |              |               |                 |
+| `cptkip.config`    |      yes      |       n/a       |              |              |               |                 |
+| `cptkip.cpu`       |      Yes      |                 |     n/a      |              |               |                 |
+| `cptkip.hal`       |      Yes      |                 |              |     n/a      |               |                 |
+| `cptkip.task`      |      Yes      |                 |              |              |      n/a      |                 |
+| `cptkip.device`    |      Yes      |                 |              |              |      Yes      |       n/a       |
+| `cptkip.animation` |               |                 |              |              |               |                 |
 
 ## Migrated roadmap
 
