@@ -14,9 +14,14 @@ except ImportError:
 
 class Led:
     def __init__(self, pin, brightness: float = 1.0, auto_write: bool = True):
+        """
+        Wraps a pin (PwmPin) in such a way that a simple LED can be used with
+        animations (in a very basic way).
 
-        if brightness < 0 or brightness > 1.0:
-            raise Exception("LEDs: Brightness %s is out of range!" % brightness)
+        :param pin:        A PwmPin instance to use for the LED.
+        :param brightness: A value between 0.0 (off) and 1.0 (on).
+        :param auto_write: Whether to automatically update the LED pin or not.
+        """
 
         self.pin = pin
         self.auto_write = auto_write

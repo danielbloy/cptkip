@@ -1,11 +1,18 @@
 def execute():
     import time
 
-    import cptkip.core.logging as log
-    import cptkip.task.basic_runner as runner
-    import cptkip.device.button as button
-    import cptkip.hal.digitalpin as pin
+    from adafruit_led_animation.animation.pulse import Pulse
+    from adafruit_led_animation.color import WHITE
+
     import cptkip.config.configuration as config
+    import cptkip.core.logging as log
+    import cptkip.device.button as button
+    import cptkip.hal.digitalpin as digitalpin
+    import cptkip.hal.pwmpin as pwmpin
+    import cptkip.task.basic_runner as runner
+    import cptkip.task.periodic_task as periodic_task
+
+    import cptkip.device.led as led
 
     log.set_log_level(log.INFO)
 
@@ -15,7 +22,7 @@ def execute():
     begin_count: int = 0
     end_count: int = 0
 
-    # Run the loop for 5 seconds
+    # Run the loop for 2 seconds
     finish = time.monotonic() + 2
 
     def should_continue() -> bool:
@@ -43,8 +50,9 @@ def execute():
         nonlocal end_count
         end_count += 1
 
-    button = button.create(
-        pin.InputPin(config.BUTTON_PIN),
+    input_pin = digitalpin.InputPin(config.BUTTON_PIN)
+    task = button.create(
+        input_pin,
         click=single_click_handler,
         multi_click=multi_click_handler,
         long_click=long_press_handler,
@@ -52,13 +60,34 @@ def execute():
         begin=begin,
         end=end)
 
-    runner.run([button])
+    runner.run([task])
+
+    input_pin.deinit()
+    del input_pin
 
     assert single_click_count == 0
     assert multi_click_count == 0
     assert long_click_count == 0
     assert begin_count == 1
     assert end_count == 1
+
+    # Add in validation for LED.
+    led_pin = pwmpin.PwmPin(config.LED_PIN, invert=config.LED_INVERT)
+    onboard_led = led.Led(led_pin)
+    animation = Pulse(onboard_led, speed=0.1, color=WHITE)
+
+    # Run the loop for 2 seconds
+    finish = time.monotonic() + 2
+
+    async def update() -> None:
+        animation.animate()
+
+    task = periodic_task.create(update, frequency=30, continue_func=should_continue)
+
+    runner.run([task])
+
+    led_pin.deinit()
+    del led_pin
 
 
 if __name__ == '__main__':
