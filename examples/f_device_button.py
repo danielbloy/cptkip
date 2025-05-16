@@ -52,7 +52,7 @@ async def end() -> None:
     led.off()
 
 
-btn = button.new(
+task = button.create(
     pin.InputPin(config.BUTTON_PIN),
     click=single_click_handler,
     multi_click=multi_click_handler,
@@ -61,6 +61,6 @@ btn = button.new(
     begin=begin,
     end=end)
 
-runner.run([btn])
+runner.run([task])
 
 memory.report_memory_usage_and_free()
