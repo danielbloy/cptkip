@@ -1,3 +1,9 @@
+import cptkip.core.environment as environment
+
+# collections.abc is not available in CircuitPython.
+if environment.is_running_on_desktop():
+    pass
+
 try:
     from typing import Optional, Tuple, Union, Sequence
 
@@ -54,7 +60,7 @@ class Led:
         return 1
 
     def show(self) -> None:
-        self.pin.show(self._brightness)
+        self.pin.value = self._brightness
 
     def fill(self, color: ColorUnion):
         r, g, b, w = self._parse_color(color)
