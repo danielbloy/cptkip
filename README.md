@@ -58,6 +58,7 @@ The following functionality remains to be ported over from `pico-interactive`
 * Melody
 * Audio
 * Ultrasonic
+* Migrate over demos and compare RAM usage
 
 The following functionality remains to be implemented:
 
