@@ -3,7 +3,7 @@ import statistics
 import time
 
 import tests.cptkip.utilities as utils
-from core.control import NS_PER_SECOND
+from cptkip.core.control import NS_PER_SECOND
 from cptkip.task.periodic_task import create
 
 
