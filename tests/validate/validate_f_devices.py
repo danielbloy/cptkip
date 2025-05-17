@@ -1,33 +1,16 @@
-def execute():
+def execute_button():
     import time
 
-    from adafruit_led_animation.animation.rainbow import Rainbow
-    from adafruit_led_animation.animation.pulse import Pulse
-    from adafruit_led_animation.color import WHITE
-
     import cptkip.config.configuration as config
-    import cptkip.core.logging as log
     import cptkip.device.button as button
-    import cptkip.device.led as led
-    import cptkip.device.pixels as pixel
     import cptkip.pin.digitalpin as digitalpin
-    import cptkip.pin.pwmpin as pwmpin
     import cptkip.task.basic_runner as runner
-    import cptkip.task.periodic_task as periodic_task
-
-    log.set_log_level(log.INFO)
 
     single_click_count: int = 0
     multi_click_count: int = 0
     long_click_count: int = 0
     begin_count: int = 0
     end_count: int = 0
-
-    # Run the loop for 2 seconds
-    finish = time.monotonic() + 2
-
-    def should_continue() -> bool:
-        return time.monotonic() < finish
 
     async def single_click_handler() -> None:
         nonlocal single_click_count
@@ -51,7 +34,14 @@ def execute():
         nonlocal end_count
         end_count += 1
 
+    # Run the loop for 2 seconds
+    finish = time.monotonic() + 2
+
+    def should_continue() -> bool:
+        return time.monotonic() < finish
+
     input_pin = digitalpin.InputPin(config.BUTTON_PIN)
+
     task = button.create(
         input_pin,
         click=single_click_handler,
@@ -63,37 +53,59 @@ def execute():
 
     runner.run([task])
 
-    input_pin.deinit()
-    del input_pin
-
     assert single_click_count == 0
     assert multi_click_count == 0
     assert long_click_count == 0
     assert begin_count == 1
     assert end_count == 1
 
+    input_pin.deinit()
+    del input_pin
+
+
+def execute_led():
+    import time
+
+    from adafruit_led_animation.animation.pulse import Pulse
+    from adafruit_led_animation.color import WHITE
+
+    import cptkip.config.configuration as config
+    import cptkip.device.led as led
+    import cptkip.pin.pwmpin as pwmpin
+
     # Add in validation for LED.
     led_pin = pwmpin.PwmPin(config.LED_PIN, invert=config.LED_INVERT)
     onboard_led = led.Led(led_pin)
     animation = Pulse(onboard_led, speed=0.1, color=WHITE)
 
-    # Run the loop for 2 seconds
-    finish = time.monotonic() + 2
-
     async def update() -> None:
         animation.animate()
 
-    task = periodic_task.create(update, frequency=30, continue_func=should_continue)
+    finish = time.monotonic() + 2
+    while time.monotonic() < finish:
+        animation.animate()
 
-    runner.run([task])
+    animation.freeze()
+    del animation
 
+    onboard_led.off()
     led_pin.deinit()
     del led_pin
+
+
+def execute_pixels():
+    import time
+
+    from adafruit_led_animation.animation.rainbow import Rainbow
+
+    import cptkip.config.configuration as config
+    import cptkip.device.pixels as pixel
 
     # Use the PIXELS pin
     pixels = pixel.create(config.PIXELS_PIN, 8, brightness=0.5)
     animation = Rainbow(pixels, speed=0.1, period=2)
     animation.animate()
+
     finish = time.monotonic() + 2
     while time.monotonic() < finish:
         animation.animate()
@@ -106,6 +118,16 @@ def execute():
 
     pixels.deinit()
     del pixels
+
+
+def execute():
+    import cptkip.core.logging as log
+
+    log.set_log_level(log.INFO)
+
+    execute_button()
+    execute_led()
+    execute_pixels()
 
 
 if __name__ == '__main__':
