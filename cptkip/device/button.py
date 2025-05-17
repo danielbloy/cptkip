@@ -34,9 +34,6 @@ def create(
     if pin is None:
         raise ValueError("pin cannot be None")
 
-    if not isinstance(pin, InputPin):
-        raise ValueError("pin must be of type InputPin")
-
     button = Button(pin, short_duration_ms=200, long_duration_ms=2000)
 
     async def operation() -> None:
