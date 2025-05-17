@@ -32,22 +32,31 @@ class TestBuzzerPin:
 
     def test_on_off(self):
         """
-        Call on() and off() multiple times, ensuring it sets the correct value.
+        Call on() and off() multiple times, ensuring it does not change volume or frequency.
         """
         pin = BuzzerPin(3)
+        pin.play(1234)
         assert pin.volume == 1.0
+        assert pin.frequency == 1234
 
         pin.off()
-        assert pin.volume == 0.0
+        assert pin.volume == 1.0
+        assert pin.frequency == 1234
 
         pin.on()
         assert pin.volume == 1.0
+        assert pin.frequency == 1234
+
+        pin.volume = 0.5
+        pin.frequency = 4321
 
         pin.on()
-        assert pin.volume == 1.0
+        assert pin.volume == 0.5
+        assert pin.frequency == 4321
 
         pin.off()
-        assert pin.volume == 0.0
+        assert pin.volume == 0.5
+        assert pin.frequency == 4321
 
     def test_volume(self):
         """
