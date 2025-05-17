@@ -2,11 +2,12 @@ def execute():
     import time
 
     import cptkip.config.configuration as config
-    import cptkip.pin.digitalpin as digitalpin
+    import cptkip.pin.inputpin as inputpin
+    import cptkip.pin.outputpin as outputpin
     import cptkip.pin.pwmpin as pwmpin
 
     # Use the LED as an output pin
-    pin = digitalpin.OutputPin(config.LED_PIN, invert=config.LED_INVERT)
+    pin = outputpin.OutputPin(config.LED_PIN, invert=config.LED_INVERT)
     finish = time.monotonic() + 2
     while time.monotonic() < finish:
         pin.on()
@@ -29,7 +30,7 @@ def execute():
     del pin
 
     # Use the BUTTON as an input pin
-    pin = digitalpin.InputPin(config.BUTTON_PIN)
+    pin = inputpin.InputPin(config.BUTTON_PIN)
     finish = time.monotonic() + 2
     while time.monotonic() < finish:
         assert pin.value

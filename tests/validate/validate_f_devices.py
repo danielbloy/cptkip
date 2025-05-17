@@ -3,7 +3,7 @@ def execute_button():
 
     import cptkip.config.configuration as config
     import cptkip.device.button as button
-    import cptkip.pin.digitalpin as digitalpin
+    import cptkip.pin.inputpin as inputpin
     import cptkip.task.basic_runner as runner
 
     single_click_count: int = 0
@@ -40,7 +40,7 @@ def execute_button():
     def should_continue() -> bool:
         return time.monotonic() < finish
 
-    input_pin = digitalpin.InputPin(config.BUTTON_PIN)
+    input_pin = inputpin.InputPin(config.BUTTON_PIN)
 
     task = button.create(
         input_pin,
