@@ -1,4 +1,4 @@
-import device.pixels as pixels
+import cptkip.device.pixels as pixels
 
 
 class TestPixels:
