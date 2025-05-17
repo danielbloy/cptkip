@@ -31,7 +31,7 @@ class TestPeriodicTask:
 
         asyncio.run(task())
         assert count == 1
-
+        
         # Check that it gets called 10 times.
         count = 0
         task = create(func, continue_func=utils.count_limiter(10))
