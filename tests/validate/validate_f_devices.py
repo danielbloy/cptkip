@@ -8,13 +8,12 @@ def execute():
     import cptkip.config.configuration as config
     import cptkip.core.logging as log
     import cptkip.device.button as button
+    import cptkip.device.led as led
+    import cptkip.device.pixels as pixel
     import cptkip.pin.digitalpin as digitalpin
     import cptkip.pin.pwmpin as pwmpin
     import cptkip.task.basic_runner as runner
     import cptkip.task.periodic_task as periodic_task
-    import device.pixels as pixel
-
-    import cptkip.device.led as led
 
     log.set_log_level(log.INFO)
 

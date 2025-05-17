@@ -1,10 +1,9 @@
 def execute():
     import time
 
+    import cptkip.config.configuration as config
     import cptkip.pin.digitalpin as digitalpin
     import cptkip.pin.pwmpin as pwmpin
-
-    import cptkip.config.configuration as config
 
     # Use the LED as an output pin
     pin = digitalpin.OutputPin(config.LED_PIN, invert=config.LED_INVERT)
