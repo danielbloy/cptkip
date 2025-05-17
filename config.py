@@ -73,4 +73,13 @@ if not PIXELS_PIN:
 ################################################################################
 # B U Z Z E R
 ################################################################################
-BUZZER_PIN = board.GP2
+BUZZER_PIN = None
+
+if environment.are_pins_available():
+    # noinspection PyPackageRequirements
+    import board
+
+    BUZZER_PIN = board.GP3
+
+if not PIXELS_PIN:
+    print('No Buzzer found')
