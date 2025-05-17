@@ -69,3 +69,8 @@ if environment.are_pins_available():
 
 if not PIXELS_PIN:
     print('No NeoPixels found')
+
+################################################################################
+# B U Z Z E R
+################################################################################
+BUZZER_PIN = board.GP2
