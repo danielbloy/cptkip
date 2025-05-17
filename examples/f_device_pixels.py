@@ -14,7 +14,6 @@ log.set_log_level(log.INFO)
 
 pixels = pixel.create(config.PIXELS_PIN, 8, brightness=0.5)
 animation = Rainbow(pixels, speed=0.1, period=2)
-animation.animate()
 
 # Run the loop for 5 seconds
 finish = time.monotonic() + 5
