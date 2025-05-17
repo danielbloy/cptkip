@@ -51,21 +51,24 @@ class BuzzerPin:
 
         :param frequency: The frequency to play.
         """
-        self.deinit()
-        self.frequency = frequency
+        # Update the pwm only if the frequency has changed or there is no active buzzer.
+        if self.frequency != frequency or not self._buzzer:
+            self.frequency = frequency
+            self.off()
+            if frequency > 0 and environment.are_pins_available():
+                self._buzzer = pwmio.PWMOut(self.pin, frequency=frequency)
 
-        if environment.are_pins_available():
-            self._buzzer = pwmio.PWMOut(self.pin, frequency=frequency)
+        if self._buzzer and frequency > 0 and environment.are_pins_available():
             self._buzzer.duty_cycle = int(self.volume * (2 ** 10))
 
     def off(self):
         """
         Stops the buzzer playing any sound.
         """
-        self.volume = 0.0
+        self.deinit()
 
     def on(self):
         """
-        Plays the buzzer at maximum volume.
+        Plays the buzzer at previous frequency and volume.
         """
-        self.volume = 1.0
+        self.play(self.frequency)
