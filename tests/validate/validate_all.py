@@ -4,7 +4,7 @@ import tests.validate.validate_a_core as a
 import tests.validate.validate_b_config as b
 import tests.validate.validate_c_cpu as c
 import tests.validate.validate_d_tasks as d
-import tests.validate.validate_e_hal as e
+import tests.validate.validate_e_pin as e
 import tests.validate.validate_f_devices as f
 
 modules = [a, b, c, d, e, f]

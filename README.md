@@ -12,65 +12,62 @@ support as I use it in lots of my existing projects.
 
 Rather than focus on a single universal framework (aimed primarily at Raspberry Pi Pico based
 boards), this project aims to be more of a toolkit that supports a wide range of CircuitPython
-divides as well as standard Python on a computer. It is designed to be modular so you can select
-the specific bits of functionality you need with a pick and mix approach. One of the principles
-behind this approach is to reduce the memory overheads of using the toolkit as well as make it
-more flexible.
+divides as well as standard Python on a computer. It is designed to be both simpler to use and
+simpler to extend/maintain than `pico-interactive` which requires a fair bit more boilerplate
+to add new functionality. I have also tried to reduce the memory demands of using some of the
+lower level modules such as logging which can be found in the `core` module.
 
 ## Overview
 
 For information on how to setup a development environment, see
 [development_environment.md](development_environment.md).
 
-The initial structure of the project will be the following modules:
+The structure of the project will be the following modules (listed in order of importance):
 
 * core - required for every `cptkip` project as it provides information about execution
   environment, memory and logging. It has no dependencies on other `cptkip` packages.
 * config - provides overridable configuration properties.
 * cpu - provides information about the CPU and provides some operations.
-* hal - provides an abstraction layer to support desktop environments with no pins.
-* task - provides an async thread runners and scheduling that works across all supported
+* task - provides async thread runners and task scheduling that works across all supported
   platforms (CircuitPython and Python).
+* pin - provides an abstraction layer to support environments with no physical pins.
 * device - provides abstractions for hardware components.
+* animation - provides additional animations such as `Flicker`.
 
 The packages and their dependencies are illustrated in the table below.
 
-|                 | `cptkip.core` | `cptkip.config` | `cptkip.cpu` | `cptkip.hal` | `cptkip.task` | `cptkip.device` |
-|-----------------|:-------------:|:---------------:|:------------:|:------------:|:-------------:|:---------------:|
-| `cptkip.core`   |      n/a      |                 |              |              |               |                 |
-| `cptkip.config` |      yes      |       n/a       |              |              |               |                 |
-| `cptkip.cpu`    |      Yes      |                 |     n/a      |              |               |                 |
-| `cptkip.hal`    |      Yes      |                 |              |     n/a      |               |                 |
-| `cptkip.task`   |      Yes      |                 |              |              |      n/a      |                 |
-| `cptkip.device` |      Yes      |                 |              |              |      Yes      |       n/a       |
+|                    | `cptkip.core` | `cptkip.config` | `cptkip.cpu` | `cptkip.pin` | `cptkip.task` | `cptkip.device` |
+|--------------------|:-------------:|:---------------:|:------------:|:------------:|:-------------:|:---------------:|
+| `cptkip.core`      |      n/a      |                 |              |              |               |                 |
+| `cptkip.config`    |      yes      |       n/a       |              |              |               |                 |
+| `cptkip.cpu`       |      Yes      |                 |     n/a      |              |               |                 |
+| `cptkip.pin`       |      Yes      |                 |              |     n/a      |               |                 |
+| `cptkip.task`      |      Yes      |                 |              |              |      n/a      |                 |
+| `cptkip.device`    |      Yes      |                 |              |     Yes      |      Yes      |       n/a       |
+| `cptkip.animation` |               |                 |              |              |               |                 |
 
-## Migrated roadmap
+## Roadmap
 
-Below you will find the proposed roadmap of functionality that I was planning to build into
-the version 2 of the `pico-interactive` project before I decided to spin it out into its own
-project. This is all subject to change and no timelines are provided.
+The following functionality remains to be ported over from `pico-interactive`
 
-The following are the set of changes I plan to make compared
-to [pico-interactive](https://github.com/danielbloy/pico-interactive).
-These changes are written with respect to that project and I'll be updating here are I go along.
+* Safe Runner
+* Triggered Task
+* Timed Events Task
+* One time on/off task
+* Buzzer
+* Melody
+* Audio
+* Ultrasonic
+* Migrate over demos and compare RAM usage
 
-### Structural Changes
+The following functionality remains to be implemented:
 
-* Remove the adafruit_animations from the polyfills. These can be imported directly and it will
-  help simplify the code. The polyfills are really only needed for the core framework code and
-  the animations aren't. Due to this being a breaking change, I will be bumping up to the next
-  major version.
 * Migrate to a lighter weight, faster and async HTTP server stack such as [Biplane](https://github.com/Uberi/biplane).
   This will likely involve a notable reworking of the network code.
-
-### Testing and Documentation Improvements
-
-* Modify the `test/on_device` programs to use configuration to make testing multiple devices easier.
-* Add instructions on each `test/on_device` program to make it easier to know what to expect.
-* Move the `tests/on_device` section to `examples` and provide some documentation on how to run on
-  different devices.
-* Have a "test all" program that works within Pico 1 memory limits and one that works with Pico 2.
-* Ensure device tests can run with Blinka too.
+* Add time of day support.
+* Add support for communications between Picos using UART and possible 1-wire support.
+* Include a version/build number in the library and add it in automatically.
+* Compile to `.mpy` files and add an official release process.
 
 ### Hardware Support
 
@@ -82,21 +79,6 @@ These changes are written with respect to that project and I'll be updating here
 * Document the best way to use `pico-interactive` based on available device RAM/board classification
   (i.e. Network uses so much RAM that it is difficult for a Pico 1 to do much else).
 * Add full support hardware test cycle for Pi Zero 2, Pi 3A/3A, Pi 400/4B boards, including setup documentation.
-
-### Simplification and Optimisation
-
-* Investigate optimising task creation to remove unnecessary nested tasks; hopefully to remove memory
-  footprint.
-* Look to simplify the framework further to make it easier to use.
-
-### Enhancements and Bug Fixes
-
-* Include version number in the `pico-interactive` library and add it in automatically.
-* Compile to `.mpy` files and add an official release process.
-* Support using board.LED for an LED in tests (so it works with Pico 2 W)
-* Add time of day support.
-* Support JSON in messages.
-* Add support for communications between Picos using UART and possible 1-wire support.
 
 ## License
 

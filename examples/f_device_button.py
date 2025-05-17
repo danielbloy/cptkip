@@ -5,14 +5,15 @@ import cptkip.config.configuration as config
 import cptkip.core.logging as log
 import cptkip.core.memory as memory
 import cptkip.device.button as button
-import cptkip.hal.digitalpin as pin
+import cptkip.pin.inputpin as inputpin
+import cptkip.pin.outputpin as outputpin
 import cptkip.task.basic_runner as runner
 
 memory.report_memory_usage()
 
 log.set_log_level(log.INFO)
 
-led = pin.OutputPin(config.LED_PIN, invert=config.LED_INVERT)
+led = outputpin.OutputPin(config.LED_PIN, invert=config.LED_INVERT)
 
 
 async def single_click_handler() -> None:
@@ -52,8 +53,8 @@ async def end() -> None:
     led.off()
 
 
-btn = button.new(
-    pin.InputPin(config.BUTTON_PIN),
+task = button.create(
+    inputpin.InputPin(config.BUTTON_PIN),
     click=single_click_handler,
     multi_click=multi_click_handler,
     long_click=long_press_handler,
@@ -61,6 +62,6 @@ btn = button.new(
     begin=begin,
     end=end)
 
-runner.run([btn])
+runner.run([task])
 
 memory.report_memory_usage_and_free()

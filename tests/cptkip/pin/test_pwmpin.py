@@ -1,4 +1,4 @@
-from cptkip.hal.pwmpin import PwmPin
+from cptkip.pin.pwmpin import PwmPin
 
 
 class TestPwmPin:
