@@ -120,6 +120,10 @@ def execute_pixels():
     del pixels
 
 
+def execute_buzzer():
+    assert False
+
+
 def execute():
     import cptkip.core.logging as log
 
@@ -128,6 +132,7 @@ def execute():
     execute_button()
     execute_led()
     execute_pixels()
+    execute_buzzer()
 
 
 if __name__ == '__main__':

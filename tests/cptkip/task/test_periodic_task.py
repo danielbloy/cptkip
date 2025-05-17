@@ -3,7 +3,7 @@ import statistics
 import time
 
 import tests.cptkip.utilities as utils
-from cptkip.task.control import NS_PER_SECOND
+from core.control import NS_PER_SECOND
 from cptkip.task.periodic_task import create
 
 
@@ -31,7 +31,7 @@ class TestPeriodicTask:
 
         asyncio.run(task())
         assert count == 1
-        
+
         # Check that it gets called 10 times.
         count = 0
         task = create(func, continue_func=utils.count_limiter(10))
