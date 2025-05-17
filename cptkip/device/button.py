@@ -2,6 +2,7 @@ from adafruit_debouncer import Button
 
 import cptkip.core.environment as environment
 import cptkip.task.periodic_task as periodic_task
+from cptkip.pin.inputpin import InputPin
 
 # collections.abc is not available in CircuitPython.
 if environment.is_running_on_desktop():
@@ -9,7 +10,7 @@ if environment.is_running_on_desktop():
 
 
 def create(
-        pin,
+        pin: InputPin,
         click: Callable[[], Awaitable[None]] = None,
         multi_click: Callable[[], Awaitable[None]] = None,
         long_click: Callable[[], Awaitable[None]] = None,
