@@ -4,7 +4,7 @@ import time
 import cptkip.config.configuration as config
 import cptkip.core.logging as log
 import cptkip.core.memory as memory
-import cptkip.hal.digitalpin as pin
+import cptkip.pin.digitalpin as pin
 import cptkip.task.basic_runner as runner
 import cptkip.task.periodic_task as periodic_task
 

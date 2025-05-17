@@ -49,7 +49,6 @@ def create(
             await long_click()
 
     task = periodic_task.create(
-        operation, frequency=120, initial_delay=0,
-        continue_func=continue_func, begin=begin, end=end)
+        operation, frequency=80, initial_delay=0, continue_func=continue_func, begin=begin, end=end)
 
     return task

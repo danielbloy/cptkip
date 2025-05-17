@@ -205,7 +205,7 @@ Code under test:
 
 ```python
 import cptkip.config.configuration as config
-import cptkip.hal.digitalpin as pin
+import cptkip.pin.digitalpin as pin
 
 led = pin.OutputPin(config.LED_PIN, invert=config.LED_INVERT)
 led.value = True
@@ -224,7 +224,7 @@ Code under test:
 
 ```python
 import cptkip.config.configuration as config
-import cptkip.hal.pwmpin as pin
+import cptkip.pin.pwmpin as pin
 
 led = pin.PwmPin(config.LED_PIN, invert=config.LED_INVERT)
 led.value = 0.8
@@ -246,7 +246,7 @@ Code under test:
 import time, asyncio
 
 import cptkip.config.configuration as config
-import cptkip.hal.pixels as pixel
+import cptkip.pin.pixels as pixel
 import cptkip.task.basic_runner as runner
 
 pixels = pixel.create(config.PIXELS_PIN, 8, brightness=0.5)
@@ -280,7 +280,7 @@ import time
 from adafruit_led_animation.animation.rainbow import Rainbow
 
 import cptkip.config.configuration as config
-import cptkip.hal.pixels as pixel
+import cptkip.pin.pixels as pixel
 import cptkip.task.basic_runner as runner
 
 pixels = pixel.create(config.PIXELS_PIN, 8, brightness=0.5)
@@ -317,7 +317,7 @@ import time
 
 import cptkip.config.configuration as config
 import cptkip.device.button as button
-import cptkip.hal.digitalpin as pin
+import cptkip.pin.digitalpin as pin
 import cptkip.task.basic_runner as runner
 
 
@@ -358,7 +358,7 @@ from adafruit_led_animation.color import JADE
 
 import cptkip.config.configuration as config
 import cptkip.device.led as device
-import cptkip.hal.pwmpin as pin
+import cptkip.pin.pwmpin as pin
 import cptkip.task.basic_runner as runner
 import cptkip.task.periodic_task as periodic_task
 

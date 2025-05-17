@@ -1,5 +1,5 @@
-from cptkip.hal.digitalpin import InputPin
-from cptkip.hal.digitalpin import OutputPin
+from cptkip.pin.digitalpin import InputPin
+from cptkip.pin.digitalpin import OutputPin
 
 
 class TestInputPin:

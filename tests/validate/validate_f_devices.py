@@ -7,8 +7,8 @@ def execute():
     import cptkip.config.configuration as config
     import cptkip.core.logging as log
     import cptkip.device.button as button
-    import cptkip.hal.digitalpin as digitalpin
-    import cptkip.hal.pwmpin as pwmpin
+    import cptkip.pin.digitalpin as digitalpin
+    import cptkip.pin.pwmpin as pwmpin
     import cptkip.task.basic_runner as runner
     import cptkip.task.periodic_task as periodic_task
 

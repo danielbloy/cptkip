@@ -3,7 +3,7 @@ import time
 import cptkip.config.configuration as config
 import cptkip.core.logging as log
 import cptkip.core.memory as memory
-import cptkip.hal.digitalpin as pin
+import cptkip.pin.digitalpin as pin
 
 memory.report_memory_usage()
 

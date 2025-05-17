@@ -1,4 +1,4 @@
-import cptkip.hal.pixels as pixels
+import cptkip.pin.pixels as pixels
 
 
 class TestPixels:

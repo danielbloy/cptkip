@@ -3,9 +3,9 @@ def execute():
 
     from adafruit_led_animation.animation.rainbow import Rainbow
 
-    import cptkip.hal.digitalpin as digitalpin
-    import cptkip.hal.pwmpin as pwmpin
-    import cptkip.hal.pixels as pixel
+    import cptkip.pin.digitalpin as digitalpin
+    import cptkip.pin.pwmpin as pwmpin
+    import cptkip.pin.pixels as pixel
 
     import cptkip.config.configuration as config
 
