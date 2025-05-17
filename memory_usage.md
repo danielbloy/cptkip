@@ -246,7 +246,7 @@ Code under test:
 import time, asyncio
 
 import cptkip.config.configuration as config
-import cptkip.pin.pixels as pixel
+import device.pixels as pixel
 import cptkip.task.basic_runner as runner
 
 pixels = pixel.create(config.PIXELS_PIN, 8, brightness=0.5)
@@ -280,7 +280,7 @@ import time
 from adafruit_led_animation.animation.rainbow import Rainbow
 
 import cptkip.config.configuration as config
-import cptkip.pin.pixels as pixel
+import device.pixels as pixel
 import cptkip.task.basic_runner as runner
 
 pixels = pixel.create(config.PIXELS_PIN, 8, brightness=0.5)

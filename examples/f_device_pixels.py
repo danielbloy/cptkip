@@ -5,8 +5,8 @@ from adafruit_led_animation.animation.rainbow import Rainbow
 import cptkip.config.configuration as config
 import cptkip.core.logging as log
 import cptkip.core.memory as memory
-import cptkip.pin.pixels as pixel
 import cptkip.task.basic_runner as runner
+import device.pixels as pixel
 
 memory.report_memory_usage()
 

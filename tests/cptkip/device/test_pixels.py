@@ -1,4 +1,4 @@
-import cptkip.pin.pixels as pixels
+import device.pixels as pixels
 
 
 class TestPixels:
