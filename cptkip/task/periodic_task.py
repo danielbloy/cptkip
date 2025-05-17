@@ -1,7 +1,7 @@
 import asyncio
 import time
 
-import core.control as control
+import cptkip.core.control as control
 import cptkip.core.environment as environment
 
 # collections.abc is not available in CircuitPython.

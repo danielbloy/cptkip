@@ -31,6 +31,11 @@ def create(
                           and before any initial delay.
     :param end:           If specified, this will be executed once at the end.
     """
+    if pin is None:
+        raise ValueError("pin cannot be None")
+
+    if not isinstance(pin, InputPin):
+        raise ValueError("pin must be of type InputPin")
 
     button = Button(pin, short_duration_ms=200, long_duration_ms=2000)
 

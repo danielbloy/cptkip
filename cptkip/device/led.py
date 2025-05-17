@@ -23,6 +23,11 @@ class Led:
         :param brightness: A value between 0.0 (off) and 1.0 (on).
         :param auto_write: Whether to automatically update the LED pin or not.
         """
+        if pin is None:
+            raise ValueError("pin cannot be None")
+
+        if not isinstance(pin, PwmPin):
+            raise ValueError("pin must be of type PwmPin")
 
         self.pin = pin
         self.auto_write = auto_write
