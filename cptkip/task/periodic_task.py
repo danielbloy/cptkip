@@ -48,8 +48,11 @@ def create(
 
         next_callback_ns = time.monotonic_ns() + int(max(initial_delay, 0.0) * control.NS_PER_SECOND)
         while not continue_func or continue_func():
-            if time.monotonic_ns() >= next_callback_ns:
-                next_callback_ns += interval_ns
+            now = time.monotonic_ns()
+            if now >= next_callback_ns:
+                if frequency > 0:
+                    while now >= next_callback_ns:
+                        next_callback_ns += interval_ns
                 await func()
 
             await asyncio.sleep(sleep_interval)
