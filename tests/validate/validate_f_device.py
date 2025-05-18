@@ -2,65 +2,46 @@ def execute_button():
     import time
 
     import cptkip.config.configuration as config
-    import cptkip.device.button as button
+    from cptkip.device.button import Button
     import cptkip.pin.inputpin as inputpin
-    import cptkip.task.basic_runner as runner
 
     single_click_count: int = 0
     multi_click_count: int = 0
     long_click_count: int = 0
-    begin_count: int = 0
-    end_count: int = 0
 
-    async def single_click_handler() -> None:
+    def single_click_handler() -> None:
         nonlocal single_click_count
         single_click_count += 1
 
-    async def multi_click_handler() -> None:
+    def multi_click_handler() -> None:
         nonlocal multi_click_count
         multi_click_count += 1
 
-    async def long_press_handler() -> None:
+    def long_press_handler() -> None:
         nonlocal long_click_count
         long_click_count += 1
 
-    # Executed once at the beginning and before any initial delay.
-    async def begin() -> None:
-        nonlocal begin_count
-        begin_count += 1
-
-    # Executed once at the end.
-    async def end() -> None:
-        nonlocal end_count
-        end_count += 1
-
-    # Run the loop for 2 seconds
-    finish = time.monotonic() + 2
-
-    def should_continue() -> bool:
-        return time.monotonic() < finish
-
     input_pin = inputpin.InputPin(config.BUTTON_PIN)
 
-    task = button.create(
+    button = Button(
         input_pin,
         click=single_click_handler,
         multi_click=multi_click_handler,
-        long_click=long_press_handler,
-        continue_func=should_continue,
-        begin=begin,
-        end=end)
+        long_click=long_press_handler)
 
-    runner.run([task])
+    # Run the loop for 2 seconds
+    finish = time.monotonic() + 2
+    while time.monotonic() < finish:
+        button.update()
 
     assert single_click_count == 0
     assert multi_click_count == 0
     assert long_click_count == 0
-    assert begin_count == 1
-    assert end_count == 1
 
     input_pin.deinit()
     del input_pin
+
+    del button
 
 
 def execute_led():
@@ -77,9 +58,6 @@ def execute_led():
     led_pin = pwmpin.PwmPin(config.LED_PIN, invert=config.LED_INVERT)
     onboard_led = led.Led(led_pin)
     animation = Pulse(onboard_led, speed=0.1, color=WHITE)
-
-    async def update() -> None:
-        animation.animate()
 
     finish = time.monotonic() + 2
     while time.monotonic() < finish:

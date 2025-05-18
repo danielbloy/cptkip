@@ -43,7 +43,7 @@ The packages and their dependencies are illustrated in the table below.
 | `cptkip.cpu`       |      Yes      |                 |     n/a      |              |               |                 |
 | `cptkip.pin`       |      Yes      |                 |              |     n/a      |               |                 |
 | `cptkip.task`      |      Yes      |                 |              |              |      n/a      |                 |
-| `cptkip.device`    |      Yes      |                 |              |     Yes      |      Yes      |       n/a       |
+| `cptkip.device`    |      Yes      |                 |              |     Yes      |               |       n/a       |
 | `cptkip.animation` |               |                 |              |              |               |                 |
 
 ## Roadmap
