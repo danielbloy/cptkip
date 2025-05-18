@@ -77,8 +77,8 @@ log.debug('This debug text will NOT appear with log level info')
 | `cptkip.core.logging.py` |                   |
 |--------------------------|-------------------|
 | Ram at Start             | Used: 1,312 bytes |
-| RAM at Finish before GC  | Used: 4,000 bytes |
-| RAM at Finish after GC   | Used: 4,000 bytes |
+| RAM at Finish before GC  | Used: 3,856 bytes |
+| RAM at Finish after GC   | Used: 3,856 bytes |
 
 ## `cptkip.core.memory.py`
 
@@ -112,8 +112,8 @@ print('Debug ........ :', config.DEBUG)
 | `cptkip.config.configuration.py` |                   |
 |----------------------------------|-------------------|
 | Ram at Start                     | Used: 1,040 bytes |
-| RAM at Finish before GC          | Used: 4,864 bytes |
-| RAM at Finish after GC           | Used: 4,864 bytes |
+| RAM at Finish before GC          | Used: 5,200 bytes |
+| RAM at Finish after GC           | Used: 5,200 bytes |
 
 ## `cptkip.cpu.cpu.py`
 
@@ -128,8 +128,8 @@ cpu.info()
 | `cptkip.cpu.cpu.py`     |                   |
 |-------------------------|-------------------|
 | Ram at Start            | Used: 848 bytes   |
-| RAM at Finish before GC | Used: 3,120 bytes |
-| RAM at Finish after GC  | Used: 3,072 bytes |
+| RAM at Finish before GC | Used: 3,040 bytes |
+| RAM at Finish after GC  | Used: 2,992 bytes |
 
 ## `asyncio`
 
@@ -196,8 +196,8 @@ runner.run([task_one])
 | `cptkip.task.periodic_task` |                    |
 |-----------------------------|--------------------|
 | Ram at Start                | Used: 1,168 bytes  |
-| RAM at Finish before GC     | Used: 15,408 bytes |
-| RAM at Finish after GC      | Used: 14,096 bytes |
+| RAM at Finish before GC     | Used: 16,368 bytes |
+| RAM at Finish after GC      | Used: 14,144 bytes |
 
 ## `cptkip.hal.digitalpin.py`
 
@@ -205,7 +205,7 @@ Code under test:
 
 ```python
 import cptkip.config.configuration as config
-import cptkip.pin.digitalpin as pin
+import cptkip.pin.outputpin as pin
 
 led = pin.OutputPin(config.LED_PIN, invert=config.LED_INVERT)
 led.value = True
@@ -215,8 +215,8 @@ led.value = False
 | `cptkip.hal.digitalpin.py` |                   |
 |----------------------------|-------------------|
 | Ram at Start               | Used: 912 bytes   |
-| RAM at Finish before GC    | Used: 6,480 bytes |
-| RAM at Finish after GC     | Used: 6,480 bytes |
+| RAM at Finish before GC    | Used: 6,080 bytes |
+| RAM at Finish after GC     | Used: 6,080 bytes |
 
 ## `cptkip.hal.pwmpin.py`
 
@@ -235,41 +235,43 @@ led.off()
 | `cptkip.hal.pwmpin.py`  |                   |
 |-------------------------|-------------------|
 | Ram at Start            | Used: 928 bytes   |
-| RAM at Finish before GC | Used: 6,096 bytes |
-| RAM at Finish after GC  | Used: 6,096 bytes |
+| RAM at Finish before GC | Used: 6,128 bytes |
+| RAM at Finish after GC  | Used: 6,128 bytes |
 
 ## `cptkip.hal.pixels.py`
 
 Code under test:
 
 ```python
-import time, asyncio
+import time
 
 import cptkip.config.configuration as config
-import device.pixels as pixel
-import cptkip.task.basic_runner as runner
+import cptkip.device.pixels as pixel
 
 pixels = pixel.create(config.PIXELS_PIN, 8, brightness=0.5)
 
-finish = time.monotonic() + 1
-
-
-async def animate() -> None:
-    while time.monotonic() < finish:
-        await asyncio.sleep(0.1)
-
-
-runner.run([animate])
+finish = time.monotonic() + 2
+r = 10
+rdx = 10
+while time.monotonic() < finish:
+    r += rdx
+    if r > 240:
+        rdx = -10
+    if r < 20:
+        rdx = 10
+    pixels.fill((r, 0, 0))
+    pixels.write()
+    time.sleep(0.05)
 
 pixels.fill(pixel.OFF)
 pixels.write()
 ```
 
-| `cptkip.hal.pixels.py`  |                    |
-|-------------------------|--------------------|
-| Ram at Start            | Used: 1,1848 bytes |
-| RAM at Finish before GC | Used: 18,192 bytes |
-| RAM at Finish after GC  | Used: 17,184 bytes |
+| `cptkip.hal.pixels.py`  |                   |
+|-------------------------|-------------------|
+| Ram at Start            | Used: 1,040 bytes |
+| RAM at Finish before GC | Used: 9,024 bytes |
+| RAM at Finish after GC  | Used: 7,744 bytes |
 
 ## `animation.rainbow`
 
@@ -280,22 +282,15 @@ import time
 from adafruit_led_animation.animation.rainbow import Rainbow
 
 import cptkip.config.configuration as config
-import device.pixels as pixel
-import cptkip.task.basic_runner as runner
+import cptkip.device.pixels as pixel
 
 pixels = pixel.create(config.PIXELS_PIN, 8, brightness=0.5)
 animation = Rainbow(pixels, speed=0.1, period=2)
 animation.animate()
 
-finish = time.monotonic() + 1
-
-
-async def animate() -> None:
-    while time.monotonic() < finish:
-        animation.animate()
-
-
-runner.run([animate])
+finish = time.monotonic() + 2
+while time.monotonic() < finish:
+    animation.animate()
 
 animation.freeze()
 pixels.fill(pixel.OFF)
@@ -304,9 +299,9 @@ pixels.write()
 
 | `animation.rainbow.py`  |                    |
 |-------------------------|--------------------|
-| Ram at Start            | Used: 1,648 bytes  |
-| RAM at Finish before GC | Used: 26,528 bytes |
-| RAM at Finish after GC  | Used: 25,408 bytes |
+| Ram at Start            | Used: 1,152 bytes  |
+| RAM at Finish before GC | Used: 17,184 bytes |
+| RAM at Finish after GC  | Used: 15,872 bytes |
 
 ## `cptkip.device.button.py`
 
@@ -316,35 +311,28 @@ Code under test:
 import time
 
 import cptkip.config.configuration as config
-import cptkip.device.button as button
-import cptkip.pin.digitalpin as pin
-import cptkip.task.basic_runner as runner
+from cptkip.device.button import Button
+import cptkip.pin.inputpin as inputpin
 
 
-async def single_click_handler() -> None:
+def single_click_handler() -> None:
     print('Single click!')
 
 
-finish = time.monotonic() + 1
+input_pin = inputpin.InputPin(config.BUTTON_PIN)
 
+button = Button(input_pin, click=single_click_handler)
 
-def should_continue() -> bool:
-    return time.monotonic() < finish
-
-
-task = button.create(
-    pin.InputPin(config.BUTTON_PIN),
-    click=single_click_handler,
-    continue_func=should_continue)
-
-runner.run([task])
+finish = time.monotonic() + 2
+while time.monotonic() < finish:
+    button.update()
 ```
 
 | `cptkip.device.button.py` |                    |
 |---------------------------|--------------------|
-| Ram at Start              | Used: 1,648 bytes  |
-| RAM at Finish before GC   | Used: 30,032 bytes |
-| RAM at Finish after GC    | Used: 21,296 bytes |
+| Ram at Start              | Used: 1,168 bytes  |
+| RAM at Finish before GC   | Used: 11,968 bytes |
+| RAM at Finish after GC    | Used: 11,920 bytes |
 
 ## `cptkip.device.led.py`
 
@@ -359,29 +347,14 @@ from adafruit_led_animation.color import JADE
 import cptkip.config.configuration as config
 import cptkip.device.led as device
 import cptkip.pin.pwmpin as pin
-import cptkip.task.basic_runner as runner
-import cptkip.task.periodic_task as periodic_task
 
 pin = pin.PwmPin(config.LED_PIN, invert=config.LED_INVERT)
 led = device.Led(pin)
 animation = Blink(led, speed=0.5, color=JADE)
 
-
-async def update() -> None:
+finish = time.monotonic() + 2
+while time.monotonic() < finish:
     animation.animate()
-
-
-finish = time.monotonic() + 1
-
-
-# Should we continue to run or not?
-def should_continue() -> bool:
-    return time.monotonic() < finish
-
-
-task = periodic_task.create(update, frequency=30, continue_func=should_continue)
-
-runner.run([task])
 
 animation.freeze()
 led.off()
@@ -389,9 +362,9 @@ led.off()
 
 | `cptkip.device.led.py`  |                    |
 |-------------------------|--------------------|
-| Ram at Start            | Used: 1,888 bytes  |
-| RAM at Finish before GC | Used: 27,056 bytes |
-| RAM at Finish after GC  | Used: 24,816 bytes |
+| Ram at Start            | Used: 1,568 bytes  |
+| RAM at Finish before GC | Used: 30,560 bytes |
+| RAM at Finish after GC  | Used: 14,912 bytes |
 
 ## Experiments with the old framework
 
