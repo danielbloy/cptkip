@@ -6,7 +6,6 @@ import cptkip.config.configuration as config
 import cptkip.core.logging as log
 import cptkip.core.memory as memory
 import cptkip.device.pixels as pixel
-import cptkip.task.basic_runner as runner
 
 memory.report_memory_usage()
 
@@ -18,13 +17,8 @@ animation = Rainbow(pixels, speed=0.1, period=2)
 # Run the loop for 5 seconds
 finish = time.monotonic() + 5
 
-
-async def animate() -> None:
-    while time.monotonic() < finish:
-        animation.animate()
-
-
-runner.run([animate])
+while time.monotonic() < finish:
+    animation.animate()
 
 animation.freeze()
 pixels.fill(pixel.OFF)
