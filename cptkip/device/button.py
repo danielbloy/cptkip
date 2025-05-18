@@ -1,57 +1,38 @@
-from adafruit_debouncer import Button
+from adafruit_debouncer import Button as DebounceButton
 
 import cptkip.core.environment as environment
-import cptkip.task.periodic_task as periodic_task
 from cptkip.pin.inputpin import InputPin
 
 # collections.abc is not available in CircuitPython.
 if environment.is_running_on_desktop():
-    from collections.abc import Callable, Awaitable
+    from collections.abc import Callable
 
 
-def create(
-        pin: InputPin,
-        click: Callable[[], Awaitable[None]] = None,
-        multi_click: Callable[[], Awaitable[None]] = None,
-        long_click: Callable[[], Awaitable[None]] = None,
-        continue_func: Callable[[], bool] = None,
-        begin: Callable[[], Awaitable[None]] = None,
-        end: Callable[[], Awaitable[None]] = None) -> Callable[[], Awaitable[None]]:
-    """
-    Returns a task that will respond to button events and call the `click`, `multi_click`
-    or `long_click` callbacks based on the events on the button.
+class Button:
+    def __init__(self, pin: InputPin,
+                 click: Callable[[], None] = None,
+                 multi_click: Callable[[], None] = None,
+                 long_click: Callable[[], None] = None):
+        if pin is None:
+            raise ValueError("pin cannot be None")
 
-    :param pin:           This should be a digital input pin connected to the button.
-    :param click:         Callback that is invoked for a single click event.
-    :param multi_click:   Callback that is invoked for a multiple click event.
-    :param long_click:    Callback that is invoked for a long click event.
-    :param continue_func: If specified, this will be periodically called to confirm
-                          the func should continue to be called.
-    :param begin:         If specified, this will be executed once at the beginning
-                          and before any initial delay.
-    :param end:           If specified, this will be executed once at the end.
-    """
-    if pin is None:
-        raise ValueError("pin cannot be None")
+        self.pin = pin
+        self.click = click
+        self.multi_click = multi_click
+        self.long_click = long_click
+        self.button = DebounceButton(pin, short_duration_ms=200, long_duration_ms=2000)
 
-    button = Button(pin, short_duration_ms=200, long_duration_ms=2000)
+    def update(self):
+        self.button.update()
 
-    async def operation() -> None:
-        button.update()
-
-        short_count = button.short_count
+        short_count = self.button.short_count
         if short_count != 0:
 
-            if short_count == 1 and click:
-                await click()
+            if short_count == 1 and self.click:
+                self.click()
 
-            elif short_count > 1 and multi_click:
-                await multi_click()
+            elif short_count > 1 and self.multi_click:
+                self.multi_click()
 
-        if button.long_press and long_click is not None:
-            await long_click()
-
-    task = periodic_task.create(
-        operation, frequency=80, initial_delay=0, continue_func=continue_func, begin=begin, end=end)
-
-    return task
+        if self.button.long_press and self.long_click is not None:
+            self.long_click()
