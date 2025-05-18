@@ -1,8 +1,8 @@
 import asyncio
 import time
 
+import cptkip.core.control as control
 import cptkip.core.environment as environment
-import cptkip.task.control as control
 
 # collections.abc is not available in CircuitPython.
 if environment.is_running_on_desktop():

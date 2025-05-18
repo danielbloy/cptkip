@@ -1,4 +1,5 @@
 import cptkip.core.environment as environment
+from cptkip.pin.pwmpin import PwmPin
 
 # collections.abc is not available in CircuitPython.
 if environment.is_running_on_desktop():
@@ -13,7 +14,7 @@ except ImportError:
 
 
 class Led:
-    def __init__(self, pin, brightness: float = 1.0, auto_write: bool = True):
+    def __init__(self, pin: PwmPin, brightness: float = 1.0, auto_write: bool = True):
         """
         Wraps a pin (PwmPin) in such a way that a simple LED can be used with
         animations (in a very basic way).
@@ -22,6 +23,11 @@ class Led:
         :param brightness: A value between 0.0 (off) and 1.0 (on).
         :param auto_write: Whether to automatically update the LED pin or not.
         """
+        if pin is None:
+            raise ValueError("pin cannot be None")
+
+        if not isinstance(pin, PwmPin):
+            raise ValueError("pin must be of type PwmPin")
 
         self.pin = pin
         self.auto_write = auto_write
