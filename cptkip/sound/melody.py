@@ -34,6 +34,7 @@ class Melody:
             if not self._loop:
                 self.pause()
 
+        self._buzzer.off()
         self._buzzer.play(frequency)
 
         self._next_update = now + (self._speed_ns * duration)

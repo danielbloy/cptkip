@@ -4,6 +4,7 @@ OFF = (0, 0, 0)
 
 if environment.are_pins_available():
 
+    # noinspection PyPackageRequirements
     from neopixel import NeoPixel as Pixels
 
 else:
