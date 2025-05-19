@@ -46,7 +46,6 @@ The packages and their dependencies are illustrated in the table below.
 | `cptkip.task`      |      Yes      |                 |              |              |      n/a      |                 |
 | `cptkip.device`    |      Yes      |                 |              |     Yes      |               |       n/a       |
 | `cptkip.animation` |               |                 |              |              |               |                 |
-| `cptkip.sound`     |      Yes      |                 |              |     Yes      |               |                 |
 
 ## Roadmap
 
