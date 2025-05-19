@@ -28,8 +28,13 @@ def execute_melody():
     del pin
 
 
+def execute_mp3():
+    assert False
+
+
 def execute():
     execute_melody()
+    execute_mp3()
 
 
 if __name__ == '__main__':

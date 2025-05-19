@@ -1,9 +1,62 @@
-from interactive.polyfills.audio import Audio
+from interactive.environment import are_pins_available
+
+if are_pins_available():
+
+    from audiomp3 import MP3Decoder
+
+    try:
+        from audioio import AudioOut
+    except ImportError:
+        try:
+            from audiopwmio import PWMAudioOut as AudioOut
+        except ImportError:
+            pass  # not always supported by every board!
 
 
-class AudioController:
+    class Audio:
+
+        def __init__(self, pin: Pin, decoder):
+            self.audio = AudioOut(pin)
+            self.decoder = decoder
+
+        def play(self, filename: str):
+            if filename is None or len(filename) <= 0:
+                raise ValueError("filename must be specified")
+
+            self.decoder.file = open(filename, "rb")
+            self.audio.play(self.decoder)
+
+        @property
+        def playing(self) -> bool:
+            return self.audio.playing
+
+        @property
+        def paused(self) -> bool:
+            return self.audio.paused
+
+        def pause(self):
+            return self.audio.pause()
+
+        def resume(self):
+            return self.audio.resume()
+
+        def stop(self):
+            return self.audio.stop()
+
+
+    def __new_mp3_decoder(file: str) -> MP3Decoder:
+        # You have to specify some mp3 file when creating the decoder
+        decoder = MP3Decoder(open(file, "rb"))
+        return decoder
+
+
+    def __new_audio(pin: Pin, decoder) -> Audio:
+        return Audio(pin, decoder)
+
+
+class Queue:
     """
-    AudioController is used to play MP3 audio files. AudioController allows
+    Queue is used to play MP3 audio files in a sequence. Queue allows
     the MP3 files to be queued; these will then be picked up in turn and
     played through the Audio instance. Basic controls to pause, resume and
     stop are provided along with a cancel option which stops the music and
