@@ -15,6 +15,7 @@ def report_memory_usage():
         used_ram = stats.used / 1_048_576
         log.critical(f"Used: {used_ram:.2f} MB, Free: {free_ram:.2f} MB, Total: {total_ram:.2f} MB")
     else:
+        # noinspection PyUnresolvedReferences
         log.critical(f"Used: {gc.mem_alloc()} bytes, Free: {gc.mem_free()} bytes")
 
 
