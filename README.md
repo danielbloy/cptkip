@@ -33,6 +33,7 @@ The structure of the project will be the following modules (listed in order of i
 * pin - provides an abstraction layer to support environments with no physical pins.
 * device - provides abstractions for hardware components.
 * animation - provides additional animations such as `Flicker`.
+* sound - provides support for playing sound through buzzers and speakers.
 
 The packages and their dependencies are illustrated in the table below.
 
@@ -45,6 +46,7 @@ The packages and their dependencies are illustrated in the table below.
 | `cptkip.task`      |      Yes      |                 |              |              |      n/a      |                 |
 | `cptkip.device`    |      Yes      |                 |              |     Yes      |               |       n/a       |
 | `cptkip.animation` |               |                 |              |              |               |                 |
+| `cptkip.sound`     |      Yes      |                 |              |     Yes      |               |                 |
 
 ## Roadmap
 
