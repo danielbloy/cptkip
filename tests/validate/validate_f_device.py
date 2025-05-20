@@ -166,7 +166,7 @@ def execute_melody():
     del pin
 
 
-def execute_mp3():
+def execute_pwm_audio():
     assert False
 
 
@@ -180,7 +180,7 @@ def execute():
     execute_pixels()
     execute_buzzer()
     execute_melody()
-    execute_mp3()
+    execute_pwm_audio()
 
 
 if __name__ == '__main__':

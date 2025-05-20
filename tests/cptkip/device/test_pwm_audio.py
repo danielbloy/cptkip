@@ -13,7 +13,6 @@ from collections.abc import Callable, Awaitable
 import pytest
 from interactive.audio import AudioController
 from interactive.polyfills.audio import Audio
-from interactive.runner import Runner
 
 
 class MockAudio(Audio):
