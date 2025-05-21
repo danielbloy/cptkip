@@ -11,17 +11,18 @@ memory.report_memory_usage()
 
 log.set_log_level(log.INFO)
 
-AUDIO_FILE = "lion.mp3"
+AUDIO_FILE = "examples/lion.mp3"
 
 audio = pwmaudio.Audio(config.BUZZER_PIN)
 queue = pwmaudio.Queue(audio)
 
 
 def single_click_handler() -> None:
-    if queue.paused:
-        queue.resume()
-    else:
-        queue.pause()
+    if queue.playing:
+        if queue.paused:
+            queue.resume()
+        else:
+            queue.pause()
 
 
 def multi_click_handler() -> None:
