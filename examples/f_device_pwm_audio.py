@@ -1,11 +1,10 @@
 import time
-from email.utils import decode_rfc2231
 
 import cptkip.config.configuration as config
 import cptkip.core.logging as log
 import cptkip.core.memory as memory
+import cptkip.device.pwm_audio as pwmaudio
 import cptkip.pin.inputpin as inputpin
-import cptkip.pin.pwmaudio as audio
 from cptkip.device.button import Button
 
 memory.report_memory_usage()
@@ -14,18 +13,15 @@ log.set_log_level(log.INFO)
 
 AUDIO_FILE = "lion.mp3"
 
-pin = ???
-decoder = ???
-audio = audio.Audio(pin, decoder)
+audio = pwmaudio.Audio(config.BUZZER_PIN)
+queue = pwmaudio.Queue(audio)
 
-queue = audio.Queue()
 
 def single_click_handler() -> None:
     if queue.paused:
         queue.resume()
     else:
         queue.pause()
-
 
 
 def multi_click_handler() -> None:
@@ -42,8 +38,8 @@ finish = time.monotonic() + 10
 
 while time.monotonic() < finish:
     button.update()
-    queue.play()
+    queue.update()
 
-pin.off()
+audio.deinit()
 
 memory.report_memory_usage_and_free()

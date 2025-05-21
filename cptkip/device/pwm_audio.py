@@ -1,58 +1,92 @@
-# https://learn.adafruit.com/circuitpython-essentials/circuitpython-audio-out
-# https://docs.circuitpython.org/en/latest/shared-bindings/audiopwmio/
-# https://learn.adafruit.com/circuitpython-essentials/circuitpython-mp3-audio
+# See the following sources for reference:
+#  * https://docs.circuitpython.org/en/latest/shared-bindings/audiopwmio/
+#  * https://docs.circuitpython.org/en/latest/shared-bindings/audiomp3/
+#  * https://learn.adafruit.com/circuitpython-essentials/circuitpython-audio-out
+#  * https://learn.adafruit.com/circuitpython-essentials/circuitpython-mp3-audio
+#
+import cptkip.core.environment as environment
 
-try
-    from audiomp3 import MP3Decoder
-except ImportError:
-    pass
-
-try:
-    from audioio import AudioOut
-except ImportError:
+if environment.are_pins_available():
     try:
-        from audiopwmio import PWMAudioOut as AudioOut
+        from audiomp3 import MP3Decoder
     except ImportError:
-        pass  # not always supported by every board!
+        pass
+
+    try:
+        from audioio import AudioOut
+    except ImportError:
+        try:
+            from audiopwmio import PWMAudioOut as AudioOut
+        except ImportError:
+            pass  # not always supported by every board!
 
 
-class Audio:
+    class Audio:
 
-    def __init__(self, pin: Pw, decoder):
-        self.audio = AudioOut(pin)
-        self.decoder = decoder
+        def __init__(self, pin):
+            self.audio = AudioOut(pin)
+            # You have to specify some mp3 file when creating the decoder
+            decoder = MP3Decoder(open("cptkip/mp3.mp3", "rb"))
+            self.decoder = decoder
 
-    def play(self, filename: str):
-        if filename is None or len(filename) <= 0:
-            raise ValueError("filename must be specified")
+        def deinit(self) -> None:
+            self.decoder.deinit()
+            self.audio.deinit()
 
-        self.decoder.file = open(filename, "rb")
-        self.audio.play(self.decoder)
+        def play(self, filename: str):
+            if filename is None or len(filename) <= 0:
+                raise ValueError("filename must be specified")
 
-    @property
-    def playing(self) -> bool:
-        return self.audio.playing
+            self.decoder.file = open(filename, "rb")
+            self.audio.play(self.decoder)
 
-    @property
-    def paused(self) -> bool:
-        return self.audio.paused
+        @property
+        def playing(self) -> bool:
+            return self.audio.playing
 
-    def pause(self):
-        return self.audio.pause()
+        @property
+        def paused(self) -> bool:
+            return self.audio.paused
 
-    def resume(self):
-        return self.audio.resume()
+        def pause(self):
+            return self.audio.pause()
 
-    def stop(self):
-        return self.audio.stop()
+        def resume(self):
+            return self.audio.resume()
 
+        def stop(self):
+            return self.audio.stop()
 
-def __new_mp3_decoder(file: str) -> MP3Decoder:
-    # You have to specify some mp3 file when creating the decoder
-    decoder = MP3Decoder(open(file, "rb"))
-    return decoder
+else:
 
+    class Audio:
 
+        def __init__(self, pin):
+            pass
+
+        def deinit(self) -> None:
+            pass
+
+        def play(self, filename: str):
+            if filename is None or len(filename) <= 0:
+                raise ValueError("filename must be specified")
+
+        @property
+        def playing(self) -> bool:
+            return False
+
+        @property
+        def paused(self) -> bool:
+            return False
+
+        def pause(self):
+            pass
+
+        def resume(self):
+            pass
+
+        def stop(self):
+            pass
 
 
 class Queue:
