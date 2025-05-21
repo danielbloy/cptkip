@@ -20,7 +20,7 @@ class Button:
         self.click = click
         self.multi_click = multi_click
         self.long_click = long_click
-        self.button = DebounceButton(pin, short_duration_ms=200, long_duration_ms=2000)
+        self.button = DebounceButton(pin, long_duration_ms=2000)
 
     def update(self):
         self.button.update()

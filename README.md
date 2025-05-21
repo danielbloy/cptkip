@@ -33,6 +33,7 @@ The structure of the project will be the following modules (listed in order of i
 * pin - provides an abstraction layer to support environments with no physical pins.
 * device - provides abstractions for hardware components.
 * animation - provides additional animations such as `Flicker`.
+* sound - provides support for playing sound through buzzers and speakers.
 
 The packages and their dependencies are illustrated in the table below.
 
@@ -50,15 +51,19 @@ The packages and their dependencies are illustrated in the table below.
 
 The following functionality remains to be ported over from `pico-interactive`
 
-* Safe Runner
-* Triggered Task
-* Timed Events Task
-* One time on/off task
-* Buzzer
-* Melody
-* Audio
-* Ultrasonic
-* Migrate over demos and compare RAM usage
+* Periodic tasks - sync version
+* Safe Runner - async and non async
+* Triggered Task - async and non async
+* Timed Events Task - async and non async
+* One time on/off task - async and non async
+* Buzzer - device test
+* LED - device test
+* Melody - device test
+* Melody - reduce memory requirements
+* Melody - consider reworking code to use
+  audiopwmio: https://learn.adafruit.com/circuitpython-essentials/circuitpython-audio-out
+* MP3 PWM audio - test
+* Ultrasonic - port and test
 
 The following functionality remains to be implemented:
 

@@ -6,6 +6,7 @@ if environment.is_running_on_desktop():
     pass
 
 try:
+    # noinspection PyUnresolvedReferences
     from typing import Optional, Tuple, Union, Sequence
 
     ColorUnion = Union[int, Tuple[int, int, int], Tuple[int, int, int, int]]

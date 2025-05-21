@@ -14,6 +14,7 @@ def run(funcs: list[Callable[[], Awaitable[None]]]) -> None:
     """
 
     async def execute() -> None:
+        # noinspection PyTypeChecker
         tasks: list[asyncio.Task] = [asyncio.create_task(func()) for func in funcs]
 
         await asyncio.gather(*tasks)
