@@ -167,7 +167,22 @@ def execute_melody():
 
 
 def execute_pwm_audio():
-    assert False
+    import time
+
+    import cptkip.config.configuration as config
+    import cptkip.device.pwm_audio as pwmaudio
+
+    audio = pwmaudio.Audio(config.BUZZER_PIN)
+    queue = pwmaudio.Queue(audio)
+    queue.queue("tests/validate/lion.mp3")
+    queue.queue("tests/validate/lion.mp3")
+
+    finish = time.monotonic() + 5
+
+    while time.monotonic() < finish:
+        queue.update()
+
+    audio.deinit()
 
 
 def execute():

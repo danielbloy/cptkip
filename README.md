@@ -62,6 +62,7 @@ The following functionality remains to be ported over from `pico-interactive`
 * Melody - reduce memory requirements
 * Melody - consider reworking code to use
   audiopwmio: https://learn.adafruit.com/circuitpython-essentials/circuitpython-audio-out
+* MP3 PWM audio - test
 * Ultrasonic - port and test
 
 The following functionality remains to be implemented:
