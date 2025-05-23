@@ -26,15 +26,132 @@ class TestBuzzer:
 
         # This should work
         buzzer = Buzzer(BuzzerPin(1))
+        assert not buzzer.playing
 
-    def test_play(self):
-        assert False
+    def test_play_once(self):
+        """
+        Validates that play() plays the tone in the buzzer for the required duration.
+        This also tests update() which controls the duration.
+        """
+        pin = BuzzerPin(1)
+        buzzer = Buzzer(pin)
+
+        # call update() when nothing is playing and it should change anything
+        buzzer.update()
+        assert not buzzer.playing
+        assert pin.frequency == 0
+
+        # Play a frequency
+        buzzer.play(123, 0.1)
+        assert buzzer.playing
+        assert pin.frequency == 123
+
+        # Wait and it should still be playing
+        time.sleep(0.07)
+        buzzer.update()
+        assert buzzer.playing
+        assert pin.frequency == 123
+
+        # Wait until the timer expired and it should clear.
+        time.sleep(0.04)
+        buzzer.update()
+        assert not buzzer.playing
+        assert pin.frequency == 123
+
+    def test_play_twice(self):
+        """
+        Validates that play() plays the tone in the buzzer for the required duration
+        and then a second tone once finished.
+        """
+        pin = BuzzerPin(1)
+        buzzer = Buzzer(pin)
+
+        # Play a frequency
+        buzzer.play(123, 0.1)
+        assert buzzer.playing
+        assert pin.frequency == 123
+
+        # Wait and it should still be playing
+        time.sleep(0.15)
+        buzzer.update()
+        assert not buzzer.playing
+        assert pin.frequency == 123
+
+        # Play the second frequency
+        buzzer.play(456, 0.1)
+        assert buzzer.playing
+        assert pin.frequency == 456
+
+        # Wait and it should still be playing
+        time.sleep(0.15)
+        buzzer.update()
+        assert not buzzer.playing
+        assert pin.frequency == 456
+
+    def test_play_overlapping(self):
+        """
+        Validates that play() plays the tone in the buzzer but can be overridden
+        if called again before it has finished.
+        """
+        pin = BuzzerPin(1)
+        buzzer = Buzzer(pin)
+
+        assert not buzzer.playing
+
+        # Play a frequency
+        buzzer.play(123, 0.1)
+        assert buzzer.playing
+        assert pin.frequency == 123
+
+        # Wait and it should still be playing
+        time.sleep(0.07)
+        buzzer.update()
+        assert buzzer.playing
+        assert pin.frequency == 123
+
+        # Play a frequency
+        buzzer.play(456, 0.1)
+
+        # Wait and it should still be playing
+        time.sleep(0.095)
+        buzzer.update()
+        buzzer.update()
+        buzzer.update()
+        assert buzzer.playing
+        assert pin.frequency == 456
+
+        # Wait a tiny bit longer and it should stop
+        time.sleep(0.015)
+        buzzer.update()
+        assert not buzzer.playing
+        assert pin.frequency == 456
 
     def test_off(self):
-        assert False
+        """
+        Validates that off stops the buzzer when playing.
+        """
+        pin = BuzzerPin(1)
+        buzzer = Buzzer(pin)
 
-    def test_update(self):
-        assert False
+        assert not buzzer.playing
+
+        # Play a frequency
+        buzzer.play(123, 0.1)
+        assert buzzer.playing
+
+        time.sleep(0.05)
+        buzzer.update()
+        assert buzzer.playing
+
+        buzzer.off()
+        assert not buzzer.playing
+
+        # Now try a beep
+        buzzer.beep()
+        assert buzzer.playing
+
+        buzzer.off()
+        assert not buzzer.playing
 
     def test_beep(self):
         """
