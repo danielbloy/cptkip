@@ -30,8 +30,10 @@ class Buzzer:
 
     def beep(self) -> None:
         """Makes a beep."""
-        self.__beeps -= 1
-        self.play(262, 0.3)
+        if self.playing:
+            self.__beeps += 1
+        else:
+            self.play(262, 0.3)
 
     def beeps(self, count: int) -> None:
         """
@@ -39,8 +41,8 @@ class Buzzer:
 
         :param count: The number of beeps to play.
         """
-        self.__beeps = count
         self.beep()
+        self.__beeps += max(count - 1, 0)
 
     def play(self, frequency: int, duration: float) -> None:
         """

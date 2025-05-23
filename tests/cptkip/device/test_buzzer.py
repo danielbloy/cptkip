@@ -113,7 +113,7 @@ class TestBuzzer:
         buzzer.play(456, 0.1)
 
         # Wait and it should still be playing
-        time.sleep(0.095)
+        time.sleep(0.09)
         buzzer.update()
         buzzer.update()
         buzzer.update()
@@ -153,7 +153,7 @@ class TestBuzzer:
         buzzer.off()
         assert not buzzer.playing
 
-    def test_beep(self):
+    def test_beep_once(self):
         """
         Validates that beep() plays a beep.
         """
@@ -163,6 +163,24 @@ class TestBuzzer:
         assert not buzzer.playing
 
         # Play a beep and make sure it lasts for the expected duration.
+        buzzer.beep()
+        buzzer.update()
+        assert buzzer.playing
+        time.sleep(0.25)
+        buzzer.update()
+        assert buzzer.playing
+        time.sleep(0.1)
+        buzzer.update()
+        assert not buzzer.playing
+
+    def test_beep_twice_not_overlapping(self):
+        """
+        Validates that beep() can play one beep after another
+        """
+        pin = BuzzerPin(1)
+        buzzer = Buzzer(pin)
+
+        # Play the first beep
         buzzer.beep()
         buzzer.update()
         assert buzzer.playing
@@ -184,37 +202,40 @@ class TestBuzzer:
         buzzer.update()
         assert not buzzer.playing
 
-        # Now play two beeps together, this is the same as a single beep
-        buzzer.beep()
-        buzzer.beep()
-        buzzer.update()
-        assert buzzer.playing
-        time.sleep(0.25)
-        buzzer.update()
-        assert buzzer.playing
-        time.sleep(0.1)
-        buzzer.update()
-        assert not buzzer.playing
+    def test_calling_beep_multiple_times(self):
+        """
+        Calling beep multiple times should queue up multiple beeps.
+        """
+        pin = BuzzerPin(1)
+        buzzer = Buzzer(pin)
 
-        # Play a beep, wait and play again
+        # Now play two beeps together, this is the same as queueing the beeps
+        buzzer.beep()
         buzzer.beep()
         buzzer.update()
         assert buzzer.playing
-        time.sleep(0.25)
+
+        time.sleep(0.2)
         buzzer.update()
         assert buzzer.playing
-        buzzer.beep()  # second beep effectively restarts the entire beep.
+
+        # This will go over into the next beep (including a break) and it should still be paying
+        time.sleep(0.3)
+        buzzer.update()  # We need multiple update calls here to cycle through the states
         buzzer.update()
         assert buzzer.playing
-        time.sleep(0.25)
+
+        # Play a third and fourth beep and it should continue
+        buzzer.beep()
+        buzzer.beep()
+
+        time.sleep(0.4)
         buzzer.update()
         assert buzzer.playing
-        time.sleep(0.1)
+
+        time.sleep(0.3)
         buzzer.update()
         assert not buzzer.playing
 
     def test_beeps(self):
-        assert False
-
-    def test_beep_in_combination_with_beeps(self):
         assert False
