@@ -205,7 +205,7 @@ Code under test:
 
 ```python
 import cptkip.config.configuration as config
-import cptkip.pin.outputpin as pin
+import cptkip.pin.output_pin as pin
 
 led = pin.OutputPin(config.LED_PIN, invert=config.LED_INVERT)
 led.value = True
@@ -224,7 +224,7 @@ Code under test:
 
 ```python
 import cptkip.config.configuration as config
-import cptkip.pin.pwmpin as pin
+import cptkip.pin.pwm_pin as pin
 
 led = pin.PwmPin(config.LED_PIN, invert=config.LED_INVERT)
 led.value = 0.8
@@ -312,7 +312,7 @@ import time
 
 import cptkip.config.configuration as config
 from cptkip.device.button import Button
-import cptkip.pin.inputpin as inputpin
+import cptkip.pin.input_pin as inputpin
 
 
 def single_click_handler() -> None:
@@ -346,7 +346,7 @@ from adafruit_led_animation.color import JADE
 
 import cptkip.config.configuration as config
 import cptkip.device.led as device
-import cptkip.pin.pwmpin as pin
+import cptkip.pin.pwm_pin as pin
 
 pin = pin.PwmPin(config.LED_PIN, invert=config.LED_INVERT)
 led = device.Led(pin)

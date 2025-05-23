@@ -3,8 +3,8 @@ import time
 import cptkip.config.configuration as config
 import cptkip.core.logging as log
 import cptkip.core.memory as memory
-import cptkip.pin.inputpin as inputpin
-import cptkip.pin.outputpin as outputpin
+import cptkip.pin.input_pin as inputpin
+import cptkip.pin.output_pin as outputpin
 from cptkip.device.button import Button
 
 memory.report_memory_usage()

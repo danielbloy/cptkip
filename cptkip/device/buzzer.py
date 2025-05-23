@@ -1,7 +1,7 @@
 import time
 
 import cptkip.core.control as control
-from cptkip.pin.buzzerpin import BuzzerPin
+from cptkip.pin.buzzer_pin import BuzzerPin
 
 
 class Buzzer:

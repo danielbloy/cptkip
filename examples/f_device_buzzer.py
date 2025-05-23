@@ -3,7 +3,7 @@ import time
 import cptkip.config.configuration as config
 import cptkip.core.logging as log
 import cptkip.core.memory as memory
-import cptkip.pin.buzzerpin as buzzerpin
+import cptkip.pin.buzzer_pin as buzzerpin
 from cptkip.device.buzzer import Buzzer
 
 memory.report_memory_usage()

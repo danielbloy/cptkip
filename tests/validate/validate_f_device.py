@@ -3,7 +3,7 @@ def execute_button():
 
     import cptkip.config.configuration as config
     from cptkip.device.button import Button
-    import cptkip.pin.inputpin as inputpin
+    import cptkip.pin.input_pin as inputpin
 
     single_click_count: int = 0
     multi_click_count: int = 0
@@ -52,7 +52,7 @@ def execute_led():
 
     import cptkip.config.configuration as config
     import cptkip.device.led as led
-    import cptkip.pin.pwmpin as pwmpin
+    import cptkip.pin.pwm_pin as pwmpin
 
     # Add in validation for LED.
     led_pin = pwmpin.PwmPin(config.LED_PIN, invert=config.LED_INVERT)
@@ -102,7 +102,7 @@ def execute_buzzer():
     import time
 
     import cptkip.config.configuration as config
-    import cptkip.pin.buzzerpin as buzzerpin
+    import cptkip.pin.buzzer_pin as buzzerpin
     from cptkip.device.buzzer import Buzzer
 
     pin = buzzerpin.BuzzerPin(config.BUZZER_PIN)
@@ -140,7 +140,7 @@ def execute_melody():
     import time
 
     import cptkip.config.configuration as config
-    import cptkip.pin.buzzerpin as buzzerpin
+    import cptkip.pin.buzzer_pin as buzzerpin
     import cptkip.device.melody as melody
 
     pin = buzzerpin.BuzzerPin(config.BUZZER_PIN)

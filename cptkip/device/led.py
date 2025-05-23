@@ -1,5 +1,5 @@
 import cptkip.core.environment as environment
-from cptkip.pin.pwmpin import PwmPin
+from cptkip.pin.pwm_pin import PwmPin
 
 # collections.abc is not available in CircuitPython.
 if environment.is_running_on_desktop():

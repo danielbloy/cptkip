@@ -4,8 +4,8 @@ import cptkip.config.configuration as config
 import cptkip.core.logging as log
 import cptkip.core.memory as memory
 import cptkip.device.melody as melody
-import cptkip.pin.buzzerpin as buzzerpin
-import cptkip.pin.inputpin as inputpin
+import cptkip.pin.buzzer_pin as buzzerpin
+import cptkip.pin.input_pin as inputpin
 from cptkip.device.button import Button
 
 memory.report_memory_usage()

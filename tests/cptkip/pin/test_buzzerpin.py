@@ -1,4 +1,4 @@
-from cptkip.pin.buzzerpin import BuzzerPin
+from cptkip.pin.buzzer_pin import BuzzerPin
 
 
 class TestBuzzerPin:

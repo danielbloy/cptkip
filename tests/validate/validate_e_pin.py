@@ -2,9 +2,9 @@ def execute():
     import time
 
     import cptkip.config.configuration as config
-    import cptkip.pin.inputpin as inputpin
-    import cptkip.pin.outputpin as outputpin
-    import cptkip.pin.pwmpin as pwmpin
+    import cptkip.pin.input_pin as inputpin
+    import cptkip.pin.output_pin as outputpin
+    import cptkip.pin.pwm_pin as pwmpin
 
     # Use the LED as an output pin
     pin = outputpin.OutputPin(config.LED_PIN, invert=config.LED_INVERT)

@@ -7,7 +7,7 @@ import cptkip.config.configuration as config
 import cptkip.core.logging as log
 import cptkip.core.memory as memory
 import cptkip.device.led as device
-import cptkip.pin.pwmpin as pin
+import cptkip.pin.pwm_pin as pin
 import cptkip.task.basic_runner as runner
 import cptkip.task.periodic_task as periodic_task
 

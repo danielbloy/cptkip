@@ -1,4 +1,4 @@
-from cptkip.pin.outputpin import OutputPin
+from cptkip.pin.output_pin import OutputPin
 
 
 class TestOutputPin:
