@@ -23,10 +23,13 @@ class Buzzer:
         self.__stop_time_ns = 0
         self.__beeps = 0
 
+    @property
+    def playing(self):
+        """Is the buzzer playing or not"""
+        return self.__playing
+
     def beep(self) -> None:
-        """
-        Makes a beep.
-        """
+        """Makes a beep."""
         self.__beeps -= 1
         self.play(262, 0.3)
 
