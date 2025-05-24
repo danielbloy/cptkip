@@ -15,9 +15,8 @@ class BuzzerPin:
     def __init__(self, pin, volume: float = 1.0):
         self.pin = pin
         self._buzzer = None
+        self._volume = max(min(volume, 1.0), 0.0)
         self.frequency = 0
-        self._volume = 0.0
-        self.volume = volume
 
     def deinit(self) -> None:
         if self._buzzer:

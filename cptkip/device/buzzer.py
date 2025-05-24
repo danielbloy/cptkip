@@ -23,12 +23,18 @@ class Buzzer:
         self.__stop_time_ns = 0
         self.__beeps = 0
 
+    @property
+    def playing(self):
+        """Is the buzzer playing or not"""
+        return self.__playing
+
     def beep(self) -> None:
-        """
-        Makes a beep.
-        """
-        self.__beeps -= 1
-        self.play(262, 0.3)
+        """Makes a beep."""
+        if self.playing:
+            self.__beeps += 1
+        else:
+            self.__beeps = max(self.__beeps - 1, 0)
+            self.play(262, 0.3)
 
     def beeps(self, count: int) -> None:
         """
@@ -36,12 +42,14 @@ class Buzzer:
 
         :param count: The number of beeps to play.
         """
-        self.__beeps = count
         self.beep()
+        self.__beeps += max(count - 1, 0)
 
     def play(self, frequency: int, duration: float) -> None:
         """
         Plays a tone at the given frequency for the specified number of seconds.
+        This will interrupt any existing tone or beeps that are playing
+        (outstanding beeps will play once the tone completes).
 
         :param frequency: The frequency to play the tone at.
         :param duration: The duration in seconds to play the tone for.
@@ -66,16 +74,13 @@ class Buzzer:
         """
         Call to turn the buzzer off at the desired time internal.
         """
-        if (self.__playing or self.__beeps > 0) and time.monotonic_ns() >= self.__stop_time_ns:
-            if self.__playing:
-                self.__off()
+        now = time.monotonic_ns()
+        if self.__playing and now >= self.__stop_time_ns:
+            self.__off()
 
-                # Allow for a delay between beeps.
-                if self.__beeps > 0:
-                    self.__stop_time_ns += (0.1 * control.NS_PER_SECOND)
+            # Allow for a delay between beeps. It won't be playing but will have a stop time.
+            if self.__beeps > 0:
+                self.__stop_time_ns += (0.1 * control.NS_PER_SECOND)
 
-            else:
-
-                # If there are more beeps expected in the sequence then play them.
-                if self.__beeps > 0:
-                    self.beep()
+        if self.__beeps > 0 and now >= self.__stop_time_ns:
+            self.beep()
