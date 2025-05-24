@@ -109,7 +109,8 @@ def execute_buzzer():
     buzzer = Buzzer(pin)
 
     buzzer.beep()
-    finish = time.monotonic() + 0.5
+    buzzer.beep()
+    finish = time.monotonic() + 1.0
     while time.monotonic() < finish:
         buzzer.update()
 
