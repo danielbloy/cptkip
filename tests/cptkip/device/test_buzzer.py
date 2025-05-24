@@ -121,7 +121,7 @@ class TestBuzzer:
         assert pin.frequency == 456
 
         # Wait a tiny bit longer and it should stop
-        time.sleep(0.015)
+        time.sleep(0.02)
         buzzer.update()
         assert not buzzer.playing
         assert pin.frequency == 456
@@ -219,23 +219,48 @@ class TestBuzzer:
         buzzer.update()
         assert buzzer.playing
 
-        # This will go over into the next beep (including a break) and it should still be paying
-        time.sleep(0.3)
-        buzzer.update()  # We need multiple update calls here to cycle through the states
+        # This will finish the first beep and go into the off time.
+        time.sleep(0.15)
+        buzzer.update()
+        assert not buzzer.playing
+
+        # Transition back into playing the second beep
+        time.sleep(0.2)
         buzzer.update()
         assert buzzer.playing
 
-        # Play a third and fourth beep and it should continue
-        buzzer.beep()
-        buzzer.beep()
-
+        # Transition through the final beep
         time.sleep(0.4)
-        buzzer.update()
-        assert buzzer.playing
-
-        time.sleep(0.3)
         buzzer.update()
         assert not buzzer.playing
 
     def test_beeps(self):
-        assert False
+        """
+        This will be the same as calling beep() multiple times.
+        """
+        pin = BuzzerPin(1)
+        buzzer = Buzzer(pin)
+
+        # Now play two beeps together, this is the same as queueing the beeps
+        buzzer.beeps(2)
+        buzzer.update()
+        assert buzzer.playing
+
+        time.sleep(0.2)
+        buzzer.update()
+        assert buzzer.playing
+
+        # This will finish the first beep and go into the off time.
+        time.sleep(0.15)
+        buzzer.update()
+        assert not buzzer.playing
+
+        # Transition back into playing the second beep
+        time.sleep(0.2)
+        buzzer.update()
+        assert buzzer.playing
+
+        # Transition through the final beep
+        time.sleep(0.4)
+        buzzer.update()
+        assert not buzzer.playing
