@@ -8,14 +8,17 @@ import cptkip.core.environment as environment
 
 if environment.are_pins_available():
     try:
+        # noinspection PyUnresolvedReferences
         from audiomp3 import MP3Decoder
     except ImportError:
         pass
 
     try:
+        # noinspection PyPackageRequirements
         from audioio import AudioOut
     except ImportError:
         try:
+            # noinspection PyUnresolvedReferences
             from audiopwmio import PWMAudioOut as AudioOut
         except ImportError:
             pass  # not always supported by every board!
@@ -62,7 +65,7 @@ else:
     class Audio:
 
         def __init__(self, pin):
-            pass
+            self.pin = pin
 
         def deinit(self) -> None:
             pass

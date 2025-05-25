@@ -63,4 +63,5 @@ def create(pin, num_pixels: int, brightness: float = 1.0) -> Pixels:
     pixels: Pixels = Pixels(pin, num_pixels, brightness=max(min(brightness, 1.0), 0.0), auto_write=False)
     pixels.fill(OFF)
     pixels.write()
+    # noinspection PyTypeChecker
     return pixels

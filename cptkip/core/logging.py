@@ -10,6 +10,7 @@ LEVEL = WARNING
 C = "CRITICAL"
 E = "ERROR   "
 W = "WARN    "
+# noinspection PyPep8
 I = "INFO    "
 D = "DEBUG   "
 

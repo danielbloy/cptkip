@@ -10,6 +10,7 @@ class TestNode:
         """
 
         # These are just random configuration values from the config.
+        # noinspection PyUnresolvedReferences
         assert configuration.TRIGGER_DISTANCE == 99999
         assert configuration.TEST_STRING == "Hello world!"
         assert configuration.TEST_VALUE == 123.456
