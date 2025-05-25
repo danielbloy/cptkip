@@ -171,10 +171,10 @@ def execute_pwm_audio():
     import time
 
     import cptkip.config.configuration as config
-    import cptkip.device.pwm_audio as pwmaudio
+    import cptkip.device.pwm_audio as pwm_audio
 
-    audio = pwmaudio.Audio(config.BUZZER_PIN)
-    queue = pwmaudio.Queue(audio)
+    audio = pwm_audio.Audio(config.BUZZER_PIN if config.BUZZER_PIN else "none")
+    queue = pwm_audio.Queue(audio)
     queue.queue("tests/validate/lion.mp3")
     queue.queue("tests/validate/lion.mp3")
 

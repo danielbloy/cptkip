@@ -82,5 +82,5 @@ if environment.are_pins_available():
 
     BUZZER_PIN = board.GP3
 
-if not PIXELS_PIN:
+if not BUZZER_PIN:
     print('No Buzzer found')
