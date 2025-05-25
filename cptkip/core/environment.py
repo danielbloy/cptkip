@@ -45,6 +45,7 @@ if not __are_pins_available and os.getenv("BLINKA_U2IF") == "1":
     try:
         # If this works, we assume this means that we have access to pins either
         # through Blinka on a Desktop or because we are running on a microcontroller.
+        # noinspection PyPackageRequirements
         import board
 
         __are_pins_available = True

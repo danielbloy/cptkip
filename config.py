@@ -24,6 +24,7 @@ if environment.are_pins_available():
         print('Using LED')
     except AttributeError:
         try:
+            # noinspection PyUnresolvedReferences
             LED_PIN = board.LED_G
             LED_INVERT = True
             print('Using LED_G')

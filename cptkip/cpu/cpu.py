@@ -4,6 +4,7 @@ if environment.is_running_on_microcontroller():
     import microcontroller
 
 
+# noinspection PyUnresolvedReferences
 def info():
     """
     Returns some basic information about the state of the CPU.
@@ -23,6 +24,7 @@ def info():
         }
 
 
+# noinspection PyUnresolvedReferences
 def restart():
     """
     Reboots the microcontroller; does nothing for a non-microcontroller.
