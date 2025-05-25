@@ -24,72 +24,62 @@ if environment.are_pins_available():
             pass  # not always supported by every board!
 
 
-    class Audio:
+class Audio:
+    """
+    Audio wraps up AudioOut and an MP3 Decoder to make it simpler to play
+    music. It is a relatively light wrapper buts saves some boiler plate.
+    """
 
-        def __init__(self, pin):
+    def __init__(self, pin):
+        if pin is None:
+            raise ValueError("pin cannot be None")
+
+        self.pin = pin
+        self.audio = None
+        self.decoder = None
+
+        if environment.are_pins_available():
             self.audio = AudioOut(pin)
             # You have to specify some mp3 file when creating the decoder
             decoder = MP3Decoder(open("cptkip/mp3.mp3", "rb"))
             self.decoder = decoder
 
-        def deinit(self) -> None:
+    def deinit(self) -> None:
+        if self.audio:
             self.decoder.deinit()
             self.audio.deinit()
+            self.pin.deinit()
+            self.decoder = None
+            self.audio = None
+            self.pin = None
 
-        def play(self, filename: str):
-            if filename is None or len(filename) <= 0:
-                raise ValueError("filename must be specified")
+    def play(self, filename: str) -> None:
+        if filename is None or len(filename) <= 0:
+            raise ValueError("filename must be specified")
 
+        if self.audio:
             self.decoder.file = open(filename, "rb")
             self.audio.play(self.decoder)
 
-        @property
-        def playing(self) -> bool:
-            return self.audio.playing
+    @property
+    def playing(self) -> bool:
+        return self.audio.playing if self.audio else False
 
-        @property
-        def paused(self) -> bool:
-            return self.audio.paused
+    @property
+    def paused(self) -> bool:
+        return self.audio.paused if self.audio else False
 
-        def pause(self):
-            return self.audio.pause()
+    def pause(self) -> None:
+        if self.audio:
+            self.audio.pause()
 
-        def resume(self):
-            return self.audio.resume()
+    def resume(self) -> None:
+        if self.audio:
+            self.audio.resume()
 
-        def stop(self):
-            return self.audio.stop()
-
-else:
-
-    class Audio:
-
-        def __init__(self, pin):
-            self.pin = pin
-
-        def deinit(self) -> None:
-            pass
-
-        def play(self, filename: str):
-            if filename is None or len(filename) <= 0:
-                raise ValueError("filename must be specified")
-
-        @property
-        def playing(self) -> bool:
-            return False
-
-        @property
-        def paused(self) -> bool:
-            return False
-
-        def pause(self):
-            pass
-
-        def resume(self):
-            pass
-
-        def stop(self):
-            pass
+    def stop(self) -> None:
+        if self.audio:
+            self.audio.stop()
 
 
 class Queue:

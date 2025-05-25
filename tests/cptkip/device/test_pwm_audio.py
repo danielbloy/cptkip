@@ -70,7 +70,7 @@ class TestAudio:
 
 class MockAudio(Audio):
     def __init__(self):
-        super().__init__(None)
+        super().__init__("pin")
         self.playing_count = 0
         self.filename = ""
         self.files = []
