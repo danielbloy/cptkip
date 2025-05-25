@@ -5,9 +5,67 @@ from cptkip.device.pwm_audio import Audio, Queue
 
 class TestAudio:
 
-    @pytest.mark.skip(reason="tests not implemented yet")
-    def test_write_tests(self) -> None:
-        assert False
+    def test_creating_with_none_audio_errors(self) -> None:
+        """
+        Validates an Audio cannot be constructed with a None value.
+        """
+        with pytest.raises(ValueError):
+            # noinspection PyTypeChecker
+            Audio(None)
+
+    def test_play_validates_name(self) -> None:
+        """Validates a name cannot be none or an empty string."""
+        audio = Audio(1)
+
+        with pytest.raises(ValueError):
+            # noinspection PyTypeChecker
+            audio.play(None)
+
+        with pytest.raises(ValueError):
+            # noinspection PyTypeChecker
+            audio.play("")
+
+    def test_play_can_be_called(self) -> None:
+        """Validate that play() can be called safely."""
+        audio = Audio(1)
+        audio.play("my-file.mp3")
+        audio.play("another-file.mp3")
+
+    def test_deinit_can_be_called(self) -> None:
+        """Validate that deinit() can be called safely."""
+        audio = Audio(1)
+        audio.deinit()
+        audio.deinit()
+
+    def test_playing_can_be_called(self) -> None:
+        """Validate that playing() can be called safely."""
+        audio = Audio(1)
+        assert not audio.playing
+        assert not audio.playing
+
+    def test_paused_can_be_called(self) -> None:
+        """Validate that paused() can be called safely."""
+        audio = Audio(1)
+        assert not audio.paused
+        assert not audio.paused
+
+    def test_pause_can_be_called(self) -> None:
+        """Validate that pause() can be called safely."""
+        audio = Audio(1)
+        audio.pause()
+        audio.pause()
+
+    def test_resume_can_be_called(self) -> None:
+        """Validate that resume() can be called safely."""
+        audio = Audio(1)
+        audio.resume()
+        audio.resume()
+
+    def test_stop_can_be_called(self) -> None:
+        """Validate that stop() can be called safely."""
+        audio = Audio(1)
+        audio.stop()
+        audio.stop()
 
 
 class MockAudio(Audio):
