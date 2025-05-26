@@ -4,7 +4,7 @@ import time
 
 import tests.cptkip.utilities as utils
 from cptkip.core.control import NS_PER_SECOND
-from cptkip.task.periodic_task import create
+from cptkip.task.periodic_task_async import create
 
 
 # noinspection PyTypeChecker,PyUnresolvedReferences

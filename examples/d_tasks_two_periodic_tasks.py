@@ -6,8 +6,8 @@ import time
 
 import cptkip.core.logging as log
 import cptkip.core.memory as memory
-import cptkip.task.basic_runner as runner
-import cptkip.task.periodic_task as periodic_task
+import cptkip.task.basic_runner_async as runner
+import cptkip.task.periodic_task_async as periodic_task
 
 memory.report_memory_usage()
 

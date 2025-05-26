@@ -2,8 +2,8 @@ def execute():
     import time
 
     import cptkip.core.logging as log
-    import cptkip.task.basic_runner as runner
-    import cptkip.task.periodic_task as periodic_task
+    import cptkip.task.basic_runner_async as runner
+    import cptkip.task.periodic_task_async as periodic_task
 
     log.set_log_level(log.INFO)
 

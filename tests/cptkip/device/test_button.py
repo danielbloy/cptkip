@@ -1,7 +1,7 @@
 import asyncio
 
 import cptkip.device.button as button
-import cptkip.task.periodic_task as periodic_task
+import cptkip.task.periodic_task_async as periodic_task
 import tests.cptkip.utilities as utils
 
 

@@ -1,6 +1,6 @@
 import pytest
 
-from cptkip.task.basic_runner import run
+from cptkip.task.basic_runner_async import run
 
 
 class TestBasicRunner:
