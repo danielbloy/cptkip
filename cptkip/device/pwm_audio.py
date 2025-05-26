@@ -48,7 +48,6 @@ class Audio:
         if self.audio:
             self.decoder.deinit()
             self.audio.deinit()
-            self.pin.deinit()
             self.decoder = None
             self.audio = None
             self.pin = None

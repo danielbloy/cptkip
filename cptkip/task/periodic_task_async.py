@@ -1,3 +1,4 @@
+import asyncio
 import time
 
 import cptkip.core.control as control
@@ -5,18 +6,18 @@ import cptkip.core.environment as environment
 
 # collections.abc is not available in CircuitPython.
 if environment.is_running_on_desktop():
-    from collections.abc import Callable
+    from collections.abc import Callable, Awaitable
 
 
 def create(
-        func: Callable[[], None],
+        func: Callable[[], Awaitable[None]],
         frequency: int = 0,
         continue_func: Callable[[], bool] = None,
-        begin: Callable[[], None] = None,
-        end: Callable[[], None] = None,
-        initial_delay: float = 0.0) -> Callable[[], bool]:
+        begin: Callable[[], Awaitable[None]] = None,
+        end: Callable[[], Awaitable[None]] = None,
+        initial_delay: float = 0.0) -> Callable[[], Awaitable[None]]:
     """
-    Creates a function that will execute the given function at the
+    Creates an asynchronous function that will execute the given function at the
     specified frequency for as long as the continue_func returns true. The initial
     invocation of func can be delayed by setting an initial_delay. If a frequency
     of zero is provided then func will be executed as fast as possible. A frequency
@@ -38,31 +39,25 @@ def create(
     if frequency > 0:
         interval = 1 / frequency
     interval_ns: int = int(interval * control.NS_PER_SECOND)
-    next_callback_ns: int = 0
-    begin_called: bool = False
 
-    def handler() -> bool:
-        nonlocal begin_called, next_callback_ns
-        if not begin_called:
-            if begin:
-                begin()
-            begin_called = True
-            next_callback_ns = time.monotonic_ns() + int(max(initial_delay, 0.0) * control.NS_PER_SECOND)
-            return True
+    sleep_interval = interval / control.PERIODIC_LOOP_WAIT_RATIO
 
-        carry_on_looping = not continue_func or continue_func()
-        if carry_on_looping:
+    async def handler() -> None:
+        if begin:
+            await begin()
+
+        next_callback_ns = time.monotonic_ns() + int(max(initial_delay, 0.0) * control.NS_PER_SECOND)
+        while not continue_func or continue_func():
             now = time.monotonic_ns()
             if now >= next_callback_ns:
                 if frequency > 0:
                     while now >= next_callback_ns:
                         next_callback_ns += interval_ns
-                func()
-            return True
+                await func()
+
+            await asyncio.sleep(sleep_interval)
 
         if end:
-            end()
-
-        return False
+            await end()
 
     return handler

@@ -1,22 +1,15 @@
-import asyncio
-
 import cptkip.core.environment as environment
 
 # collections.abc is not available in CircuitPython.
 if environment.is_running_on_desktop():
-    from collections.abc import Callable, Awaitable
+    from collections.abc import Callable
 
 
-def run(funcs: list[Callable[[], Awaitable[None]]]) -> None:
+def run(funcs: list[Callable[[], bool]]) -> None:
     """
-    Simply runs a list of functions and waits for them to finish.
-    No error handling is performed.
+    Simply runs a list of functions and waits for them to finish (by
+    returning False). No error handling is performed.
     """
 
-    async def execute() -> None:
-        # noinspection PyTypeChecker
-        tasks: list[asyncio.Task] = [asyncio.create_task(func()) for func in funcs]
-
-        await asyncio.gather(*tasks)
-
-    asyncio.run(execute())
+    while len(funcs):
+        funcs = [func for func in funcs if func()]

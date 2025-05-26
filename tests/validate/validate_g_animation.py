@@ -6,7 +6,7 @@ def execute():
     import cptkip.animation.flicker as animation
     import cptkip.config.configuration as config
     import cptkip.device.pixels as pixel
-    import cptkip.task.basic_runner as runner
+    import cptkip.task.basic_runner_async as runner
 
     pixels = pixel.create(config.PIXELS_PIN, 8, brightness=0.5)
     flicker = animation.Flicker(pixels, speed=0.1, color=AMBER, spacing=2)

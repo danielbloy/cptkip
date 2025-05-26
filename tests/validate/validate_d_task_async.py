@@ -2,8 +2,8 @@ def execute():
     import time
 
     import cptkip.core.logging as log
-    import cptkip.task.basic_runner as runner
-    import cptkip.task.periodic_task as periodic_task
+    import cptkip.task.basic_runner_async as runner
+    import cptkip.task.periodic_task_async as periodic_task
 
     log.set_log_level(log.INFO)
 
@@ -18,21 +18,21 @@ def execute():
     def should_continue() -> bool:
         return time.monotonic() < finish
 
-    def one() -> None:
+    async def one() -> None:
         nonlocal one_count
         one_count += 1
 
-    def two() -> None:
+    async def two() -> None:
         nonlocal two_count
         two_count += 1
 
     # Executed once at the beginning and before any initial delay.
-    def begin() -> None:
+    async def begin() -> None:
         nonlocal begin_count
         begin_count += 1
 
     # Executed once at the end.
-    def end() -> None:
+    async def end() -> None:
         nonlocal end_count
         end_count += 1
 

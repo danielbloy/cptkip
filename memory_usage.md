@@ -152,7 +152,7 @@ Code under test:
 ```python
 import asyncio
 
-import cptkip.task.basic_runner as runner
+import cptkip.task.basic_runner_async as runner
 
 
 async def task() -> None:
@@ -174,8 +174,8 @@ Code under test:
 
 ```python
 import time, asyncio
-import cptkip.task.basic_runner as runner
-import cptkip.task.periodic_task as periodic_task
+import cptkip.task.basic_runner_async as runner
+import cptkip.task.periodic_task_async as periodic_task
 
 finish = time.monotonic() + 1
 
