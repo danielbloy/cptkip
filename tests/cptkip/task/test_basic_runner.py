@@ -1,9 +1,9 @@
 import pytest
 
-from cptkip.task.basic_runner_async import run
+from cptkip.task.basic_runner import run
 
 
-class TestBasicRunnerAsync:
+class TestBasicRunner:
 
     def test_run_with_no_tasks(self):
         """
@@ -17,9 +17,10 @@ class TestBasicRunnerAsync:
         """
         one_count: int = 0
 
-        async def one() -> None:
+        def one() -> bool:
             nonlocal one_count
             one_count += 1
+            return False
 
         run([one])
 
@@ -32,13 +33,15 @@ class TestBasicRunnerAsync:
         one_count: int = 0
         two_count: int = 0
 
-        async def one() -> None:
+        def one() -> bool:
             nonlocal one_count
             one_count += 1
+            return False
 
-        async def two() -> None:
+        def two() -> bool:
             nonlocal two_count
             two_count += 1
+            return False
 
         run([one, two])
 
@@ -51,7 +54,7 @@ class TestBasicRunnerAsync:
         basic runner has no error handling.
         """
 
-        async def raise_exception() -> None:
+        def raise_exception() -> bool:
             raise Exception
 
         with pytest.raises(Exception):

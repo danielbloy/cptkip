@@ -8,7 +8,7 @@ from cptkip.task.periodic_task_async import create
 
 
 # noinspection PyTypeChecker,PyUnresolvedReferences
-class TestPeriodicTask:
+class TestPeriodicTaskAsync:
 
     def test_using_default_values(self):
         """
