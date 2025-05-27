@@ -167,7 +167,63 @@ class TestLed:
         assert pin.value_count == 0
         assert pin.value == 0.0
 
-    # TODO: Test on and off
+    def test_on_and_off(self):
+        """
+        Validates that the on() and off() functions correctly sets the brightness and
+        only writes to the pin when auto_write is True.
+        """
+        # Now make one with auto write on
+        pin = MockPwmPin()
+        led = Led(pin)
+        assert led.auto_write
+        assert led.n == 1
+        assert len(led) == 1
+
+        assert led.brightness == 1.0
+        assert pin.value_count == 1
+        assert pin.value == 1.0
+
+        led.on()
+        assert led.brightness == 1.0
+        assert pin.value_count == 1
+        assert pin.value == 1.0
+
+        led.off()
+        assert led.brightness == 0.0
+        assert pin.value_count == 2
+        assert pin.value == 0.0
+
+        led.on()
+        assert led.brightness == 1.0
+        assert pin.value_count == 3
+        assert pin.value == 1.0
+
+        # Now make one with auto write off
+        pin = MockPwmPin()
+        led = Led(pin, auto_write=False)
+        assert not led.auto_write
+        assert led.n == 1
+        assert len(led) == 1
+
+        assert led.brightness == 1.0
+        assert pin.value_count == 0  # Validate it writes
+        assert pin.value == 0.0
+
+        led.on()
+        assert led.brightness == 1.0
+        assert pin.value_count == 0
+        assert pin.value == 0.0
+
+        led.off()
+        assert led.brightness == 0.0
+        assert pin.value_count == 0
+        assert pin.value == 0.0
+
+        led.on()
+        assert led.brightness == 1.0
+        assert pin.value_count == 0
+        assert pin.value == 0.0
+
     # TODO: Test show
     # TODO: Test fill
     # TODO: Test get and set item
