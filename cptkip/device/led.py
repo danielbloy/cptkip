@@ -32,7 +32,7 @@ class Led:
 
         self.pin = pin
         self.auto_write = auto_write
-        self._brightness = 1.0
+        self._brightness = -1.0  # Sets up the initial variable and forces a "change".
         self.brightness = brightness
 
     def deinit(self) -> None:
