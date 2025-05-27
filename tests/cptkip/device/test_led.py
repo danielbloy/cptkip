@@ -46,6 +46,7 @@ class TestLed:
         assert led.n == 1
         assert len(led) == 1
         assert pin.value_count == 1  # Validate it writes
+        assert pin.value == 1.0
 
         # Now make one with auto write off
         pin = MockPwmPin()
@@ -55,6 +56,7 @@ class TestLed:
         assert led.n == 1
         assert len(led) == 1
         assert pin.value_count == 0  # Validate it writes
+        assert pin.value == 0.0
 
     def test_deinit_can_be_called_multiple_times(self):
         """
@@ -70,16 +72,22 @@ class TestLed:
 
         assert led.brightness == 1.0
         assert pin.value_count == 1
+        assert pin.value == 1.0
 
         led.deinit()
         assert led.brightness == 0.0
         assert pin.value_count == 4  # Validate it writes
+        assert pin.value == 0.0
+
         led.deinit()
         assert led.brightness == 0.0
         assert pin.value_count == 6  # Validate it writes
+        assert pin.value == 0.0
+
         led.deinit()
         assert led.brightness == 0.0
         assert pin.value_count == 8  # Validate it writes
+        assert pin.value == 0.0
 
         # Now make one with auto write off
         pin = MockPwmPin()
@@ -89,16 +97,24 @@ class TestLed:
         assert len(led) == 1
 
         assert led.brightness == 1.0
-        assert pin.value_count == 0  # Validate it writes
-        led.deinit()
-        assert led.brightness == 0.0
+        assert pin.value == 0.0
+        pin.value = 1.0
         assert pin.value_count == 1  # Validate it writes
+
         led.deinit()
         assert led.brightness == 0.0
         assert pin.value_count == 2  # Validate it writes
+        assert pin.value == 0.0
+
         led.deinit()
         assert led.brightness == 0.0
         assert pin.value_count == 3  # Validate it writes
+        assert pin.value == 0.0
+
+        led.deinit()
+        assert led.brightness == 0.0
+        assert pin.value_count == 4  # Validate it writes
+        assert pin.value == 0.0
 
     def test_brightness(self):
         """
@@ -114,16 +130,19 @@ class TestLed:
 
         assert led.brightness == 1.0
         assert pin.value_count == 1
+        assert pin.value == 1.0
 
         # Write the same value and there should be no change.
         led.brightness = 1.0
         assert led.brightness == 1.0
         assert pin.value_count == 1
+        assert pin.value == 1.0
 
         # Now make a change
         led.brightness = 0.5
         assert led.brightness == 0.5
         assert pin.value_count == 2
+        assert pin.value == 0.5
 
         # Now make one with auto write off
         pin = MockPwmPin()
@@ -134,16 +153,21 @@ class TestLed:
 
         assert led.brightness == 1.0
         assert pin.value_count == 0  # Validate it writes
+        assert pin.value == 0.0
 
         # Write the same value and there should be no change.
         led.brightness = 1.0
         assert led.brightness == 1.0
         assert pin.value_count == 0
+        assert pin.value == 0.0
 
         # Now make a change; should not write.
         led.brightness = 0.5
         assert led.brightness == 0.5
         assert pin.value_count == 0
+        assert pin.value == 0.0
 
     # TODO: Test on and off
-    # TODO: Test brightness
+    # TODO: Test show
+    # TODO: Test fill
+    # TODO: Test get and set item
