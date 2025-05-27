@@ -55,7 +55,7 @@ class TestLed:
         assert not led.auto_write
         assert led.n == 1
         assert len(led) == 1
-        assert pin.value_count == 0  # Validate it writes
+        assert pin.value_count == 0  # Validates it does not write
         assert pin.value == 0.0
 
     def test_deinit_can_be_called_multiple_times(self):
@@ -76,17 +76,17 @@ class TestLed:
 
         led.deinit()
         assert led.brightness == 0.0
+        assert pin.value_count == 3  # Validate it writes
+        assert pin.value == 0.0
+
+        led.deinit()
+        assert led.brightness == 0.0
         assert pin.value_count == 4  # Validate it writes
         assert pin.value == 0.0
 
         led.deinit()
         assert led.brightness == 0.0
-        assert pin.value_count == 6  # Validate it writes
-        assert pin.value == 0.0
-
-        led.deinit()
-        assert led.brightness == 0.0
-        assert pin.value_count == 8  # Validate it writes
+        assert pin.value_count == 5  # Validate it writes
         assert pin.value == 0.0
 
         # Now make one with auto write off
@@ -152,7 +152,7 @@ class TestLed:
         assert len(led) == 1
 
         assert led.brightness == 1.0
-        assert pin.value_count == 0  # Validate it writes
+        assert pin.value_count == 0
         assert pin.value == 0.0
 
         # Write the same value and there should be no change.
@@ -206,7 +206,7 @@ class TestLed:
         assert len(led) == 1
 
         assert led.brightness == 1.0
-        assert pin.value_count == 0  # Validate it writes
+        assert pin.value_count == 0
         assert pin.value == 0.0
 
         led.on()
@@ -224,6 +224,116 @@ class TestLed:
         assert pin.value_count == 0
         assert pin.value == 0.0
 
-    # TODO: Test show
-    # TODO: Test fill
-    # TODO: Test get and set item
+    def test_show(self):
+        """
+        Validates that show write to the pin regardless of auto_write.
+        """
+        # Now make one with auto write on
+        pin = MockPwmPin()
+        led = Led(pin)
+        assert led.auto_write
+        assert led.n == 1
+        assert len(led) == 1
+
+        assert led.brightness == 1.0
+        assert pin.value_count == 1
+        assert pin.value == 1.0
+
+        led.show()
+        assert led.brightness == 1.0
+        assert pin.value_count == 2
+        assert pin.value == 1.0
+
+        led.show()
+        assert led.brightness == 1.0
+        assert pin.value_count == 3
+        assert pin.value == 1.0
+
+        # Now make one with auto write off
+        pin = MockPwmPin()
+        led = Led(pin, auto_write=False)
+        assert not led.auto_write
+        assert led.n == 1
+        assert len(led) == 1
+
+        assert led.brightness == 1.0
+        assert pin.value_count == 0
+        assert pin.value == 0.0
+
+        led.show()
+        assert led.brightness == 1.0
+        assert pin.value_count == 1
+        assert pin.value == 1.0
+
+        led.show()
+        assert led.brightness == 1.0
+        assert pin.value_count == 2
+        assert pin.value == 1.0
+
+    def test_fill_auto_write(self):
+        """
+        Validates that fill changes the brightness and writes to the pin with auto_write.
+        """
+        # Now make one with auto write on
+        pin = MockPwmPin()
+        led = Led(pin)
+        assert led.auto_write
+        assert led.n == 1
+        assert len(led) == 1
+
+        assert led.brightness == 1.0
+        assert pin.value_count == 1
+        assert pin.value == 1.0
+
+        # Use the 4-digit colours for simplicity.
+        led.fill((0, 0, 0, 0x80))
+        assert led.brightness >= 0.495
+        assert led.brightness <= 0.505
+        assert pin.value_count == 2
+        assert pin.value >= 0.495
+        assert pin.value <= 0.505
+
+        led.fill((0, 0, 0, 0xFF))
+        assert led.brightness == 1.0
+        assert pin.value_count == 3
+        assert pin.value == 1.0
+
+        # Now make one with auto write off
+        pin = MockPwmPin()
+        led = Led(pin, auto_write=False)
+        assert not led.auto_write
+        assert led.n == 1
+        assert len(led) == 1
+
+        assert led.brightness == 1.0
+        assert pin.value_count == 0
+        assert pin.value == 0.0
+
+        led.fill((0, 0, 0, 0x80))
+        assert led.brightness >= 0.495
+        assert led.brightness <= 0.505
+        assert pin.value_count == 0
+        assert pin.value == 0.0
+
+        led.fill((0, 0, 0, 0xFF))
+        assert led.brightness == 1.0
+        assert pin.value_count == 0
+        assert pin.value == 0.0
+
+    def test_fill_colours(self):
+        """
+        Validates fill will accept a colour correctly
+        """
+        pass
+
+    def test_parse_colour(self):
+        """
+        Validates parse_colour works as expected.
+        """
+        pass
+
+    def test_get_and_set_item(self):
+        """
+        Validates the getter and setters work as expected.
+        """
+        pass

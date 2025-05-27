@@ -77,8 +77,6 @@ class Led:
     def fill(self, color: ColorUnion):
         r, g, b, w = self._parse_color(color)
         self.brightness = w / 0xFF
-        if self.auto_write:
-            self.show()
 
     @staticmethod
     def _parse_color(value: ColorUnion) -> Tuple[int, int, int, int]:
