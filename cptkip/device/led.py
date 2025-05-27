@@ -32,7 +32,7 @@ class Led:
 
         self.pin = pin
         self.auto_write = auto_write
-        self._brightness = 1.0
+        self._brightness = -1.0  # Sets up the initial variable and forces a "change".
         self.brightness = brightness
 
     def deinit(self) -> None:
@@ -77,8 +77,6 @@ class Led:
     def fill(self, color: ColorUnion):
         r, g, b, w = self._parse_color(color)
         self.brightness = w / 0xFF
-        if self.auto_write:
-            self.show()
 
     @staticmethod
     def _parse_color(value: ColorUnion) -> Tuple[int, int, int, int]:

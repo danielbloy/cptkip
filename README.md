@@ -55,7 +55,6 @@ The following functionality remains to be ported over from `pico-interactive`
 * Triggered Task - async and non async
 * Timed Events Task - async and non async
 * One time on/off task - async and non async
-* LED - device test
 * Melody - device test
 * Melody - reduce memory requirements
 * Melody - consider reworking code to use
