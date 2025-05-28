@@ -40,7 +40,7 @@ import adafruit_logging as logging
 | RAM at Finish before GC | Used: 8,016 bytes |
 | RAM at Finish after GC  | Used: 8,016 bytes |
 
-## `cptkip.core.environment.py`
+## `cptkip/core/environment.py`
 
 Code under test:
 
@@ -54,13 +54,13 @@ print('Is running on a desktop .......... : ', environment.is_running_on_desktop
 print('Are pins available ............... : ', environment.are_pins_available())
 ```
 
-| `cptkip.core.environment.py` |                   |
+| `cptkip/core/environment.py` |                   |
 |------------------------------|-------------------|
 | Ram at Start                 | Used: 1,376 bytes |
 | RAM at Finish before GC      | Used: 2,912 bytes |
 | RAM at Finish after GC       | Used: 2,912 bytes |
 
-## `cptkip.core.logging.py`
+## `cptkip/core/logging.py`
 
 Code under test:
 
@@ -74,13 +74,13 @@ log.info('This information text will appear with log level info')
 log.debug('This debug text will NOT appear with log level info')
 ```
 
-| `cptkip.core.logging.py` |                   |
+| `cptkip/core/logging.py` |                   |
 |--------------------------|-------------------|
 | Ram at Start             | Used: 1,312 bytes |
 | RAM at Finish before GC  | Used: 3,856 bytes |
 | RAM at Finish after GC   | Used: 3,856 bytes |
 
-## `cptkip.core.memory.py`
+## `cptkip/core/memory.py`
 
 Code under test:
 
@@ -91,13 +91,13 @@ memory.report_memory_usage()
 memory.report_memory_usage_and_free()
 ```
 
-| `cptkip.core.memory.py` |                   |
+| `cptkip/core/memory.py` |                   |
 |-------------------------|-------------------|
 | Ram at Start            | Used: 864 bytes   |
 | RAM at Finish before GC | Used: 4,800 bytes |
 | RAM at Finish after GC  | Used: 4,608 bytes |
 
-## `cptkip.config/configuration.py`
+## `cptkip/config/configuration.py`
 
 Code under test (using the config file form `examples`):
 
@@ -109,13 +109,13 @@ print('Test string .. :', config.TEST_STRING)
 print('Debug ........ :', config.DEBUG)
 ```
 
-| `cptkip.config.configuration.py` |                   |
+| `cptkip/config/configuration.py` |                   |
 |----------------------------------|-------------------|
 | Ram at Start                     | Used: 1,040 bytes |
 | RAM at Finish before GC          | Used: 5,200 bytes |
 | RAM at Finish after GC           | Used: 5,200 bytes |
 
-## `cptkip.cpu.cpu.py`
+## `cptkip/cpu/cpu.py`
 
 Code under test:
 
@@ -125,11 +125,11 @@ import cptkip.cpu.cpu as cpu
 cpu.info()
 ```
 
-| `cptkip.cpu.cpu.py`     |                   |
+| `cptkip/cpu/cpu.py`     |                   |
 |-------------------------|-------------------|
 | Ram at Start            | Used: 848 bytes   |
-| RAM at Finish before GC | Used: 3,040 bytes |
-| RAM at Finish after GC  | Used: 2,992 bytes |
+| RAM at Finish before GC | Used: 3,056 bytes |
+| RAM at Finish after GC  | Used: 3,008 bytes |
 
 ## `asyncio`
 
@@ -145,7 +145,32 @@ import asyncio
 | RAM at Finish before GC | Used: 8,192 bytes |
 | RAM at Finish after GC  | Used: 8,192 bytes |
 
-## `cptkip.task.basic_runner.py`
+## `cptkip/task/basic_runner.py`
+
+Code under test:
+
+```python
+import time
+import cptkip.task.basic_runner as runner
+
+# Run the loop for 1 seconds
+finish = time.monotonic() + 1
+
+
+def task() -> bool:
+    return time.monotonic() < finish
+
+
+runner.run([task])
+```
+
+| `cptkip/task/basic_runner` |                   |
+|----------------------------|-------------------|
+| Ram at Start               | Used: 928 bytes   |
+| RAM at Finish before GC    | Used: 8,176 bytes |
+| RAM at Finish after GC     | Used: 3,168 bytes |
+
+## `cptkip/task/basic_runner_async.py`
 
 Code under test:
 
@@ -162,13 +187,44 @@ async def task() -> None:
 runner.run([task])
 ```
 
-| `cptkip.task.basic_runner` |                    |
-|----------------------------|--------------------|
-| Ram at Start               | Used: 944 bytes    |
-| RAM at Finish before GC    | Used: 12,544 bytes |
-| RAM at Finish after GC     | Used: 11,824 bytes |
+| `cptkip/task/basic_runner_async` |                    |
+|----------------------------------|--------------------|
+| Ram at Start                     | Used: 944 bytes    |
+| RAM at Finish before GC          | Used: 12,560 bytes |
+| RAM at Finish after GC           | Used: 11,840 bytes |
 
-## `cptkip.task.periodic_task.py`
+## `cptkip/task/periodic_task.py`
+
+Code under test:
+
+```python
+import time
+import cptkip.task.basic_runner as runner
+import cptkip.task.periodic_task as periodic_task
+
+finish = time.monotonic() + 1
+
+
+def should_continue() -> bool:
+    return time.monotonic() < finish
+
+
+def one() -> None:
+    pass
+
+
+task_one = periodic_task.create(one, frequency=3, continue_func=should_continue)
+
+runner.run([task_one])
+```
+
+| `cptkip/task/periodic_task` |                   |
+|-----------------------------|-------------------|
+| Ram at Start                | Used: 1,136 bytes |
+| RAM at Finish before GC     | Used: 7,888 bytes |
+| RAM at Finish after GC      | Used: 4,816 bytes |
+
+## `cptkip/task/periodic_task_async.py`
 
 Code under test:
 
@@ -193,13 +249,13 @@ task_one = periodic_task.create(one, frequency=3, continue_func=should_continue)
 runner.run([task_one])
 ```
 
-| `cptkip.task.periodic_task` |                    |
-|-----------------------------|--------------------|
-| Ram at Start                | Used: 1,168 bytes  |
-| RAM at Finish before GC     | Used: 16,368 bytes |
-| RAM at Finish after GC      | Used: 14,144 bytes |
+| `cptkip/task/periodic_task_async` |                    |
+|-----------------------------------|--------------------|
+| Ram at Start                      | Used: 1,184 bytes  |
+| RAM at Finish before GC           | Used: 16,368 bytes |
+| RAM at Finish after GC            | Used: 14,144 bytes |
 
-## `cptkip.hal.digitalpin.py`
+## `cptkip/hal/digitalpin.py`
 
 Code under test:
 
@@ -212,13 +268,13 @@ led.value = True
 led.value = False
 ```
 
-| `cptkip.hal.digitalpin.py` |                   |
+| `cptkip/hal/digitalpin.py` |                   |
 |----------------------------|-------------------|
 | Ram at Start               | Used: 912 bytes   |
-| RAM at Finish before GC    | Used: 6,080 bytes |
-| RAM at Finish after GC     | Used: 6,080 bytes |
+| RAM at Finish before GC    | Used: 6,064 bytes |
+| RAM at Finish after GC     | Used: 6,064 bytes |
 
-## `cptkip.hal.pwmpin.py`
+## `cptkip/hal/pwmpin.py`
 
 Code under test:
 
@@ -232,13 +288,13 @@ led.value = 0.2
 led.off()
 ```
 
-| `cptkip.hal.pwmpin.py`  |                   |
+| `cptkip/hal/pwmpin.py`  |                   |
 |-------------------------|-------------------|
 | Ram at Start            | Used: 928 bytes   |
 | RAM at Finish before GC | Used: 6,128 bytes |
 | RAM at Finish after GC  | Used: 6,128 bytes |
 
-## `cptkip.hal.pixels.py`
+## `cptkip/hal/pixels.py`
 
 Code under test:
 
@@ -267,13 +323,13 @@ pixels.fill(pixel.OFF)
 pixels.write()
 ```
 
-| `cptkip.hal.pixels.py`  |                   |
+| `cptkip/hal/pixels.py`  |                   |
 |-------------------------|-------------------|
 | Ram at Start            | Used: 1,040 bytes |
 | RAM at Finish before GC | Used: 9,024 bytes |
 | RAM at Finish after GC  | Used: 7,744 bytes |
 
-## `animation.rainbow`
+## `animation/rainbow`
 
 Code under test:
 
@@ -297,13 +353,13 @@ pixels.fill(pixel.OFF)
 pixels.write()
 ```
 
-| `animation.rainbow.py`  |                    |
+| `animation/rainbow.py`  |                    |
 |-------------------------|--------------------|
 | Ram at Start            | Used: 1,152 bytes  |
-| RAM at Finish before GC | Used: 17,184 bytes |
+| RAM at Finish before GC | Used: 25,888 bytes |
 | RAM at Finish after GC  | Used: 15,872 bytes |
 
-## `cptkip.device.button.py`
+## `cptkip/device/button.py`
 
 Code under test:
 
@@ -328,13 +384,13 @@ while time.monotonic() < finish:
     button.update()
 ```
 
-| `cptkip.device.button.py` |                    |
+| `cptkip/device/button.py` |                    |
 |---------------------------|--------------------|
 | Ram at Start              | Used: 1,168 bytes  |
 | RAM at Finish before GC   | Used: 11,968 bytes |
 | RAM at Finish after GC    | Used: 11,920 bytes |
 
-## `cptkip.device.led.py`
+## `cptkip/device/led.py`
 
 Code under test:
 
@@ -360,11 +416,59 @@ animation.freeze()
 led.off()
 ```
 
-| `cptkip.device.led.py`  |                    |
+| `cptkip/device/led.py`  |                    |
 |-------------------------|--------------------|
 | Ram at Start            | Used: 1,568 bytes  |
-| RAM at Finish before GC | Used: 30,560 bytes |
-| RAM at Finish after GC  | Used: 14,912 bytes |
+| RAM at Finish before GC | Used: 20,816 bytes |
+| RAM at Finish after GC  | Used: 14,896 bytes |
+
+## `cptkip/device/melody.py`
+
+Code under test:
+
+```python
+import time
+
+import cptkip.config.configuration as config
+import cptkip.device.melody as melody
+import cptkip.pin.buzzer_pin as buzzerpin
+
+pin = buzzerpin.BuzzerPin(config.BUZZER_PIN)
+pin.volume = 0.1
+
+scale = [
+    "C4:1", "D:1", "E:1", "F:1", "G:1", "A:1", "B:1", "C5:1",
+    "B4:1", "A:1", "G:1", "F:1", "E:1", "D:1", "C:1"]
+
+jingle_bells = [
+    "E4:2", "E:2", "E:4", "E:2", "E:2", "E:4",
+    "E:2", "G:2", "C:2", "D:2", "E:8",
+    "F:2", "F:2", "F:2", "F:2", "F:2", "E:2", "E:2", "E:1", "E:1",
+    "E:2", "D:2", "D:2", "E:2", "D:4", "G:2", "R:2",
+    "E:2", "E:2", "E:4", "E:2", "E:2", "E:4",
+    "E:2", "G:2", "C:2", "D:2", "E:8",
+    "F:2", "F:2", "F:2", "F:2", "F:2", "E:2", "E:2", "E:1", "E:1",
+    "G:2", "G:2", "F:2", "D:2", "C:8",
+    "R:8"]
+
+melody_sequence = melody.MelodySequence(
+    melody.Melody(pin, melody.decode_melody(scale), 0.2),
+    melody.Melody(pin, melody.decode_melody(jingle_bells), 0.1))
+
+finish = time.monotonic() + 2
+
+while time.monotonic() < finish:
+    melody_sequence.play()
+
+pin.off()
+
+```
+
+| `cptkip/device/led.py`  |                    |
+|-------------------------|--------------------|
+| Ram at Start            | Used: 1,7608 bytes |
+| RAM at Finish before GC | Used: 14,496 bytes |
+| RAM at Finish after GC  | Used: 13,856 bytes |
 
 ## Experiments with the old framework
 
