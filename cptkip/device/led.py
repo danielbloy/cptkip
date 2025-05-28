@@ -94,9 +94,15 @@ class Led:
         Similarly, even though the colours are expected to have values between
         0x00 and 0xFF, these are not validated or range checked.
 
-        If a single integer value is specified...
-        If 3 colours are specified, the average of the RGB values is used for the 4th value
-        If 4 colours are specified, they are returned as-is
+        If a single integer value is specified it is assumed to be a 24-bit integer
+        with the highest 8 bits representing the R value, the middle 8 bits representing
+        the G value and the lowest 8 bits representing the B value. The W value is
+        calculated as the average of the extracted RGB values.
+
+        If 3 colours are specified in a tuple, the average of the RGB values is used for
+        the returned W value and the RGB values are returned as-is.
+
+        If 4 colours are specified in a tuple, they are returned as-is.
         """
         if isinstance(value, int):
             r = value >> 16

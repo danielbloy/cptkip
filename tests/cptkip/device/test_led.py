@@ -353,15 +353,47 @@ class TestLed:
             # noinspection PyTypeChecker
             Led._parse_color((1, 2, 3, 4, 5))
 
-        # TODO: Test with tuple of strings.
+        # This fails with a TypeError because we do maths with a triplet
+        with pytest.raises(TypeError):
+            # noinspection PyTypeChecker
+            Led._parse_color(("1", "2", "3"))
+
+        # Because no maths is done with a quadlet, there is no error.
+        r, g, b, w = Led._parse_color(("1", "2", "3", "4"))
+        assert r == "1"
+        assert g == "2"
+        assert b == "3"
+        assert w == "4"
 
     def test_parse_colour_single_integer(self):
         """
         Validates parse_colour works as expected with a sinngle integer.
         """
-        assert False
+        r, g, b, w = Led._parse_color(0)
+        assert r == 0
+        assert g == 0
+        assert b == 0
+        assert w == 0
 
-    def test_parse_colour_RGB_tuple(self):
+        r, g, b, w = Led._parse_color(0xFFFFFF)
+        assert r == 0xFF
+        assert g == 0xFF
+        assert b == 0xFF
+        assert w == 0xFF
+
+        r, g, b, w = Led._parse_color(0x102030)
+        assert r == 0x10
+        assert g == 0x20
+        assert b == 0x30
+        assert w == 0x20
+
+        r, g, b, w = Led._parse_color(0x409050)
+        assert r == 0x40
+        assert g == 0x90
+        assert b == 0x50
+        assert w == 0x60
+
+    def test_parse_colour_rgb_tuple(self):
         """
         Validates parse_colour works as expected with an RGB tuple.
         All this does is average out the values of the RGB value to the
@@ -404,7 +436,7 @@ class TestLed:
         assert b == 999
         assert w == 333
 
-    def test_parse_colour_RGBW_tuple(self):
+    def test_parse_colour_rgbw_tuple(self):
         """
         Validates parse_colour works as expected with an RGBW tuple.
         """
