@@ -137,9 +137,6 @@ class Led:
         return r, g, b, w
 
     def __setitem__(self, index: Union[int, slice], val: Union[ColorUnion, Sequence[ColorUnion]]):
-        if isinstance(index, slice):
-            val = val[0]
-
         r, g, b, w = self._parse_color(val)
         self.fill((r, g, b, w))
 

@@ -604,3 +604,16 @@ class TestLed:
         led.brightness = 0.0
         led[2] = (0x10, 0x20, 0x30, 0x60)
         assert led.brightness == 0x60 / 0xFF
+
+        # Now test set with a slice
+        led.brightness = 1.0
+        led[slice(3, 5)] = 0x409050
+        assert led.brightness == 0x60 / 0xFF
+
+        led.brightness = 1.0
+        led[slice(3, 5)] = (0x40, 0x90, 0x50)
+        assert led.brightness == 0x60 / 0xFF
+
+        led.brightness = 1.0
+        led[slice(3, 5)] = (0x40, 0x90, 0x50, 0x80)
+        assert led.brightness == 0x80 / 0xFF
