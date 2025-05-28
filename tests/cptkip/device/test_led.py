@@ -322,18 +322,298 @@ class TestLed:
 
     def test_fill_colours(self):
         """
-        Validates fill will accept a colour correctly
+        Validates fill will accept a colour correctly, there are three methods
+        to provide a colour: RGB packed into a 24-bit integer, 3 value triplet and
+        4 value triplet. The calculated
         """
-        pass
+        pin = MockPwmPin()
+        led = Led(pin)
 
-    def test_parse_colour(self):
+        # Go for full brightness in the various forms
+        led.brightness = 0.0
+        led.fill(0xFFFFFF)
+        assert led.brightness == 1.0
+        assert pin.value == 1.0
+
+        led.brightness = 0.0
+        led.fill((0xFF, 0xFF, 0xFF))
+        assert led.brightness == 1.0
+        assert pin.value == 1.0
+
+        led.brightness = 0.0
+        led.fill((0, 0, 0, 0xFF))
+        assert led.brightness == 1.0
+        assert pin.value == 1.0
+
+        # Go for zero brightness in the various forms.
+        led.brightness = 1.0
+        led.fill(0)
+        assert led.brightness == 0.0
+        assert pin.value == 0.0
+
+        led.brightness = 1.0
+        led.fill((0, 0, 0))
+        assert led.brightness == 0.0
+        assert pin.value == 0.0
+
+        led.brightness = 1.0
+        led.fill((0, 0, 0, 0))
+        assert led.brightness == 0.0
+        assert pin.value == 0.0
+
+        # Try something in the middle
+        led.brightness = 1.0
+        led.fill(0x409050)
+        assert led.brightness == 0x60 / 0xFF
+        assert pin.value == 0x60 / 0xFF
+
+        led.brightness = 1.0
+        led.fill((0x50, 0x40, 0x90))
+        assert led.brightness == 0x60 / 0xFF
+        assert pin.value == 0x60 / 0xFF
+
+        led.brightness = 1.0
+        led.fill((0, 0, 0, 0x60))
+        assert led.brightness == 0x60 / 0xFF
+        assert pin.value == 0x60 / 0xFF
+
+    def test_parse_colour_errors_with_wrong_types(self):
+        """Validates that _parse_colour errors with wrong types."""
+
+        with pytest.raises(ValueError):
+            # noinspection PyTypeChecker
+            Led._parse_color(None)
+
+        with pytest.raises(ValueError):
+            # noinspection PyTypeChecker
+            Led._parse_color("None")
+
+        with pytest.raises(ValueError):
+            # noinspection PyTypeChecker
+            Led._parse_color([1, 2, 3])
+
+        with pytest.raises(ValueError):
+            # noinspection PyTypeChecker
+            Led._parse_color((1,))
+
+        with pytest.raises(ValueError):
+            # noinspection PyTypeChecker
+            Led._parse_color((1, 2))
+
+        with pytest.raises(ValueError):
+            # noinspection PyTypeChecker
+            Led._parse_color((1, 2, 3, 4, 5))
+
+        # This fails with a TypeError because we do maths with a triplet
+        with pytest.raises(TypeError):
+            # noinspection PyTypeChecker
+            Led._parse_color(("1", "2", "3"))
+
+        # Because no maths is done with a quadlet, there is no error.
+        r, g, b, w = Led._parse_color(("1", "2", "3", "4"))
+        assert r == "1"
+        assert g == "2"
+        assert b == "3"
+        assert w == "4"
+
+    def test_parse_colour_single_integer(self):
         """
-        Validates parse_colour works as expected.
+        Validates parse_colour works as expected with a sinngle integer.
         """
-        pass
+        r, g, b, w = Led._parse_color(0)
+        assert r == 0
+        assert g == 0
+        assert b == 0
+        assert w == 0
+
+        r, g, b, w = Led._parse_color(0xFFFFFF)
+        assert r == 0xFF
+        assert g == 0xFF
+        assert b == 0xFF
+        assert w == 0xFF
+
+        r, g, b, w = Led._parse_color(0x102030)
+        assert r == 0x10
+        assert g == 0x20
+        assert b == 0x30
+        assert w == 0x20
+
+        r, g, b, w = Led._parse_color(0x409050)
+        assert r == 0x40
+        assert g == 0x90
+        assert b == 0x50
+        assert w == 0x60
+
+    def test_parse_colour_rgb_tuple(self):
+        """
+        Validates parse_colour works as expected with an RGB tuple.
+        All this does is average out the values of the RGB value to the
+        whiteness.
+        """
+        r, g, b, w = Led._parse_color((0, 0, 0))
+        assert r == 0
+        assert g == 0
+        assert b == 0
+        assert w == 0
+
+        r, g, b, w = Led._parse_color((99, 0, 0))
+        assert r == 99
+        assert g == 0
+        assert b == 0
+        assert w == 33
+
+        r, g, b, w = Led._parse_color((0, 99, 0))
+        assert r == 0
+        assert g == 99
+        assert b == 0
+        assert w == 33
+
+        r, g, b, w = Led._parse_color((0, 0, 999))
+        assert r == 0
+        assert g == 0
+        assert b == 999
+        assert w == 333
+
+        r, g, b, w = Led._parse_color((10, 20, 30))
+        assert r == 10
+        assert g == 20
+        assert b == 30
+        assert w == 20
+
+        # Try outside of ranges
+        r, g, b, w = Led._parse_color((-10, 10, 999))
+        assert r == -10
+        assert g == 10
+        assert b == 999
+        assert w == 333
+
+    def test_parse_colour_rgbw_tuple(self):
+        """
+        Validates parse_colour works as expected with an RGBW tuple.
+        """
+        r, g, b, w = Led._parse_color((0x00, 0x10, 0xA0, 0xFF))
+        assert r == 0x00
+        assert g == 0x10
+        assert b == 0xA0
+        assert w == 0xFF
+
+        # Try outside of ranges
+        r, g, b, w = Led._parse_color((-10, 3.3, 9999, -0.3))
+        assert r == -10
+        assert g == 3.3
+        assert b == 9999
+        assert w == -0.3
 
     def test_get_and_set_item(self):
         """
         Validates the getter and setters work as expected.
         """
-        pass
+        pin = MockPwmPin()
+        led = Led(pin)
+
+        # Start with the get()
+        led.brightness = 1.0
+        assert led[0] == (0xFF, 0xFF, 0xFF)
+        assert led[1] == (0xFF, 0xFF, 0xFF)
+        assert led[2] == (0xFF, 0xFF, 0xFF)
+        assert led[3] == (0xFF, 0xFF, 0xFF)
+
+        led.brightness = 0.0
+        assert led[0] == (0, 0, 0)
+        assert led[1] == (0, 0, 0)
+        assert led[2] == (0, 0, 0)
+        assert led[3] == (0, 0, 0)
+
+        led.brightness = 0x80 / 0xFF
+        assert led[0] == (0x80, 0x80, 0x80)
+        assert led[1] == (0x80, 0x80, 0x80)
+        assert led[2] == (0x80, 0x80, 0x80)
+        assert led[3] == (0x80, 0x80, 0x80)
+
+        # Now test set with single value
+        led.brightness = 1.0
+        led[0] = 0
+        assert led.brightness == 0.0
+
+        led.brightness = 1.0
+        led[1] = 0
+        assert led.brightness == 0.0
+
+        led.brightness = 1.0
+        led[2] = 0
+        assert led.brightness == 0.0
+
+        led.brightness = 1.0
+        led[3] = 0
+        assert led.brightness == 0.0
+
+        led.brightness = 0.0
+        led[0] = 0xFFFFFF
+        assert led.brightness == 1.0
+
+        led.brightness = 0.0
+        led[1] = 0xFFFFFF
+        assert led.brightness == 1.0
+
+        led.brightness = 0.0
+        led[2] = 0xFFFFFF
+        assert led.brightness == 1.0
+
+        led.brightness = 0.0
+        led[3] = 0xFFFFFF
+        assert led.brightness == 1.0
+
+        led.brightness = 0.0
+        led[0] = 0x409050
+        assert led.brightness == 0x60 / 0xFF
+
+        led.brightness = 0.0
+        led[1] = 0x409050
+        assert led.brightness == 0x60 / 0xFF
+
+        led.brightness = 0.0
+        led[2] = 0x409050
+        assert led.brightness == 0x60 / 0xFF
+
+        led.brightness = 0.0
+        led[3] = 0x409050
+        assert led.brightness == 0x60 / 0xFF
+
+        # Now test with a triplet
+        led.brightness = 1.0
+        led[0] = (0, 0, 0)
+        assert led.brightness == 0.0
+
+        led.brightness = 0.0
+        led[1] = (0xFF, 0xFF, 0xFF)
+        assert led.brightness == 1.0
+
+        led.brightness = 0.0
+        led[2] = (0x40, 0x90, 0x50)
+        assert led.brightness == 0x60 / 0xFF
+
+        # Now test with a quadlet
+        led.brightness = 1.0
+        led[0] = (0, 0, 0, 0)
+        assert led.brightness == 0.0
+
+        led.brightness = 0.0
+        led[1] = (0, 0, 0, 0xFF)
+        assert led.brightness == 1.0
+
+        led.brightness = 0.0
+        led[2] = (0x10, 0x20, 0x30, 0x60)
+        assert led.brightness == 0x60 / 0xFF
+
+        # Now test set with a slice
+        led.brightness = 1.0
+        led[slice(3, 5)] = 0x409050
+        assert led.brightness == 0x60 / 0xFF
+
+        led.brightness = 1.0
+        led[slice(3, 5)] = (0x40, 0x90, 0x50)
+        assert led.brightness == 0x60 / 0xFF
+
+        led.brightness = 1.0
+        led[slice(3, 5)] = (0x40, 0x90, 0x50, 0x80)
+        assert led.brightness == 0x80 / 0xFF
