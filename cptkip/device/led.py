@@ -80,26 +80,46 @@ class Led:
 
     @staticmethod
     def _parse_color(value: ColorUnion) -> Tuple[int, int, int, int]:
-        # If 4 colours are specified, the 4th colour is used for the LED brightness.
+        """
+        Converts the passed in value to a 4 digit RGBW tuple. The value can be
+        one of the following:
+        * A single integer value of 0 to 0xFF
+        * A tuple of 3 integers representing RGB, each with a value of 0 to 0xFF
+        * A tuple of 4 integers representing RGBW, each with a value of 0 to 0xFF
+
+        The input is validated that it is either a single integer or a tuple
+        containing 3 or 4 elements but it does not validate the tuple values
+        are integers.
+
+        Similarly, even though the colours are expected to have values between
+        0x00 and 0xFF, these are not validated or range checked.
+
+        If a single integer value is specified...
+        If 3 colours are specified, the average of the RGB values is used for the 4th value
+        If 4 colours are specified, they are returned as-is
+        """
         if isinstance(value, int):
             r = value >> 16
             g = (value >> 8) & 0xFF
             b = value & 0xFF
             # Average out the RBG intensities.
             w = (r + g + b) / 3
+            return r, g, b, w
 
+        if value is None or not isinstance(value, tuple):
+            raise ValueError("Expected an int or tuple of length 3 or 4")
+
+        if len(value) < 3 or len(value) > 4:
+            raise ValueError(
+                "Expected tuple of length {}, got {}".format(4, len(value))
+            )
+
+        if len(value) == 3:
+            r, g, b = value
+            # Average out the RBG intensities.
+            w = (r + g + b) / 3
         else:
-            if len(value) < 3 or len(value) > 4:
-                raise ValueError(
-                    "Expected tuple of length {}, got {}".format(4, len(value))
-                )
-
-            if len(value) == 3:
-                r, g, b = value
-                # Average out the RBG intensities.
-                w = (r + g + b) / 3
-            else:
-                r, g, b, w = value
+            r, g, b, w = value
 
         return r, g, b, w
 

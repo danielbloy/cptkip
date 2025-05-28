@@ -324,16 +324,105 @@ class TestLed:
         """
         Validates fill will accept a colour correctly
         """
-        pass
+        assert False
 
-    def test_parse_colour(self):
+    def test_parse_colour_errors_with_wrong_types(self):
+        """Validates that _parse_colour errors with wrong types."""
+
+        with pytest.raises(ValueError):
+            # noinspection PyTypeChecker
+            Led._parse_color(None)
+
+        with pytest.raises(ValueError):
+            # noinspection PyTypeChecker
+            Led._parse_color("None")
+
+        with pytest.raises(ValueError):
+            # noinspection PyTypeChecker
+            Led._parse_color([1, 2, 3])
+
+        with pytest.raises(ValueError):
+            # noinspection PyTypeChecker
+            Led._parse_color((1,))
+
+        with pytest.raises(ValueError):
+            # noinspection PyTypeChecker
+            Led._parse_color((1, 2))
+
+        with pytest.raises(ValueError):
+            # noinspection PyTypeChecker
+            Led._parse_color((1, 2, 3, 4, 5))
+
+        # TODO: Test with tuple of strings.
+
+    def test_parse_colour_single_integer(self):
         """
-        Validates parse_colour works as expected.
+        Validates parse_colour works as expected with a sinngle integer.
         """
-        pass
+        assert False
+
+    def test_parse_colour_RGB_tuple(self):
+        """
+        Validates parse_colour works as expected with an RGB tuple.
+        All this does is average out the values of the RGB value to the
+        whiteness.
+        """
+        r, g, b, w = Led._parse_color((0, 0, 0))
+        assert r == 0
+        assert g == 0
+        assert b == 0
+        assert w == 0
+
+        r, g, b, w = Led._parse_color((99, 0, 0))
+        assert r == 99
+        assert g == 0
+        assert b == 0
+        assert w == 33
+
+        r, g, b, w = Led._parse_color((0, 99, 0))
+        assert r == 0
+        assert g == 99
+        assert b == 0
+        assert w == 33
+
+        r, g, b, w = Led._parse_color((0, 0, 999))
+        assert r == 0
+        assert g == 0
+        assert b == 999
+        assert w == 333
+
+        r, g, b, w = Led._parse_color((10, 20, 30))
+        assert r == 10
+        assert g == 20
+        assert b == 30
+        assert w == 20
+
+        # Try outside of ranges
+        r, g, b, w = Led._parse_color((-10, 10, 999))
+        assert r == -10
+        assert g == 10
+        assert b == 999
+        assert w == 333
+
+    def test_parse_colour_RGBW_tuple(self):
+        """
+        Validates parse_colour works as expected with an RGBW tuple.
+        """
+        r, g, b, w = Led._parse_color((0x00, 0x10, 0xA0, 0xFF))
+        assert r == 0x00
+        assert g == 0x10
+        assert b == 0xA0
+        assert w == 0xFF
+
+        # Try outside of ranges
+        r, g, b, w = Led._parse_color((-10, 3.3, 9999, -0.3))
+        assert r == -10
+        assert g == 3.3
+        assert b == 9999
+        assert w == -0.3
 
     def test_get_and_set_item(self):
         """
         Validates the getter and setters work as expected.
         """
-        pass
+        assert False
