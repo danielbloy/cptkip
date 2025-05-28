@@ -529,3 +529,78 @@ class TestLed:
         assert led[1] == (0x80, 0x80, 0x80)
         assert led[2] == (0x80, 0x80, 0x80)
         assert led[3] == (0x80, 0x80, 0x80)
+
+        # Now test set with single value
+        led.brightness = 1.0
+        led[0] = 0
+        assert led.brightness == 0.0
+
+        led.brightness = 1.0
+        led[1] = 0
+        assert led.brightness == 0.0
+
+        led.brightness = 1.0
+        led[2] = 0
+        assert led.brightness == 0.0
+
+        led.brightness = 1.0
+        led[3] = 0
+        assert led.brightness == 0.0
+
+        led.brightness = 0.0
+        led[0] = 0xFFFFFF
+        assert led.brightness == 1.0
+
+        led.brightness = 0.0
+        led[1] = 0xFFFFFF
+        assert led.brightness == 1.0
+
+        led.brightness = 0.0
+        led[2] = 0xFFFFFF
+        assert led.brightness == 1.0
+
+        led.brightness = 0.0
+        led[3] = 0xFFFFFF
+        assert led.brightness == 1.0
+
+        led.brightness = 0.0
+        led[0] = 0x409050
+        assert led.brightness == 0x60 / 0xFF
+
+        led.brightness = 0.0
+        led[1] = 0x409050
+        assert led.brightness == 0x60 / 0xFF
+
+        led.brightness = 0.0
+        led[2] = 0x409050
+        assert led.brightness == 0x60 / 0xFF
+
+        led.brightness = 0.0
+        led[3] = 0x409050
+        assert led.brightness == 0x60 / 0xFF
+
+        # Now test with a triplet
+        led.brightness = 1.0
+        led[0] = (0, 0, 0)
+        assert led.brightness == 0.0
+
+        led.brightness = 0.0
+        led[1] = (0xFF, 0xFF, 0xFF)
+        assert led.brightness == 1.0
+
+        led.brightness = 0.0
+        led[2] = (0x40, 0x90, 0x50)
+        assert led.brightness == 0x60 / 0xFF
+
+        # Now test with a quadlet
+        led.brightness = 1.0
+        led[0] = (0, 0, 0, 0)
+        assert led.brightness == 0.0
+
+        led.brightness = 0.0
+        led[1] = (0, 0, 0, 0xFF)
+        assert led.brightness == 1.0
+
+        led.brightness = 0.0
+        led[2] = (0x10, 0x20, 0x30, 0x60)
+        assert led.brightness == 0x60 / 0xFF
