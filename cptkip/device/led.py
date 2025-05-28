@@ -75,6 +75,13 @@ class Led:
         self.pin.value = self._brightness
 
     def fill(self, color: ColorUnion):
+        """
+        Takes a colour value in one of the forms supported by _parse_color() and
+        uses the calculated W value from that colour as the value to set the
+        brightness on a scale from 0.0 to 1.0.
+
+        The pin is only changed if auto_write is True.
+        """
         r, g, b, w = self._parse_color(color)
         self.brightness = w / 0xFF
 
@@ -83,12 +90,12 @@ class Led:
         """
         Converts the passed in value to a 4 digit RGBW tuple. The value can be
         one of the following:
-        * A single integer value of 0 to 0xFF
-        * A tuple of 3 integers representing RGB, each with a value of 0 to 0xFF
-        * A tuple of 4 integers representing RGBW, each with a value of 0 to 0xFF
+        * A single integer value representing a packed RGB value of 0x000000 to 0xFFFFFF
+        * A tuple of 3 integers representing RGB, each with an expected value of 0 to 0xFF
+        * A tuple of 4 integers representing RGBW, each with an expected value of 0 to 0xFF
 
         The input is validated that it is either a single integer or a tuple
-        containing 3 or 4 elements but it does not validate the tuple values
+        containing 3 or 4 elements though it does not validate the tuple values
         are integers.
 
         Similarly, even though the colours are expected to have values between
@@ -99,7 +106,7 @@ class Led:
         the G value and the lowest 8 bits representing the B value. The W value is
         calculated as the average of the extracted RGB values.
 
-        If 3 colours are specified in a tuple, the average of the RGB values is used for
+        If 3 colours are specified in a tuple, the average of the RGB values are used for
         the returned W value and the RGB values are returned as-is.
 
         If 4 colours are specified in a tuple, they are returned as-is.

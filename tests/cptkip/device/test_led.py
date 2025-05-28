@@ -322,9 +322,60 @@ class TestLed:
 
     def test_fill_colours(self):
         """
-        Validates fill will accept a colour correctly
+        Validates fill will accept a colour correctly, there are three methods
+        to provide a colour: RGB packed into a 24-bit integer, 3 value triplet and
+        4 value triplet. The calculated
         """
-        assert False
+        pin = MockPwmPin()
+        led = Led(pin)
+
+        # Go for full brightness in the various forms
+        led.brightness = 0.0
+        led.fill(0xFFFFFF)
+        assert led.brightness == 1.0
+        assert pin.value == 1.0
+
+        led.brightness = 0.0
+        led.fill((0xFF, 0xFF, 0xFF))
+        assert led.brightness == 1.0
+        assert pin.value == 1.0
+
+        led.brightness = 0.0
+        led.fill((0, 0, 0, 0xFF))
+        assert led.brightness == 1.0
+        assert pin.value == 1.0
+
+        # Go for zero brightness in the various forms.
+        led.brightness = 1.0
+        led.fill(0)
+        assert led.brightness == 0.0
+        assert pin.value == 0.0
+
+        led.brightness = 1.0
+        led.fill((0, 0, 0))
+        assert led.brightness == 0.0
+        assert pin.value == 0.0
+
+        led.brightness = 1.0
+        led.fill((0, 0, 0, 0))
+        assert led.brightness == 0.0
+        assert pin.value == 0.0
+
+        # Try something in the middle
+        led.brightness = 1.0
+        led.fill(0x409050)
+        assert led.brightness == 0x60 / 0xFF
+        assert pin.value == 0x60 / 0xFF
+
+        led.brightness = 1.0
+        led.fill((0x50, 0x40, 0x90))
+        assert led.brightness == 0x60 / 0xFF
+        assert pin.value == 0x60 / 0xFF
+
+        led.brightness = 1.0
+        led.fill((0, 0, 0, 0x60))
+        assert led.brightness == 0x60 / 0xFF
+        assert pin.value == 0x60 / 0xFF
 
     def test_parse_colour_errors_with_wrong_types(self):
         """Validates that _parse_colour errors with wrong types."""
