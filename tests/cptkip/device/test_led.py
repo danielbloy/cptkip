@@ -508,4 +508,24 @@ class TestLed:
         """
         Validates the getter and setters work as expected.
         """
-        assert False
+        pin = MockPwmPin()
+        led = Led(pin)
+
+        # Start with the get()
+        led.brightness = 1.0
+        assert led[0] == (0xFF, 0xFF, 0xFF)
+        assert led[1] == (0xFF, 0xFF, 0xFF)
+        assert led[2] == (0xFF, 0xFF, 0xFF)
+        assert led[3] == (0xFF, 0xFF, 0xFF)
+
+        led.brightness = 0.0
+        assert led[0] == (0, 0, 0)
+        assert led[1] == (0, 0, 0)
+        assert led[2] == (0, 0, 0)
+        assert led[3] == (0, 0, 0)
+
+        led.brightness = 0x80 / 0xFF
+        assert led[0] == (0x80, 0x80, 0x80)
+        assert led[1] == (0x80, 0x80, 0x80)
+        assert led[2] == (0x80, 0x80, 0x80)
+        assert led[3] == (0x80, 0x80, 0x80)
