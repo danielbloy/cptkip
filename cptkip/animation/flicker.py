@@ -7,7 +7,7 @@ from adafruit_led_animation.animation import Animation as Animation
 class Flicker(Animation):
     """
     This flickers each neopixel that is "on" (has a brightness > 0). This function
-    by default flickers each pixel but is configurable using every. The flicker
+    by default flickers each pixel but is configurable using spacing. The flicker
     sets the brightness of the pixels to a random value between base and (base + flame).
     """
 
