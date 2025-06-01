@@ -243,7 +243,7 @@ def triplets_to_tones_and_durations(song: list[tuple[str, int, int]]) -> list[tu
     result = []
     for note, octave, duration in song:
         tone = note + str(octave)
-        result.append((TONES[tone], duration))
+        result.append((TONES[tone], duration))  # TODO: Change this to use note_to_frequency()
 
     return result
 
@@ -252,6 +252,25 @@ def triplets_to_tones_and_durations(song: list[tuple[str, int, int]]) -> list[tu
 # TODO: Comment and test.
 def decode_melody(encoded_song: list[str]) -> list[tuple[int, int]]:
     return triplets_to_tones_and_durations(encoded_melody_to_triplets(encoded_song))
+
+
+def note_to_frequency(note: str, octave: int) -> float:
+    """
+    Formula: Freq = note x 2 N/12
+    where N is the number of notes away from the starting note. N may be positive, negative or zero.
+
+    For example, starting at D (146.84 Hz), the frequency to the next higher F is:
+
+    146.84 x 2 3/12 = 174.62,
+
+    since F is three notes above. The frequency of A in the next lower octave is:
+
+    146.84 x 2 -17/12 = 55,
+
+    since there are 17 notes from D down to the lower A.
+
+    """
+    return 0.0
 
 
 TONES = {
