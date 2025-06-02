@@ -278,20 +278,19 @@ def standardise_note(note: str) -> str:
 
         raise ValueError("note is invalid")
 
-    # Standardise sharp and flat notation.
-    note = note.replace("S", "#").replace("F", "B")
+    note = note[0] + note[-1].replace("S", "#").replace("F", "B")
 
     # Convert flats to sharps.
     match note:
-        case "BF":
+        case "BB":
             note = "A#"
-        case "DF":
+        case "DB":
             note = "C#"
-        case "EF":
+        case "EB":
             note = "D#"
-        case "GF":
+        case "GB":
             note = "F#"
-        case "AF":
+        case "AB":
             note = "G#"
 
     match note:
