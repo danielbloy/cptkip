@@ -46,7 +46,22 @@ class TestDecodeMelody:
 
 
 class TestStandardiseNote:
-    # TODO: Error cases
+    def test_error_cases(self) -> None:
+        with pytest.raises(ValueError):
+            standardise_note("")
+
+        with pytest.raises(ValueError):
+            standardise_note("aaa")
+
+        with pytest.raises(ValueError):
+            standardise_note("aaaaa")
+
+        with pytest.raises(ValueError):
+            standardise_note("N")
+
+        with pytest.raises(ValueError):
+            standardise_note("cc")
+
     def test_pause(self) -> None:
         assert standardise_note("R") == "R"
         assert standardise_note("r") == "R"
@@ -176,58 +191,58 @@ class TestNoteToFrequency:
         assert note_to_frequency("B", 0) == 30.87
 
     def test_octave_1(self) -> None:
-        assert note_to_frequency("C", 0) == 32.70
-        assert note_to_frequency("C#", 0) == 34.65
-        assert note_to_frequency("Db", 0) == 34.65
-        assert note_to_frequency("D", 0) == 36.71
-        assert note_to_frequency("D#", 0) == 38.89
-        assert note_to_frequency("Eb", 0) == 38.89
-        assert note_to_frequency("E", 0) == 41.20
-        assert note_to_frequency("F", 0) == 43.65
-        assert note_to_frequency("F#", 0) == 46.25
-        assert note_to_frequency("Gb", 0) == 46.25
-        assert note_to_frequency("G", 0) == 49.00
-        assert note_to_frequency("G#", 0) == 51.91
-        assert note_to_frequency("Ab", 0) == 51.91
-        assert note_to_frequency("A", 0) == 55.00
-        assert note_to_frequency("A#", 0) == 58.27
-        assert note_to_frequency("Bb", 0) == 58.27
-        assert note_to_frequency("B", 0) == 61.74
+        assert note_to_frequency("C", 1) == 32.70
+        assert note_to_frequency("C#", 1) == 34.65
+        assert note_to_frequency("Db", 1) == 34.65
+        assert note_to_frequency("D", 1) == 36.71
+        assert note_to_frequency("D#", 1) == 38.89
+        assert note_to_frequency("Eb", 1) == 38.89
+        assert note_to_frequency("E", 1) == 41.20
+        assert note_to_frequency("F", 1) == 43.65
+        assert note_to_frequency("F#", 1) == 46.25
+        assert note_to_frequency("Gb", 1) == 46.25
+        assert note_to_frequency("G", 1) == 49.00
+        assert note_to_frequency("G#", 1) == 51.91
+        assert note_to_frequency("Ab", 1) == 51.91
+        assert note_to_frequency("A", 1) == 55.00
+        assert note_to_frequency("A#", 1) == 58.27
+        assert note_to_frequency("Bb", 1) == 58.27
+        assert note_to_frequency("B", 1) == 61.74
 
     def test_octave_2(self) -> None:
-        assert note_to_frequency("C", 0) == 65.41
-        assert note_to_frequency("C#", 0) == 69.30
-        assert note_to_frequency("Db", 0) == 69.30
-        assert note_to_frequency("D", 0) == 73.42
-        assert note_to_frequency("D#", 0) == 77.78
-        assert note_to_frequency("Eb", 0) == 77.78
-        assert note_to_frequency("E", 0) == 82.41
-        assert note_to_frequency("F", 0) == 87.31
-        assert note_to_frequency("F#", 0) == 92.50
-        assert note_to_frequency("Gb", 0) == 92.50
-        assert note_to_frequency("G", 0) == 98.00
-        assert note_to_frequency("G#", 0) == 103.83
-        assert note_to_frequency("Ab", 0) == 103.83
-        assert note_to_frequency("A", 0) == 110.00
-        assert note_to_frequency("A#", 0) == 116.54
-        assert note_to_frequency("Bb", 0) == 116.54
-        assert note_to_frequency("B", 0) == 123.47
+        assert note_to_frequency("C", 2) == 65.41
+        assert note_to_frequency("C#", 2) == 69.30
+        assert note_to_frequency("Db", 2) == 69.30
+        assert note_to_frequency("D", 2) == 73.42
+        assert note_to_frequency("D#", 2) == 77.78
+        assert note_to_frequency("Eb", 2) == 77.78
+        assert note_to_frequency("E", 2) == 82.41
+        assert note_to_frequency("F", 2) == 87.31
+        assert note_to_frequency("F#", 2) == 92.50
+        assert note_to_frequency("Gb", 2) == 92.50
+        assert note_to_frequency("G", 2) == 98.00
+        assert note_to_frequency("G#", 2) == 103.83
+        assert note_to_frequency("Ab", 2) == 103.83
+        assert note_to_frequency("A", 2) == 110.00
+        assert note_to_frequency("A#", 2) == 116.54
+        assert note_to_frequency("Bb", 2) == 116.54
+        assert note_to_frequency("B", 2) == 123.47
 
     def test_octave_3(self) -> None:
-        assert note_to_frequency("C", 0) == 130.81
-        assert note_to_frequency("C#", 0) == 138.59
-        assert note_to_frequency("Db", 0) == 138.59
-        assert note_to_frequency("D", 0) == 146.83
-        assert note_to_frequency("D#", 0) == 155.56
-        assert note_to_frequency("Eb", 0) == 155.56
-        assert note_to_frequency("E", 0) == 164.81
-        assert note_to_frequency("F", 0) == 174.61
-        assert note_to_frequency("F#", 0) == 185.00
-        assert note_to_frequency("Gb", 0) == 185.00
-        assert note_to_frequency("G", 0) == 196.00
-        assert note_to_frequency("G#", 0) == 207.65
-        assert note_to_frequency("Ab", 0) == 207.65
-        assert note_to_frequency("A", 0) == 220
-        assert note_to_frequency("A#", 0) == 233.08
-        assert note_to_frequency("Bb", 0) == 233.08
-        assert note_to_frequency("B", 0) == 246.94
+        assert note_to_frequency("C", 3) == 130.81
+        assert note_to_frequency("C#", 3) == 138.59
+        assert note_to_frequency("Db", 3) == 138.59
+        assert note_to_frequency("D", 3) == 146.83
+        assert note_to_frequency("D#", 3) == 155.56
+        assert note_to_frequency("Eb", 3) == 155.56
+        assert note_to_frequency("E", 3) == 164.81
+        assert note_to_frequency("F", 3) == 174.61
+        assert note_to_frequency("F#", 3) == 185.00
+        assert note_to_frequency("Gb", 3) == 185.00
+        assert note_to_frequency("G", 3) == 196.00
+        assert note_to_frequency("G#", 3) == 207.65
+        assert note_to_frequency("Ab", 3) == 207.65
+        assert note_to_frequency("A", 3) == 220
+        assert note_to_frequency("A#", 3) == 233.08
+        assert note_to_frequency("Bb", 3) == 233.08
+        assert note_to_frequency("B", 3) == 246.94

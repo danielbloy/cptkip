@@ -263,6 +263,8 @@ def standardise_note(note: str) -> str:
 
     The returned code will be an uppercase letter A to G with optional sharp indicator.
     Sharps are always indicated by #. Any flats are switched to their equivalent sharps.
+
+    Rests can be input as p, P, r or R and are converted to R.
     """
     length = len(note)
     if length == 0 or length > 2:
@@ -316,26 +318,41 @@ def note_to_frequency(note: str, octave: int) -> float:
     since there are 17 notes from D down to the lower A.
 
     """
-
-    return TONES[f"{standardise_note(note)}:{octave}"]
+    # Temporary implementation that uses the TONES dictionary
+    note = standardise_note(note).replace("#", "S")
+    if note == "R":
+        note = "P"
+        octave = 0
+    return TONES[f"{note}{octave}"]
 
 
 TONES = {
     "P0": 0,
-    "B0": 31,
-    "C1": 33,
-    "CS1": 35,
-    "D1": 37,
-    "DS1": 39,
-    "E1": 41,
-    "F1": 44,
-    "FS1": 46,
+    "B0": 30.87,
+    "C0": 16.35,
+    "CS0": 17.32,
+    "D0": 18.35,
+    "DS0": 19.45,
+    "E0": 20.60,
+    "F0": 21.83,
+    "FS0": 23.12,
+    "G0": 24.50,
+    "GS0": 25.96,
+    "A0": 27.50,
+    "AS0": 29.14,
+    "C1": 32.70,
+    "CS1": 34.65,
+    "D1": 36.71,
+    "DS1": 38.89,
+    "E1": 41.2,
+    "F1": 43.65,
+    "FS1": 46.25,
     "G1": 49,
-    "GS1": 52,
+    "GS1": 51.91,
     "A1": 55,
-    "AS1": 58,
-    "B1": 62,
-    "C2": 65,
+    "AS1": 58.27,
+    "B1": 61.74,
+    "C2": 65.41,
     "CS2": 69,
     "D2": 73,
     "DS2": 78,
@@ -347,7 +364,7 @@ TONES = {
     "A2": 110,
     "AS2": 117,
     "B2": 123,
-    "C3": 131,
+    "C3": 130.81,
     "CS3": 139,
     "D3": 147,
     "DS3": 156,
@@ -359,7 +376,7 @@ TONES = {
     "A3": 220,
     "AS3": 233,
     "B3": 247,
-    "C4": 262,
+    "C4": 261.63,
     "CS4": 277,
     "D4": 294,
     "DS4": 311,
@@ -371,7 +388,7 @@ TONES = {
     "A4": 440,
     "AS4": 466,
     "B4": 494,
-    "C5": 523,
+    "C5": 523.25,
     "CS5": 554,
     "D5": 587,
     "DS5": 622,
@@ -383,7 +400,7 @@ TONES = {
     "A5": 880,
     "AS5": 932,
     "B5": 988,
-    "C6": 1047,
+    "C6": 1046.5,
     "CS6": 1109,
     "D6": 1175,
     "DS6": 1245,
@@ -407,7 +424,7 @@ TONES = {
     "A7": 3520,
     "AS7": 3729,
     "B7": 3951,
-    "C8": 4186,
+    "C8": 4186.01,
     "CS8": 4435,
     "D8": 4699,
     "DS8": 4978
