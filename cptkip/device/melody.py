@@ -1,3 +1,4 @@
+import math
 import time
 
 import cptkip.core.control as control
@@ -304,26 +305,49 @@ def standardise_note(note: str) -> str:
 
 def note_to_frequency(note: str, octave: int) -> float:
     """
-    Formula: Freq = note x 2 N/12
-    where N is the number of notes away from the starting note. N may be positive, negative or zero.
+    Returns the frequency of the given note in the given octave to 2 decimal places and
+    with an accuracy of 0.01 Hertz.
 
-    For example, starting at D (146.84 Hz), the frequency to the next higher F is:
+    Formula: Freq = note x 2^(N/12), from https://techlib.com/reference/musical_note_frequencies.htm
 
-    146.84 x 2 3/12 = 174.62,
-
-    since F is three notes above. The frequency of A in the next lower octave is:
-
-    146.84 x 2 -17/12 = 55,
-
-    since there are 17 notes from D down to the lower A.
-
+    Where:
+     * N is the number of notes away from the starting note. N may be positive, negative or zero.
     """
-    # Temporary implementation that uses the TONES dictionary
-    note = standardise_note(note).replace("#", "S")
+
+    note = standardise_note(note)
     if note == "R":
-        note = "P"
-        octave = 0
-    return TONES[f"{note}{octave}"]
+        return 0
+
+    n = 0
+    match note:
+        case "C":
+            n = 0
+        case "C#":
+            n = 1
+        case "D":
+            n = 2
+        case "D#":
+            n = 3
+        case "E":
+            n = 4
+        case "F":
+            n = 5
+        case "F#":
+            n = 6
+        case "G":
+            n = 7
+        case "G#":
+            n = 8
+        case "A":
+            n = 9
+        case "A#":
+            n = 10
+        case "B":
+            n = 11
+
+    N = (octave * 12) + n
+    frequency = 16.35 * pow(2, (N / 12))
+    return math.floor(frequency * 100) / 100
 
 
 TONES = {
