@@ -254,6 +254,53 @@ def decode_melody(encoded_song: list[str]) -> list[tuple[int, int]]:
     return triplets_to_tones_and_durations(encoded_melody_to_triplets(encoded_song))
 
 
+def standardise_note(note: str) -> str:
+    """
+    Converts the given note to a standardised code.
+    The input note can be uppercase or lowercase.
+    Sharps can be signified by #, s or S
+    Flats can be signified by f, F, b or B.
+
+    The returned code will be an uppercase letter A to G with optional sharp indicator.
+    Sharps are always indicated by #. Any flats are switched to their equivalent sharps.
+    """
+    length = len(note)
+    if length == 0 or length > 2:
+        raise ValueError("note has invalid length")
+
+    note = note.upper()
+
+    # Single note
+    if length == 1:
+        match note:
+            case "A" | "B" | "C" | "D" | "E" | "F" | "G":
+                return note
+
+        raise ValueError("note is invalid")
+
+    # Standardise sharp and flat notation.
+    note = note.replace("S", "#").replace("F", "B")
+
+    # Convert flats to sharps.
+    match note:
+        case "BF":
+            note = "A#"
+        case "DF":
+            note = "C#"
+        case "EF":
+            note = "D#"
+        case "GF":
+            note = "F#"
+        case "AF":
+            note = "G#"
+
+    match note:
+        case "A#" | "C#" | "D#" | "F#" | "G#":
+            return note
+
+    raise ValueError("note is invalid")
+
+
 def note_to_frequency(note: str, octave: int) -> float:
     """
     Formula: Freq = note x 2 N/12
@@ -270,7 +317,8 @@ def note_to_frequency(note: str, octave: int) -> float:
     since there are 17 notes from D down to the lower A.
 
     """
-    return 0.0
+
+    return TONES[f"{standardise_note(note)}:{octave}"]
 
 
 TONES = {

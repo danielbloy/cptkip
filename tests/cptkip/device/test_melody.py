@@ -1,6 +1,6 @@
 import pytest
 
-from cptkip.device.melody import note_to_frequency
+from cptkip.device.melody import note_to_frequency, standardise_note
 
 
 class TestMelody:
@@ -43,6 +43,61 @@ class TestDecodeMelody:
     @pytest.mark.skip(reason="tests not implemented yet")
     def test_write_tests(self) -> None:
         assert False
+
+
+class TestStandardiseNote:
+    # TODO: Error cases
+    def test_pause(self) -> None:
+        assert standardise_note("R") == "R"
+        assert standardise_note("r") == "R"
+        assert standardise_note("P") == "R"
+        assert standardise_note("p") == "R"
+
+    def test_case_sensitivity(self) -> None:
+        assert standardise_note("C") == "C"
+        assert standardise_note("C") == "C"
+        assert standardise_note("a") == "A"
+        assert standardise_note("B") == "B"
+        assert standardise_note("cS") == "C#"
+        assert standardise_note("c#") == "C#"
+        assert standardise_note("DF") == "C#"
+        assert standardise_note("Gf") == "F#"
+        assert standardise_note("Bb") == "A#"
+
+    def test_normals(self) -> None:
+        assert standardise_note("a") == "A"
+        assert standardise_note("b") == "B"
+        assert standardise_note("c") == "C"
+        assert standardise_note("d") == "D"
+        assert standardise_note("e") == "E"
+        assert standardise_note("f") == "F"
+        assert standardise_note("g") == "G"
+
+    def test_sharps(self) -> None:
+        assert standardise_note("aS") == "A#"
+        assert standardise_note("cs") == "C#"
+        assert standardise_note("ds") == "D#"
+        assert standardise_note("fS") == "F#"
+        assert standardise_note("gs") == "G#"
+
+        assert standardise_note("a#") == "A#"
+        assert standardise_note("c#") == "C#"
+        assert standardise_note("d#") == "D#"
+        assert standardise_note("f#") == "F#"
+        assert standardise_note("g#") == "G#"
+
+    def test_flats(self) -> None:
+        assert standardise_note("bf") == "BB"
+        assert standardise_note("df") == "DB"
+        assert standardise_note("ef") == "EB"
+        assert standardise_note("gf") == "GB"
+        assert standardise_note("af") == "AB"
+
+        assert standardise_note("bb") == "BB"
+        assert standardise_note("db") == "DB"
+        assert standardise_note("eb") == "EB"
+        assert standardise_note("gb") == "GB"
+        assert standardise_note("ab") == "AB"
 
 
 class TestNoteToFrequency:
