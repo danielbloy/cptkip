@@ -268,12 +268,12 @@ def standardise_note(note: str) -> str:
     if length == 0 or length > 2:
         raise ValueError("note has invalid length")
 
-    note = note.upper()
+    note = note.upper().replace("P", "R")
 
     # Single note
     if length == 1:
         match note:
-            case "A" | "B" | "C" | "D" | "E" | "F" | "G":
+            case "A" | "B" | "C" | "D" | "E" | "F" | "G" | "R":
                 return note
 
         raise ValueError("note is invalid")

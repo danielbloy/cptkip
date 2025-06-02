@@ -87,17 +87,17 @@ class TestStandardiseNote:
         assert standardise_note("g#") == "G#"
 
     def test_flats(self) -> None:
-        assert standardise_note("bf") == "BB"
-        assert standardise_note("df") == "DB"
-        assert standardise_note("ef") == "EB"
-        assert standardise_note("gf") == "GB"
-        assert standardise_note("af") == "AB"
+        assert standardise_note("bf") == "A#"
+        assert standardise_note("df") == "C#"
+        assert standardise_note("ef") == "D#"
+        assert standardise_note("gf") == "F#"
+        assert standardise_note("af") == "G#"
 
-        assert standardise_note("bb") == "BB"
-        assert standardise_note("db") == "DB"
-        assert standardise_note("eb") == "EB"
-        assert standardise_note("gb") == "GB"
-        assert standardise_note("ab") == "AB"
+        assert standardise_note("bb") == "A#"
+        assert standardise_note("db") == "C#"
+        assert standardise_note("eb") == "D#"
+        assert standardise_note("gb") == "F#"
+        assert standardise_note("ab") == "G#"
 
 
 class TestNoteToFrequency:
