@@ -125,6 +125,22 @@ class TestNoteToFrequency:
     # This uses the following table as the test reference:
     # https://mixbutton.com/music-tools/frequency-and-pitch/music-note-to-frequency-chart
 
+    def test_error_cases(self) -> None:
+        with pytest.raises(ValueError):
+            note_to_frequency("", 0)
+
+        with pytest.raises(ValueError):
+            note_to_frequency("aaa", 1)
+
+        with pytest.raises(ValueError):
+            note_to_frequency("aaaaa", 2)
+
+        with pytest.raises(ValueError):
+            note_to_frequency("N", 0)
+
+        with pytest.raises(ValueError):
+            note_to_frequency("cc", 1)
+
     def test_pause(self) -> None:
         assert equals(note_to_frequency("R", 0), 0.0)
         assert equals(note_to_frequency("r", 0), 0.0)

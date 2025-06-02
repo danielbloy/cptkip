@@ -345,8 +345,9 @@ def note_to_frequency(note: str, octave: int) -> float:
         case "B":
             n = 11
 
-    N = (octave * 12) + n
-    frequency = 16.35 * pow(2, (N / 12))
+    # Using A4 (note number 9, octave 4) as a reference as it is roughly in the middle
+    N = ((octave - 4) * 12) + (n - 9)
+    frequency = 440 * pow(2, (N / 12))
     return math.floor(frequency * 100) / 100
 
 
