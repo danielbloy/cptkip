@@ -314,7 +314,7 @@ def note_to_frequency(note: str, octave: int) -> int:
     if note == "R":
         return 0
 
-    # TODO: We should be able to do something more elegante than a long if-else construct
+    # TODO: We should be able to do something more elegant than a long if-else construct
     n = 0
     if note == "C":
         n = 0
