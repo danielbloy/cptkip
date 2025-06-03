@@ -1,4 +1,3 @@
-import math
 import time
 
 import cptkip.core.control as control
@@ -244,7 +243,7 @@ def triplets_to_tones_and_durations(song: list[tuple[str, int, int]]) -> list[tu
     result = []
     for note, octave, duration in song:
         result.append(
-            (round(note_to_frequency(note, octave)), duration))
+            (note_to_frequency(note, octave), duration))
 
     return result
 
@@ -283,6 +282,7 @@ def standardise_note(note: str) -> str:
     note = note[0] + note[-1].replace("S", "#").replace("F", "B")
 
     # Convert flats to sharps.
+    # TODO: We should be able to do something more elegante than a long if-else construct
     if note == "BB":
         note = "A#"
     elif note == "DB":
@@ -300,10 +300,9 @@ def standardise_note(note: str) -> str:
     raise ValueError("note is invalid")
 
 
-def note_to_frequency(note: str, octave: int) -> float:
+def note_to_frequency(note: str, octave: int) -> int:
     """
-    Returns the frequency of the given note in the given octave to 2 decimal places and
-    with an accuracy of 0.01 Hertz.
+    Returns the frequency of the given note in the given octave rounded to the nearest Hertz.
 
     Formula: Freq = note x 2^(N/12), from https://techlib.com/reference/musical_note_frequencies.htm
 
@@ -315,6 +314,7 @@ def note_to_frequency(note: str, octave: int) -> float:
     if note == "R":
         return 0
 
+    # TODO: We should be able to do something more elegante than a long if-else construct
     n = 0
     if note == "C":
         n = 0
@@ -344,4 +344,4 @@ def note_to_frequency(note: str, octave: int) -> float:
     # Using A4 (note number 9, octave 4) as a reference as it is roughly in the middle
     N = ((octave - 4) * 12) + (n - 9)
     frequency = 440 * pow(2, (N / 12))
-    return math.floor(frequency * 100) / 100
+    return round(frequency)

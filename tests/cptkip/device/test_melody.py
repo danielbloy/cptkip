@@ -142,20 +142,20 @@ class TestNoteToFrequency:
             note_to_frequency("cc", 1)
 
     def test_pause(self) -> None:
-        assert equals(note_to_frequency("R", 0), 0.0)
-        assert equals(note_to_frequency("r", 0), 0.0)
-        assert equals(note_to_frequency("P", 0), 0.0)
-        assert equals(note_to_frequency("p", 0), 0.0)
+        assert note_to_frequency("R", 0) == 0
+        assert note_to_frequency("r", 0) == 0
+        assert note_to_frequency("P", 0) == 0
+        assert note_to_frequency("p", 0) == 0
 
-        assert equals(note_to_frequency("R", 1), 0.0)
-        assert equals(note_to_frequency("r", 2), 0.0)
-        assert equals(note_to_frequency("P", 3), 0.0)
-        assert equals(note_to_frequency("p", 4), 0.0)
+        assert note_to_frequency("R", 1) == 0
+        assert note_to_frequency("r", 2) == 0
+        assert note_to_frequency("P", 3) == 0
+        assert note_to_frequency("p", 4) == 0
 
-        assert equals(note_to_frequency("R", 5), 0.0)
-        assert equals(note_to_frequency("r", 6), 0.0)
-        assert equals(note_to_frequency("P", 7), 0.0)
-        assert equals(note_to_frequency("p", 8), 0.0)
+        assert note_to_frequency("R", 5) == 0
+        assert note_to_frequency("r", 6) == 0
+        assert note_to_frequency("P", 7) == 0
+        assert note_to_frequency("p", 8) == 0
 
     def test_case_sensitivity(self) -> None:
         assert equals(note_to_frequency("C", 0), 16.35)
