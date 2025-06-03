@@ -242,8 +242,7 @@ def encoded_melody_to_triplets(song: list[str]) -> list[tuple[str, int, int]]:
 def triplets_to_tones_and_durations(song: list[tuple[str, int, int]]) -> list[tuple[int, int]]:
     result = []
     for note, octave, duration in song:
-        result.append(
-            (note_to_frequency(note, octave), duration))
+        result.append(note_to_frequency(note, octave), duration)
 
     return result
 

@@ -115,12 +115,6 @@ class TestStandardiseNote:
         assert standardise_note("ab") == "G#"
 
 
-def equals(actual: float, expected: float) -> bool:
-    """Compares if the two floats are equal within tolerable bounds."""
-    diff = actual - expected
-    return -0.1 <= diff <= 0.1
-
-
 class TestNoteToFrequency:
     # This uses the following table as the test reference:
     # https://mixbutton.com/music-tools/frequency-and-pitch/music-note-to-frequency-chart
