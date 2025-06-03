@@ -244,7 +244,7 @@ def triplets_to_tones_and_durations(song: list[tuple[str, int, int]]) -> list[tu
     result = []
     for note, octave, duration in song:
         tone = note + str(octave)
-        result.append((TONES[tone], duration))  # TODO: Change this to use note_to_frequency()
+        result.append((round(TONES[tone]), duration))  # TODO: Change this to use note_to_frequency()
 
     return result
 
@@ -275,30 +275,27 @@ def standardise_note(note: str) -> str:
 
     # Single note
     if length == 1:
-        match note:
-            case "A" | "B" | "C" | "D" | "E" | "F" | "G" | "R":
-                return note
+        if note == "A" or note == "B" or note == "C" or note == "D" or note == "E" or note == "F" or note == "G" or note == "R":
+            return note
 
         raise ValueError("note is invalid")
 
     note = note[0] + note[-1].replace("S", "#").replace("F", "B")
 
     # Convert flats to sharps.
-    match note:
-        case "BB":
-            note = "A#"
-        case "DB":
-            note = "C#"
-        case "EB":
-            note = "D#"
-        case "GB":
-            note = "F#"
-        case "AB":
-            note = "G#"
+    if note == "BB":
+        note = "A#"
+    elif note == "DB":
+        note = "C#"
+    elif note == "EB":
+        note = "D#"
+    elif note == "GB":
+        note = "F#"
+    elif note == "AB":
+        note = "G#"
 
-    match note:
-        case "A#" | "C#" | "D#" | "F#" | "G#":
-            return note
+    if note == "A#" or note == "C#" or note == "D#" or note == "F#" or note == "G#":
+        return note
 
     raise ValueError("note is invalid")
 
@@ -319,31 +316,30 @@ def note_to_frequency(note: str, octave: int) -> float:
         return 0
 
     n = 0
-    match note:
-        case "C":
-            n = 0
-        case "C#":
-            n = 1
-        case "D":
-            n = 2
-        case "D#":
-            n = 3
-        case "E":
-            n = 4
-        case "F":
-            n = 5
-        case "F#":
-            n = 6
-        case "G":
-            n = 7
-        case "G#":
-            n = 8
-        case "A":
-            n = 9
-        case "A#":
-            n = 10
-        case "B":
-            n = 11
+    if note == "C":
+        n = 0
+    elif note == "C#":
+        n = 1
+    elif note == "D":
+        n = 2
+    elif note == "D#":
+        n = 3
+    elif note == "E":
+        n = 4
+    elif note == "F":
+        n = 5
+    elif note == "F#":
+        n = 6
+    elif note == "G":
+        n = 7
+    elif note == "G#":
+        n = 8
+    elif note == "A":
+        n = 9
+    elif note == "A#":
+        n = 10
+    elif note == "B":
+        n = 11
 
     # Using A4 (note number 9, octave 4) as a reference as it is roughly in the middle
     N = ((octave - 4) * 12) + (n - 9)
