@@ -272,9 +272,8 @@ def standardise_note(note: str) -> str:
 
     note = note.upper().replace("P", "R")
 
-    # Single note
     if length == 1:
-        if note == "A" or note == "B" or note == "C" or note == "D" or note == "E" or note == "F" or note == "G" or note == "R":
+        if note in __note_to_n or note == "R":
             return note
 
         raise ValueError("note is invalid")
@@ -282,22 +281,20 @@ def standardise_note(note: str) -> str:
     note = note[0] + note[-1].replace("S", "#").replace("F", "B")
 
     # Convert flats to sharps.
-    # TODO: We should be able to do something more elegante than a long if-else construct
-    if note == "BB":
-        note = "A#"
-    elif note == "DB":
-        note = "C#"
-    elif note == "EB":
-        note = "D#"
-    elif note == "GB":
-        note = "F#"
-    elif note == "AB":
-        note = "G#"
+    if note[-1] == "B":
+        if note[0] == "A":
+            note = "G#"
+        else:
+            note = chr(ord(note[0]) - 1) + "#"
 
-    if note == "A#" or note == "C#" or note == "D#" or note == "F#" or note == "G#":
+    if note in __note_to_n:
         return note
 
     raise ValueError("note is invalid")
+
+
+# Maps a standardised note to it's n value representing a semi-tone from C.
+__note_to_n = {"C": 0, "C#": 1, "D": 2, "D#": 3, "E": 4, "F": 5, "F#": 6, "G": 7, "G#": 8, "A": 9, "A#": 10, "B": 11}
 
 
 def note_to_frequency(note: str, octave: int) -> int:
@@ -314,32 +311,7 @@ def note_to_frequency(note: str, octave: int) -> int:
     if note == "R":
         return 0
 
-    # TODO: We should be able to do something more elegant than a long if-else construct
-    n = 0
-    if note == "C":
-        n = 0
-    elif note == "C#":
-        n = 1
-    elif note == "D":
-        n = 2
-    elif note == "D#":
-        n = 3
-    elif note == "E":
-        n = 4
-    elif note == "F":
-        n = 5
-    elif note == "F#":
-        n = 6
-    elif note == "G":
-        n = 7
-    elif note == "G#":
-        n = 8
-    elif note == "A":
-        n = 9
-    elif note == "A#":
-        n = 10
-    elif note == "B":
-        n = 11
+    n = __note_to_n[note]
 
     # Using A4 (note number 9, octave 4) as a reference as it is roughly in the middle
     N = ((octave - 4) * 12) + (n - 9)
