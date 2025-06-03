@@ -1,3 +1,4 @@
+import math
 import time
 
 import cptkip.core.control as control
@@ -242,8 +243,8 @@ def encoded_melody_to_triplets(song: list[str]) -> list[tuple[str, int, int]]:
 def triplets_to_tones_and_durations(song: list[tuple[str, int, int]]) -> list[tuple[int, int]]:
     result = []
     for note, octave, duration in song:
-        tone = note + str(octave)
-        result.append((TONES[tone], duration))
+        result.append(
+            (round(note_to_frequency(note, octave)), duration))
 
     return result
 
@@ -254,95 +255,93 @@ def decode_melody(encoded_song: list[str]) -> list[tuple[int, int]]:
     return triplets_to_tones_and_durations(encoded_melody_to_triplets(encoded_song))
 
 
-TONES = {
-    "P0": 0,
-    "B0": 31,
-    "C1": 33,
-    "CS1": 35,
-    "D1": 37,
-    "DS1": 39,
-    "E1": 41,
-    "F1": 44,
-    "FS1": 46,
-    "G1": 49,
-    "GS1": 52,
-    "A1": 55,
-    "AS1": 58,
-    "B1": 62,
-    "C2": 65,
-    "CS2": 69,
-    "D2": 73,
-    "DS2": 78,
-    "E2": 82,
-    "F2": 87,
-    "FS2": 93,
-    "G2": 98,
-    "GS2": 104,
-    "A2": 110,
-    "AS2": 117,
-    "B2": 123,
-    "C3": 131,
-    "CS3": 139,
-    "D3": 147,
-    "DS3": 156,
-    "E3": 165,
-    "F3": 175,
-    "FS3": 185,
-    "G3": 196,
-    "GS3": 208,
-    "A3": 220,
-    "AS3": 233,
-    "B3": 247,
-    "C4": 262,
-    "CS4": 277,
-    "D4": 294,
-    "DS4": 311,
-    "E4": 330,
-    "F4": 349,
-    "FS4": 370,
-    "G4": 392,
-    "GS4": 415,
-    "A4": 440,
-    "AS4": 466,
-    "B4": 494,
-    "C5": 523,
-    "CS5": 554,
-    "D5": 587,
-    "DS5": 622,
-    "E5": 659,
-    "F5": 698,
-    "FS5": 740,
-    "G5": 784,
-    "GS5": 831,
-    "A5": 880,
-    "AS5": 932,
-    "B5": 988,
-    "C6": 1047,
-    "CS6": 1109,
-    "D6": 1175,
-    "DS6": 1245,
-    "E6": 1319,
-    "F6": 1397,
-    "FS6": 1480,
-    "G6": 1568,
-    "GS6": 1661,
-    "A6": 1760,
-    "AS6": 1865,
-    "B6": 1976,
-    "C7": 2093,
-    "CS7": 2217,
-    "D7": 2349,
-    "DS7": 2489,
-    "E7": 2637,
-    "F7": 2794,
-    "FS7": 2960,
-    "G7": 3136,
-    "GS7": 3322,
-    "A7": 3520,
-    "AS7": 3729,
-    "B7": 3951,
-    "C8": 4186,
-    "CS8": 4435,
-    "D8": 4699,
-    "DS8": 4978
-}
+def standardise_note(note: str) -> str:
+    """
+    Converts the given note to a standardised code.
+    The input note can be uppercase or lowercase.
+    Sharps can be signified by #, s or S
+    Flats can be signified by f, F, b or B.
+
+    The returned code will be an uppercase letter A to G with optional sharp indicator.
+    Sharps are always indicated by #. Any flats are switched to their equivalent sharps.
+
+    Rests can be input as p, P, r or R and are converted to R.
+    """
+    length = len(note)
+    if length == 0 or length > 2:
+        raise ValueError("note has invalid length")
+
+    note = note.upper().replace("P", "R")
+
+    # Single note
+    if length == 1:
+        if note == "A" or note == "B" or note == "C" or note == "D" or note == "E" or note == "F" or note == "G" or note == "R":
+            return note
+
+        raise ValueError("note is invalid")
+
+    note = note[0] + note[-1].replace("S", "#").replace("F", "B")
+
+    # Convert flats to sharps.
+    if note == "BB":
+        note = "A#"
+    elif note == "DB":
+        note = "C#"
+    elif note == "EB":
+        note = "D#"
+    elif note == "GB":
+        note = "F#"
+    elif note == "AB":
+        note = "G#"
+
+    if note == "A#" or note == "C#" or note == "D#" or note == "F#" or note == "G#":
+        return note
+
+    raise ValueError("note is invalid")
+
+
+def note_to_frequency(note: str, octave: int) -> float:
+    """
+    Returns the frequency of the given note in the given octave to 2 decimal places and
+    with an accuracy of 0.01 Hertz.
+
+    Formula: Freq = note x 2^(N/12), from https://techlib.com/reference/musical_note_frequencies.htm
+
+    Where:
+     * N is the number of notes away from the starting note. N may be positive, negative or zero.
+    """
+
+    note = standardise_note(note)
+    if note == "R":
+        return 0
+
+    n = 0
+    if note == "C":
+        n = 0
+    elif note == "C#":
+        n = 1
+    elif note == "D":
+        n = 2
+    elif note == "D#":
+        n = 3
+    elif note == "E":
+        n = 4
+    elif note == "F":
+        n = 5
+    elif note == "F#":
+        n = 6
+    elif note == "G":
+        n = 7
+    elif note == "G#":
+        n = 8
+    elif note == "A":
+        n = 9
+    elif note == "A#":
+        n = 10
+    elif note == "B":
+        n = 11
+
+    # Using A4 (note number 9, octave 4) as a reference as it is roughly in the middle
+    N = ((octave - 4) * 12) + (n - 9)
+    frequency = 440 * pow(2, (N / 12))
+    return math.floor(frequency * 100) / 100
