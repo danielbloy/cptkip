@@ -1,6 +1,6 @@
 import pytest
 
-from cptkip.device.melody import note_to_frequency, standardise_note
+from cptkip.device.melody import note_to_frequency, standardise_note, decode_melody
 
 
 class TestMelody:
@@ -17,11 +17,86 @@ class TestMelodySequence:
         assert False
 
 
-class TestParseEncodedNote:
+class TestDecodeMelody:
 
-    @pytest.mark.skip(reason="tests not implemented yet")
-    def test_write_tests(self) -> None:
-        assert False
+    def test_empty_song(self) -> None:
+        """Validates that None and an empty list returns an empty list."""
+        assert decode_melody(None) == list()
+        assert decode_melody(list()) == list()
+
+    def test_single_note(self) -> None:
+        """
+        Validates a range of single notes
+        """
+        assert decode_melody(["P:1"]) == [(0, 1)]
+        assert decode_melody(["R1:2"]) == [(0, 2)]
+        assert decode_melody(["C0:3"]) == [(16, 3)]
+        # assert decode_melody(["C#1:3"]) == [(35, 3)]  TODO: Enable
+        # assert decode_melody(["DB2:3"]) == [(69, 3)] TODO: Enable
+        assert decode_melody(["D2:4"]) == [(73, 4)]
+        # assert decode_melody(["DS2:5"]) == [(78, 5)] TODO: Enable
+        # assert decode_melody(["EF4:3"]) == [(311, 3)] TODO: Enable
+        assert decode_melody(["E4:3"]) == [(330, 3)]
+        assert decode_melody(["F4:3"]) == [(349, 3)]
+        assert decode_melody(["G5:3"]) == [(784, 3)]
+        # assert decode_melody(["G#5:3"]) == [(831, 3)] TODO: Enable
+        # assert decode_melody(["AB5:3"]) == [(831, 3)] TODO: Enable
+        assert decode_melody(["A6:3"]) == [(1760, 3)]
+        # assert decode_melody(["AS6:3"]) == [(1865, 3)] TODO: Enable
+        # assert decode_melody(["BF7:3"]) == [(1865, 3)] TODO: Enable
+        assert decode_melody(["B7:3"]) == [(3951, 3)]
+        assert decode_melody(["C8:23"]) == [(4186, 23)]
+
+    def test_single_note_no_octave(self) -> None:
+        """Validates the default behaviour if no octave is specified."""
+        assert decode_melody(["C:3"]) == [(262, 3)]
+
+    def test_invalid_single_note(self) -> None:
+        """
+        Validates a range of single notes that do not conform.
+        """
+        with pytest.raises(ValueError):
+            decode_melody([""])
+
+        with pytest.raises(ValueError):
+            decode_melody(["C:"])
+
+        with pytest.raises(ValueError):
+            decode_melody(["C:A"])
+
+        with pytest.raises(ValueError):
+            decode_melody(["CC:1"])
+
+        with pytest.raises(ValueError):
+            decode_melody(["4:3"])
+
+        with pytest.raises(ValueError):
+            decode_melody(["W4:1"])
+
+        with pytest.raises(ValueError):
+            decode_melody("C14:1")
+
+    def test_multiple_notes(self) -> None:
+        """Validates when multiple notes are specified."""
+
+        # These will all be Octave 4
+        assert decode_melody(["C:1", "D:2", "E:3"]) == [(262, 1), (294, 2), (330, 3)]
+
+        # The first note sets the octave and the others follow
+        assert decode_melody(["C0:1", "D:2", "E:3"]) == [(16, 1), (18, 2), (21, 3)]
+
+        # Different octaves
+        assert decode_melody(["E4:3", "C0:1", "G5:3"]) == [(330, 3), (16, 1), (784, 3)]
+
+    def test_multiple_notes_some_invalid(self) -> None:
+        with pytest.raises(ValueError):
+            decode_melody(["W:1", "D:2", "E:3"])
+
+        with pytest.raises(ValueError):
+            decode_melody(["C0:1", "D:", "E:3"])
+
+        with pytest.raises(ValueError):
+            decode_melody(["E4:3", "C0:1", "GA5:3"])
 
 
 class TestEncodedMelodyToTriplets:
@@ -31,14 +106,7 @@ class TestEncodedMelodyToTriplets:
         assert False
 
 
-class TestTripletsToTonesAndDurations:
-
-    @pytest.mark.skip(reason="tests not implemented yet")
-    def test_write_tests(self) -> None:
-        assert False
-
-
-class TestDecodeMelody:
+class TestParseEncodedNote:
 
     @pytest.mark.skip(reason="tests not implemented yet")
     def test_write_tests(self) -> None:

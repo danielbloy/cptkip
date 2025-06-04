@@ -185,37 +185,41 @@ class MelodySequence:
         self.activate(0)
 
 
-# Coverts an encoded note to a tuple of (note, octave, duration)
-# The encoded note can be one of:
-#   <note>:<duration>
-#   <note><octave>:<duration>
-#
-# Examples:
-#    C:1
-#    A5:2
-#
-# TODO: Comment and test
-def parse_encoded_note(encoded_note: str) -> tuple[str, int, int]:
-    # -1 means use the same octave as the previous note.
-    octave = -1
+def decode_melody(encoded_song: list[str]) -> list[tuple[int, int]]:
+    """
+    Coverts a song of encoded notes into pairs of (tone, duration). The song
+    is a list of strings with each string representing a note and it's duration
+    separated by a comma. The Note can optionally also specify the Octave. If no
+    octave is specified, then the octave will be the last octave set or 4 if it
+    is the first note in the melody. The duration is the number of beats the note
+    should last for. An example of a simple C scale:
+        scale = [
+        "C4:1", "D:1", "E:1", "F:1", "G:1", "A:1", "B:1", "C5:1",
+        "B4:1", "A:1", "G:1", "F:1", "E:1", "D:1", "C:1"]
 
-    parts = encoded_note.split(":")
-    # The first character of the first part is the note.
-    note = parts[0][0]
+    # TODO: Support decoding which is just a string and not just a list.
+    """
+    if encoded_song is None:
+        return list()
 
-    # If the first part has a second character, use it as the octave.
-    if len(parts[0]) > 1:
-        octave = int(parts[0][1])
+    if not isinstance(encoded_song, list):
+        raise ValueError("encoded_song must be of type List")
 
-    # The second part is the duration as an integer number.
-    duration = int(parts[1])
+    song = encoded_melody_to_triplets(encoded_song)
 
-    return note, octave, duration
+    result = []
+    for note, octave, duration in song:
+        result.append((note_to_frequency(note, octave), duration))
+    return result
 
 
-# Converts the song into a list of tuples of: (note, octave, duration)
-# TODO: Comment and test
 def encoded_melody_to_triplets(song: list[str]) -> list[tuple[str, int, int]]:
+    """
+    Converts the song into a list of tuples of: (note, octave, duration)
+    """
+
+    # TODO: This needs to return a tuple of [int, int, int]
+
     result = []
 
     current_octave = 4
@@ -237,20 +241,38 @@ def encoded_melody_to_triplets(song: list[str]) -> list[tuple[str, int, int]]:
     return result
 
 
-# Converts a song of (note, octave, duration) triplets to (tone, duration) pairs.
-# TODO: Comment and test.
-def triplets_to_tones_and_durations(song: list[tuple[str, int, int]]) -> list[tuple[int, int]]:
-    result = []
-    for note, octave, duration in song:
-        result.append(note_to_frequency(note, octave), duration)
+def parse_encoded_note(encoded_note: str) -> tuple[str, int, int]:
+    """
+    Coverts an encoded note to a tuple of (note, octave, duration)
+    The encoded note can be one of:
+      <note>:<duration>
+      <note><octave>:<duration>
 
-    return result
+    Examples:
+       C:1
+       A5:2
+    """
 
+    # TODO: This needs to return a tuple of [int, int, int]
 
-# Coverts a song of encoded notes into pairs of (tone, duration).
-# TODO: Comment and test.
-def decode_melody(encoded_song: list[str]) -> list[tuple[int, int]]:
-    return triplets_to_tones_and_durations(encoded_melody_to_triplets(encoded_song))
+    if not encoded_note or len(encoded_note) < 3:
+        raise ValueError("encoded_note must be of length 3")
+
+    # -1 means use the same octave as the previous note.
+    octave = -1
+
+    parts = encoded_note.split(":")
+    # The first character of the first part is the note.
+    note = parts[0][0]
+
+    # If the first part has a second character, use it as the octave.
+    if len(parts[0]) > 1:
+        octave = int(parts[0][1])
+
+    # The second part is the duration as an integer number.
+    duration = int(parts[1])
+
+    return note, octave, duration
 
 
 def standardise_note(note: str) -> str:
