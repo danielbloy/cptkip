@@ -202,6 +202,10 @@ def decode_melody(song: list[str]) -> list[tuple[int, int]]:
 
     song = ["C#3:4", "FS7:2", "Eb3:1", "AF1:1"]
 
+    The encoded note can be one of:
+      <note>:<duration>
+      <note><octave>:<duration>
+
     # TODO: Support decoding which is just a string and not just a list.
     """
     if song is None:
@@ -215,48 +219,31 @@ def decode_melody(song: list[str]) -> list[tuple[int, int]]:
     result = []
     for encoded_note in song:
 
-        note, octave, duration = parse_encoded_note(encoded_note)
+        if not encoded_note or len(encoded_note) < 3:
+            raise ValueError("encoded_note must be of length 3")
+
+        # -1 means use the same octave as the previous note.
+        octave = -1
+
+        parts = encoded_note.split(":")
+        # The first character of the first part is the note.
+        note = parts[0][0]
+
+        # If the first part has a second character, use it as the octave.
+        if len(parts[0]) > 1:
+            octave = int(parts[0][1])
+
+        # The second part is the duration as an integer number.
+        duration = int(parts[1])
+
         if octave < 0:
             octave = current_octave
         else:
             current_octave = octave
 
         result.append((note_to_frequency(note, octave), duration))
+
     return result
-
-
-def parse_encoded_note(encoded_note: str) -> tuple[str, int, int]:
-    """
-    Coverts an encoded note to a tuple of (note, octave, duration)
-    The encoded note can be one of:
-      <note>:<duration>
-      <note><octave>:<duration>
-
-    Examples:
-       C:1
-       A5:2
-    """
-
-    # TODO: This needs to return a tuple of [int, int, int]
-
-    if not encoded_note or len(encoded_note) < 3:
-        raise ValueError("encoded_note must be of length 3")
-
-    # -1 means use the same octave as the previous note.
-    octave = -1
-
-    parts = encoded_note.split(":")
-    # The first character of the first part is the note.
-    note = parts[0][0]
-
-    # If the first part has a second character, use it as the octave.
-    if len(parts[0]) > 1:
-        octave = int(parts[0][1])
-
-    # The second part is the duration as an integer number.
-    duration = int(parts[1])
-
-    return note, octave, duration
 
 
 def standardise_note(note: str) -> str:

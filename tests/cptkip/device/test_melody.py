@@ -51,13 +51,6 @@ class TestDecodeMelody:
         """Validates the default behaviour if no octave is specified."""
         assert decode_melody(["C:3"]) == [(262, 3)]
 
-    @pytest.mark.skip(reason="tests not implemented yet")
-    def test_single_note_negative_octave(self) -> None:
-        """Validates the default behaviour if a negative no octave is specified."""
-        assert decode_melody(["C-3:3"]) == [(262, 3)]
-
-        assert decode_melody(["C:1", "D-3:2", "E:3"]) == [(262, 1), (294, 2), (330, 3)]
-
     def test_invalid_single_note(self) -> None:
         """
         Validates a range of single notes that do not conform.
@@ -104,20 +97,6 @@ class TestDecodeMelody:
 
         with pytest.raises(ValueError):
             decode_melody(["E4:3", "C0:1", "GA5:3"])
-
-
-class TestEncodedMelodyToTriplets:
-
-    @pytest.mark.skip(reason="tests not implemented yet")
-    def test_write_tests(self) -> None:
-        assert False
-
-
-class TestParseEncodedNote:
-
-    @pytest.mark.skip(reason="tests not implemented yet")
-    def test_write_tests(self) -> None:
-        assert False
 
 
 class TestStandardiseNote:
