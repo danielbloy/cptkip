@@ -185,7 +185,7 @@ class MelodySequence:
         self.activate(0)
 
 
-def decode_melody(encoded_song: list[str]) -> list[tuple[int, int]]:
+def decode_melody(song: list[str]) -> list[tuple[int, int]]:
     """
     Coverts a song of encoded notes into pairs of (tone, duration). The song
     is a list of strings with each string representing a note and it's duration
@@ -199,32 +199,17 @@ def decode_melody(encoded_song: list[str]) -> list[tuple[int, int]]:
 
     # TODO: Support decoding which is just a string and not just a list.
     """
-    if encoded_song is None:
+    if song is None:
         return list()
 
-    if not isinstance(encoded_song, list):
+    if not isinstance(song, list):
         raise ValueError("encoded_song must be of type List")
-
-    song = encoded_melody_to_triplets(encoded_song)
-
-    result = []
-    for note, octave, duration in song:
-        result.append((note_to_frequency(note, octave), duration))
-    return result
-
-
-def encoded_melody_to_triplets(song: list[str]) -> list[tuple[str, int, int]]:
-    """
-    Converts the song into a list of tuples of: (note, octave, duration)
-    """
-
-    # TODO: This needs to return a tuple of [int, int, int]
-
-    result = []
 
     current_octave = 4
 
+    result = []
     for encoded_note in song:
+
         note, octave, duration = parse_encoded_note(encoded_note)
         if octave < 0:
             octave = current_octave
@@ -236,8 +221,7 @@ def encoded_melody_to_triplets(song: list[str]) -> list[tuple[str, int, int]]:
             note = "P"
             octave = 0
 
-        result.append((note, octave, duration))
-
+        result.append((note_to_frequency(note, octave), duration))
     return result
 
 
