@@ -43,7 +43,7 @@ class TestDecodeMelody:
         assert decode_melody(["AB5:3"]) == [(831, 3)]
         assert decode_melody(["A6:3"]) == [(1760, 3)]
         assert decode_melody(["AS6:3"]) == [(1865, 3)]
-        assert decode_melody(["BF7:3"]) == [(1865, 3)]
+        assert decode_melody(["BF7:3"]) == [(3729, 3)]
         assert decode_melody(["B7:3"]) == [(3951, 3)]
         assert decode_melody(["C8:23"]) == [(4186, 23)]
 

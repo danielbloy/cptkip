@@ -201,9 +201,6 @@ def decode_melody(song: list[str]) -> list[tuple[int, int]]:
     Sharps and Flats can be specified using #, S, F or B respectively. For example:
 
     song = ["C#3:4", "FS7:2", "Eb3:1", "AF1:1"]
-
-
-    # TODO: Support decoding which is just a string and not just a list.
     """
     if song is None:
         return list()
@@ -223,19 +220,16 @@ def decode_melody(song: list[str]) -> list[tuple[int, int]]:
         #   <note>:<duration>
         #   <note><octave>:<duration>
         parts = encoded_note.split(":")
-
-        # TODO: Now we need to standardise the note and extract the octave.
-        
-        # The first character of the first part is the note.
-        note = parts[0][0]
-
-        # If the first part has a second character, use it as the octave.
-        if len(parts[0]) > 1:
-            octave = int(parts[0][1])
-
-        # The second part is the duration as an integer number. We perform no validation
-        # here other than checking for negative numbers.
+        note = parts[0]
         duration = int(parts[1])
+
+        # The note can optionally contain an octave indicator so look to split that out here.
+        for i, char in enumerate(note):
+            if char.isdigit():
+                octave = int(note[i])
+                note = note[:i]
+                break
+
         if duration < 0:
             raise ValueError("duration cannot be negative")
 
