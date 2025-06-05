@@ -1,13 +1,47 @@
 import pytest
 
-from cptkip.device.melody import note_to_frequency, standardise_note, decode_melody
+from cptkip.device.melody import Melody, note_to_frequency, standardise_note, decode_melody
+from cptkip.pin.buzzer_pin import BuzzerPin
+
+
+class MockBuzzerPin(BuzzerPin):
+    def __init__(self):
+        self.play_count = 0
+        self.last_frequency = 0
+        self.off_count = 0
+        super().__init__(None)
+
+    def play(self, frequency: int) -> None:
+        self.play_count += 1
+        super().play(frequency)
+
+    def off(self) -> None:
+        self.off_count += 1
 
 
 class TestMelody:
 
-    @pytest.mark.skip(reason="tests not implemented yet")
-    def test_write_tests(self) -> None:
-        assert False
+    def test_constructor(self) -> None:
+        """
+        Validates that a Melody is constructed with the correct parameters.
+        """
+        with pytest.raises(ValueError):
+            # noinspection PyTypeChecker
+            Melody(None, [])
+
+        with pytest.raises(ValueError):
+            # noinspection PyTypeChecker
+            Melody(2, [])
+
+        with pytest.raises(ValueError):
+            # noinspection PyTypeChecker
+            Melody("None", [])
+            
+        melody = Melody(BuzzerPin(1), [])
+        assert melody.playing
+        assert not melody.paused
+        assert melody.tempo == 120
+        assert melody.loop
 
 
 class TestMelodySequence:
@@ -21,6 +55,7 @@ class TestDecodeMelody:
 
     def test_empty_song(self) -> None:
         """Validates that None and an empty list returns an empty list."""
+        # noinspection PyTypeChecker
         assert decode_melody(None) == list()
         assert decode_melody(list()) == list()
 

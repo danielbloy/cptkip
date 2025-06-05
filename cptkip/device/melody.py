@@ -4,22 +4,33 @@ import cptkip.core.control as control
 from cptkip.pin.buzzer_pin import BuzzerPin
 
 
-# TODO: Comment this class
 class Melody:
-    def __init__(self, buzzer: BuzzerPin, song: list[tuple[int, int]], speed, loop=True, paused=False, name=None):
+    """
+    TODO: Comments
+    """
 
+    def __init__(self, buzzer: BuzzerPin, song: list[tuple[int, int]], tempo=120, loop=True, paused=False, name=None):
+        # Name is needed for Sequence
+
+        if buzzer is None:
+            raise ValueError("buzzer cannot be None")
+
+        if not isinstance(buzzer, BuzzerPin):
+            raise ValueError("buzzer must be of type BuzzerPin")
+        
         self._buzzer = buzzer
         self._song = song
         self._index = 0  # The next note to play.
-        self._loop = loop
+        self.loop = loop
         self._paused = paused
-        self._speed_ns = 0
         self._next_update = time.monotonic_ns()
         self._time_left_at_pause = 0
-        self.speed = speed  # sets _speed_ns
+        self._beat_interval_ns = 0
+        self._tempo = tempo
+        self.tempo = tempo  # sets _speed_ns
         self.name = name
 
-    def play(self) -> bool:
+    def update(self) -> bool:
         if self.paused:
             return False
 
@@ -31,14 +42,18 @@ class Melody:
         self._index += 1
         if self._index >= len(self._song):
             self._index = 0
-            if not self._loop:
+            if not self.loop:
                 self.pause()
 
         self._buzzer.off()
         self._buzzer.play(frequency)
 
-        self._next_update = now + (self._speed_ns * duration)
+        self._next_update = now + (self._beat_interval_ns * duration)
         return True
+
+    @property
+    def playing(self) -> bool:
+        return not self._paused
 
     @property
     def paused(self) -> bool:
@@ -74,15 +89,16 @@ class Melody:
         self._buzzer.play(frequency)
 
     @property
-    def speed(self) -> float:
+    def tempo(self) -> float:
         """
-        The speed in fractional seconds.
+        The tempo in beats per minute.
         """
-        return self._speed_ns / control.NS_PER_SECOND
+        return self._tempo
 
-    @speed.setter
-    def speed(self, seconds) -> None:
-        self._speed_ns = int(seconds * control.NS_PER_SECOND)
+    @tempo.setter
+    def tempo(self, tempo) -> None:
+        self._tempo = tempo
+        self._beat_interval_ns = int(control.NS_PER_SECOND / (tempo / 60))
 
     def reset(self) -> None:
         """
@@ -103,7 +119,7 @@ class MelodySequence:
         self.name = name
         # Disable auto loop in the individual songs.
         for member in self._members:
-            member._loop = False
+            member.loop = False
 
     def activate(self, index):
         """
@@ -137,7 +153,7 @@ class MelodySequence:
         current = self._current - 1
         self.activate(current % len(self._members))
 
-    def play(self):
+    def update(self):
         """
         Plays the current melody or goes to the next melody.
         """
@@ -145,7 +161,7 @@ class MelodySequence:
             self.next()
 
         if not self.paused:
-            return self.melody.play()
+            return self.melody.update()
 
         return False
 
@@ -155,6 +171,10 @@ class MelodySequence:
         Returns the current melody in the sequence.
         """
         return self._members[self._current]
+
+    @property
+    def playing(self):
+        return not self._paused
 
     @property
     def paused(self):

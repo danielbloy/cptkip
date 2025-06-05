@@ -156,12 +156,12 @@ def execute_melody():
         "E:2", "G:2", "C:2", "D:2", "E:8", "R:8"]
 
     melody_sequence = melody.MelodySequence(
-        melody.Melody(pin, melody.decode_melody(scale), 0.05),
-        melody.Melody(pin, melody.decode_melody(tune), 0.05))
+        melody.Melody(pin, melody.decode_melody(scale), 120),
+        melody.Melody(pin, melody.decode_melody(tune)))
 
     finish = time.monotonic() + 3
     while time.monotonic() < finish:
-        melody_sequence.play()
+        melody_sequence.update()
 
     pin.off()
     del pin
