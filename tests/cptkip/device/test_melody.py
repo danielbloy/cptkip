@@ -77,6 +77,7 @@ class TestDecodeMelody:
             decode_melody(["W4:1"])
 
         with pytest.raises(ValueError):
+            # noinspection PyTypeChecker
             decode_melody("C14:1")
 
     def test_multiple_notes(self) -> None:
