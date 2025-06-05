@@ -202,9 +202,6 @@ def decode_melody(song: list[str]) -> list[tuple[int, int]]:
 
     song = ["C#3:4", "FS7:2", "Eb3:1", "AF1:1"]
 
-    The encoded note can be one of:
-      <note>:<duration>
-      <note><octave>:<duration>
 
     # TODO: Support decoding which is just a string and not just a list.
     """
@@ -222,8 +219,13 @@ def decode_melody(song: list[str]) -> list[tuple[int, int]]:
         if not encoded_note or len(encoded_note) < 3:
             raise ValueError("encoded_note must be of length 3")
 
+        # The encoded note can be one of:
+        #   <note>:<duration>
+        #   <note><octave>:<duration>
         parts = encoded_note.split(":")
 
+        # TODO: Now we need to standardise the note and extract the octave.
+        
         # The first character of the first part is the note.
         note = parts[0][0]
 
@@ -231,8 +233,11 @@ def decode_melody(song: list[str]) -> list[tuple[int, int]]:
         if len(parts[0]) > 1:
             octave = int(parts[0][1])
 
-        # The second part is the duration as an integer number.
+        # The second part is the duration as an integer number. We perform no validation
+        # here other than checking for negative numbers.
         duration = int(parts[1])
+        if duration < 0:
+            raise ValueError("duration cannot be negative")
 
         result.append((note_to_frequency(note, octave), duration))
 
