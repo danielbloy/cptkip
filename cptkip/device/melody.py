@@ -193,9 +193,14 @@ def decode_melody(song: list[str]) -> list[tuple[int, int]]:
     octave is specified, then the octave will be the last octave set or 4 if it
     is the first note in the melody. The duration is the number of beats the note
     should last for. An example of a simple C scale:
-        scale = [
+
+    scale = [
         "C4:1", "D:1", "E:1", "F:1", "G:1", "A:1", "B:1", "C5:1",
         "B4:1", "A:1", "G:1", "F:1", "E:1", "D:1", "C:1"]
+
+    Sharps and Flats can be specified using #, S, F or B respectively. For example:
+
+    song = ["C#3:4", "FS7:2", "Eb3:1", "AF1:1"]
 
     # TODO: Support decoding which is just a string and not just a list.
     """
@@ -215,11 +220,6 @@ def decode_melody(song: list[str]) -> list[tuple[int, int]]:
             octave = current_octave
         else:
             current_octave = octave
-
-        # Rests should always have a zero octave.
-        if note == "P" or note == "R":
-            note = "P"
-            octave = 0
 
         result.append((note_to_frequency(note, octave), duration))
     return result
