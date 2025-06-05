@@ -214,7 +214,7 @@ def decode_melody(song: list[str]) -> list[tuple[int, int]]:
     if not isinstance(song, list):
         raise ValueError("encoded_song must be of type List")
 
-    current_octave = 4
+    octave = 4
 
     result = []
     for encoded_note in song:
@@ -222,10 +222,8 @@ def decode_melody(song: list[str]) -> list[tuple[int, int]]:
         if not encoded_note or len(encoded_note) < 3:
             raise ValueError("encoded_note must be of length 3")
 
-        # -1 means use the same octave as the previous note.
-        octave = -1
-
         parts = encoded_note.split(":")
+
         # The first character of the first part is the note.
         note = parts[0][0]
 
@@ -235,11 +233,6 @@ def decode_melody(song: list[str]) -> list[tuple[int, int]]:
 
         # The second part is the duration as an integer number.
         duration = int(parts[1])
-
-        if octave < 0:
-            octave = current_octave
-        else:
-            current_octave = octave
 
         result.append((note_to_frequency(note, octave), duration))
 
