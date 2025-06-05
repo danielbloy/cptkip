@@ -1,4 +1,3 @@
-import math
 import time
 
 import cptkip.core.control as control
@@ -186,73 +185,57 @@ class MelodySequence:
         self.activate(0)
 
 
-# Coverts an encoded note to a tuple of (note, octave, duration)
-# The encoded note can be one of:
-#   <note>:<duration>
-#   <note><octave>:<duration>
-#
-# Examples:
-#    C:1
-#    A5:2
-#
-# TODO: Comment and test
-def parse_encoded_note(encoded_note: str) -> tuple[str, int, int]:
-    # -1 means use the same octave as the previous note.
-    octave = -1
+def decode_melody(song: list[str]) -> list[tuple[int, int]]:
+    """
+    Coverts a song of encoded notes into pairs of (tone, duration). The song
+    is a list of strings with each string representing a note and it's duration
+    separated by a comma. The Note can optionally also specify the Octave. If no
+    octave is specified, then the octave will be the last octave set or 4 if it
+    is the first note in the melody. The duration is the number of beats the note
+    should last for. An example of a simple C scale:
 
-    parts = encoded_note.split(":")
-    # The first character of the first part is the note.
-    note = parts[0][0]
+    scale = [
+        "C4:1", "D:1", "E:1", "F:1", "G:1", "A:1", "B:1", "C5:1",
+        "B4:1", "A:1", "G:1", "F:1", "E:1", "D:1", "C:1"]
 
-    # If the first part has a second character, use it as the octave.
-    if len(parts[0]) > 1:
-        octave = int(parts[0][1])
+    Sharps and Flats can be specified using #, S, F or B respectively. For example:
 
-    # The second part is the duration as an integer number.
-    duration = int(parts[1])
+    song = ["C#3:4", "FS7:2", "Eb3:1", "AF1:1"]
+    """
+    if song is None:
+        return list()
 
-    return note, octave, duration
+    if not isinstance(song, list):
+        raise ValueError("encoded_song must be of type List")
 
+    octave = 4
 
-# Converts the song into a list of tuples of: (note, octave, duration)
-# TODO: Comment and test
-def encoded_melody_to_triplets(song: list[str]) -> list[tuple[str, int, int]]:
     result = []
-
-    current_octave = 4
-
     for encoded_note in song:
-        note, octave, duration = parse_encoded_note(encoded_note)
-        if octave < 0:
-            octave = current_octave
-        else:
-            current_octave = octave
 
-        # Rests should always have a zero octave.
-        if note == "P" or note == "R":
-            note = "P"
-            octave = 0
+        if not encoded_note or len(encoded_note) < 3:
+            raise ValueError("encoded_note must be of length 3")
 
-        result.append((note, octave, duration))
+        # The encoded note can be one of:
+        #   <note>:<duration>
+        #   <note><octave>:<duration>
+        parts = encoded_note.split(":")
+        note = parts[0]
+        duration = int(parts[1])
+
+        # The note can optionally contain an octave indicator so look to split that out here.
+        for i, char in enumerate(note):
+            if char.isdigit():
+                octave = int(note[i])
+                note = note[:i]
+                break
+
+        if duration < 0:
+            raise ValueError("duration cannot be negative")
+
+        result.append((note_to_frequency(note, octave), duration))
 
     return result
-
-
-# Converts a song of (note, octave, duration) triplets to (tone, duration) pairs.
-# TODO: Comment and test.
-def triplets_to_tones_and_durations(song: list[tuple[str, int, int]]) -> list[tuple[int, int]]:
-    result = []
-    for note, octave, duration in song:
-        result.append(
-            (round(note_to_frequency(note, octave)), duration))
-
-    return result
-
-
-# Coverts a song of encoded notes into pairs of (tone, duration).
-# TODO: Comment and test.
-def decode_melody(encoded_song: list[str]) -> list[tuple[int, int]]:
-    return triplets_to_tones_and_durations(encoded_melody_to_triplets(encoded_song))
 
 
 def standardise_note(note: str) -> str:
@@ -273,9 +256,8 @@ def standardise_note(note: str) -> str:
 
     note = note.upper().replace("P", "R")
 
-    # Single note
     if length == 1:
-        if note == "A" or note == "B" or note == "C" or note == "D" or note == "E" or note == "F" or note == "G" or note == "R":
+        if note in __note_to_n or note == "R":
             return note
 
         raise ValueError("note is invalid")
@@ -283,27 +265,25 @@ def standardise_note(note: str) -> str:
     note = note[0] + note[-1].replace("S", "#").replace("F", "B")
 
     # Convert flats to sharps.
-    if note == "BB":
-        note = "A#"
-    elif note == "DB":
-        note = "C#"
-    elif note == "EB":
-        note = "D#"
-    elif note == "GB":
-        note = "F#"
-    elif note == "AB":
-        note = "G#"
+    if note[-1] == "B":
+        if note[0] == "A":
+            note = "G#"
+        else:
+            note = chr(ord(note[0]) - 1) + "#"
 
-    if note == "A#" or note == "C#" or note == "D#" or note == "F#" or note == "G#":
+    if note in __note_to_n:
         return note
 
     raise ValueError("note is invalid")
 
 
-def note_to_frequency(note: str, octave: int) -> float:
+# Maps a standardised note to it's n value representing a semi-tone from C.
+__note_to_n = {"C": 0, "C#": 1, "D": 2, "D#": 3, "E": 4, "F": 5, "F#": 6, "G": 7, "G#": 8, "A": 9, "A#": 10, "B": 11}
+
+
+def note_to_frequency(note: str, octave: int) -> int:
     """
-    Returns the frequency of the given note in the given octave to 2 decimal places and
-    with an accuracy of 0.01 Hertz.
+    Returns the frequency of the given note in the given octave rounded to the nearest Hertz.
 
     Formula: Freq = note x 2^(N/12), from https://techlib.com/reference/musical_note_frequencies.htm
 
@@ -315,33 +295,9 @@ def note_to_frequency(note: str, octave: int) -> float:
     if note == "R":
         return 0
 
-    n = 0
-    if note == "C":
-        n = 0
-    elif note == "C#":
-        n = 1
-    elif note == "D":
-        n = 2
-    elif note == "D#":
-        n = 3
-    elif note == "E":
-        n = 4
-    elif note == "F":
-        n = 5
-    elif note == "F#":
-        n = 6
-    elif note == "G":
-        n = 7
-    elif note == "G#":
-        n = 8
-    elif note == "A":
-        n = 9
-    elif note == "A#":
-        n = 10
-    elif note == "B":
-        n = 11
+    n = __note_to_n[note]
 
     # Using A4 (note number 9, octave 4) as a reference as it is roughly in the middle
     N = ((octave - 4) * 12) + (n - 9)
     frequency = 440 * pow(2, (N / 12))
-    return math.floor(frequency * 100) / 100
+    return round(frequency)
