@@ -36,12 +36,13 @@ class TestMelody:
         with pytest.raises(ValueError):
             # noinspection PyTypeChecker
             Melody("None", [])
-            
+
         melody = Melody(BuzzerPin(1), [])
         assert melody.playing
         assert not melody.paused
         assert melody.tempo == 120
         assert melody.loop
+        assert melody.name is None
 
 
 class TestMelodySequence:

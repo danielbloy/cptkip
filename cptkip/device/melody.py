@@ -6,18 +6,43 @@ from cptkip.pin.buzzer_pin import BuzzerPin
 
 class Melody:
     """
-    TODO: Comments
+    Melody is used to play a song which is a list of tuples of two integers representing the
+    frequency and number of beats of each note in the song. The length of the beats is determined
+    by the tempo which defaults to 120 beats per minute.
+
+    By default, a Melody will automatically loop. A melody can also be given an optional name
+    which is useful when grouping multiple melodies in a Melody Sequence.
     """
 
     def __init__(self, buzzer: BuzzerPin, song: list[tuple[int, int]], tempo=120, loop=True, paused=False, name=None):
-        # Name is needed for Sequence
+        """
+        Constructs a new Melody. The parameters are self-explanatory. Creating a melody is simple as the
+        following two identical examples demonstrate:
 
+        melody = Melody(pin, [(262, 1), (294, 1), (330, 1), (349, 1), (392, 1), (440, 1), (494, 1), (523, 1)])
+        while True:
+            melody.update()
+
+        Or:
+
+        melody = Melody(pin, decode_melody(["C4:1", "D:1", "E:1", "F:1", "G:1", "A:1", "B:1", "C5:1"]))
+        while True:
+            melody.update()
+
+        :param buzzer: This must be a buzzer pin.
+        :param song:   A list of tuples of two integers representing the frequency and number of beats.
+        :param tempo:  The number of beast per minute for the song.
+        :param loop:   If true, the song will automatically loop. If not, once finished the song will
+                       pause back at the start.
+        :param paused: If true, the song will start paused.
+        :param name:   An optional name for the Melody; used by MelodySequence.
+        """
         if buzzer is None:
             raise ValueError("buzzer cannot be None")
 
         if not isinstance(buzzer, BuzzerPin):
             raise ValueError("buzzer must be of type BuzzerPin")
-        
+
         self._buzzer = buzzer
         self._song = song
         self._index = 0  # The next note to play.
@@ -30,15 +55,16 @@ class Melody:
         self.tempo = tempo  # sets _speed_ns
         self.name = name
 
-    def update(self) -> bool:
-        if self.paused:
-            return False
-
+    def update(self):
+        """
+        Call update() repeatedly to keep the melody playing. If paused, calling update() will
+        do nothing. If playing and the next note is due, update() will play the note.
+        """
         now = time.monotonic_ns()
-        if now < self._next_update:
-            return False
+        if self.paused or now < self._next_update:
+            return
 
-        frequency, duration = self._song[self._index]
+        frequency, beats = self._song[self._index]
         self._index += 1
         if self._index >= len(self._song):
             self._index = 0
@@ -48,15 +74,20 @@ class Melody:
         self._buzzer.off()
         self._buzzer.play(frequency)
 
-        self._next_update = now + (self._beat_interval_ns * duration)
-        return True
+        self._next_update = now + (self._beat_interval_ns * beats)
 
     @property
     def playing(self) -> bool:
+        """
+        Returned if the song is playing.
+        """
         return not self._paused
 
     @property
     def paused(self) -> bool:
+        """
+        Returns if the song is paused.
+        """
         return self._paused
 
     def pause(self):
@@ -102,7 +133,7 @@ class Melody:
 
     def reset(self) -> None:
         """
-        Resets the music sequence back to the beginning.
+        Resets the music back to the beginning of the song.
         """
         self._buzzer.off()
         self._index = 0
