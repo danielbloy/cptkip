@@ -64,7 +64,10 @@ class Melody:
         if self.paused or now < self._next_update:
             return
 
-        frequency, beats = self._song[self._index]
+        frequency, beats = 0, 0
+        if len(self._song) > 0:
+            frequency, beats = self._song[self._index]
+
         self._index += 1
         if self._index >= len(self._song):
             self._index = 0

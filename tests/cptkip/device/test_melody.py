@@ -1,5 +1,8 @@
+import time
+
 import pytest
 
+from cptkip.core.control import NS_PER_SECOND
 from cptkip.device.melody import Melody, note_to_frequency, standardise_note, decode_melody
 from cptkip.pin.buzzer_pin import BuzzerPin
 
@@ -7,7 +10,6 @@ from cptkip.pin.buzzer_pin import BuzzerPin
 class MockBuzzerPin(BuzzerPin):
     def __init__(self):
         self.play_count = 0
-        self.last_frequency = 0
         self.off_count = 0
         super().__init__(None)
 
@@ -37,12 +39,131 @@ class TestMelody:
             # noinspection PyTypeChecker
             Melody("None", [])
 
-        melody = Melody(BuzzerPin(1), [])
+        melody = Melody(MockBuzzerPin(), [])
         assert melody.playing
         assert not melody.paused
         assert melody.tempo == 120
         assert melody.loop
         assert melody.name is None
+
+        melody = Melody(MockBuzzerPin(), [], loop=False)
+        assert melody.playing
+        assert not melody.paused
+        assert melody.tempo == 120
+        assert not melody.loop
+        assert melody.name is None
+
+        melody = Melody(MockBuzzerPin(), [], tempo=60)
+        assert melody.playing
+        assert not melody.paused
+        assert melody.tempo == 60
+        assert melody.loop
+        assert melody.name is None
+
+        melody = Melody(MockBuzzerPin(), [], paused=True)
+        assert not melody.playing
+        assert melody.paused
+        assert melody.tempo == 120
+        assert melody.loop
+        assert melody.name is None
+
+        melody = Melody(MockBuzzerPin(), [], name="my-song")
+        assert melody.playing
+        assert not melody.paused
+        assert melody.tempo == 120
+        assert melody.loop
+        assert melody.name == "my-song"
+
+        melody = Melody(MockBuzzerPin(), [], loop=False, tempo=30, paused=True, name="my-song-name")
+        assert not melody.playing
+        assert melody.paused
+        assert melody.tempo == 30
+        assert not melody.loop
+        assert melody.name == "my-song-name"
+
+    def test_update_with_non_looping_song(self) -> None:
+        """
+        Validates the simplest case for update where a single non-looping song
+        is created and plays through.
+        """
+        tempo = 480  # 8 beats per second.
+        beats_per_second = tempo / 60
+        nanoseconds_per_beat = NS_PER_SECOND / beats_per_second
+
+        # First test this works with an empty song.
+        pin = MockBuzzerPin()
+        melody = Melody(pin, [], loop=False, tempo=tempo)
+        start = time.monotonic_ns()
+        while melody.playing:
+            melody.update()
+        duration = time.monotonic_ns() - start
+        expected_duration = nanoseconds_per_beat * 0
+        assert duration == expected_duration
+
+        assert pin.frequency == 0
+        assert pin.play_count == 1
+        assert pin.off_count == 3
+
+        # Try with a single note
+        pin = MockBuzzerPin()
+        melody = Melody(pin, [(100, 1)], loop=False, tempo=tempo)
+        start = time.monotonic_ns()
+        while melody.playing:
+            melody.update()
+        duration = time.monotonic_ns() - start
+        expected_duration = nanoseconds_per_beat * 1
+        assert duration == expected_duration
+
+        assert pin.frequency == 100
+        assert pin.play_count == 1
+        assert pin.off_count == 3
+
+        # Try with two notes
+        pin = MockBuzzerPin()
+        melody = Melody(pin, [(100, 1), (200, 1)], loop=False, tempo=tempo)
+        start = time.monotonic_ns()
+        while melody.playing:
+            melody.update()
+        duration = time.monotonic_ns() - start
+        expected_duration = nanoseconds_per_beat * 2
+        assert duration == expected_duration
+
+        assert pin.frequency == 200
+        assert pin.play_count == 2
+        assert pin.off_count == 5
+
+        # Try with three notes
+        pin = MockBuzzerPin()
+        melody = Melody(pin, [(100, 1), (200, 1), (300, 1)], loop=False, tempo=tempo)
+        start = time.monotonic_ns()
+        while melody.playing:
+            melody.update()
+        duration = time.monotonic_ns() - start
+        expected_duration = nanoseconds_per_beat * 3
+        assert duration == expected_duration
+
+        assert pin.frequency == 300
+        assert pin.play_count == 3
+        assert pin.off_count == 7
+
+    def test_update_with_looping_song(self) -> None:
+        """
+        Validates the simplest case for update where a looping song
+        is created and plays through.
+        """
+        assert False
+
+    def test_pause(self) -> None:
+        assert False
+
+    def test_resume(self) -> None:
+        assert False
+
+    def test_reset(self) -> None:
+        assert False
+
+    def test_tempo(self) -> None:
+        assert False
 
 
 class TestMelodySequence:
