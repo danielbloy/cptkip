@@ -59,6 +59,7 @@ class Melody:
 
         # Song properties
         self._song = song
+        self._song_length = len(song)
         self._index = 0  # The next note to play.
         self._next_update = time.monotonic_ns()  # The next note is due to play now.
 
@@ -68,20 +69,22 @@ class Melody:
         do nothing. If playing and the next note is due, update() will play the note.
         """
         now = time.monotonic_ns()
-        if self.paused or now < self._next_update:
+        if now < self._next_update or self.paused:
             return
 
-        song_length = len(self._song)
-        if song_length <= 0 or self._index >= song_length:
+        if self._index >= self._song_length:
             self._index = 0
             if not self.loop:
                 self.pause()
                 return
 
+            if self._song_length <= 0:
+                return
+
         frequency, beats = self._song[self._index]
         self._index += 1
 
-        self._buzzer.off()
+        self._buzzer.off()  # TODO: test removing this
         self._buzzer.play(frequency)
 
         self._next_update = now + (self._beat_duration_ns * beats)
@@ -124,15 +127,14 @@ class Melody:
         self._paused = False
 
         # Cope with zero length songs.
-        song_length = len(self._song)
-        if song_length <= 0:
+        if self._song_length <= 0:
             self._index = 0
             return
 
         # As index points to the next note to play, we need the previous note.
         index = self._index - 1
         if index < 0:
-            index = song_length - 1
+            index = self._song_length - 1
 
         frequency, _ = self._song[index]
         self._buzzer.play(frequency)
