@@ -101,8 +101,8 @@ class TestMelody:
         assert duration == expected_duration
 
         assert pin.frequency == 0
-        assert pin.play_count == 1
-        assert pin.off_count == 3
+        assert pin.play_count == 0
+        assert pin.off_count == 1
 
         # Try with a single note
         pin = MockBuzzerPin()

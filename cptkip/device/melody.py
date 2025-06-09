@@ -43,17 +43,24 @@ class Melody:
         if not isinstance(buzzer, BuzzerPin):
             raise ValueError("buzzer must be of type BuzzerPin")
 
+        # Plain properties.
+        self.loop = loop
+        self.name = name
         self._buzzer = buzzer
+
+        # Pause properties
+        self._time_left_at_pause = 0  # How much time left until the next update when paused.
+        self._paused = paused
+
+        # Tempo properties
+        self._beat_duration_ns = 0  # set by tempo.
+        self._tempo = tempo
+        self.tempo = tempo  # sets _beat_duration_ns
+
+        # Song properties
         self._song = song
         self._index = 0  # The next note to play.
-        self.loop = loop
-        self._paused = paused
-        self._next_update = time.monotonic_ns()
-        self._time_left_at_pause = 0
-        self._beat_interval_ns = 0
-        self._tempo = tempo
-        self.tempo = tempo  # sets _speed_ns
-        self.name = name
+        self._next_update = time.monotonic_ns()  # The next note is due to play now.
 
     def update(self):
         """
@@ -64,20 +71,20 @@ class Melody:
         if self.paused or now < self._next_update:
             return
 
-        frequency, beats = 0, 0
-        if len(self._song) > 0:
-            frequency, beats = self._song[self._index]
-
-        self._index += 1
-        if self._index >= len(self._song):
+        song_length = len(self._song)
+        if song_length <= 0 or self._index >= song_length:
             self._index = 0
             if not self.loop:
                 self.pause()
+                return
+
+        frequency, beats = self._song[self._index]
+        self._index += 1
 
         self._buzzer.off()
         self._buzzer.play(frequency)
 
-        self._next_update = now + (self._beat_interval_ns * beats)
+        self._next_update = now + (self._beat_duration_ns * beats)
 
     @property
     def playing(self) -> bool:
@@ -116,10 +123,18 @@ class Melody:
         self._time_left_at_pause = 0
         self._paused = False
 
-        frequency, duration = 0, 0
-        if self._index > 0:
-            frequency, duration = self._song[self._index]
+        # Cope with zero length songs.
+        song_length = len(self._song)
+        if song_length <= 0:
+            self._index = 0
+            return
 
+        # As index points to the next note to play, we need the previous note.
+        index = self._index - 1
+        if index < 0:
+            index = song_length - 1
+
+        frequency, _ = self._song[index]
         self._buzzer.play(frequency)
 
     @property
@@ -132,7 +147,7 @@ class Melody:
     @tempo.setter
     def tempo(self, tempo) -> None:
         self._tempo = tempo
-        self._beat_interval_ns = int(control.NS_PER_SECOND / (tempo / 60))
+        self._beat_duration_ns = int(control.NS_PER_SECOND / (tempo / 60))
 
     def reset(self) -> None:
         """
