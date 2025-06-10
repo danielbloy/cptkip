@@ -248,8 +248,15 @@ class TestMelody:
         while melody.playing and len(pin.frequencies) < 2:  # Stop as soon as the 2nd note is played
             melody.update()
 
+        assert melody._next_update == time.monotonic_ns() + nanoseconds_per_beat
+        assert melody._index == 2
+        assert pin.frequency == 200
+        assert pin.frequencies == [100, 200]
+
         # Reset and allow to play for a few more notes, we should get
         melody.reset()
+        assert melody._next_update == time.monotonic_ns() + nanoseconds_per_beat
+        assert melody._index == 0
 
         while melody.playing and len(pin.frequencies) < 4:  # Stop as soon as the 4th note is played
             melody.update()
@@ -267,16 +274,26 @@ class TestMelody:
         """
         Validates that reset restarts the melody to the beginning.
         """
+        tempo = 480  # 8 beats per second.
+        beats_per_second = tempo / 60
+        nanoseconds_per_beat = NS_PER_SECOND / beats_per_second
+
         pin = MockBuzzerPin()
         melody = Melody(pin, [(100, 1), (200, 1), (300, 1)], tempo=480)
         while melody.playing and len(pin.frequencies) < 2:  # Stop as soon as the 2nd note is played
             melody.update()
 
+        assert melody._next_update == time.monotonic_ns() + nanoseconds_per_beat
+        assert melody._index == 2
+
         # Reset and allow to play for a few more notes, we should get
         melody.pause()
-        melody.reset()
+        assert melody._index == 2
+        assert melody._time_left_at_pause == nanoseconds_per_beat
 
+        melody.reset()
         assert melody._index == 0
+        assert melody._time_left_at_pause == 0
 
         # Resume and ensure the first note is played.
         melody.resume()

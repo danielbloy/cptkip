@@ -81,14 +81,13 @@ class Melody:
             if self._song_length <= 0:
                 return
 
-        frequency, beats = self._song[self._index]
-        self._index += 1
-
         # This call to off() is required to ensure a brief pause between notes of the same frequency
         self._buzzer.off()
-        self._buzzer.play(frequency)
 
+        frequency, beats = self._song[self._index]
+        self._buzzer.play(frequency)
         self._next_update = now + (self._beat_duration_ns * beats)
+        self._index += 1
 
     @property
     def playing(self) -> bool:
@@ -111,8 +110,8 @@ class Melody:
         if self.paused:
             return
 
+        self._time_left_at_pause = max(0, self._next_update - time.monotonic_ns())
         self._paused = True
-        self._time_left_at_pause = max(0, time.monotonic_ns() - self._next_update)
 
         self._buzzer.off()
 
@@ -158,7 +157,8 @@ class Melody:
         Resets the music back to the beginning of the song.
         """
         self._buzzer.off()
-        self._index = 0
+        self._index = 0  # This is the next note to play.
+        self._time_left_at_pause = 0
 
 
 # TODO: Comment this class
