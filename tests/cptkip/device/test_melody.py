@@ -241,7 +241,42 @@ class TestMelody:
         assert False
 
     def test_tempo(self) -> None:
-        assert False
+        """
+        Validates that changing the tempo plays the song faster
+        """
+        tempo = 480  # 8 beats per second.
+        beats_per_second = tempo / 60
+        nanoseconds_per_beat = NS_PER_SECOND / beats_per_second
+
+        # Play a single note.
+        pin = MockBuzzerPin()
+        melody = Melody(pin, [(100, 1)], loop=False, tempo=tempo)
+        start = time.monotonic_ns()
+        while melody.playing:
+            melody.update()
+
+        duration = time.monotonic_ns() - start
+        assert duration == nanoseconds_per_beat
+
+        # Halve the original tempo
+        melody.tempo = tempo / 2
+        melody.resume()
+        start = time.monotonic_ns()
+        while melody.playing:
+            melody.update()
+
+        duration = time.monotonic_ns() - start
+        assert duration == nanoseconds_per_beat * 2
+
+        # Play original tempo
+        melody.tempo = tempo
+        melody.resume()
+        start = time.monotonic_ns()
+        while melody.playing:
+            melody.update()
+
+        duration = time.monotonic_ns() - start
+        assert duration == nanoseconds_per_beat
 
 
 class TestMelodySequence:
