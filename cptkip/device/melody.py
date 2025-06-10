@@ -118,7 +118,8 @@ class Melody:
 
     def resume(self) -> None:
         """
-        Resumes the music if it has been paused.
+        Resumes the music if it has been paused. Also use resume to restart the melody
+        if the song has completed and looping is disabled.
         """
         if not self.paused:
             return

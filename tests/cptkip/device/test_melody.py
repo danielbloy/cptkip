@@ -170,7 +170,7 @@ class TestMelody:
         melody = Melody(pin, [], tempo=tempo)
         start = time.monotonic_ns()
         loop_count = 0
-        while melody.playing and loop_count < 30:  # We need a way to exit.
+        while melody.playing and loop_count < 10:  # We need a way to exit.
             loop_count += 1
             melody.update()
 
@@ -231,18 +231,64 @@ class TestMelody:
         assert pin.play_count == 6
         assert pin.off_count == 6 * 2
 
-    def test_pause(self) -> None:
+    def test_pause_and_resume(self) -> None:
         assert False
 
-    def test_resume(self) -> None:
-        assert False
+    def test_reset_during_play(self) -> None:
+        """
+        Validates that reset restarts the melody to the beginning.
+        """
+        tempo = 480  # 8 beats per second.
+        beats_per_second = tempo / 60
+        nanoseconds_per_beat = NS_PER_SECOND / beats_per_second
 
-    def test_reset(self) -> None:
-        assert False
+        pin = MockBuzzerPin()
+        melody = Melody(pin, [(100, 1), (200, 1), (300, 1)], tempo=tempo)
+        start = time.monotonic_ns()
+        while melody.playing and len(pin.frequencies) < 2:  # Stop as soon as the 2nd note is played
+            melody.update()
+
+        # Reset and allow to play for a few more notes, we should get
+        melody.reset()
+
+        while melody.playing and len(pin.frequencies) < 4:  # Stop as soon as the 4th note is played
+            melody.update()
+
+        duration = time.monotonic_ns() - start
+        expected_duration = nanoseconds_per_beat * (4 - 1)  # we stop as soon as the 4th note is played
+        assert duration == expected_duration
+
+        assert pin.frequency == 200
+        assert pin.frequencies == [100, 200, 100, 200]
+        assert pin.play_count == 4
+        assert pin.off_count == (4 * 2) + 1  # Additional off for the reset
+
+    def test_reset_when_paused(self) -> None:
+        """
+        Validates that reset restarts the melody to the beginning.
+        """
+        pin = MockBuzzerPin()
+        melody = Melody(pin, [(100, 1), (200, 1), (300, 1)], tempo=480)
+        while melody.playing and len(pin.frequencies) < 2:  # Stop as soon as the 2nd note is played
+            melody.update()
+
+        # Reset and allow to play for a few more notes, we should get
+        melody.pause()
+        melody.reset()
+
+        assert melody._index == 0
+
+        # Resume and ensure the first note is played.
+        melody.resume()
+
+        while melody.playing and len(pin.frequencies) < 4:  # Stop as soon as the 4th note is played
+            melody.update()
+
+        assert pin.frequencies == [100, 200, 100, 200]
 
     def test_tempo(self) -> None:
         """
-        Validates that changing the tempo plays the song faster
+        Validates that changing the tempo plays the song faster.
         """
         tempo = 480  # 8 beats per second.
         beats_per_second = tempo / 60
@@ -257,6 +303,7 @@ class TestMelody:
 
         duration = time.monotonic_ns() - start
         assert duration == nanoseconds_per_beat
+        assert melody.tempo == tempo
 
         # Halve the original tempo
         melody.tempo = tempo / 2
@@ -267,6 +314,7 @@ class TestMelody:
 
         duration = time.monotonic_ns() - start
         assert duration == nanoseconds_per_beat * 2
+        assert melody.tempo == tempo / 2
 
         # Play original tempo
         melody.tempo = tempo
@@ -277,6 +325,10 @@ class TestMelody:
 
         duration = time.monotonic_ns() - start
         assert duration == nanoseconds_per_beat
+        assert melody.tempo == tempo
+
+    def test_changing_tempo_during_song(self) -> None:
+        assert False
 
 
 class TestMelodySequence:
