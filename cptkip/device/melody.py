@@ -84,7 +84,8 @@ class Melody:
         frequency, beats = self._song[self._index]
         self._index += 1
 
-        self._buzzer.off()  # TODO: test removing this
+        # This call to off() is required to ensure a brief pause between notes of the same frequency
+        self._buzzer.off()
         self._buzzer.play(frequency)
 
         self._next_update = now + (self._beat_duration_ns * beats)

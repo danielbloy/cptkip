@@ -187,49 +187,49 @@ class TestMelody:
         pin = MockBuzzerPin()
         melody = Melody(pin, [(100, 1)], tempo=tempo)
         start = time.monotonic_ns()
-        while melody.playing and len(pin.frequencies) < 3:
+        while melody.playing and len(pin.frequencies) < 3:  # Stop as soon as the 3rd note is played
             melody.update()
 
         duration = time.monotonic_ns() - start
-        expected_duration = nanoseconds_per_beat * 3
+        expected_duration = nanoseconds_per_beat * (3 - 1)  # we stop as soon as the 3rd note is played
         assert duration == expected_duration
 
         assert pin.frequency == 100
         assert pin.frequencies == [100, 100, 100]
         assert pin.play_count == 3
-        assert pin.off_count == (1 + 1) * 3
+        assert pin.off_count == 3 * 2
 
         # Try with two notes
         pin = MockBuzzerPin()
         melody = Melody(pin, [(100, 1), (200, 1)], tempo=tempo)
         start = time.monotonic_ns()
-        while melody.playing and len(pin.frequencies) < 6:
+        while melody.playing and len(pin.frequencies) < 6:  # Stop as soon as the 6th note is played
             melody.update()
 
         duration = time.monotonic_ns() - start
-        expected_duration = nanoseconds_per_beat * 6
+        expected_duration = nanoseconds_per_beat * (6 - 1)  # we stop as soon as the 6th note is played
         assert duration == expected_duration
 
         assert pin.frequency == 200
         assert pin.frequencies == [100, 200, 100, 200, 100, 200]
         assert pin.play_count == 6
-        assert pin.off_count == (2 + 1) * 3
+        assert pin.off_count == 6 * 2
 
         # Try with three notes
         pin = MockBuzzerPin()
         melody = Melody(pin, [(100, 1), (200, 1), (300, 1)], tempo=tempo)
         start = time.monotonic_ns()
-        while melody.playing and len(pin.frequencies) < 6:
+        while melody.playing and len(pin.frequencies) < 6:  # Stop as soon as the 6th note is played
             melody.update()
 
         duration = time.monotonic_ns() - start
-        expected_duration = nanoseconds_per_beat * 6
+        expected_duration = nanoseconds_per_beat * (6 - 1)  # we stop as soon as the 6th note is played
         assert duration == expected_duration
 
         assert pin.frequency == 300
         assert pin.frequencies == [100, 200, 300, 100, 200, 300]
         assert pin.play_count == 6
-        assert pin.off_count == (3 + 1) * 2
+        assert pin.off_count == 6 * 2
 
     def test_pause(self) -> None:
         assert False
