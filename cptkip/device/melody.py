@@ -154,11 +154,19 @@ class Melody:
 
     def reset(self) -> None:
         """
-        Resets the music back to the beginning of the song.
+        Resets the music back to the beginning of the song. If the song is currently paused,
+        the "paused note" is cancelled. If the song is currently playing, the current note
+        completes before restarting back at the beginning.
         """
         self._buzzer.off()
-        self._index = 0  # This is the next note to play.
         self._time_left_at_pause = 0
+
+        # Because index points to the next note to play, resetting a paused song
+        # requires us to advance the note past the first note.
+        if self.paused:
+            self._index = 1
+        else:
+            self._index = 0
 
 
 # TODO: Comment this class

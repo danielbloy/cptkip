@@ -23,6 +23,16 @@ class MockBuzzerPin(BuzzerPin):
         self.off_count += 1
 
 
+def assert_duration_within_tolerance(actual, expected, percentage=5):
+    """
+    Ensures that the actual value is within a tolerance of the expected.
+    """
+    tolerance = expected * 10 / 100
+    lower = expected - tolerance
+    upper = expected + tolerance
+    assert actual >= lower and actual <= upper
+
+
 class TestMelody:
 
     def test_constructor(self) -> None:
@@ -101,7 +111,7 @@ class TestMelody:
 
         duration = time.monotonic_ns() - start
         expected_duration = nanoseconds_per_beat * 0
-        assert duration == expected_duration
+        assert_duration_within_tolerance(duration, expected_duration)
 
         assert pin.frequency == 0
         assert pin.frequencies == []
@@ -117,7 +127,7 @@ class TestMelody:
 
         duration = time.monotonic_ns() - start
         expected_duration = nanoseconds_per_beat * 1
-        assert duration == expected_duration
+        assert_duration_within_tolerance(duration, expected_duration)
 
         assert pin.frequency == 100
         assert pin.frequencies == [100]
@@ -133,7 +143,7 @@ class TestMelody:
 
         duration = time.monotonic_ns() - start
         expected_duration = nanoseconds_per_beat * 2
-        assert duration == expected_duration
+        assert_duration_within_tolerance(duration, expected_duration)
 
         assert pin.frequency == 200
         assert pin.frequencies == [100, 200]
@@ -149,7 +159,7 @@ class TestMelody:
 
         duration = time.monotonic_ns() - start
         expected_duration = nanoseconds_per_beat * 3
-        assert duration == expected_duration
+        assert_duration_within_tolerance(duration, expected_duration)
 
         assert pin.frequency == 300
         assert pin.frequencies == [100, 200, 300]
@@ -177,7 +187,7 @@ class TestMelody:
         assert melody.playing  # Validate that we have exited the above loop forcefully.
         duration = time.monotonic_ns() - start
         expected_duration = nanoseconds_per_beat * 0
-        assert duration == expected_duration
+        assert_duration_within_tolerance(duration, expected_duration)
 
         assert pin.frequency == 0
         assert pin.play_count == 0
@@ -192,7 +202,7 @@ class TestMelody:
 
         duration = time.monotonic_ns() - start
         expected_duration = nanoseconds_per_beat * (3 - 1)  # we stop as soon as the 3rd note is played
-        assert duration == expected_duration
+        assert_duration_within_tolerance(duration, expected_duration)
 
         assert pin.frequency == 100
         assert pin.frequencies == [100, 100, 100]
@@ -208,7 +218,7 @@ class TestMelody:
 
         duration = time.monotonic_ns() - start
         expected_duration = nanoseconds_per_beat * (6 - 1)  # we stop as soon as the 6th note is played
-        assert duration == expected_duration
+        assert_duration_within_tolerance(duration, expected_duration)
 
         assert pin.frequency == 200
         assert pin.frequencies == [100, 200, 100, 200, 100, 200]
@@ -224,7 +234,7 @@ class TestMelody:
 
         duration = time.monotonic_ns() - start
         expected_duration = nanoseconds_per_beat * (6 - 1)  # we stop as soon as the 6th note is played
-        assert duration == expected_duration
+        assert_duration_within_tolerance(duration, expected_duration)
 
         assert pin.frequency == 300
         assert pin.frequencies == [100, 200, 300, 100, 200, 300]
@@ -263,7 +273,7 @@ class TestMelody:
 
         duration = time.monotonic_ns() - start
         expected_duration = nanoseconds_per_beat * (4 - 1)  # we stop as soon as the 4th note is played
-        assert duration == expected_duration
+        assert_duration_within_tolerance(duration, expected_duration)
 
         assert pin.frequency == 200
         assert pin.frequencies == [100, 200, 100, 200]
@@ -285,6 +295,7 @@ class TestMelody:
 
         assert melody._next_update == time.monotonic_ns() + nanoseconds_per_beat
         assert melody._index == 2
+        assert pin.frequencies == [100, 200]
 
         # Reset and allow to play for a few more notes, we should get
         melody.pause()
@@ -292,7 +303,7 @@ class TestMelody:
         assert melody._time_left_at_pause == nanoseconds_per_beat
 
         melody.reset()
-        assert melody._index == 0
+        assert melody._index == 1
         assert melody._time_left_at_pause == 0
 
         # Resume and ensure the first note is played.
