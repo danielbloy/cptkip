@@ -356,7 +356,37 @@ class TestMelody:
         assert melody.tempo == tempo
 
     def test_changing_tempo_during_song(self) -> None:
-        assert False
+        """Validates that a tempo change durng a song takes effect."""
+        tempo = 480  # 8 beats per second.
+        beats_per_second = tempo / 60
+        nanoseconds_per_beat = NS_PER_SECOND / beats_per_second
+
+        pin = MockBuzzerPin()
+        melody = Melody(pin, [(100, 1), (200, 1), (300, 1), (400, 1)], tempo=tempo)
+        start = time.monotonic_ns()
+        while melody.playing and len(pin.frequencies) < 3:  # Stop as soon as the 3rd note is played
+            melody.update()
+
+        duration = time.monotonic_ns() - start
+        expected_duration = nanoseconds_per_beat * (3 - 1)  # we stop as soon as the 3rd note is played
+        assert_duration_within_tolerance(duration, expected_duration)
+
+        assert pin.frequency == 300
+        assert pin.frequencies == [100, 200, 300]
+
+        # Change the tempo which will apply at the start of the 4th note
+        melody.tempo = tempo / 2
+
+        while melody.playing and len(pin.frequencies) < 6:  # Stop as soon as the 6th note is played
+            melody.update()
+
+        duration = time.monotonic_ns() - start
+        expected_duration = (nanoseconds_per_beat * 3) + (
+                nanoseconds_per_beat * 4)  # 3 notes at original tempo, 4th and 5th at new (slower) tempo
+        assert_duration_within_tolerance(duration, expected_duration)
+
+        assert pin.frequency == 200
+        assert pin.frequencies == [100, 200, 300, 400, 100, 200]
 
 
 class TestMelodySequence:
