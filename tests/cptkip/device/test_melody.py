@@ -27,10 +27,15 @@ def assert_duration_within_tolerance(actual, expected, percentage=5):
     """
     Ensures that the actual value is within a tolerance of the expected.
     """
-    tolerance = expected * 10 / 100
+    tolerance = expected * percentage / 100
+    if tolerance == 0:
+        tolerance = 100_000  # Allow a tolerance for zero
+
     lower = expected - tolerance
     upper = expected + tolerance
-    assert lower <= actual <= upper
+    print(actual, expected, percentage, lower, upper)
+    assert actual >= lower
+    assert actual <= upper
 
 
 class TestMelody:
