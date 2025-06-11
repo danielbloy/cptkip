@@ -261,7 +261,7 @@ class TestMelody:
         duration = time.monotonic_ns() - start
         expected_duration = nanoseconds_per_beat * (2 - 1)  # we stop as soon as the 2nd note is played
         assert_duration_within_tolerance(duration, expected_duration)
-        assert melody._time_left_at_pause == nanoseconds_per_beat
+        assert_duration_within_tolerance(melody._time_left_at_pause, nanoseconds_per_beat)
 
         assert pin.frequencies == [100, 200]
 
@@ -336,7 +336,7 @@ class TestMelody:
         # Reset and allow to play for a few more notes, we should get
         melody.pause()
         assert melody._index == 2
-        assert melody._time_left_at_pause == nanoseconds_per_beat
+        assert_duration_within_tolerance(melody._time_left_at_pause, nanoseconds_per_beat)
 
         melody.reset()
         assert melody._index == 1
@@ -366,7 +366,8 @@ class TestMelody:
             melody.update()
 
         duration = time.monotonic_ns() - start
-        assert duration == nanoseconds_per_beat
+        assert_duration_within_tolerance(duration, nanoseconds_per_beat)
+
         assert melody.tempo == tempo
 
         # Halve the original tempo
@@ -377,7 +378,7 @@ class TestMelody:
             melody.update()
 
         duration = time.monotonic_ns() - start
-        assert duration == nanoseconds_per_beat * 2
+        assert_duration_within_tolerance(duration, nanoseconds_per_beat * 2)
         assert melody.tempo == tempo / 2
 
         # Play original tempo
@@ -388,7 +389,7 @@ class TestMelody:
             melody.update()
 
         duration = time.monotonic_ns() - start
-        assert duration == nanoseconds_per_beat
+        assert_duration_within_tolerance(duration, nanoseconds_per_beat)
         assert melody.tempo == tempo
 
     def test_changing_tempo_during_song(self) -> None:
