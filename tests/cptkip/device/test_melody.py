@@ -30,7 +30,7 @@ def assert_duration_within_tolerance(actual, expected, percentage=5):
     tolerance = expected * 10 / 100
     lower = expected - tolerance
     upper = expected + tolerance
-    assert actual >= lower and actual <= upper
+    assert lower <= actual <= upper
 
 
 class TestMelody:
@@ -242,7 +242,43 @@ class TestMelody:
         assert pin.off_count == 6 * 2
 
     def test_pause_and_resume(self) -> None:
-        assert False
+        """
+        Validates that pausing and resuming a song plays for the correct duration..
+        """
+        tempo = 480  # 8 beats per second.
+        beats_per_second = tempo / 60
+        nanoseconds_per_beat = NS_PER_SECOND / beats_per_second
+
+        pin = MockBuzzerPin()
+        melody = Melody(pin, [(100, 1), (200, 1), (300, 1), (300, 1)], tempo=tempo)
+        start = time.monotonic_ns()
+        while melody.playing and len(pin.frequencies) < 2:  # Stop as soon as the 2nd note is played
+            melody.update()
+
+        melody.pause()
+        melody.update()
+
+        duration = time.monotonic_ns() - start
+        expected_duration = nanoseconds_per_beat * (2 - 1)  # we stop as soon as the 2nd note is played
+        assert_duration_within_tolerance(duration, expected_duration)
+        assert melody._time_left_at_pause == nanoseconds_per_beat
+
+        assert pin.frequencies == [100, 200]
+
+        # Build in a sleep where nothing is playing.
+        for i in range(30):
+            melody.update()
+            time.sleep(0.01)
+
+        assert pin.frequencies == [100, 200]
+
+        expected_finish = time.monotonic_ns() + melody._time_left_at_pause
+        melody.resume()
+        while melody.playing and len(pin.frequencies) < 3:  # Stop as soon as the 3rd note is played
+            melody.update()
+
+        assert_duration_within_tolerance(time.monotonic_ns(), expected_finish)
+        assert melody._time_left_at_pause == 0
 
     def test_reset_during_play(self) -> None:
         """
