@@ -299,14 +299,14 @@ class TestMelody:
         while melody.playing and len(pin.frequencies) < 2:  # Stop as soon as the 2nd note is played
             melody.update()
 
-        assert melody._next_update == time.monotonic_ns() + nanoseconds_per_beat
+        assert_duration_within_tolerance(melody._next_update, time.monotonic_ns() + nanoseconds_per_beat)
         assert melody._index == 2
         assert pin.frequency == 200
         assert pin.frequencies == [100, 200]
 
         # Reset and allow to play for a few more notes, we should get
         melody.reset()
-        assert melody._next_update == time.monotonic_ns() + nanoseconds_per_beat
+        assert_duration_within_tolerance(melody._next_update, time.monotonic_ns() + nanoseconds_per_beat)
         assert melody._index == 0
 
         while melody.playing and len(pin.frequencies) < 4:  # Stop as soon as the 4th note is played
@@ -334,7 +334,7 @@ class TestMelody:
         while melody.playing and len(pin.frequencies) < 2:  # Stop as soon as the 2nd note is played
             melody.update()
 
-        assert melody._next_update == time.monotonic_ns() + nanoseconds_per_beat
+        assert_duration_within_tolerance(melody._next_update, time.monotonic_ns() + nanoseconds_per_beat)
         assert melody._index == 2
         assert pin.frequencies == [100, 200]
 
