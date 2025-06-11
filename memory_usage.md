@@ -452,13 +452,13 @@ jingle_bells = [
     "R:8"]
 
 melody_sequence = melody.MelodySequence(
-    melody.Melody(pin, melody.decode_melody(scale), 0.2),
-    melody.Melody(pin, melody.decode_melody(jingle_bells), 0.1))
+    melody.Melody(pin, melody.decode_melody(scale), 240),
+    melody.Melody(pin, melody.decode_melody(jingle_bells), 480))
 
 finish = time.monotonic() + 2
 
 while time.monotonic() < finish:
-    melody_sequence.play()
+    melody_sequence.update()
 
 pin.off()
 
