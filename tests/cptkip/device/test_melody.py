@@ -3,7 +3,7 @@ import time
 import pytest
 
 from cptkip.core.control import NS_PER_SECOND
-from cptkip.device.melody import Melody, note_to_frequency, standardise_note, decode_melody
+from cptkip.device.melody import Melody, note_to_frequency, standardise_note, decode_melody, MelodySequence
 from cptkip.pin.buzzer_pin import BuzzerPin
 
 
@@ -431,10 +431,60 @@ class TestMelody:
         assert pin.frequencies == [100, 200, 300, 400, 100, 200]
 
 
+class MockMelody(Melody):
+    def __init__(self, pin, notes: int, loop=True):
+        super().__init__(pin, [(i + 1, 1) for i in range(notes)], loop=loop)
+        # Override duration
+        self._beat_duration_ns = 0
+
+
 class TestMelodySequence:
 
-    def test_write_tests(self) -> None:
-        assert False
+    def test_constructor(self) -> None:
+        """
+        Validates that a MelodySequence is constructed with the correct parameters.
+        """
+        # Create an empty MelodySequence
+        with pytest.raises(ValueError):
+            MelodySequence()
+
+        with pytest.raises(ValueError):
+            MelodySequence(None)
+
+        # Test with a single melody that has no notes.
+        pin = MockBuzzerPin()
+        empty_melody = MockMelody(pin, notes=0)
+        sequence = MelodySequence(empty_melody, loop=False)
+        while sequence.playing:
+            sequence.update()
+
+        assert pin.frequencies == []
+        assert pin.play_count == 0
+
+        # Play a single Melody with 3 notes.
+        pin = MockBuzzerPin()
+        melody = MockMelody(pin, notes=5)
+        sequence = MelodySequence(melody, loop=False)
+        while sequence.playing:
+            sequence.update()
+
+        assert pin.frequencies == [1, 2, 3, 4, 5]
+
+        # Play multiple Melodies with multiple notes.
+        pin = MockBuzzerPin()
+        empty_melody = MockMelody(pin, notes=0)
+        melody_1 = MockMelody(pin, notes=7)
+        melody_2 = MockMelody(pin, notes=3)
+        melody_3 = MockMelody(pin, notes=4)
+        sequence = MelodySequence(melody_1, empty_melody, melody_2, melody_3, loop=False)
+        while sequence.playing:
+            sequence.update()
+
+        assert pin.frequencies == [1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 1, 2, 3, 4]
+
+    # TODO: Pass in non Melodies, should work.
+    # TODO: Pass in MelodySequences, should work. If MelodySequence is set to loop, the top parent one cancels that.
+    # TODO: Select song to play via active()
 
 
 class TestDecodeMelody:
