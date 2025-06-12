@@ -169,15 +169,18 @@ class Melody:
             self._index = 0
 
 
-# TODO: Comment this class
-# TODO: Write tests for this class.
 class MelodySequence:
-    def __init__(self, *members: Melody, loop=True, name=None):
+    def __init__(self, *members: Melody, loop=True):
+        """
+        MelodySequence is used to
+        """
+        if members is None or len(members) <= 0 or members[0] is None:
+            raise ValueError("members must be Melody objects")
+
         self._members = members
         self._loop = loop
         self._current = 0
         self._paused = False
-        self.name = name
         # Disable auto loop in the individual songs.
         for member in self._members:
             member.loop = False
@@ -186,8 +189,6 @@ class MelodySequence:
         """
         Activates a specific melody.
         """
-        self.melody.reset()
-        self.melody.resume()
         if isinstance(index, str):
             self._current = [member.name for member in self._members].index(index)
         else:
@@ -204,6 +205,7 @@ class MelodySequence:
         if current >= len(self._members):
             if not self._loop:
                 self.pause()
+                return
 
         self.activate(current % len(self._members))
 
@@ -222,9 +224,7 @@ class MelodySequence:
             self.next()
 
         if not self.paused:
-            return self.melody.update()
-
-        return False
+            self.melody.update()
 
     @property
     def melody(self) -> Melody:
