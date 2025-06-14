@@ -466,9 +466,9 @@ pin.off()
 
 | `cptkip/device/led.py`  |                    |
 |-------------------------|--------------------|
-| Ram at Start            | Used: 1,760 bytes  |
-| RAM at Finish before GC | Used: 17,216 bytes |
-| RAM at Finish after GC  | Used: 13,120 bytes |
+| Ram at Start            | Used: 1,744 bytes  |
+| RAM at Finish before GC | Used: 46,112 bytes |
+| RAM at Finish after GC  | Used: 13,504 bytes |
 
 ## Experiments with the old framework
 

@@ -169,25 +169,33 @@ class Melody:
             self._index = 0
 
 
-# TODO: Comment this class
-# TODO: Write tests for this class.
 class MelodySequence:
-    def __init__(self, *members: Melody, loop=True, name=None):
+    """
+    MelodySequence is intended to be used to play  multiple Melody instances one
+    after the other. MelodySequence is a drop in replacement for Melody and provides
+    the same public interface for pausing and resuming songs.
+    """
+
+    def __init__(self, *members: Melody, loop=True):
+        """
+        MelodySequence is used to
+        """
+        if members is None or len(members) <= 0 or members[0] is None:
+            raise ValueError("members must be Melody objects")
+
         self._members = members
         self._loop = loop
         self._current = 0
         self._paused = False
-        self.name = name
         # Disable auto loop in the individual songs.
         for member in self._members:
             member.loop = False
 
     def activate(self, index):
         """
-        Activates a specific melody.
+        Activates a specific melody. Use either an integer index (zero based)
+        for the melody or a string based name that was provided for the melody.
         """
-        self.melody.reset()
-        self.melody.resume()
         if isinstance(index, str):
             self._current = [member.name for member in self._members].index(index)
         else:
@@ -198,18 +206,21 @@ class MelodySequence:
 
     def next(self):
         """
-        Jump to the next melody.
+        Jumps to the next melody. If the last melody is currently playing
+        and looping is disabled, this will pause the melody sequence.
         """
         current = self._current + 1
         if current >= len(self._members):
             if not self._loop:
                 self.pause()
+                return
 
         self.activate(current % len(self._members))
 
     def previous(self):
         """
-        Jump to the previous melody.
+        Jumps to the previous melody. Unlike previous, this ignores whether
+        looping is enabled or disabled.
         """
         current = self._current - 1
         self.activate(current % len(self._members))
@@ -220,11 +231,10 @@ class MelodySequence:
         """
         if not self.paused and self.melody.paused:
             self.next()
+            return
 
         if not self.paused:
-            return self.melody.update()
-
-        return False
+            self.melody.update()
 
     @property
     def melody(self) -> Melody:
