@@ -445,21 +445,27 @@ class TestMelodySequence:
         Validates that a MelodySequence is constructed with the correct parameters.
         """
         with pytest.raises(ValueError):
+            # noinspection PyTypeChecker
             MelodySequence()
 
         with pytest.raises(ValueError):
+            # noinspection PyTypeChecker
             MelodySequence(loop=False)
 
         with pytest.raises(ValueError):
+            # noinspection PyTypeChecker
             MelodySequence(None)
 
         with pytest.raises(AttributeError):
+            # noinspection PyTypeChecker
             MelodySequence("string")
 
         with pytest.raises(AttributeError):
+            # noinspection PyTypeChecker
             MelodySequence(0)
 
         with pytest.raises(AttributeError):
+            # noinspection PyTypeChecker
             MelodySequence("string", 0, loop=False)
 
         empty_melody = Melody(MockBuzzerPin(), [])
