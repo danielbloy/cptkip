@@ -228,6 +228,7 @@ class MelodySequence:
         """
         if not self.paused and self.melody.paused:
             self.next()
+            return
 
         if not self.paused:
             self.melody.update()

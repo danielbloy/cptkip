@@ -432,8 +432,8 @@ class TestMelody:
 
 
 class MockMelody(Melody):
-    def __init__(self, pin, notes: int, loop=True):
-        super().__init__(pin, [(i + 1, 1) for i in range(notes)], loop=loop)
+    def __init__(self, pin, notes: int, start: int = 1, loop=True):
+        super().__init__(pin, [(start + i, 1) for i in range(notes)], loop=loop)
         # Override duration
         self._beat_duration_ns = 0
 
@@ -501,13 +501,13 @@ class TestMelodySequence:
         pin = MockBuzzerPin()
         empty_melody = MockMelody(pin, notes=0)
         melody_1 = MockMelody(pin, notes=7)
-        melody_2 = MockMelody(pin, notes=3)
-        melody_3 = MockMelody(pin, notes=4)
+        melody_2 = MockMelody(pin, notes=3, start=11)
+        melody_3 = MockMelody(pin, notes=4, start=21)
         sequence = MelodySequence(melody_1, empty_melody, melody_2, melody_3, loop=False)
         while sequence.playing:
             sequence.update()
 
-        assert pin.frequencies == [1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 1, 2, 3, 4]
+        assert pin.frequencies == [1, 2, 3, 4, 5, 6, 7, 11, 12, 13, 21, 22, 23, 24]
 
     def test_update_with_looping_sequence(self) -> None:
         """
@@ -528,7 +528,18 @@ class TestMelodySequence:
         assert pin.frequencies == []
         assert pin.play_count == 0
 
-        # Play a single Melody with 3 notes.
+        # Play a single Melody with 5 notes, exactly once.
+        pin = MockBuzzerPin()
+        melody = MockMelody(pin, notes=5)
+        sequence = MelodySequence(melody)
+        while sequence.playing and pin.play_count < 5:
+            sequence.update()
+
+        assert sequence.playing
+        assert pin.frequencies == [1, 2, 3, 4, 5]
+        assert pin.play_count == 5
+
+        # Play a single Melody with 5 notes.
         pin = MockBuzzerPin()
         melody = MockMelody(pin, notes=5)
         sequence = MelodySequence(melody)
@@ -539,22 +550,35 @@ class TestMelodySequence:
         assert pin.frequencies == [1, 2, 3, 4, 5, 1, 2, 3]
         assert pin.play_count == 8
 
+    def test_edge_cases(self) -> None:
+        # Play a single Melody with 5 notes, rollover to first note on second loop.
+        pin = MockBuzzerPin()
+        melody = MockMelody(pin, notes=5)
+        sequence = MelodySequence(melody)
+        while sequence.playing and pin.play_count < 6:
+            sequence.update()
+
+        assert sequence.playing
+        assert pin.frequencies == [1, 2, 3, 4, 5, 1]
+        assert pin.play_count == 6
+
         # Play multiple Melodies with multiple notes.
         pin = MockBuzzerPin()
         empty_melody = MockMelody(pin, notes=0)
         melody_1 = MockMelody(pin, notes=7)
-        melody_2 = MockMelody(pin, notes=3)
-        melody_3 = MockMelody(pin, notes=4)
+        melody_2 = MockMelody(pin, notes=3, start=11)
+        melody_3 = MockMelody(pin, notes=4, start=21)
         sequence = MelodySequence(melody_1, empty_melody, melody_2, melody_3)
         while sequence.playing and pin.play_count < 22:
             sequence.update()
 
         assert sequence.playing
-        assert pin.frequencies == [1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 1, 2, 3, 4, 1, 2, 3, 4, 5, 6, 7, 1]
+        assert pin.frequencies == [1, 2, 3, 4, 5, 6, 7, 11, 12, 13, 21, 22, 23, 24, 1, 2, 3, 4, 5, 6, 7, 11]
         assert pin.play_count == 22
 
     # TODO: Select song to play via active()
     # TODO: Previous and next().
+    # TODO: Test pause and resume()
 
 
 class TestDecodeMelody:
