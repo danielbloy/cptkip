@@ -999,7 +999,54 @@ class TestMelodySequence:
         sequence_a.previous()
         sequence_b.previous()
 
-    # TODO: Test pause and resume()
+    def test_pause_and_resume(self) -> None:
+        """
+        Validates pause and resume perform as expected and propogate through to the melody
+        The testing here is very basic as the complexity is in Melody which is more thoroughly
+        tested..
+        """
+        pin = MockBuzzerPin()
+        melody_1 = MockMelody(pin, notes=1, start=11, name="melody_1")
+        melody_2 = MockMelody(pin, notes=1, start=21, name="melody_2")
+
+        sequence = MelodySequence(melody_1, melody_2, loop=False)
+        assert sequence.melody.name == "melody_1"
+        assert sequence.playing
+        assert melody_1.playing
+        assert melody_2.playing
+
+        sequence.pause()
+        assert sequence.melody.name == "melody_1"
+        assert sequence.paused
+        assert melody_1.paused
+        assert melody_2.playing
+
+        sequence.resume()
+        assert sequence.melody.name == "melody_1"
+        assert sequence.playing
+        assert melody_1.playing
+        assert melody_2.playing
+
+        # Advance the melodies
+        sequence.update()  # Play first note of first melody
+        sequence.update()  # Finish first melody
+        sequence.update()  # Advance to nsecond melody
+        assert sequence.melody.name == "melody_2"
+        assert sequence.playing
+        assert melody_1.paused
+        assert melody_2.playing
+
+        sequence.pause()
+        assert sequence.melody.name == "melody_2"
+        assert sequence.paused
+        assert melody_1.paused
+        assert melody_2.paused
+
+        sequence.resume()
+        assert sequence.melody.name == "melody_2"
+        assert sequence.playing
+        assert melody_1.paused
+        assert melody_2.playing
 
 
 class TestDecodeMelody:
