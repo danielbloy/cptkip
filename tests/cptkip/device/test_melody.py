@@ -879,6 +879,56 @@ class TestMelodySequence:
         sequence_a.previous()
         sequence_b.previous()
 
+        assert sequence_a.playing
+        assert sequence_a._current == 0
+        assert sequence_a.melody.name == "empty_melody"
+        assert sequence_b.playing
+        assert sequence_b._current == 3
+        assert sequence_b.melody.name is None
+
+        sequence_a.previous()
+        sequence_b.previous()
+
+        assert sequence_a.playing
+        assert sequence_a._current == 0
+        assert sequence_a.melody.name == "empty_melody"
+        assert sequence_b.playing
+        assert sequence_b._current == 2
+        assert sequence_b.melody.name == "duplicate_name"
+
+        sequence_a.previous()
+        sequence_b.previous()
+
+        assert sequence_a.playing
+        assert sequence_a._current == 0
+        assert sequence_a.melody.name == "empty_melody"
+        assert sequence_b.playing
+        assert sequence_b._current == 1
+        assert sequence_b.melody.name == "empty_melody"
+
+        sequence_a.previous()
+        sequence_b.previous()
+
+        assert sequence_a.playing
+        assert sequence_a._current == 0
+        assert sequence_a.melody.name == "empty_melody"
+        assert sequence_b.playing
+        assert sequence_b._current == 0
+        assert sequence_b.melody.name == "duplicate_name"
+
+        sequence_a.previous()
+        sequence_b.previous()
+
+        assert sequence_a.playing
+        assert sequence_a._current == 0
+        assert sequence_a.melody.name == "empty_melody"
+        assert sequence_b.playing
+        assert sequence_b._current == 3
+        assert sequence_b.melody.name is None
+
+        sequence_a.previous()
+        sequence_b.previous()
+
     def test_previous_non_looping(self) -> None:
         pin = MockBuzzerPin()
         empty_melody = MockMelody(pin, notes=0, name="empty_melody")
@@ -895,6 +945,56 @@ class TestMelodySequence:
         assert sequence_b.playing
         assert sequence_b._current == 0
         assert sequence_b.melody.name == "duplicate_name"
+
+        sequence_a.previous()
+        sequence_b.previous()
+
+        assert sequence_a.playing
+        assert sequence_a._current == 0
+        assert sequence_a.melody.name == "empty_melody"
+        assert sequence_b.playing
+        assert sequence_b._current == 3
+        assert sequence_b.melody.name is None
+
+        sequence_a.previous()
+        sequence_b.previous()
+
+        assert sequence_a.playing
+        assert sequence_a._current == 0
+        assert sequence_a.melody.name == "empty_melody"
+        assert sequence_b.playing
+        assert sequence_b._current == 2
+        assert sequence_b.melody.name == "duplicate_name"
+
+        sequence_a.previous()
+        sequence_b.previous()
+
+        assert sequence_a.playing
+        assert sequence_a._current == 0
+        assert sequence_a.melody.name == "empty_melody"
+        assert sequence_b.playing
+        assert sequence_b._current == 1
+        assert sequence_b.melody.name == "empty_melody"
+
+        sequence_a.previous()
+        sequence_b.previous()
+
+        assert sequence_a.playing
+        assert sequence_a._current == 0
+        assert sequence_a.melody.name == "empty_melody"
+        assert sequence_b.playing
+        assert sequence_b._current == 0
+        assert sequence_b.melody.name == "duplicate_name"
+
+        sequence_a.previous()
+        sequence_b.previous()
+
+        assert sequence_a.playing
+        assert sequence_a._current == 0
+        assert sequence_a.melody.name == "empty_melody"
+        assert sequence_b.playing
+        assert sequence_b._current == 3
+        assert sequence_b.melody.name is None
 
         sequence_a.previous()
         sequence_b.previous()
