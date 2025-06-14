@@ -193,7 +193,8 @@ class MelodySequence:
 
     def activate(self, index):
         """
-        Activates a specific melody.
+        Activates a specific melody. Use either an integer index (zero based)
+        for the melody or a string based name that was provided for the melody.
         """
         if isinstance(index, str):
             self._current = [member.name for member in self._members].index(index)

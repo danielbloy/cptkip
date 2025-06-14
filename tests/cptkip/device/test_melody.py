@@ -432,8 +432,8 @@ class TestMelody:
 
 
 class MockMelody(Melody):
-    def __init__(self, pin, notes: int, start: int = 1, loop=True):
-        super().__init__(pin, [(start + i, 1) for i in range(notes)], loop=loop)
+    def __init__(self, pin, notes: int, start: int = 1, loop=True, name=None):
+        super().__init__(pin, [(start + i, 1) for i in range(notes)], loop=loop, name=name)
         # Override duration
         self._beat_duration_ns = 0
 
@@ -556,7 +556,22 @@ class TestMelodySequence:
         assert pin.frequencies == [1, 2, 3, 4, 5, 1, 2, 3]
         assert pin.play_count == 8
 
-    def test_edge_cases(self) -> None:
+    def test_update_rolls_over_to_next_song_correctly(self) -> None:
+        """
+        Validates that rolling over to the next song plays the precise number of notes.
+        This tests looping and non-looping.
+        """
+        # Single melody with a single note.
+        pin = MockBuzzerPin()
+        melody = MockMelody(pin, notes=1)
+        sequence = MelodySequence(melody)
+        while sequence.playing and pin.play_count < 2:
+            sequence.update()
+
+        assert sequence.playing
+        assert pin.frequencies == [1, 1]
+        assert pin.play_count == 2
+
         # Play a single Melody with 5 notes, rollover to first note on second loop.
         pin = MockBuzzerPin()
         melody = MockMelody(pin, notes=5)
@@ -574,6 +589,8 @@ class TestMelodySequence:
         melody_1 = MockMelody(pin, notes=7)
         melody_2 = MockMelody(pin, notes=3, start=11)
         melody_3 = MockMelody(pin, notes=4, start=21)
+
+        # Try looping
         sequence = MelodySequence(melody_1, empty_melody, melody_2, melody_3)
         while sequence.playing and pin.play_count < 22:
             sequence.update()
@@ -582,7 +599,133 @@ class TestMelodySequence:
         assert pin.frequencies == [1, 2, 3, 4, 5, 6, 7, 11, 12, 13, 21, 22, 23, 24, 1, 2, 3, 4, 5, 6, 7, 11]
         assert pin.play_count == 22
 
-    # TODO: Select song to play via active()
+        # Try non-looping
+        sequence = MelodySequence(melody_1, empty_melody, melody_2, melody_3, loop=False)
+        while sequence.playing and pin.play_count < 22:
+            sequence.update()
+
+        assert sequence.playing
+        assert pin.frequencies == [1, 2, 3, 4, 5, 6, 7, 11, 12, 13, 21, 22, 23, 24, 1, 2, 3, 4, 5, 6, 7, 11]
+        assert pin.play_count == 22
+
+    def test_activate_invalid_values(self) -> None:
+        """
+        Validates that errors occur when activate is used with incorrect values.
+        """
+        pin = MockBuzzerPin()
+        empty_melody = MockMelody(pin, notes=0, name="empty_melody")
+        melody_no_name = MockMelody(pin, notes=4)
+        melody_1 = MockMelody(pin, notes=7, name="duplicate_name")
+        melody_2 = MockMelody(pin, notes=3, name="duplicate_name")
+
+        sequence_a = MelodySequence(empty_melody)
+        sequence_b = MelodySequence(melody_1, empty_melody, melody_2, melody_no_name, loop=False)
+
+        # Try using non integer and out of range values with a single melody
+        with pytest.raises(TypeError):
+            # noinspection PyTypeChecker
+            sequence_a.activate(2.3)
+
+        with pytest.raises(TypeError):
+            # noinspection PyTypeChecker
+            sequence_b.activate(2.3)
+
+        with pytest.raises(IndexError):
+            # noinspection PyTypeChecker
+            sequence_a.activate(1234)
+
+        with pytest.raises(IndexError):
+            # noinspection PyTypeChecker
+            sequence_b.activate(1234)
+
+        with pytest.raises(IndexError):
+            # noinspection PyTypeChecker
+            sequence_a.activate(-10)
+
+        with pytest.raises(IndexError):
+            # noinspection PyTypeChecker
+            sequence_b.activate(-10)
+
+        with pytest.raises(TypeError):
+            # noinspection PyTypeChecker
+            sequence_a.activate(None)
+
+        with pytest.raises(TypeError):
+            # noinspection PyTypeChecker
+            sequence_b.activate(None)
+
+        with pytest.raises(ValueError):
+            # noinspection PyTypeChecker
+            sequence_a.activate("unknown_name")
+
+        with pytest.raises(ValueError):
+            # noinspection PyTypeChecker
+            sequence_b.activate("unknown_name")
+
+    def test_activate(self) -> None:
+        """
+        Validates the correct behaviour of the activate method when specifying the melody by either
+        integer index or name.
+        """
+        pin = MockBuzzerPin()
+        empty_melody = MockMelody(pin, notes=0, name="empty_melody")
+        melody_no_name = MockMelody(pin, notes=4)
+        melody_1 = MockMelody(pin, notes=7, start=11, name="duplicate_name")
+        melody_2 = MockMelody(pin, notes=3, start=21, name="duplicate_name")
+
+        sequence_a = MelodySequence(empty_melody)
+        sequence_b = MelodySequence(melody_1, empty_melody, melody_2, melody_no_name, loop=False)
+
+        # Select by index.
+        sequence_a.activate(0)
+        assert sequence_a._current == 0
+        assert sequence_a.melody.name == "empty_melody"
+
+        sequence_b.activate(3)
+        assert sequence_b._current == 3
+        assert sequence_b.melody.name is None
+
+        sequence_b.activate(0)
+        assert sequence_b._current == 0
+        assert sequence_b.melody.name == "duplicate_name"
+
+        # Select by negative index
+        sequence_a.activate(-1)
+        assert sequence_a._current == -1
+        assert sequence_a.melody.name == "empty_melody"
+
+        sequence_b.activate(-1)
+        assert sequence_b._current == -1
+        assert sequence_b.melody.name is None
+
+        sequence_b.activate(-3)
+        assert sequence_b._current == -3
+        assert sequence_b.melody.name == "empty_melody"
+
+        # Activate by name
+        sequence_a.activate("empty_melody")
+        assert sequence_a._current == 0
+        assert sequence_a.melody.name == "empty_melody"
+
+        sequence_b.activate("empty_melody")
+        assert sequence_b._current == 1
+        assert sequence_b.melody.name == "empty_melody"
+
+        sequence_b.activate("duplicate_name")
+        assert sequence_b._current == 0
+        assert sequence_b.melody.name == "duplicate_name"
+
+        # Test reset is the equivalent of activate(0).
+        sequence_a.reset()
+        assert sequence_a._current == 0
+        assert sequence_a.melody.name == "empty_melody"
+
+        sequence_b.reset()
+        assert sequence_b._current == 0
+        assert sequence_b.melody.name == "duplicate_name"
+
+    # TODO: Test activate during play and pause().
+    # TODO: Test reset during play and pause().
     # TODO: Previous and next().
     # TODO: Test pause and resume()
 
