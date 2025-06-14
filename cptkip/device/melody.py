@@ -170,6 +170,12 @@ class Melody:
 
 
 class MelodySequence:
+    """
+    MelodySequence is intended to be used to play  multiple Melody instances one
+    after the other. MelodySequence is a drop in replacement for Melody and provides
+    the same public interface for pausing and resuming songs.
+    """
+
     def __init__(self, *members: Melody, loop=True):
         """
         MelodySequence is used to

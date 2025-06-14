@@ -444,12 +444,39 @@ class TestMelodySequence:
         """
         Validates that a MelodySequence is constructed with the correct parameters.
         """
-        # Create an empty MelodySequence
         with pytest.raises(ValueError):
             MelodySequence()
 
         with pytest.raises(ValueError):
+            MelodySequence(loop=False)
+
+        with pytest.raises(ValueError):
             MelodySequence(None)
+
+        with pytest.raises(AttributeError):
+            MelodySequence("string")
+
+        with pytest.raises(AttributeError):
+            MelodySequence(0)
+
+        with pytest.raises(AttributeError):
+            MelodySequence("string", 0, loop=False)
+
+        empty_melody = Melody(MockBuzzerPin(), [])
+        melody_1 = Melody(MockBuzzerPin(), [(100, 1), (200, 1)])
+        melody_2 = Melody(MockBuzzerPin(), [(300, 1), (400, 1)])
+        melody_3 = Melody(MockBuzzerPin(), [(100, 1), (200, 1), (300, 1), (400, 1)])
+
+        MelodySequence(empty_melody)
+        MelodySequence(melody_1)
+        MelodySequence(melody_2, melody_3, loop=False)
+        MelodySequence(melody_1, empty_melody, melody_2, melody_3, loop=False)
+
+    def test_update_with_non_looping_sequence(self) -> None:
+        """
+        Validates that non looping MelodySequences iterate through all songs
+        once and once only.
+        """
 
         # Test with a single melody that has no notes.
         pin = MockBuzzerPin()
@@ -461,7 +488,7 @@ class TestMelodySequence:
         assert pin.frequencies == []
         assert pin.play_count == 0
 
-        # Play a single Melody with 3 notes.
+        # Play a single Melody with 5 notes.
         pin = MockBuzzerPin()
         melody = MockMelody(pin, notes=5)
         sequence = MelodySequence(melody, loop=False)
@@ -482,9 +509,52 @@ class TestMelodySequence:
 
         assert pin.frequencies == [1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 1, 2, 3, 4]
 
-    # TODO: Pass in non Melodies, should work.
-    # TODO: Pass in MelodySequences, should work. If MelodySequence is set to loop, the top parent one cancels that.
+    def test_update_with_looping_sequence(self) -> None:
+        """
+        Validates that looping MelodySequences iterate through all songs
+        once and then repeat.
+        """
+
+        # Test with a single melody that has no notes.
+        pin = MockBuzzerPin()
+        empty_melody = MockMelody(pin, notes=0)
+        sequence = MelodySequence(empty_melody)
+        loop_count = 0
+        while sequence.playing and loop_count < 10:
+            loop_count += 1
+            sequence.update()
+
+        assert sequence.playing
+        assert pin.frequencies == []
+        assert pin.play_count == 0
+
+        # Play a single Melody with 3 notes.
+        pin = MockBuzzerPin()
+        melody = MockMelody(pin, notes=5)
+        sequence = MelodySequence(melody)
+        while sequence.playing and pin.play_count < 8:
+            sequence.update()
+
+        assert sequence.playing
+        assert pin.frequencies == [1, 2, 3, 4, 5, 1, 2, 3]
+        assert pin.play_count == 8
+
+        # Play multiple Melodies with multiple notes.
+        pin = MockBuzzerPin()
+        empty_melody = MockMelody(pin, notes=0)
+        melody_1 = MockMelody(pin, notes=7)
+        melody_2 = MockMelody(pin, notes=3)
+        melody_3 = MockMelody(pin, notes=4)
+        sequence = MelodySequence(melody_1, empty_melody, melody_2, melody_3)
+        while sequence.playing and pin.play_count < 22:
+            sequence.update()
+
+        assert sequence.playing
+        assert pin.frequencies == [1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 1, 2, 3, 4, 1, 2, 3, 4, 5, 6, 7, 1]
+        assert pin.play_count == 22
+
     # TODO: Select song to play via active()
+    # TODO: Previous and next().
 
 
 class TestDecodeMelody:
