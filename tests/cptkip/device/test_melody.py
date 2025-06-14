@@ -665,7 +665,8 @@ class TestMelodySequence:
     def test_activate(self) -> None:
         """
         Validates the correct behaviour of the activate method when specifying the melody by either
-        integer index or name.
+        integer index or name. Activate is used indirectly by update() so does not need independently
+        testing within an update loop.
         """
         pin = MockBuzzerPin()
         empty_melody = MockMelody(pin, notes=0, name="empty_melody")
@@ -724,9 +725,180 @@ class TestMelodySequence:
         assert sequence_b._current == 0
         assert sequence_b.melody.name == "duplicate_name"
 
-    # TODO: Test activate during play and pause().
-    # TODO: Test reset during play and pause().
-    # TODO: Previous and next().
+    def test_next_looping(self) -> None:
+        pin = MockBuzzerPin()
+        empty_melody = MockMelody(pin, notes=0, name="empty_melody")
+        melody_no_name = MockMelody(pin, notes=4)
+        melody_1 = MockMelody(pin, notes=7, start=11, name="duplicate_name")
+        melody_2 = MockMelody(pin, notes=3, start=21, name="duplicate_name")
+
+        sequence_a = MelodySequence(empty_melody)
+        sequence_b = MelodySequence(melody_1, empty_melody, melody_2, melody_no_name)
+
+        assert sequence_a.playing
+        assert sequence_a._current == 0
+        assert sequence_a.melody.name == "empty_melody"
+        assert sequence_b.playing
+        assert sequence_b._current == 0
+        assert sequence_b.melody.name == "duplicate_name"
+
+        sequence_a.next()
+        sequence_b.next()
+
+        assert sequence_a.playing
+        assert sequence_a._current == 0
+        assert sequence_a.melody.name == "empty_melody"
+        assert sequence_b.playing
+        assert sequence_b._current == 1
+        assert sequence_b.melody.name == "empty_melody"
+
+        sequence_a.next()
+        sequence_b.next()
+
+        assert sequence_a.playing
+        assert sequence_a._current == 0
+        assert sequence_a.melody.name == "empty_melody"
+        assert sequence_b.playing
+        assert sequence_b._current == 2
+        assert sequence_b.melody.name == "duplicate_name"
+
+        sequence_a.next()
+        sequence_b.next()
+
+        assert sequence_a.playing
+        assert sequence_a._current == 0
+        assert sequence_a.melody.name == "empty_melody"
+        assert sequence_b.playing
+        assert sequence_b._current == 3
+        assert sequence_b.melody.name is None
+
+        sequence_a.next()
+        sequence_b.next()
+
+        assert sequence_a.playing
+        assert sequence_a._current == 0
+        assert sequence_a.melody.name == "empty_melody"
+        assert sequence_b.playing
+        assert sequence_b._current == 0
+        assert sequence_b.melody.name == "duplicate_name"
+
+        sequence_a.next()
+        sequence_b.next()
+
+        assert sequence_a.playing
+        assert sequence_a._current == 0
+        assert sequence_a.melody.name == "empty_melody"
+        assert sequence_b.playing
+        assert sequence_b._current == 1
+        assert sequence_b.melody.name == "empty_melody"
+
+    def test_next_non_looping(self) -> None:
+        pin = MockBuzzerPin()
+        empty_melody = MockMelody(pin, notes=0, name="empty_melody")
+        melody_no_name = MockMelody(pin, notes=4)
+        melody_1 = MockMelody(pin, notes=7, start=11, name="duplicate_name")
+        melody_2 = MockMelody(pin, notes=3, start=21, name="duplicate_name")
+
+        sequence_a = MelodySequence(empty_melody, loop=False)
+        sequence_b = MelodySequence(melody_1, empty_melody, melody_2, melody_no_name, loop=False)
+
+        assert sequence_a.playing
+        assert sequence_a._current == 0
+        assert sequence_a.melody.name == "empty_melody"
+        assert sequence_b.playing
+        assert sequence_b._current == 0
+        assert sequence_b.melody.name == "duplicate_name"
+
+        sequence_a.next()
+        sequence_b.next()
+
+        assert sequence_a.paused
+        assert sequence_a._current == 0
+        assert sequence_a.melody.name == "empty_melody"
+        assert sequence_b.playing
+        assert sequence_b._current == 1
+        assert sequence_b.melody.name == "empty_melody"
+
+        sequence_a.next()
+        sequence_b.next()
+
+        assert sequence_a.paused
+        assert sequence_a._current == 0
+        assert sequence_a.melody.name == "empty_melody"
+        assert sequence_b.playing
+        assert sequence_b._current == 2
+        assert sequence_b.melody.name == "duplicate_name"
+
+        sequence_a.next()
+        sequence_b.next()
+
+        assert sequence_a.paused
+        assert sequence_a._current == 0
+        assert sequence_a.melody.name == "empty_melody"
+        assert sequence_b.playing
+        assert sequence_b._current == 3
+        assert sequence_b.melody.name is None
+
+        sequence_a.next()
+        sequence_b.next()
+
+        assert sequence_a.paused
+        assert sequence_a._current == 0
+        assert sequence_a.melody.name == "empty_melody"
+        assert sequence_b.paused
+        assert sequence_b._current == 3
+        assert sequence_b.melody.name is None
+
+        sequence_a.next()
+        sequence_b.next()
+
+        assert sequence_a.paused
+        assert sequence_a._current == 0
+        assert sequence_a.melody.name == "empty_melody"
+        assert sequence_b.paused
+        assert sequence_b._current == 3
+        assert sequence_b.melody.name is None
+
+    def test_previous_looping(self) -> None:
+        pin = MockBuzzerPin()
+        empty_melody = MockMelody(pin, notes=0, name="empty_melody")
+        melody_no_name = MockMelody(pin, notes=4)
+        melody_1 = MockMelody(pin, notes=7, start=11, name="duplicate_name")
+        melody_2 = MockMelody(pin, notes=3, start=21, name="duplicate_name")
+
+        sequence_a = MelodySequence(empty_melody)
+        sequence_b = MelodySequence(melody_1, empty_melody, melody_2, melody_no_name)
+
+        assert sequence_a.playing
+        assert sequence_a._current == 0
+        assert sequence_a.melody.name == "empty_melody"
+        assert sequence_b.playing
+        assert sequence_b._current == 0
+        assert sequence_b.melody.name == "duplicate_name"
+
+        sequence_a.previous()
+        sequence_b.previous()
+
+    def test_previous_non_looping(self) -> None:
+        pin = MockBuzzerPin()
+        empty_melody = MockMelody(pin, notes=0, name="empty_melody")
+        melody_no_name = MockMelody(pin, notes=4)
+        melody_1 = MockMelody(pin, notes=7, start=11, name="duplicate_name")
+        melody_2 = MockMelody(pin, notes=3, start=21, name="duplicate_name")
+
+        sequence_a = MelodySequence(empty_melody, loop=False)
+        sequence_b = MelodySequence(melody_1, empty_melody, melody_2, melody_no_name, loop=False)
+
+        assert sequence_a.playing
+        assert sequence_a._current == 0
+        assert sequence_a.melody.name == "empty_melody"
+        assert sequence_b.playing
+        assert sequence_b._current == 0
+        assert sequence_b.melody.name == "duplicate_name"
+
+        sequence_a.previous()
+        sequence_b.previous()
+
     # TODO: Test pause and resume()
 
 

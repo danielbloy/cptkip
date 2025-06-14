@@ -206,7 +206,8 @@ class MelodySequence:
 
     def next(self):
         """
-        Jump to the next melody.
+        Jumps to the next melody. If the last melody is currently playing
+        and looping is disabled, this will pause the melody sequence.
         """
         current = self._current + 1
         if current >= len(self._members):
@@ -218,7 +219,8 @@ class MelodySequence:
 
     def previous(self):
         """
-        Jump to the previous melody.
+        Jumps to the previous melody. Unlike previous, this ignores whether
+        looping is enabled or disabled.
         """
         current = self._current - 1
         self.activate(current % len(self._members))
