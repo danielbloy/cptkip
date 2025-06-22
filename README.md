@@ -7,8 +7,9 @@ Please see my website [Code Club Adventures](http://codeclubadventures.com/) for
 For details of the origins of this project, see [pico-interactive](https://github.com/danielbloy/pico-interactive).
 This project is expected to be significantly different in structure and principles from the
 original project, so I've decided to make it and new project rather than a version 2 of
-[pico-interactive](https://github.com/danielbloy/pico-interactive) which I will continue to
-support as I use it in lots of my existing projects.
+[pico-interactive](https://github.com/danielbloy/pico-interactive) which I will continue to support as I use it in lots
+of my existing
+projects.
 
 Rather than focus on a single universal framework (aimed primarily at Raspberry Pi Pico based
 boards), this project aims to be more of a toolkit that supports a wide range of CircuitPython
@@ -56,16 +57,15 @@ The following functionality remains to be ported over from `pico-interactive`
 * Timed Events Task - async and non async
 * One time on/off task - async and non async
 * Ultrasonic - port and test
-* Melody - consider reworking code to use
-  audiopwmio: https://learn.adafruit.com/circuitpython-essentials/circuitpython-audio-out
 
 The following functionality remains to be implemented:
 
-* Migrate to a lighter weight, faster and async HTTP server stack such as [Biplane](https://github.com/Uberi/biplane).
-  This will likely involve a notable reworking of the network code.
-* Add time of day support.
 * Add support for communications between Picos using UART and possible 1-wire support.
 * Include a version/build number in the library and add it in automatically.
+* Migrate to a light-weight, fast and async HTTP server stack such as [Biplane](https://github.com/Uberi/biplane).
+* Add time of day support.
+* Melody - consider reworking code to use
+  audiopwmio: https://learn.adafruit.com/circuitpython-essentials/circuitpython-audio-out
 * Compile to `.mpy` files and add an official release process.
 
 ### Hardware Support

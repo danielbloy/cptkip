@@ -4,6 +4,33 @@ The following data is generated from running the various examples on a
 Pimoroni Tiny 2040 device running CircuitPython 9.2.7 to assess the
 memory demands of the various packages.
 
+## Configuration file
+
+The following configuration file is used for the vanilla test board.
+
+```python
+import board
+from cptkip.core.logging import ERROR
+
+LOG_LEVEL = ERROR
+
+LED_PIN = board.LED
+LED_INVERT = False
+
+BUTTON_PIN = board.GP27
+BUTTON_INVERT = False
+
+PIXELS_PIN = board.GP28
+
+BUZZER_PIN = board.GP3
+
+TEST_VALUE = 123.456
+
+TEST_STRING = "Hello world!"
+
+DEBUG = True
+```
+
 ## Vanilla Circuit Python
 
 Running the following script which is just output RAM usage with the simplest code footprint possible.
@@ -77,8 +104,8 @@ log.debug('This debug text will NOT appear with log level info')
 | `cptkip/core/logging.py` |                   |
 |--------------------------|-------------------|
 | Ram at Start             | Used: 1,312 bytes |
-| RAM at Finish before GC  | Used: 3,856 bytes |
-| RAM at Finish after GC   | Used: 3,856 bytes |
+| RAM at Finish before GC  | Used: 3,872 bytes |
+| RAM at Finish after GC   | Used: 3,872 bytes |
 
 ## `cptkip/core/memory.py`
 
@@ -112,8 +139,8 @@ print('Debug ........ :', config.DEBUG)
 | `cptkip/config/configuration.py` |                   |
 |----------------------------------|-------------------|
 | Ram at Start                     | Used: 1,040 bytes |
-| RAM at Finish before GC          | Used: 5,200 bytes |
-| RAM at Finish after GC           | Used: 5,200 bytes |
+| RAM at Finish before GC          | Used: 4,880 bytes |
+| RAM at Finish after GC           | Used: 4,880 bytes |
 
 ## `cptkip/cpu/cpu.py`
 
@@ -128,8 +155,8 @@ cpu.info()
 | `cptkip/cpu/cpu.py`     |                   |
 |-------------------------|-------------------|
 | Ram at Start            | Used: 848 bytes   |
-| RAM at Finish before GC | Used: 3,056 bytes |
-| RAM at Finish after GC  | Used: 3,008 bytes |
+| RAM at Finish before GC | Used: 3,040 bytes |
+| RAM at Finish after GC  | Used: 2,992 bytes |
 
 ## `asyncio`
 
@@ -164,11 +191,11 @@ def task() -> bool:
 runner.run([task])
 ```
 
-| `cptkip/task/basic_runner` |                   |
-|----------------------------|-------------------|
-| Ram at Start               | Used: 928 bytes   |
-| RAM at Finish before GC    | Used: 8,176 bytes |
-| RAM at Finish after GC     | Used: 3,168 bytes |
+| `cptkip/task/basic_runner` |                    |
+|----------------------------|--------------------|
+| Ram at Start               | Used: 928 bytes    |
+| RAM at Finish before GC    | Used: 10,848 bytes |
+| RAM at Finish after GC     | Used: 3,200 bytes  |
 
 ## `cptkip/task/basic_runner_async.py`
 
@@ -221,7 +248,7 @@ runner.run([task_one])
 | `cptkip/task/periodic_task` |                   |
 |-----------------------------|-------------------|
 | Ram at Start                | Used: 1,136 bytes |
-| RAM at Finish before GC     | Used: 7,888 bytes |
+| RAM at Finish before GC     | Used: 7,968 bytes |
 | RAM at Finish after GC      | Used: 4,816 bytes |
 
 ## `cptkip/task/periodic_task_async.py`
@@ -271,8 +298,8 @@ led.value = False
 | `cptkip/hal/digitalpin.py` |                   |
 |----------------------------|-------------------|
 | Ram at Start               | Used: 912 bytes   |
-| RAM at Finish before GC    | Used: 6,064 bytes |
-| RAM at Finish after GC     | Used: 6,064 bytes |
+| RAM at Finish before GC    | Used: 6,352 bytes |
+| RAM at Finish after GC     | Used: 6,352 bytes |
 
 ## `cptkip/hal/pwmpin.py`
 
@@ -291,8 +318,8 @@ led.off()
 | `cptkip/hal/pwmpin.py`  |                   |
 |-------------------------|-------------------|
 | Ram at Start            | Used: 928 bytes   |
-| RAM at Finish before GC | Used: 6,128 bytes |
-| RAM at Finish after GC  | Used: 6,128 bytes |
+| RAM at Finish before GC | Used: 5,744 bytes |
+| RAM at Finish after GC  | Used: 5,744 bytes |
 
 ## `cptkip/hal/pixels.py`
 
@@ -326,8 +353,8 @@ pixels.write()
 | `cptkip/hal/pixels.py`  |                   |
 |-------------------------|-------------------|
 | Ram at Start            | Used: 1,040 bytes |
-| RAM at Finish before GC | Used: 9,024 bytes |
-| RAM at Finish after GC  | Used: 7,744 bytes |
+| RAM at Finish before GC | Used: 8656 bytes  |
+| RAM at Finish after GC  | Used: 7,376 bytes |
 
 ## `animation/rainbow`
 
@@ -356,8 +383,8 @@ pixels.write()
 | `animation/rainbow.py`  |                    |
 |-------------------------|--------------------|
 | Ram at Start            | Used: 1,152 bytes  |
-| RAM at Finish before GC | Used: 25,888 bytes |
-| RAM at Finish after GC  | Used: 15,872 bytes |
+| RAM at Finish before GC | Used: 16,992 bytes |
+| RAM at Finish after GC  | Used: 16,000 bytes |
 
 ## `cptkip/device/button.py`
 
@@ -387,8 +414,8 @@ while time.monotonic() < finish:
 | `cptkip/device/button.py` |                    |
 |---------------------------|--------------------|
 | Ram at Start              | Used: 1,168 bytes  |
-| RAM at Finish before GC   | Used: 11,968 bytes |
-| RAM at Finish after GC    | Used: 11,920 bytes |
+| RAM at Finish before GC   | Used: 11,824 bytes |
+| RAM at Finish after GC    | Used: 11,776 bytes |
 
 ## `cptkip/device/led.py`
 
@@ -419,8 +446,8 @@ led.off()
 | `cptkip/device/led.py`  |                    |
 |-------------------------|--------------------|
 | Ram at Start            | Used: 1,568 bytes  |
-| RAM at Finish before GC | Used: 20,816 bytes |
-| RAM at Finish after GC  | Used: 14,896 bytes |
+| RAM at Finish before GC | Used: 24,032 bytes |
+| RAM at Finish after GC  | Used: 14,976 bytes |
 
 ## `cptkip/device/melody.py`
 
@@ -461,35 +488,13 @@ while time.monotonic() < finish:
     melody_sequence.update()
 
 pin.off()
-
 ```
 
 | `cptkip/device/led.py`  |                    |
 |-------------------------|--------------------|
 | Ram at Start            | Used: 1,744 bytes  |
-| RAM at Finish before GC | Used: 46,112 bytes |
-| RAM at Finish after GC  | Used: 13,504 bytes |
-
-## Experiments with the old framework
-
-Some tests were run using the old runner framework which is a bit memory hungry to see how much it can potentially be
-optimised.
-
-Using the original logging framework.
-
-| Example                                                                        | Ram at Start                            | RAM at Finish before GC                 | RAM at Finish after GC                  |
-|--------------------------------------------------------------------------------|-----------------------------------------|-----------------------------------------|-----------------------------------------|
-| `cptkip.task.basic_runner.py`                                                  | Used: 28,416 bytes, Free: 139,264 bytes | Used: 61,600 bytes, Free: 106,080 bytes | Used: 32,208 bytes, Free: 135,472 bytes |
-| `cptkip.task.basic_runner.py` with unrequired code removed from `scheduler.py` | Used: 25,664 bytes, Free: 142,016 bytes | Used: 43,296 bytes, Free: 124,384 bytes | Used: 27,552 bytes, Free: 140,128 bytes |
-| `cptkip.task.basic_runner.py` with unrequired code moved to `triggerable.py`   | Used: 25,680 bytes, Free: 142,000 bytes | Used: 43,264 bytes, Free: 124,416 bytes | Used: 27,568 bytes, Free: 140,112 bytes |
-| `manual_runner.py`                                                             | Used: 24,672 bytes, Free: 142,112 bytes | Used: 29,536 bytes, Free: 137,248 bytes | Used: 27,872 bytes, Free: 138,912 bytes |
-
-Using the memory optimised logging framework.
-
-| Example                                                                      | Ram at Start                            | RAM at Finish before GC                 | RAM at Finish after GC                  |
-|------------------------------------------------------------------------------|-----------------------------------------|-----------------------------------------|-----------------------------------------|
-| `cptkip.task.basic_runner.py` with unrequired code moved to `triggerable.py` | Used: 18,336 bytes, Free: 149,344 bytes | Used: 38,896 bytes, Free: 128,784 bytes | Used: 20,224 bytes, Free: 147,456 bytes |
-| `manual_runner.py`                                                           | Used: 17,552 bytes, Free: 149,232 bytes | Used: 24,256 bytes, Free: 142,528 bytes | Used: 20,816 bytes, Free: 145,968 bytes |
+| RAM at Finish before GC | Used: 44,064 bytes |
+| RAM at Finish after GC  | Used: 13,440 bytes |
 
 ## Lessons learned
 
