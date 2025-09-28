@@ -35,16 +35,11 @@ __are_pins_available: bool = __is_running_on_microcontroller
 
 # If we are not running in an environment where we already know we have
 # pins available (typically a Desktop) then lets see what we have access to.
-#
-# NOTE: We cannot simply try and import adafruit_blinka and check for that as
-#       we make use of blinka even when pins are not available. Therefore, we
-#       check to for the environment variable that determines if a blinka
-#       device is available first.
-if not __are_pins_available and os.getenv("BLINKA_U2IF") == "1":
+if not __are_pins_available:
 
     try:
         # If this works, we assume this means that we have access to pins either
-        # through Blinka on a Desktop or because we are running on a microcontroller.
+        # through Blinka on a Desktop.
         # noinspection PyPackageRequirements
         import board
 

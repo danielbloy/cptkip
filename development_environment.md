@@ -36,7 +36,8 @@ for full details.
 ## Python with Blinka
 
 If you want to have access to real pins when working from a vanilla desktop Python installation,
-Blinka is the tool to use (it can also give access to pins on a Raspberry Pi).
+Blinka is the tool to use (it can also give access to pins on a Raspberry Pi, see [here](
+https://learn.adafruit.com/circuitpython-on-raspberrypi-linux/installing-circuitpython-on-raspberry-pi)).
 
 Use the Adafruit resources at [CircuitPython Libraries on any Computer with Raspberry Pi Pico](
 https://learn.adafruit.com/circuitpython-libraries-on-any-computer-with-raspberry-pi-pico/overview)
