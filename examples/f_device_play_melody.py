@@ -46,7 +46,7 @@ def multi_click_handler() -> None:
     melody_sequence.reset()
 
 
-input_pin = inputpin.InputPin(config.BUTTON_PIN)
+input_pin = inputpin.InputPin(config.BUTTON_PIN, config.BUTTON_INVERT)
 button = Button(input_pin, click=single_click_handler, multi_click=multi_click_handler)
 
 # Run the loop for 10 seconds

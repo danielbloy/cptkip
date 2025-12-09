@@ -73,7 +73,7 @@ def should_continue() -> bool:
 pixel_task = periodic_task.create(animate, frequency=30, continue_func=should_continue)
 
 button_task = button.create(
-    inputpin.InputPin(config.BUTTON_PIN),
+    inputpin.InputPin(config.BUTTON_PIN, config.BUTTON_INVERT),
     click=single_click_handler,
     multi_click=multi_click_handler,
     long_click=long_press_handler,
