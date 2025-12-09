@@ -23,7 +23,8 @@ lower level modules such as logging which can be found in the `core` module.
 For information on how to setup a development environment, see
 [development_environment.md](development_environment.md).
 
-The structure of the project will be the following modules (listed in order of importance):
+The structure of the project is arranged in the following modules (listed in
+order of importance):
 
 * core - required for every `cptkip` project as it provides information about execution
   environment, memory and logging. It has no dependencies on other `cptkip` packages.

@@ -21,7 +21,7 @@ def execute_button():
         nonlocal long_click_count
         long_click_count += 1
 
-    input_pin = inputpin.InputPin(config.BUTTON_PIN)
+    input_pin = inputpin.InputPin(config.BUTTON_PIN, config.BUTTON_PULLUP)
 
     button = Button(
         input_pin,

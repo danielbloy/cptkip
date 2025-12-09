@@ -18,7 +18,7 @@ LED_PIN = board.LED
 LED_INVERT = False
 
 BUTTON_PIN = board.GP27
-BUTTON_INVERT = False
+BUTTON_PULLUP = True
 
 PIXELS_PIN = board.GP28
 
@@ -31,7 +31,7 @@ TEST_STRING = "Hello world!"
 DEBUG = True
 ```
 
-## Vanilla Circuit Python
+## Vanilla CircuitPython
 
 Running the following script which is just output RAM usage with the simplest code footprint possible.
 
@@ -47,7 +47,7 @@ gc.collect()
 print("AFTER GC: Used:", gc.mem_alloc(), "bytes, Free:", gc.mem_free(), "bytes")
 ```
 
-| Vanilla Circuit Python  |                 |
+| Vanilla CircuitPython   |                 |
 |-------------------------|-----------------|
 | Ram at Start            | Used: 544 bytes |
 | RAM at Finish before GC | Used: 544 bytes |
@@ -402,7 +402,7 @@ def single_click_handler() -> None:
     print('Single click!')
 
 
-input_pin = inputpin.InputPin(config.BUTTON_PIN)
+input_pin = inputpin.InputPin(config.BUTTON_PIN, config.BUTTON_PULLUP)
 
 button = Button(input_pin, click=single_click_handler)
 

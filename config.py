@@ -38,7 +38,7 @@ if not LED_PIN:
 # B U T T O N
 ################################################################################
 BUTTON_PIN = None
-BUTTON_INVERT = False
+BUTTON_PULLUP = True
 if environment.are_pins_available():
     # noinspection PyPackageRequirements
     import board
@@ -46,6 +46,7 @@ if environment.are_pins_available():
     # Support using the button from a Pimoroni Tiny board.
     try:
         BUTTON_PIN = board.BUTTON
+        BUTTON_PULLUP = False
         print('Using BUTTON')
     except AttributeError:
         try:
