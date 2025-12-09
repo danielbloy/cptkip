@@ -30,7 +30,7 @@ def execute():
     del pin
 
     # Use the BUTTON as an input pin
-    pin = inputpin.InputPin(config.BUTTON_PIN, config.BUTTON_INVERT)
+    pin = inputpin.InputPin(config.BUTTON_PIN, config.BUTTON_PULLUP)
     finish = time.monotonic() + 2
     while time.monotonic() < finish:
         assert pin.value

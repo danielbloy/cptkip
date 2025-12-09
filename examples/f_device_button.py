@@ -30,7 +30,7 @@ def long_press_handler() -> None:
     log.info('Long press!')
 
 
-input_pin = inputpin.InputPin(config.BUTTON_PIN, config.BUTTON_INVERT)
+input_pin = inputpin.InputPin(config.BUTTON_PIN, config.BUTTON_PULLUP)
 
 button = Button(
     input_pin,

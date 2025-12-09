@@ -29,7 +29,7 @@ def multi_click_handler() -> None:
     queue.queue(AUDIO_FILE)
 
 
-input_pin = inputpin.InputPin(config.BUTTON_PIN, config.BUTTON_INVERT)
+input_pin = inputpin.InputPin(config.BUTTON_PIN, config.BUTTON_PULLUP)
 button = Button(input_pin, click=single_click_handler, multi_click=multi_click_handler)
 
 # Run the loop for 10 seconds

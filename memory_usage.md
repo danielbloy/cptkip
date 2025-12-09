@@ -18,7 +18,7 @@ LED_PIN = board.LED
 LED_INVERT = False
 
 BUTTON_PIN = board.GP27
-BUTTON_INVERT = False
+BUTTON_PULLUP = True
 
 PIXELS_PIN = board.GP28
 
@@ -402,7 +402,7 @@ def single_click_handler() -> None:
     print('Single click!')
 
 
-input_pin = inputpin.InputPin(config.BUTTON_PIN, config.BUTTON_INVERT)
+input_pin = inputpin.InputPin(config.BUTTON_PIN, config.BUTTON_PULLUP)
 
 button = Button(input_pin, click=single_click_handler)
 
