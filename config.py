@@ -46,6 +46,7 @@ if environment.are_pins_available():
     # Support using the button from a Pimoroni Tiny board.
     try:
         BUTTON_PIN = board.BUTTON
+        BUTTON_INVERT = True
         print('Using BUTTON')
     except AttributeError:
         try:
