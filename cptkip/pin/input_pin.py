@@ -33,6 +33,7 @@ class InputPin:
 
     @property
     def value(self):
+        # TODO: This looks incorrect. Should this have an invert like output pin?
         return self._pin.value if self._pin else self.pullup
 
     @value.setter
