@@ -20,7 +20,9 @@ class Button:
         self.click = click
         self.multi_click = multi_click
         self.long_click = long_click
-        self.button = DebounceButton(pin, long_duration_ms=2000)
+        # If the pin does not have a value for pullup then we assume it is a pullup
+        value_when_pressed = not pin.pullup if pin.pullup is not None else False
+        self.button = DebounceButton(pin, long_duration_ms=2000, value_when_pressed=value_when_pressed)
 
     def update(self):
         self.button.update()

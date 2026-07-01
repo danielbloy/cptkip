@@ -6,8 +6,10 @@ import tests.cptkip.utilities as utils
 
 
 class MockInputPin:
-    def __init__(self, value: bool = True):
+    # TODO: Add tests with pullup = False or pullup with None
+    def __init__(self, value: bool = True, pullup: bool = True):
         self.value = value
+        self.pullup = pullup
 
     def deinit(self) -> None:
         pass
@@ -20,7 +22,7 @@ class TestButton:
         Validates the most basic case with no callbacks.
         """
 
-        btn = button.Button(MockInputPin)
+        btn = button.Button(MockInputPin())
 
         async def update() -> None:
             btn.update()
