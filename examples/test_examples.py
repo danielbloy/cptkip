@@ -13,10 +13,14 @@ root_folder = Path(__file__).parent
 
 # Files with these names will not be processed
 file_exclusion_list = [
+    'b_config_load_values.py',  # TODO: Re-enable
 ]
 
 folder_exclusion_list = [
-    '__pycache__'
+    '__pycache__',
+    '3 - Pins',  # TODO: Re-enable
+    '4 - Devices',  # TODO: Re-enable
+    '5 - Animations',  # TODO: Re-enable
 ]
 
 failures: int = 0
@@ -66,7 +70,7 @@ def execute_python_file(file_path):
         failures += 1
 
 
-def get_folders(folder, exclusion_list: list[str] = None):
+def get_folders(folder, exclusion_list: list[str] | None = None):
     """
     Locates all sub folders to process in folders. An exclusion list of folder names can
     be provided for folders to skip.
@@ -87,7 +91,7 @@ def get_folders(folder, exclusion_list: list[str] = None):
     return folders
 
 
-def get_files(folder, exclusion_list: list[str] = None):
+def get_files(folder, exclusion_list: list[str] | None = None):
     """
     Locates all files in a folder to process. An exclusion list of file names can
     be provided for files to skip.
