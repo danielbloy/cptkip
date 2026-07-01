@@ -45,6 +45,7 @@ jobs:
       - name: Test with pytest
         run: |
           pytest tests/
+          pytest examples/
 
       - name: Run validation
         run: |
