@@ -11,9 +11,9 @@ class OutputPin:
     :param pin:    The pin to use as an output pin.
     :param value:  The initial value of True (on), False (off).
     :param invert: Set to True for connected devices where they are active on low. This essentially
-                   reverses the logic level output and is useful for output that are active on low
-                   such as the LEDs on a Pimoroni Tiny 2040. The value stored by the pin is the
-                   original value.
+                   reverses the logic level output and is useful for outputs that are active on low
+                   such as the LEDs on a Pimoroni Tiny 2040 or 2350. The value stored by the pin is
+                   the original value.
     """
 
     def __init__(self, pin, value: bool = False, invert: bool = False):

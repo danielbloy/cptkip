@@ -174,8 +174,8 @@ def execute_pwm_audio():
 
     audio = pwm_audio.Audio(config.BUZZER_PIN if config.BUZZER_PIN else "none")
     queue = pwm_audio.Queue(audio)
-    queue.queue("tests/validate/lion.mp3")
-    queue.queue("tests/validate/lion.mp3")
+    queue.queue("validate/lion.mp3")
+    queue.queue("validate/lion.mp3")
 
     finish = time.monotonic() + 5
 
