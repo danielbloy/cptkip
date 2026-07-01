@@ -26,16 +26,15 @@ For information on how to setup a development environment, see
 The structure of the project is arranged in the following modules (listed in
 order of importance):
 
-* core - required for every `cptkip` project as it provides information about execution
+* `core` - required for every `cptkip` project as it provides information about execution
   environment, memory and logging. It has no dependencies on other `cptkip` packages.
-* config - provides overridable configuration properties.
-* cpu - provides information about the CPU and provides some operations.
-* task - provides async thread runners and task scheduling that works across all supported
+* `config` - provides overridable configuration properties.
+* `cpu` - provides information about the CPU and provides some operations.
+* `task` - provides async thread runners and task scheduling that works across all supported
   platforms (CircuitPython and Python).
-* pin - provides an abstraction layer to support environments with no physical pins.
-* device - provides abstractions for hardware components.
-* animation - provides additional animations such as `Flicker`.
-* sound - provides support for playing sound through buzzers and speakers.
+* `pin` - provides an abstraction layer to support environments with no physical pins.
+* `device` - provides abstractions for hardware components.
+* `animation` - provides additional animations such as `Flicker`.
 
 The packages and their dependencies are illustrated in the table below.
 
@@ -48,6 +47,10 @@ The packages and their dependencies are illustrated in the table below.
 | `cptkip.task`      |      Yes      |                 |              |              |      n/a      |                 |
 | `cptkip.device`    |      Yes      |                 |              |     Yes      |               |       n/a       |
 | `cptkip.animation` |               |                 |              |              |               |                 |
+
+In PyCharm, the following "Project Structure" is used:
+
+![Project Structure](./project_structure.png)
 
 ## Roadmap
 
