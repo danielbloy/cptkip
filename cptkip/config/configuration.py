@@ -7,6 +7,7 @@ LOG_LEVEL = logging.WARNING
 
 # Try loading local device settings as overrides.
 try:
+
     # noinspection PyPackageRequirements
     from config import *
 
