@@ -49,7 +49,7 @@ jobs:
       - name: Test with pytest
         run: |
           pytest tests/
-          PYTHONPATH=. pytest examples/
+          PYTHONPATH=../.. pytest examples/
 
       - name: Run validation
         run: |
