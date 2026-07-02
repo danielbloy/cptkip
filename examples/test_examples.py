@@ -13,7 +13,6 @@ root_folder = Path(__file__).parent
 
 # Files with these names will not be processed
 file_exclusion_list = [
-    'b_config_load_values.py',  # TODO: Re-enable
 ]
 
 folder_exclusion_list = [
