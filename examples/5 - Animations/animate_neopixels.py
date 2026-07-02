@@ -16,12 +16,10 @@ from adafruit_led_animation.sequence import AnimationSequence
 import cptkip.config.configuration as config
 import cptkip.core.logging as log
 import cptkip.core.memory as memory
-import cptkip.device.button as button
 import cptkip.device.pixels as pixel
 import cptkip.pin.input_pin as inputpin
-import cptkip.task.basic_runner_async as runner
-import cptkip.task.periodic_task_async as periodic_task
 from cptkip.animation.flicker import Flicker
+from cptkip.device.button import Button
 
 memory.report_memory_usage()
 
@@ -45,41 +43,33 @@ animations = [
 animation = AnimationSequence(*animations, advance_interval=5)
 
 
-async def animate() -> None:
-    animation.animate()
-
-
-async def single_click_handler() -> None:
+def single_click_handler() -> None:
     animation.next()
 
 
-async def multi_click_handler() -> None:
+def multi_click_handler() -> None:
     animation.previous()
 
 
-async def long_press_handler() -> None:
+def long_press_handler() -> None:
     animation.reset()
 
 
-# Run the loop for 20 seconds
-finish = time.monotonic() + 20
+input_pin = inputpin.InputPin(config.BUTTON_PIN, config.BUTTON_PULLUP)
 
-
-# Should we continue to run or not?
-def should_continue() -> bool:
-    return time.monotonic() < finish
-
-
-pixel_task = periodic_task.create(animate, frequency=30, continue_func=should_continue)
-
-button_task = button.create(
-    inputpin.InputPin(config.BUTTON_PIN, config.BUTTON_PULLUP),
+button = Button(
+    input_pin,
     click=single_click_handler,
     multi_click=multi_click_handler,
-    long_click=long_press_handler,
-    continue_func=should_continue)
+    long_click=long_press_handler)
 
-runner.run([pixel_task, button_task])
+# Run the loop for 10 seconds
+log.info("Press the button to change the animation.")
+finish = time.monotonic() + 10
+
+while time.monotonic() < finish:
+    button.update()
+    animation.animate()
 
 animation.freeze()
 pixels.fill(pixel.OFF)

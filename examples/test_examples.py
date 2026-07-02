@@ -13,14 +13,10 @@ root_folder = Path(__file__).parent
 
 # Files with these names will not be processed
 file_exclusion_list = [
-    'b_config_load_values.py',  # TODO: Re-enable
 ]
 
 folder_exclusion_list = [
     '__pycache__',
-    '3 - Pins',  # TODO: Re-enable
-    '4 - Devices',  # TODO: Re-enable
-    '5 - Animations',  # TODO: Re-enable
 ]
 
 failures: int = 0
@@ -41,7 +37,7 @@ def execute_python_file(file_path):
             cwd=file_path.parent,
             capture_output=True,
             text=True,
-            timeout=10  # 10 second timeout per script
+            timeout=20  # 20 second timeout per script
         )
 
         # Print stdout

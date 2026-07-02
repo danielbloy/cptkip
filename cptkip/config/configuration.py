@@ -1,6 +1,7 @@
 # The configuration values loaded in here are expected can be overridden
 # through settings in a config.py file which is located in the same place
 # as the working directory when the application is executed.
+
 import cptkip.core.logging as logging
 
 LOG_LEVEL = logging.WARNING

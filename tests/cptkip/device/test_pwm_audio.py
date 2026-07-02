@@ -4,15 +4,6 @@ from cptkip.device.pwm_audio import Audio, Queue
 
 
 class TestAudio:
-
-    def test_creating_with_none_audio_errors(self) -> None:
-        """
-        Validates an Audio cannot be constructed with a None value.
-        """
-        with pytest.raises(ValueError):
-            # noinspection PyTypeChecker
-            Audio(None)
-
     def test_play_validates_name(self) -> None:
         """Validates a name cannot be none or an empty string."""
         audio = Audio(1)

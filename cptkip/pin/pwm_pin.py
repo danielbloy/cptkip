@@ -20,8 +20,12 @@ class PwmPin:
     """
 
     def __init__(self, pin, value: float = 0.0, invert: bool = False, frequency: int = 1000):
+        if environment.are_pins_available() and pin is None:
+            raise ValueError("pin cannot be None")
+        
         self.pin = pin
         self._pwm = None
+
         if environment.are_pins_available():
             self._pwm = pwmio.PWMOut(pin, frequency=frequency)
 

@@ -27,11 +27,11 @@ if environment.are_pins_available():
 class Audio:
     """
     Audio wraps up AudioOut and an MP3 Decoder to make it simpler to play
-    music. It is a relatively light wrapper buts saves some boiler plate.
+    music. It is a relatively light wrapper buts saves some boilerplate.
     """
 
     def __init__(self, pin):
-        if pin is None:
+        if environment.are_pins_available() and pin is None:
             raise ValueError("pin cannot be None")
 
         self.pin = pin

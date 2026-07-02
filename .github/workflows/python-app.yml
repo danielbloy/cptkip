@@ -49,7 +49,8 @@ jobs:
       - name: Test with pytest
         run: |
           pytest tests/
-          pytest examples/
+          # The PYTHONPATH needs setting to make the config.py file available.
+          PYTHONPATH=../.. pytest examples/
 
       - name: Run validation
         run: |
