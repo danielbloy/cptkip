@@ -11,6 +11,9 @@ else:
 
     class Pixels:
         def __init__(self, pin, num_pixels: int, brightness: float, auto_write: bool = True) -> None:
+            if environment.are_pins_available() and pin is None:
+                raise ValueError("pin cannot be None")
+            
             self.pin = pin
             self.num_pixels = num_pixels
             self.brightness = brightness

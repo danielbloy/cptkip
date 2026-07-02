@@ -17,9 +17,13 @@ class OutputPin:
     """
 
     def __init__(self, pin, value: bool = False, invert: bool = False):
+        if environment.are_pins_available() and pin is None:
+            raise ValueError("pin cannot be None")
+
         self.pin = pin
         self._pin = None
         self.invert = invert
+
         if environment.are_pins_available():
             self._pin = digitalio.DigitalInOut(pin)
             self._pin.direction = digitalio.Direction.OUTPUT

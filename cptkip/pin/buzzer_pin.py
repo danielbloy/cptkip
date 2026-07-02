@@ -13,6 +13,9 @@ class BuzzerPin:
     """
 
     def __init__(self, pin, volume: float = 1.0):
+        if environment.are_pins_available() and pin is None:
+            raise ValueError("pin cannot be None")
+
         self.pin = pin
         self._buzzer = None
         self._volume = max(min(volume, 1.0), 0.0)
