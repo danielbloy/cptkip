@@ -7,6 +7,7 @@ import cptkip.core.logging as logging
 
 LOG_LEVEL = logging.WARNING
 
+
 # Try loading local device settings as overrides.
 try:
 
