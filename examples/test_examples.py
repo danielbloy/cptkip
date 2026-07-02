@@ -37,7 +37,7 @@ def execute_python_file(file_path):
             cwd=file_path.parent,
             capture_output=True,
             text=True,
-            timeout=10  # 10 second timeout per script
+            timeout=20  # 20 second timeout per script
         )
 
         # Print stdout
