@@ -16,18 +16,9 @@ Generated 2026-07-03. Covers all 7 submodules (`core`, `config`, `cpu`, `pin`, `
 
 ### Correctness bugs
 
-6. `cptkip/device/led.py:47-57` — brightness setter returns early when `|change| < 0.001`
-   without ever assigning `self._brightness`, so tiny repeated deltas against a stale
-   baseline can never accumulate — a slow fade can get permanently stuck.
-7. `cptkip/animation/flicker.py:52-54` — `(base + brightness) & 0xFF` has no clamp; if
-   `base + flame > 255` it wraps (e.g. 300→44) instead of clamping to full brightness —
-   silent visual corruption.
 8. `cptkip/task/periodic_task.py` / `periodic_task_async.py` — `frequency` above 1e9 Hz
    truncates `interval_ns` to 0, causing an infinite loop in the catch-up `while` (hangs
    the thread/event loop). No validation guards against it.
-9. `cptkip/pin/buzzer_pin.py` — `frequency` is a plain attribute while `volume` is a
-   property that re-applies itself; setting `frequency` directly doesn't update live PWM
-   output, an inconsistent, easy-to-misuse API.
 10. `cptkip/config/configuration.py:5-20` — `import cptkip.core.logging as logging` can be
     silently shadowed by `from config import *` if the user's `config.py` imports anything
     named `logging` (e.g. stdlib `logging`), causing an `AttributeError` at import time.
@@ -42,13 +33,6 @@ Generated 2026-07-03. Covers all 7 submodules (`core`, `config`, `cpu`, `pin`, `
 
 ## Test gaps
 
-- **No tests at all**: `cptkip/core/control.py`, `cptkip/task/resilient_runner.py`
-  (matches its stub status), `cptkip/animation/flicker.py` (skipped).
-- **Hardware branches never exercised** (because `are_pins_available()` is forced `False`
-  in CI): all four `pin/*.py` classes' `digitalio`/`pwmio` code paths, `deinit()`, invert
-  logic, and the `pin is None` validation guard; `core/memory.py`'s microcontroller
-  `gc.mem_alloc/free` branch; `cpu/cpu.py`'s microcontroller `info()` branch including
-  `None`→`"n/a"` substitution; `core/environment.py`'s `BLINKA_U2IF`/`import board` paths.
 - **Logging**: `core/logging.py` tests leave `LEVEL=WARNING` throughout, so the
   `DEBUG`/`INFO` prefix branches and actual `print()` call are never hit.
 - **Sync/async parity untested**: no test confirms `basic_runner`/`periodic_task` and

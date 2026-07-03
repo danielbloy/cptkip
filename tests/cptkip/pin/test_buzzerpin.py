@@ -1,6 +1,16 @@
 from cptkip.pin.buzzer_pin import BuzzerPin
 
 
+class TrackingBuzzerPin(BuzzerPin):
+    def __init__(self, pin, volume: float = 1.0):
+        self.play_count = 0
+        super().__init__(pin, volume)
+
+    def play(self, frequency: int):
+        self.play_count += 1
+        super().play(frequency)
+
+
 class TestBuzzerPin:
 
     def test_default_construction(self):
@@ -95,3 +105,18 @@ class TestBuzzerPin:
 
         pin.play(1234)
         assert pin.frequency == 1234
+
+    def test_setting_frequency_or_volume_calls_play(self) -> None:
+        """
+        Validates that both volume and frequency re-apply the output immediately when set
+        (i.e. it calls play() internally).
+        """
+        pin = TrackingBuzzerPin(3)
+        pin.play(1000)
+        assert pin.play_count == 1
+
+        pin.volume = 0.5
+        assert pin.play_count == 2
+
+        pin.frequency = 300
+        assert pin.play_count == 3
