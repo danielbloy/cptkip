@@ -49,9 +49,9 @@ class Flicker(Animation):
     def draw(self):
         for i in range(0, self._size, self._spacing):
             brightness = random.randint(0, self._flame)
-            r = int(self._red[i] * (self._base + brightness) / 255) & 0xFF  # 8-bit red dimmed to brightness
-            g = int(self._green[i] * (self._base + brightness) / 255) & 0xFF  # 8-bit green dimmed to brightness
-            b = int(self._blue[i] * (self._base + brightness) / 255) & 0xFF  # 8-bit blue dimmed to brightness
+            r = min(int(self._red[i] * (self._base + brightness) / 255), 0xFF)  # 8-bit red dimmed to brightness
+            g = min(int(self._green[i] * (self._base + brightness) / 255), 0xFF)  # 8-bit green dimmed to brightness
+            b = min(int(self._blue[i] * (self._base + brightness) / 255), 0xFF)  # 8-bit blue dimmed to brightness
             self.pixel_object[i] = (r, g, b)
 
     def __len__(self):

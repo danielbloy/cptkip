@@ -19,6 +19,8 @@ class MockPixels:
 
 class TestFlicker:
 
+    # TODO: Add more tests
+
     def test_draw_clamps_instead_of_wrapping_when_base_plus_flame_exceeds_255(self, monkeypatch) -> None:
         pixels = MockPixels(1)
         flicker = Flicker(pixels, speed=0.1, color=(255, 255, 255), base=200, flame=100)
