@@ -1,6 +1,20 @@
+#
+# This example runs two asynchronous tasks, each of which output a piece
+# of text ('one' or 'two') at a defined interval of time (every 0.3
+# seconds or every 0.5 seconds).
+#
+# An advantage of trivial tasks over periodic tasks tasks is that it uses
+# less RAM. The disadvantage is the presence of drift.
+#
+# A disadvantage of asynchronous tasks over synchronous tasks is that
+# it uses significantly more RAM due to the async library (approximately
+# an extra 10 Kb).
+#
 # The disadvantage of this example over the periodic tasks example is
 # that the functions one and two will "drift" from the desired
-# frequencies whereas the period tasks example will not.
+# frequencies as the next "output" is determined from now plus the
+# desired interval whereas the periodic tasks example do not drift.
+#
 
 import asyncio
 import time
