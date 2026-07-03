@@ -1,16 +1,8 @@
-# cptkip — Bug & Test Gap Analysis
-
-Generated 2026-07-03. Covers all 7 submodules (`core`, `config`, `cpu`, `pin`, `task`,
-`device`, `animation`).
-
-## Bugs (highest confidence first)
+## Bugs
 
 ### Critical
 
-1. **`cptkip/task/resilient_runner.py`** — entire module is an unimplemented stub
-   (`# TODO`, no code). It's documented in the README/CLAUDE.md as a first-class task
-   runner ("catches errors and restarts failed tasks") but importing/using it does nothing.
-2. **`cptkip/animation/flicker.py`** — its test file is fully `@pytest.mark.skip`'d with
+1. **`cptkip/animation/flicker.py`** — its test file is fully `@pytest.mark.skip`'d with
    `assert False` as the only line, so `Flicker` has zero real coverage despite being a
    shipped animation.
 
@@ -43,4 +35,3 @@ Generated 2026-07-03. Covers all 7 submodules (`core`, `config`, `cpu`, `pin`, `
   `button.py` explicitly has a `# TODO: Add tests with pullup = False or pullup with None`;
   melody flat notes ("Cb"/"Fb") and zero/negative tempo (would have caught bugs #3/#4
   above); `buzzer.beeps(0)`/negative (would have caught bug #5).
-- `device/pixels.py` desktop mock's no-op methods have no assertions beyond construction.
