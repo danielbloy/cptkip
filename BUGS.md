@@ -16,8 +16,6 @@ Generated 2026-07-03. Covers all 7 submodules (`core`, `config`, `cpu`, `pin`, `
 
 ### Correctness bugs
 
-5. `cptkip/device/buzzer.py:39-46` — `beeps(0)` (or negative count) still plays one beep,
-   contradicting "plays `count` beeps."
 6. `cptkip/device/led.py:47-57` — brightness setter returns early when `|change| < 0.001`
    without ever assigning `self._brightness`, so tiny repeated deltas against a stale
    baseline can never accumulate — a slow fade can get permanently stuck.
