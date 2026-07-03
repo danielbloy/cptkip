@@ -149,6 +149,9 @@ class Melody:
 
     @tempo.setter
     def tempo(self, tempo) -> None:
+        if tempo <= 0:
+            raise ValueError("tempo must be greater than zero")
+
         self._tempo = tempo
         self._beat_duration_ns = int(control.NS_PER_SECOND / (tempo / 60))
 

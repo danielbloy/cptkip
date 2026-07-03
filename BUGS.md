@@ -16,11 +16,6 @@ Generated 2026-07-03. Covers all 7 submodules (`core`, `config`, `cpu`, `pin`, `
 
 ### Correctness bugs
 
-3. `cptkip/device/melody.py:359-363` — flat→sharp conversion is wrong for **Cb** and
-   **Fb**: only "A" is special-cased, so `Cb`→`"B#"` and `Fb`→`"E#"`, neither valid, both
-   raise `ValueError("note is invalid")` for legitimate note names.
-4. `cptkip/device/melody.py:150-153` — `Melody.tempo = 0` raises an unhandled
-   `ZeroDivisionError`; negative tempo silently corrupts timing instead of erroring.
 5. `cptkip/device/buzzer.py:39-46` — `beeps(0)` (or negative count) still plays one beep,
    contradicting "plays `count` beeps."
 6. `cptkip/device/led.py:47-57` — brightness setter returns early when `|change| < 0.001`
