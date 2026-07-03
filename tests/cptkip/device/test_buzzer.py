@@ -330,6 +330,25 @@ class TestBuzzer:
         assert pin.off_count == 4
         assert not buzzer.playing
 
+    def test_beeps_zero_or_negative(self):
+        """
+        Validates that beeps() does nothing when count is zero or negative.
+        """
+        pin = MockBuzzerPin()
+        buzzer = Buzzer(pin)
+
+        buzzer.beeps(0)
+        buzzer.update()
+        assert pin.play_count == 0
+        assert pin.off_count == 0
+        assert not buzzer.playing
+
+        buzzer.beeps(-1)
+        buzzer.update()
+        assert pin.play_count == 0
+        assert pin.off_count == 0
+        assert not buzzer.playing
+
     def test_beeps(self):
         """
         This will be the same as calling beep() multiple times.

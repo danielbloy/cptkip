@@ -42,6 +42,9 @@ class Buzzer:
 
         :param count: The number of beeps to play.
         """
+        if count <= 0:
+            return
+
         self.beep()
         self.__beeps += max(count - 1, 0)
 

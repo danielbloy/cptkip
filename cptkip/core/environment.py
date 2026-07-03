@@ -73,7 +73,6 @@ if not __is_running_on_microcontroller:
             os.getenv("GITHUB_RUN_ID") is not None)
 
     if __is_running_in_ci:
-        __is_running_in_in_ci = True
         __is_running_on_linux = True
 
         # Turn everything else off.
