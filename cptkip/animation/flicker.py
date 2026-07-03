@@ -18,9 +18,9 @@ class Flicker(Animation):
         self._spacing = spacing
         self._base = base
         self._flame = flame
-        self._red = array.array("I", [0 for _ in range(size)])
-        self._green = array.array("I", [0 for _ in range(size)])
-        self._blue = array.array("I", [0 for _ in range(size)])
+        self._red = array.array("B", [0 for _ in range(size)])
+        self._green = array.array("B", [0 for _ in range(size)])
+        self._blue = array.array("B", [0 for _ in range(size)])
         super().__init__(pixel_object, speed, color, name=name)
         self.set_all(color)
 

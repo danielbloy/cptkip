@@ -14,9 +14,6 @@
 2. `cptkip/config/configuration.py:10-18` — `except ImportError` around config loading
    also swallows `ImportError`s raised from inside a real `config.py`, misreporting
    genuine failures as "no config file found."
-3. `cptkip/animation/flicker.py:21-23` — RGB channels stored as `array.array("I", ...)`
-   (4-byte ints) for values that are always 0-255; should be `"B"` (1 byte) — 4x memory
-   waste, notable given this module is explicitly called out for memory-consciousness.
 
 ## Test gaps
 
