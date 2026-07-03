@@ -55,8 +55,13 @@ Pulled directly from `.github/workflows/python-app.yml` — use these verbatim:
 
 ## Conventions
 
-- No black/ruff/isort configured — match surrounding code style. Stay within flake8's
-  127-char line length and complexity ≤10 guidance.
+- No black/ruff/isort configured. Formatting is handled by **PyCharm's "Reformat on Save"**
+  (enabled via Settings → Tools → Actions on Save), using PyCharm's built-in code formatter
+  rather than a standalone tool — there's no config file for it in the repo. Claude cannot
+  trigger this automatically, so match the formatting already present in surrounding code
+  (PyCharm defaults: 4-space indent, double-quoted strings, blank-line and import-ordering
+  conventions per PEP 8) and stay within flake8's 127-char line length and complexity ≤10
+  guidance.
 - **Memory-consciousness**: this library targets memory-constrained microcontrollers
   (Pico-class boards). This is a stated project goal (see README "Origins"), not just a
   style preference — prefer lightweight patterns and avoid gratuitous allocations or heavy
