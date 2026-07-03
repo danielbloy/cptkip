@@ -8,20 +8,15 @@
 
 ### Correctness bugs
 
-8. `cptkip/task/periodic_task.py` / `periodic_task_async.py` — `frequency` above 1e9 Hz
-   truncates `interval_ns` to 0, causing an infinite loop in the catch-up `while` (hangs
-   the thread/event loop). No validation guards against it.
-10. `cptkip/config/configuration.py:5-20` — `import cptkip.core.logging as logging` can be
-    silently shadowed by `from config import *` if the user's `config.py` imports anything
-    named `logging` (e.g. stdlib `logging`), causing an `AttributeError` at import time.
-11. `cptkip/config/configuration.py:10-18` — `except ImportError` around config loading
-    also swallows `ImportError`s raised from inside a real `config.py`, misreporting
-    genuine failures as "no config file found."
-12. `cptkip/core/environment.py:76` — `__is_running_in_in_ci = True` (typo) creates a dead,
-    unused variable instead of confirming the real flag — harmless today but misleading.
-13. `cptkip/animation/flicker.py:21-23` — RGB channels stored as `array.array("I", ...)`
-    (4-byte ints) for values that are always 0-255; should be `"B"` (1 byte) — 4x memory
-    waste, notable given this module is explicitly called out for memory-consciousness.
+1. `cptkip/config/configuration.py:5-20` — `import cptkip.core.logging as logging` can be
+   silently shadowed by `from config import *` if the user's `config.py` imports anything
+   named `logging` (e.g. stdlib `logging`), causing an `AttributeError` at import time.
+2. `cptkip/config/configuration.py:10-18` — `except ImportError` around config loading
+   also swallows `ImportError`s raised from inside a real `config.py`, misreporting
+   genuine failures as "no config file found."
+3. `cptkip/animation/flicker.py:21-23` — RGB channels stored as `array.array("I", ...)`
+   (4-byte ints) for values that are always 0-255; should be `"B"` (1 byte) — 4x memory
+   waste, notable given this module is explicitly called out for memory-consciousness.
 
 ## Test gaps
 
