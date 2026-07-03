@@ -1,3 +1,7 @@
+#
+# This example demonstrates using the core package to examine the execution
+# environment, use the logging framework and report memory usage on the device.
+#
 import cptkip.core.environment as environment
 import cptkip.core.logging as log
 import cptkip.core.memory as memory
