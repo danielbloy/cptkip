@@ -12,9 +12,9 @@ if environment.is_running_on_desktop():
 def create(
         func: Callable[[], Awaitable[None]],
         frequency: int = 0,
-        continue_func: Callable[[], bool] = None,
-        begin: Callable[[], Awaitable[None]] = None,
-        end: Callable[[], Awaitable[None]] = None,
+        continue_func: Callable[[], bool] | None = None,
+        begin: Callable[[], Awaitable[None]] | None = None,
+        end: Callable[[], Awaitable[None]] | None = None,
         initial_delay: float = 0.0) -> Callable[[], Awaitable[None]]:
     """
     Creates an asynchronous function that will execute the given function at the

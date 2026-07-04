@@ -54,8 +54,11 @@ In PyCharm, the following "Project Structure" is used:
 
 ## Roadmap
 
-The following functionality remains to be ported over from `pico-interactive`
+The following functionality remains to be ported over from `pico-interactive` and `pmpge`
 
+* Configuration improvements from `pmpge`
+* lightweight object hierarchy from `pmpge`
+* Improved project structure from `pmpge`
 * Safe Runner - async and non async
 * Triggered Task - async and non async
 * Timed Events Task - async and non async

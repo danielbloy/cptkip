@@ -1,3 +1,7 @@
+#
+# This example demonstrates using Pixels/NeoPixels. An Animation is
+# used to provide a Rainbow effect.
+#
 import time
 
 from adafruit_led_animation.animation.rainbow import Rainbow

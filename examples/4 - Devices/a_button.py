@@ -1,17 +1,20 @@
+#
+# This example demonstrates using a Button to blink the board LED.
+#
 import time
 
 import cptkip.config.configuration as config
 import cptkip.core.logging as log
 import cptkip.core.memory as memory
-import cptkip.pin.input_pin as inputpin
-import cptkip.pin.output_pin as outputpin
 from cptkip.device.button import Button
+from cptkip.pin.input_pin import InputPin
+from cptkip.pin.output_pin import OutputPin
 
 memory.report_memory_usage()
 
 log.set_log_level(log.INFO)
 
-led = outputpin.OutputPin(config.LED_PIN, invert=config.LED_INVERT)
+led = OutputPin(config.LED_PIN, invert=config.LED_INVERT)
 
 
 def single_click_handler() -> None:
@@ -30,7 +33,7 @@ def long_press_handler() -> None:
     log.info('Long press!')
 
 
-input_pin = inputpin.InputPin(config.BUTTON_PIN, config.BUTTON_PULLUP)
+input_pin = InputPin(config.BUTTON_PIN, config.BUTTON_PULLUP)
 
 button = Button(
     input_pin,

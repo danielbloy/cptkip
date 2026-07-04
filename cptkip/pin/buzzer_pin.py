@@ -61,12 +61,14 @@ class BuzzerPin:
 
         :param frequency: The new frequency.
         """
+        self._frequency = frequency
         self.play(frequency)
 
     def play(self, frequency: int) -> None:
         """
         Play a tone at the specified frequency. This will continue to play
-        until another play() or off() is called.
+        until another `play()` or `off()` is called or the `frequency` or
+        `volume` properties are changed.
 
         :param frequency: The frequency to play.
         """

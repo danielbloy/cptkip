@@ -1,7 +1,7 @@
 import cptkip.core.environment as environment
-from cptkip.core.logging import ERROR
+from cptkip.core.logging import INFO
 
-LOG_LEVEL = ERROR
+LOG_LEVEL = INFO
 
 TEST_VALUE = 123.456
 
@@ -20,6 +20,7 @@ if environment.are_pins_available():
 
     # Support using the LED pin from either a plain old Pi Pico board or a Pimoroni Tiny board.
     try:
+        # noinspection PyUnresolvedReferences
         LED_PIN = board.LED
         print('Using LED')
     except AttributeError:
@@ -45,11 +46,13 @@ if environment.are_pins_available():
 
     # Support using the button from a Pimoroni Tiny board.
     try:
+        # noinspection PyUnresolvedReferences
         BUTTON_PIN = board.BUTTON
         BUTTON_PULLUP = None
         print('Using BUTTON')
     except AttributeError:
         try:
+            # noinspection PyUnresolvedReferences
             BUTTON_PIN = board.GP27
             print('Using GP27')
         except AttributeError:
@@ -67,6 +70,7 @@ if environment.are_pins_available():
     # noinspection PyPackageRequirements
     import board
 
+    # noinspection PyUnresolvedReferences
     PIXELS_PIN = board.GP28
 
 if not PIXELS_PIN:
@@ -81,6 +85,7 @@ if environment.are_pins_available():
     # noinspection PyPackageRequirements
     import board
 
+    # noinspection PyUnresolvedReferences
     BUZZER_PIN = board.GP3
 
 if not BUZZER_PIN:

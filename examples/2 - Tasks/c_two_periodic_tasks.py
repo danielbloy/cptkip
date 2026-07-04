@@ -1,3 +1,15 @@
+#
+# This example runs two synchronous tasks, each of which output a piece
+# of text ('one' or 'two') at a defined interval of time (every 0.3
+# seconds or every 0.5 seconds). These tasks are wrapped as periodic
+# tasks to avoid drift.
+#
+# The cost of periodic tasks over trivial tasks is that it uses slightly
+# more RAM but the payoff is the lack of drift.
+#
+# An advantage of synchronous tasks over asynchronous tasks is that
+# it uses significantly less RAM (approximately 10 Kb less).
+#
 # The advantage of this example over the trivial tasks example is
 # that the functions one and two will not "drift" from the desired
 # frequencies whereas in the trivial tasks example they will "drift".

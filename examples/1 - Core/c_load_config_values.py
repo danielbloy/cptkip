@@ -1,3 +1,9 @@
+#
+# This example demonstrates using the configuration package to load user
+# defined values into the framework. The LOG_LEVEL configuration value
+# is treated special because it will change the logging level used by
+# the framework as demonstrated in the example.
+#
 import cptkip.core.logging as logging
 
 logging.info("This will not be displayed as the default log level is Warning")
