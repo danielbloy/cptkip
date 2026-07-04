@@ -1,16 +1,21 @@
+#
+# This example demonstrates using the Buzzer which provides more
+# control for beeping and playing notes for a duration than a
+# plain BuzzerPin.
+#
 import time
 
 import cptkip.config.configuration as config
 import cptkip.core.logging as log
 import cptkip.core.memory as memory
-import cptkip.pin.buzzer_pin as buzzerpin
 from cptkip.device.buzzer import Buzzer
+from cptkip.pin.buzzer_pin import BuzzerPin
 
 memory.report_memory_usage()
 
 log.set_log_level(log.INFO)
 
-pin = buzzerpin.BuzzerPin(config.BUZZER_PIN)
+pin = BuzzerPin(config.BUZZER_PIN)
 buzzer = Buzzer(pin)
 
 buzzer.beep()
