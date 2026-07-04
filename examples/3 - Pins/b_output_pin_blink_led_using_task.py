@@ -1,18 +1,21 @@
-# Blink LEDs but use a task to do it.
+#
+# This example blinks the connected LED as an OutputPin but uses a periodic
+# task to do it.
+#
 import time
 
 import cptkip.config.configuration as config
 import cptkip.core.logging as log
 import cptkip.core.memory as memory
-import cptkip.pin.output_pin as pin
 import cptkip.task.basic_runner_async as runner
 import cptkip.task.periodic_task_async as periodic_task
+from cptkip.pin.output_pin import OutputPin
 
 memory.report_memory_usage()
 
 log.set_log_level(log.INFO)
 
-led = pin.OutputPin(config.LED_PIN, invert=config.LED_INVERT)
+led = OutputPin(config.LED_PIN, invert=config.LED_INVERT)
 
 # Run the loop for 5 seconds
 log.info("Using value to control the LED")

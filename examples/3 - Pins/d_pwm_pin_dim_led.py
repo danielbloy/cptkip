@@ -1,15 +1,22 @@
+#
+# This examples uses a PwmPin to dim the pin connected to the
+# boards LED. There are two loops, the first one uses the
+# `value` property to set the relative brightness. The second
+# loop uses the `on()` and `off()` methods to either turn off
+# the pin or set it to maximum.
+#
 import time
 
 import cptkip.config.configuration as config
 import cptkip.core.logging as log
 import cptkip.core.memory as memory
-import cptkip.pin.pwm_pin as pin
+from cptkip.pin.pwm_pin import PwmPin
 
 memory.report_memory_usage()
 
 log.set_log_level(log.INFO)
 
-led = pin.PwmPin(config.LED_PIN, invert=config.LED_INVERT)
+led = PwmPin(config.LED_PIN, invert=config.LED_INVERT)
 
 # Run the loop for 5 seconds
 log.info("Using value for brightness")

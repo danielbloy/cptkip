@@ -11,9 +11,9 @@ if environment.is_running_on_desktop():
 def create(
         func: Callable[[], None],
         frequency: int = 0,
-        continue_func: Callable[[], bool] = None,
-        begin: Callable[[], None] = None,
-        end: Callable[[], None] = None,
+        continue_func: Callable[[], bool] | None = None,
+        begin: Callable[[], None] | None = None,
+        end: Callable[[], None] | None = None,
         initial_delay: float = 0.0) -> Callable[[], bool]:
     """
     Creates a function that will execute the given function at the

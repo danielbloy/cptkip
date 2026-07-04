@@ -1,3 +1,4 @@
+# TODO: Should this be in animations?
 import time
 
 from adafruit_led_animation.animation.blink import Blink
