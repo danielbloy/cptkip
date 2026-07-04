@@ -1,4 +1,6 @@
-# TODO: Should this be in animations?
+#
+# This example uses a Blink animation to blink the board LED.
+#
 import time
 
 from adafruit_led_animation.animation.blink import Blink
@@ -7,17 +9,17 @@ from adafruit_led_animation.color import JADE
 import cptkip.config.configuration as config
 import cptkip.core.logging as log
 import cptkip.core.memory as memory
-import cptkip.device.led as device
-import cptkip.pin.pwm_pin as pin
 import cptkip.task.basic_runner_async as runner
 import cptkip.task.periodic_task_async as periodic_task
+from cptkip.device.led import Led
+from cptkip.pin.pwm_pin import PwmPin
 
 memory.report_memory_usage()
 
 log.set_log_level(log.INFO)
 
-pin = pin.PwmPin(config.LED_PIN, invert=config.LED_INVERT)
-led = device.Led(pin)
+pin = PwmPin(config.LED_PIN, invert=config.LED_INVERT)
+led = Led(pin)
 animation = Blink(led, speed=0.5, color=JADE)
 
 

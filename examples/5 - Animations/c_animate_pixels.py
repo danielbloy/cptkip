@@ -1,3 +1,6 @@
+#
+# this example uses a range of Adafruit animations on Pixels/NeoPixels.
+#
 import time
 
 from adafruit_led_animation.animation.blink import Blink
@@ -17,9 +20,9 @@ import cptkip.config.configuration as config
 import cptkip.core.logging as log
 import cptkip.core.memory as memory
 import cptkip.device.pixels as pixel
-import cptkip.pin.input_pin as inputpin
 from cptkip.animation.flicker import Flicker
 from cptkip.device.button import Button
+from cptkip.pin.input_pin import InputPin
 
 memory.report_memory_usage()
 
@@ -55,7 +58,7 @@ def long_press_handler() -> None:
     animation.reset()
 
 
-input_pin = inputpin.InputPin(config.BUTTON_PIN, config.BUTTON_PULLUP)
+input_pin = InputPin(config.BUTTON_PIN, config.BUTTON_PULLUP)
 
 button = Button(
     input_pin,
