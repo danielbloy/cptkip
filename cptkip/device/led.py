@@ -116,7 +116,7 @@ class Led:
             g = (value >> 8) & 0xFF
             b = value & 0xFF
             # Average out the RBG intensities.
-            w = (r + g + b) / 3
+            w = int((r + g + b) / 3)
             return r, g, b, w
 
         if value is None or not isinstance(value, tuple):
