@@ -48,43 +48,20 @@ The packages and their dependencies are illustrated in the table below.
 | `cptkip.device`    |      Yes      |                 |              |     Yes      |               |       n/a       |
 | `cptkip.animation` |               |                 |              |              |               |                 |
 
+
+## Setting up a Development Environment
+
+For details on setting up a development environment for this project, see
+[development_environment.md](./development_environment.md).
+
 In PyCharm, the following "Project Structure" is used:
 
 ![Project Structure](./project_structure.png)
 
-## Roadmap
+## Roadmap and Changelog
 
-The following functionality remains to be ported over from `pico-interactive` and `pmpge`
-
-* Configuration improvements from `pmpge`
-* lightweight object hierarchy from `pmpge`
-* Improved project structure from `pmpge`
-* Safe Runner - async and non async
-* Triggered Task - async and non async
-* Timed Events Task - async and non async
-* One time on/off task - async and non async
-* Ultrasonic - port and test
-
-The following functionality remains to be implemented:
-
-* Add support for communications between Picos using UART and possible 1-wire support.
-* Include a version/build number in the library and add it in automatically.
-* Migrate to a light-weight, fast and async HTTP server stack such as [Biplane](https://github.com/Uberi/biplane).
-* Add time of day support.
-* Melody - consider reworking code to use
-  audiopwmio: https://learn.adafruit.com/circuitpython-essentials/circuitpython-audio-out
-* Compile to `.mpy` files and add an official release process.
-
-### Hardware Support
-
-* Remove most of the existing content of the `hardware` section, moving it to the `Halloween` repository.
-* Add a section for each explicitly supported board in the `hardware` with examples to make it as
-  simple as possible for newcomers to get up and running with off the shelf hardware.
-* Add a section for the "Christmas Board" -> "Demo Board" as an example of a trivial homemade board.
-* Remove the `demo` section, placing the example under `boards/demo_board`.
-* Document the best way to use `pico-interactive` based on available device RAM/board classification
-  (i.e. Network uses so much RAM that it is difficult for a Pico 1 to do much else).
-* Add full support hardware test cycle for Pi Zero 2, Pi 3A/3A, Pi 400/4B boards, including setup documentation.
+For information on current development priorities, see [roadmap](./roadmap.md). For
+details of releases, see [changelog](./changelog.md).
 
 ## License
 
