@@ -10,7 +10,7 @@ Python packages.
 
 Other parts of the toolkit are aimed at executing in an environment that has access to pins.
 Because we want to be able to run automated tests against even code that requires pins, the
-toolkit shims out the dependencies. There are therefore three primary environment that
+toolkit shims out the dependencies. There are therefore three primary environments that
 `cptkip` will be execute in:
 
 1. A vanilla Python environment with no access to pins; see [Python](#python).
@@ -20,7 +20,10 @@ toolkit shims out the dependencies. There are therefore three primary environmen
 ## Python
 
 To test with plain old vanilla Python, simply use PyCharm to setup a new Virtual Environment
-(VENV). This project is tested with Python 3.12.
+(VENV). This project is tested with Python 3.12. In PyCharm, the following "Project Structure"
+is used:
+
+![Project Structure](./project_structure.png)
 
 ### Stopping the creation of `__pycache__` directories
 
