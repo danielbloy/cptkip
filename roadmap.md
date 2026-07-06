@@ -1,24 +1,33 @@
 # Roadmap
 
-The following functionality is a priority to implement and inspired by 'pmpge':
+## Now
 
-* Improvements to loading configuration, specifically for device specific config.
-* lightweight object hierarchy control multiple devices
-* Improved project structure
-* Improved validation process
+The following functionality is a priority to implement and inspired by `pmpge`:
+
+* Improvements to loading configuration, specifically for device specific config
+* lightweight object hierarchy to control multiple devices
+* Continued evolement of the project structure with an improved validation process
 
 The following functionality is a priority to implement and is inspired by `pico-interactive`:
 
-* Network stack - ideally igrating to a light-weight, fast and async HTTP server stack such as [Biplane](https://github.com/Uberi/biplane).
-* Triggered Task - async and non async
-* Ultrasonic - port and test
+* Network stack - ideally integrating a light-weight, fast and async HTTP server stack such as [Biplane](https://github.com/Uberi/biplane).
+* Triggered Tasks - async and sync
+* Ultrasonic sensors
+
+The following functionality is a priority to implement:
+
+* Support for I2S audio
+
+## Next
 
 The following functionality is planned to be implemented and is inspired by `pico-interactive`:
 
-* Safe Runner - async and non async
-* Timed Events Task - async and non async
-* One time on/off task - async and non async
+* Safe Runner - async and sync
+* Timed Events Task - async sync
+* One time on/off task - async and sync
 
+
+## Later
 
 The following functionality remains to be implemented:
 
