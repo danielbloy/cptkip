@@ -1,6 +1,6 @@
 ---
-name: optimize-cptkip
-description: Analyse and optimise Python code under cptkip/ for CircuitPython — memory first, speed second, readability preserved. Use when asked to optimize, reduce memory/RAM footprint, cut allocations, or improve performance of code in the cptkip library (not examples/, tests/, validate/, or CircuitPython/).
+name: optimise-cptkip
+description: Analyse and optimise Python code under cptkip/ for CircuitPython — memory first, speed second, readability preserved. Use when asked to optimise, reduce memory/RAM footprint, cut allocations, or improve performance of code in the cptkip library (not examples/, tests/, validate/, or CircuitPython/).
 ---
 
 # Optimise cptkip for CircuitPython
@@ -74,10 +74,10 @@ self-evident from the diff.
    4-space indent — see CLAUDE.md conventions). Add the required comments for
    non-obvious changes.
 5. Verify nothing broke:
-   - `pytest tests/`
-   - `PYTHONPATH=../.. pytest examples/` (only if the touched module has
-     example coverage)
-   - `flake8 cptkip --count --select=E9,F63,F7,F82 --show-source --statistics`
+    - `pytest tests/`
+    - `PYTHONPATH=../.. pytest examples/` (only if the touched module has
+      example coverage)
+    - `flake8 cptkip --count --select=E9,F63,F7,F82 --show-source --statistics`
 6. Summarise: what changed, the memory/speed rationale for each non-trivial
    change, and any optimisation considered but rejected for hurting
    readability.
