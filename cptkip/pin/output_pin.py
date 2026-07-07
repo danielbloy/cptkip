@@ -16,6 +16,9 @@ class OutputPin:
                    the original value.
     """
 
+    # Fixed attribute set: __slots__ avoids a per-instance __dict__.
+    __slots__ = ("pin", "_pin", "invert", "_value")
+
     def __init__(self, pin, value: bool = False, invert: bool = False):
         if environment.are_pins_available() and pin is None:
             raise ValueError("pin cannot be None")

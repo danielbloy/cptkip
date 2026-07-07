@@ -15,6 +15,9 @@ except ImportError:
 
 
 class Led:
+    # Fixed attribute set: __slots__ avoids a per-instance __dict__.
+    __slots__ = ("pin", "auto_write", "_brightness")
+
     def __init__(self, pin: PwmPin, brightness: float = 1.0, auto_write: bool = True):
         """
         Wraps a pin (PwmPin) in such a way that a simple LED can be used with

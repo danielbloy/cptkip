@@ -19,6 +19,9 @@ class PwmPin:
     :param frequency: The frequency of the PWM value.
     """
 
+    # Fixed attribute set: __slots__ avoids a per-instance __dict__.
+    __slots__ = ("pin", "_pwm", "invert", "_value")
+
     def __init__(self, pin, value: float = 0.0, invert: bool = False, frequency: int = 1000):
         if environment.are_pins_available() and pin is None:
             raise ValueError("pin cannot be None")

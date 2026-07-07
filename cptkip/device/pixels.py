@@ -9,6 +9,9 @@ if environment.are_pins_available():
 else:
 
     class Pixels:
+        # Fixed attribute set: __slots__ avoids a per-instance __dict__.
+        __slots__ = ("pin", "num_pixels", "brightness", "auto_write")
+
         def __init__(self, pin, num_pixels: int, brightness: float, auto_write: bool = True) -> None:
             if environment.are_pins_available() and pin is None:
                 raise ValueError("pin cannot be None")

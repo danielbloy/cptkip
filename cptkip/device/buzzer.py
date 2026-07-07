@@ -11,6 +11,9 @@ class Buzzer:
     provided with the Melody and MelodySequence classes.
     """
 
+    # Fixed attribute set: __slots__ avoids a per-instance __dict__.
+    __slots__ = ("__buzzer", "__playing", "__stop_time_ns", "__beeps")
+
     def __init__(self, buzzer: BuzzerPin):
         if buzzer is None:
             raise ValueError("buzzer cannot be None")

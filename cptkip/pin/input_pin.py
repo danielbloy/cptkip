@@ -17,6 +17,9 @@ class InputPin:
                    set this to None.
     """
 
+    # Fixed attribute set: __slots__ avoids a per-instance __dict__.
+    __slots__ = ("pin", "_pin", "pullup")
+
     def __init__(self, pin, pullup: bool | None = True):
         if environment.are_pins_available() and pin is None:
             raise ValueError("pin cannot be None")

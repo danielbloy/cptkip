@@ -30,6 +30,9 @@ class Audio:
     music. It is a relatively light wrapper buts saves some boilerplate.
     """
 
+    # Fixed attribute set: __slots__ avoids a per-instance __dict__.
+    __slots__ = ("pin", "audio", "decoder")
+
     def __init__(self, pin):
         if environment.are_pins_available() and pin is None:
             raise ValueError("pin cannot be None")
@@ -91,6 +94,9 @@ class Queue:
 
     Instances of this class will need to register() with a Runner in order to work.
     """
+
+    # Fixed attribute set: __slots__ avoids a per-instance __dict__.
+    __slots__ = ("__audio", "__queue")
 
     def __init__(self, audio: Audio):
         if audio is None:

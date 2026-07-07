@@ -14,6 +14,12 @@ class Melody:
     which is useful when grouping multiple melodies in a Melody Sequence.
     """
 
+    # Fixed attribute set: __slots__ avoids a per-instance __dict__.
+    __slots__ = (
+        "loop", "name", "_buzzer", "_time_left_at_pause", "_paused",
+        "_beat_duration_ns", "_tempo", "_song", "_song_length", "_index", "_next_update",
+    )
+
     def __init__(self, buzzer: BuzzerPin, song: list[tuple[int, int]], tempo=120, loop=True, paused=False, name=None):
         """
         Constructs a new Melody. The parameters are self-explanatory. Creating a melody is simple as the
@@ -178,6 +184,9 @@ class MelodySequence:
     after the other. MelodySequence is a drop in replacement for Melody and provides
     the same public interface for pausing and resuming songs.
     """
+
+    # Fixed attribute set: __slots__ avoids a per-instance __dict__.
+    __slots__ = ("_members", "_loop", "_current", "_paused")
 
     def __init__(self, *members: Melody, loop=True):
         """

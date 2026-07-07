@@ -12,6 +12,9 @@ class BuzzerPin:
     frequency and changes only the duty cycle
     """
 
+    # Fixed attribute set: __slots__ avoids a per-instance __dict__.
+    __slots__ = ("pin", "_buzzer", "_volume", "_frequency")
+
     def __init__(self, pin, volume: float = 1.0):
         if environment.are_pins_available() and pin is None:
             raise ValueError("pin cannot be None")

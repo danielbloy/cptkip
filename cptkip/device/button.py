@@ -9,6 +9,9 @@ if environment.is_running_on_desktop():
 
 
 class Button:
+    # Fixed attribute set: __slots__ avoids a per-instance __dict__.
+    __slots__ = ("pin", "click", "multi_click", "long_click", "button")
+
     def __init__(self, pin: InputPin,
                  click: Callable[[], None] | None = None,
                  multi_click: Callable[[], None] | None = None,
