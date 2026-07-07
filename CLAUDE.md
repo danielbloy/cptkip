@@ -35,8 +35,7 @@ modules above it, except where noted):
   (`tests/cptkip/<module>/test_*.py`), with shared helpers in `tests/cptkip/utilities.py`.
 - `validate/` — manual, on-device validation scripts (`validate_all.py` runs them all);
   not part of the standard CI test run.
-- `CircuitPython/` — vendored firmware (`.uf2`) and compiled libs (`.mpy`) per
-  CircuitPython version. Large binary assets — do not edit.
+- `CircuitPython/` — vendored compiled libs (`.mpy`) per CircuitPython version — do not edit.
 - `config.py` (repo root) — shared config used by `examples/` and `validate/`.
 
 ## Build / test / lint commands

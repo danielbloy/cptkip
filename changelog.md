@@ -1,5 +1,9 @@
 # Changelog
 
+## Next
+
+Removed CircuitPython device images from the project (the Adafruit libs have been kept).
+
 ## 0.1.1 - Beta
 
 Version 0.1.1 contains a small number of bug fixes but mostly contains improvements to the structure of
