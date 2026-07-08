@@ -6,12 +6,9 @@ import time
 
 import cptkip.config.configuration as config
 import cptkip.core.logging as log
-import cptkip.core.memory as memory
 import cptkip.task.basic_runner_async as runner
 import cptkip.task.periodic_task_async as periodic_task
 from cptkip.pin.output_pin import OutputPin
-
-memory.report_memory_usage()
 
 log.set_log_level(log.INFO)
 
@@ -51,5 +48,3 @@ blink = periodic_task.create(
     begin=begin, end=end)
 
 runner.run([blink])
-
-memory.report_memory_usage_and_free()

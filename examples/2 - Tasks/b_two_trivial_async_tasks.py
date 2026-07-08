@@ -20,10 +20,7 @@ import asyncio
 import time
 
 import cptkip.core.logging as log
-import cptkip.core.memory as memory
 import cptkip.task.basic_runner_async as runner
-
-memory.report_memory_usage()
 
 log.set_log_level(log.INFO)
 
@@ -44,5 +41,3 @@ async def two() -> None:
 
 
 runner.run([one, two])
-
-memory.report_memory_usage_and_free()

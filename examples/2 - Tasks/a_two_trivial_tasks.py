@@ -18,10 +18,7 @@
 import time
 
 import cptkip.core.logging as log
-import cptkip.core.memory as memory
 import cptkip.task.basic_runner as runner
-
-memory.report_memory_usage()
 
 log.set_log_level(log.INFO)
 
@@ -51,5 +48,3 @@ def two() -> bool:
 
 
 runner.run([one, two])
-
-memory.report_memory_usage_and_free()

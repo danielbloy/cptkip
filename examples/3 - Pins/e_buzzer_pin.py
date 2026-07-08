@@ -7,10 +7,7 @@ import time
 
 import cptkip.config.configuration as config
 import cptkip.core.logging as log
-import cptkip.core.memory as memory
 from cptkip.pin.buzzer_pin import BuzzerPin
-
-memory.report_memory_usage()
 
 log.set_log_level(log.INFO)
 
@@ -49,5 +46,3 @@ while time.monotonic() < finish:
 
 # Don't forget this
 pin.off()
-
-memory.report_memory_usage_and_free()
