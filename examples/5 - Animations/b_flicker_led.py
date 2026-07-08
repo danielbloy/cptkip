@@ -8,13 +8,10 @@ from adafruit_led_animation.color import JADE
 import cptkip.animation.flicker as animations
 import cptkip.config.configuration as config
 import cptkip.core.logging as log
-import cptkip.core.memory as memory
 import cptkip.task.basic_runner_async as runner
 import cptkip.task.periodic_task_async as periodic_task
 from cptkip.device.led import Led
 from cptkip.pin.pwm_pin import PwmPin
-
-memory.report_memory_usage()
 
 log.set_log_level(log.INFO)
 
@@ -22,6 +19,8 @@ pin = PwmPin(config.LED_PIN, invert=config.LED_INVERT)
 led = Led(pin)
 animation = animations.Flicker(led, speed=0.5, color=JADE, base=100, flame=155)
 
+
+# TODO: See if we can turn these into lambdas
 
 async def update() -> None:
     animation.animate()
@@ -43,5 +42,3 @@ runner.run([task])
 animation.freeze()
 led.off()
 led.show()
-
-memory.report_memory_usage_and_free()
