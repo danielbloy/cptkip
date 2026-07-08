@@ -7,8 +7,8 @@ import gc
 import time
 import traceback
 
-from pmpge.environment import is_running_on_desktop, config
-from pmpge.game import Game
+from cptkip.core.environment import is_running_on_desktop
+from cptkip.config import configuration as config
 
 # These are not available in CircuitPython.
 if is_running_on_desktop():
@@ -36,19 +36,6 @@ if hasattr(config, 'PROFILE_TOP'):
     PROFILE_TOP = config.PROFILE_TOP
 
 
-def should_execute(name: str):
-    """
-    Used to determine ifs we are running as a main module or not.
-    """
-    if name == '__main__':
-        return True
-
-    if is_running_on_desktop():
-        return name == "pgzero.builtins"
-
-    return False
-
-
 def execute_modules(modules: list[object]):
     """
     Executes each of the modules in turn. This is expected to be used only by the
@@ -56,21 +43,8 @@ def execute_modules(modules: list[object]):
     """
     for module in modules:
         try:
-            if is_running_on_desktop():
-                from types import ModuleType
-                from pgzero.game import PGZeroGame
-                PGZeroGame(module).reinit_screen()
-
             print("Executing module {}".format(module))
-
-            # This allows the validate script to override the default screen size.
-            screen_width, screen_height = 160, 120
-            if hasattr(module, "SCREEN_WIDTH"):
-                screen_width = module.SCREEN_WIDTH
-            if hasattr(module, "SCREEN_HEIGHT"):
-                screen_height = module.SCREEN_HEIGHT
-
-            execute(module.setup, screen_width=screen_width, screen_height=screen_height)
+            execute(module.execute)
             del module
 
         except MemoryError as err:
@@ -79,23 +53,23 @@ def execute_modules(modules: list[object]):
 
 
 def execute(
-        setup_func: Callable[[Game], None],
-        screen_width: int = 160,
-        screen_height: int = 120,
+        execute_func: Callable[[], None],
         runtime: int = RUNTIME,
         sample_frequency: int = SAMPLE_FREQUENCY,
         report_frequency: int = REPORT_FREQUENCY):
     """
-    Instruments and executes the Game, reporting all details out afterwards.
+    Instruments and executes the validation module, reporting all details out
+    afterwards.
+
     A single Game instance is created with update() and draw() functions
     attached which count the number of cycles executed as well as terminating
     after the desired number of seconds. The memory usage is also tracked, which
     is expensive so the recording and reporting rate are configurable from defaults.
 
-    @param setup_func - Called to setup the Game instance
+    @param execute_func - Called to execute the validation module.
     @param runtime - The number of seconds to execute for
     @param sample_frequency - The number of memory samples per second.
-    @param report_frequency - The number of time to report memory usage per second.
+    @param report_frequency - The number of times to report memory usage per second.
     """
     sample_period = 1_000_000_000 // max(sample_frequency, 1)
     last_sample = 0
@@ -130,31 +104,21 @@ def execute(
         if time.monotonic() > finish:
             game.terminate()
 
-    draw_cycles = 0
+    # TODO: Add in limiter.
 
-    def draw(surface):
-        nonlocal draw_cycles
-        draw_cycles += 1
-
-    game: Game = Game(screen_width, screen_height)
-    setup_func(game)
     if sample_frequency * report_frequency != 0:
-        game.add_update_func(monitor_ram)
-    game.add_update_func(update)
-    game.add_draw_func(draw)
+        # TODO: game.add_update_func(monitor_ram)
+        pass
 
     __reset_memory_usage()
     __start_profiling()
     finish = time.monotonic() + runtime + 0.05  # ake sure we get the start AND finish reports.
-    game.run()
+    execute_func()
     __end_profiling()
 
     print(f"Achieved {update_cycles / runtime:.2f} updates/s")
-    print(f"Achieved {draw_cycles / runtime:.2f} draws/s")
 
     # Free all memory and reset
-    game.root.destroy()
-    del game
     gc.collect()
     sample_period, last_sample, reporting_period, last_report = 0, 0, 0, 0
     monitor_ram(0)
