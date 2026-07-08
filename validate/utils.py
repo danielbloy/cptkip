@@ -4,30 +4,17 @@ the on device validation and profiling. The only function you should need to use
 is execute() as it bootstraps everything else.
 """
 import gc
-import time
 import traceback
 
+import cptkip.config.configuration as config
 from cptkip.core.environment import is_running_on_desktop
-from cptkip.config import configuration as config
 
 # These are not available in CircuitPython.
 if is_running_on_desktop():
-    from collections.abc import Callable
+    pass
 
-RUNTIME = 1
-SAMPLE_FREQUENCY = 10
-REPORT_FREQUENCY = 1
 PROFILE = False
 PROFILE_TOP = 10
-
-if hasattr(config, 'RUNTIME'):
-    RUNTIME = config.RUNTIME
-
-if hasattr(config, 'SAMPLE_FREQUENCY'):
-    SAMPLE_FREQUENCY = config.SAMPLE_FREQUENCY
-
-if hasattr(config, 'REPORT_FREQUENCY'):
-    REPORT_FREQUENCY = config.REPORT_FREQUENCY
 
 if hasattr(config, 'PROFILE'):
     PROFILE = config.PROFILE
@@ -44,84 +31,19 @@ def execute_modules(modules: list[object]):
     for module in modules:
         try:
             print("Executing module {}".format(module))
-            execute(module.execute)
+            __reset_memory_usage()
+            __start_profiling()
+            module.execute()
+            __end_profiling()
+
+            # Free all memory and reset
+            gc.collect()
+
             del module
 
         except MemoryError as err:
             print("Memory Error")
             traceback.print_exception(err)
-
-
-def execute(
-        execute_func: Callable[[], None],
-        runtime: int = RUNTIME,
-        sample_frequency: int = SAMPLE_FREQUENCY,
-        report_frequency: int = REPORT_FREQUENCY):
-    """
-    Instruments and executes the validation module, reporting all details out
-    afterwards.
-
-    A single Game instance is created with update() and draw() functions
-    attached which count the number of cycles executed as well as terminating
-    after the desired number of seconds. The memory usage is also tracked, which
-    is expensive so the recording and reporting rate are configurable from defaults.
-
-    @param execute_func - Called to execute the validation module.
-    @param runtime - The number of seconds to execute for
-    @param sample_frequency - The number of memory samples per second.
-    @param report_frequency - The number of times to report memory usage per second.
-    """
-    sample_period = 1_000_000_000 // max(sample_frequency, 1)
-    last_sample = 0
-
-    reporting_period = 1_000_000_000 // max(report_frequency, 1)
-    last_report = 0
-
-    def monitor_ram(dt: float):
-        """
-        Samples and reports the memory usage at the required frequencies.
-        """
-        nonlocal last_sample, last_report
-        now = time.monotonic_ns()
-
-        sample = (now - last_sample) >= sample_period
-        report = (now - last_report) >= reporting_period
-
-        if sample:
-            last_sample = now
-            __sample_memory_usage()
-
-        if report:
-            last_report = now
-            __report_memory_usage()
-
-    update_cycles = 0
-
-    def update(dt: float):
-        nonlocal update_cycles
-        update_cycles += 1
-
-        if time.monotonic() > finish:
-            game.terminate()
-
-    # TODO: Add in limiter.
-
-    if sample_frequency * report_frequency != 0:
-        # TODO: game.add_update_func(monitor_ram)
-        pass
-
-    __reset_memory_usage()
-    __start_profiling()
-    finish = time.monotonic() + runtime + 0.05  # ake sure we get the start AND finish reports.
-    execute_func()
-    __end_profiling()
-
-    print(f"Achieved {update_cycles / runtime:.2f} updates/s")
-
-    # Free all memory and reset
-    gc.collect()
-    sample_period, last_sample, reporting_period, last_report = 0, 0, 0, 0
-    monitor_ram(0)
 
 
 __peak_used_ram = 0
