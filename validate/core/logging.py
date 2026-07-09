@@ -27,7 +27,7 @@ def execute():
         log.critical('Log level critical should be output')
         print('VALIDATE : Log level error should be output')
         log.error('Log level error should be output')
-        print('VALIDATE : Log level error should be output')
+        print('VALIDATE : Log level warning should be output')
         log.warn('Log level warning should be output')
         log.info('FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL')
         log.debug('FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL')

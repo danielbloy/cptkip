@@ -6,7 +6,6 @@ is execute() as it bootstraps everything else.
 import traceback
 
 import cptkip.config.configuration as config
-import cptkip.core.logging as log
 import cptkip.core.memory as memory
 from cptkip.core.environment import is_running_on_desktop
 
@@ -31,7 +30,7 @@ def execute_modules(modules: list[object]):
     """
     for module in modules:
         try:
-            log.critical("Executing module {}".format(module))
+            print("\nExecuting module {}".format(module))
             memory.reset_memory_usage()
             memory.report_memory_usage_and_free()
             __start_profiling()
@@ -42,7 +41,7 @@ def execute_modules(modules: list[object]):
             del module
 
         except MemoryError as err:
-            log.critical("Memory Error")
+            print("Memory Error")
             traceback.print_exception(err)
 
 

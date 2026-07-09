@@ -1,11 +1,16 @@
-# NOTE: For the tests in here to pass, the file `validate/config/py` needs to be
+# NOTE: For the tests in here to pass, the file `validate/config.py` needs to be
 #       copied to the root of the CircuitPython drive.
 
 def execute():
     import cptkip.core.logging as log
-    log.set_log_level(log.DEBUG)
-    log.debug('PASS')
 
+    # Force the logging level to debug and prove it gets output
+    log.set_log_level(log.DEBUG)
+    print('VALIDATE : Log level debug should be output')
+    log.debug('Log level debug should be output')
+
+    # Now import the configuration file and validate that the log level is
+    # set to what is in the config file
     import cptkip.config.configuration as config
 
     # This tests that the logging level is loaded from the config file along with other properties.
@@ -13,12 +18,11 @@ def execute():
     assert config.TEST_VALUE == 123.456
     assert config.TEST_STRING == "Hello world!"
     assert config.DEBUG
+    print('VALIDATE : Log level info should be output')
+    log.info('Log level info should be output')
 
-    log.critical('PASS')
-    log.error('PASS')
-    log.warn('PASS PASS PASS PASS')
-    log.info('PASS PASS PASS PASS')
-    log.debug('FAIL FAIL FAIL FAIL')
+    # Debug should no longer be output.
+    log.debug('FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL')
 
 
 if __name__ == '__main__':
