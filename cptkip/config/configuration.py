@@ -14,6 +14,11 @@ try:
 
     print("Config file loaded.")
 
+    # TODO: Take inspiration from pmpge and add support for device specific config
+    #       as well as application specific config
+
+    # TODO: We could potentially output the configuration values.
+
 except ImportError:
     print("No config file found.")
 
