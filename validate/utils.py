@@ -33,6 +33,7 @@ def execute_modules(modules: list[object]):
         try:
             log.critical("Executing module {}".format(module))
             memory.reset_memory_usage()
+            memory.report_memory_usage_and_free()
             __start_profiling()
             module.execute()
             __end_profiling()

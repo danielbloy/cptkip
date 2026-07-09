@@ -1,27 +1,40 @@
+# This tests the logging works as expected. It uses printf() to duplicate
+# all expected output.
+
 def execute():
-    import cptkip.core.environment as environment
     import cptkip.core.logging as log
 
-    # Output some information about the environment we are executing in.
-    log.set_log_level(log.CRITICAL)
-    log.critical(f'Is running in CI ................. : {environment.is_running_in_ci()}')
-    log.critical(f'Is running under test ............ : {environment.is_running_under_test()}')
-    log.critical(f'Is running on a microcontroller .. : {environment.is_running_on_microcontroller()}')
-    log.critical(f'Is running on a desktop .......... : {environment.is_running_on_desktop()}')
-    log.critical(f'Are pins available ............... : {environment.are_pins_available()}')
-
     # None of the FAIL strings should be output.
-    log.error('FAIL FAIL FAIL FAIL')
-    log.warn('FAIL FAIL FAIL FAIL')
-    log.info('FAIL FAIL FAIL FAIL')
-    log.debug('FAIL FAIL FAIL FAIL')
+    original_log_level = log.LEVEL
+    try:
+        log.set_log_level(log.CRITICAL)
+        log.error('FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL')
+        log.warn('FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL')
+        log.info('FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL')
+        log.debug('FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL')
 
-    log.set_log_level(log.ERROR)
-    log.critical('PASS')
-    log.error('PASS')
-    log.warn('FAIL FAIL FAIL FAIL')
-    log.info('FAIL FAIL FAIL FAIL')
-    log.debug('FAIL FAIL FAIL FAIL')
+        log.set_log_level(log.ERROR)
+        print('VALIDATE : Log level critical should be output')
+        log.critical('Log level critical should be output')
+        print('VALIDATE : Log level error should be output')
+        log.error('Log level error should be output')
+        log.warn('FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL')
+        log.info('FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL')
+        log.debug('FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL')
+
+        log.set_log_level(log.WARNING)
+        print('VALIDATE : Log level critical should be output')
+        log.critical('Log level critical should be output')
+        print('VALIDATE : Log level error should be output')
+        log.error('Log level error should be output')
+        print('VALIDATE : Log level error should be output')
+        log.warn('Log level warning should be output')
+        log.info('FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL')
+        log.debug('FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL')
+
+    finally:
+        # Restore the configured log level
+        log.set_log_level(original_log_level)
 
 
 if __name__ == '__main__':
