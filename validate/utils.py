@@ -3,10 +3,11 @@ This module contains all the setup and instrumentation code to assist executing
 the on device validation and profiling. The only function you should need to use
 is execute() as it bootstraps everything else.
 """
-import gc
 import traceback
 
 import cptkip.config.configuration as config
+import cptkip.core.logging as log
+import cptkip.core.memory as memory
 from cptkip.core.environment import is_running_on_desktop
 
 # These are not available in CircuitPython.
@@ -30,61 +31,18 @@ def execute_modules(modules: list[object]):
     """
     for module in modules:
         try:
-            print("Executing module {}".format(module))
-            __reset_memory_usage()
+            log.critical("Executing module {}".format(module))
+            memory.reset_memory_usage()
             __start_profiling()
             module.execute()
             __end_profiling()
-
-            # Free all memory and reset
-            gc.collect()
+            memory.report_memory_usage_and_free()
 
             del module
 
         except MemoryError as err:
-            print("Memory Error")
+            log.critical("Memory Error")
             traceback.print_exception(err)
-
-
-__peak_used_ram = 0
-__used_ram = 0
-__free_ram = 0
-__total_ram = 0
-
-
-def __reset_memory_usage():
-    global __peak_used_ram, __used_ram, __free_ram, __total_ram
-    __peak_used_ram = 0
-    __used_ram = 0
-    __free_ram = 0
-    __total_ram = 0
-
-
-def __sample_memory_usage():
-    global __peak_used_ram, __used_ram, __free_ram, __total_ram
-
-    if is_running_on_desktop():
-        import psutil as psutil
-        stats = psutil.virtual_memory()  # returns a named tuple
-        __used_ram = stats.total / 1_048_576
-        __free_ram = stats.free / 1_048_576
-        __total_ram = stats.used / 1_048_576
-    else:
-        __used_ram = gc.mem_alloc()
-        __free_ram = gc.mem_free()
-        __total_ram = __used_ram + __free_ram
-
-    if __used_ram > __peak_used_ram:
-        __peak_used_ram = __used_ram
-
-
-def __report_memory_usage():
-    if is_running_on_desktop():
-        print(
-            f"Peak: {__peak_used_ram:.2f} MB, Used: {__used_ram:.2f} MB, Free: {__free_ram:.2f} MB, Total: {__total_ram:.2f} MB")
-    else:
-        print(
-            f"Peak: {__peak_used_ram} bytes, Used: {__used_ram} bytes, Free: {__free_ram} bytes, Total: {__total_ram} bytes")
 
 
 def __start_profiling():

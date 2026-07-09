@@ -12,14 +12,6 @@ def execute():
         modules = script.modules
         utils.execute_modules(modules)
 
-    # TODO: Remove
-    #memory.report_memory_usage()
-    #for module in modules:
-    #    log.critical("Executing module {}".format(module))
-    #    module.execute()
-    #    memory.report_memory_usage_and_free()
-    #    del module
-
 
 if __name__ == '__main__':
     execute()
