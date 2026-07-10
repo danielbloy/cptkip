@@ -3,6 +3,7 @@
 ## Next
 
 Removed CircuitPython device images from the project (the Adafruit libs have been kept).
+Overhaul of how the on-device validate scripts work to amke it easier to run and identify issues.
 
 ## 0.1.1 - Beta
 

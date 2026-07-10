@@ -70,6 +70,3 @@ def report_memory_usage_and_free():
     report_memory_usage()
     gc.collect()
     report_memory_usage()
-
-# TODO: Could create a task that samples RAM periodically for a pre-determined number of seconds.
-#       This would be useful to use as a task when executing tests.

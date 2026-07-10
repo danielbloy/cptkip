@@ -4,17 +4,32 @@ the on device validation and profiling. The only function you should need to use
 is execute() as it bootstraps everything else.
 """
 import traceback
+from time import monotonic, monotonic_ns
 
 import cptkip.config.configuration as config
-import cptkip.core.memory as memory
+import cptkip.task.basic_runner as runner
 from cptkip.core.environment import is_running_on_desktop
+from cptkip.core.memory import report_memory_usage, report_memory_usage_and_free
+from cptkip.core.memory import reset_memory_usage, sample_memory_usage
 
 # These are not available in CircuitPython.
 if is_running_on_desktop():
-    pass
+    from collections.abc import Callable
 
+RUNTIME = 4
+SAMPLE_FREQUENCY = 10
+REPORT_FREQUENCY = 4
 PROFILE = False
 PROFILE_TOP = 10
+
+if hasattr(config, 'RUNTIME'):
+    RUNTIME = config.RUNTIME
+
+if hasattr(config, 'SAMPLE_FREQUENCY'):
+    SAMPLE_FREQUENCY = config.SAMPLE_FREQUENCY
+
+if hasattr(config, 'REPORT_FREQUENCY'):
+    REPORT_FREQUENCY = config.REPORT_FREQUENCY
 
 if hasattr(config, 'PROFILE'):
     PROFILE = config.PROFILE
@@ -31,12 +46,16 @@ def execute_modules(modules: list[object]):
     for module in modules:
         try:
             print("\nExecuting module {}".format(module))
-            memory.reset_memory_usage()
-            memory.report_memory_usage_and_free()
+            reset_memory_usage()
+            print("Initial memory profile (before and after GC):")
+            report_memory_usage_and_free()
             __start_profiling()
+            print("Execute:")
+            # noinspection PyUnresolvedReferences
             module.execute()
             __end_profiling()
-            memory.report_memory_usage_and_free()
+            print("Final memory profile (before and after GC):")
+            report_memory_usage_and_free()
 
             del module
 
@@ -61,3 +80,71 @@ def __end_profiling(top: int = PROFILE_TOP):
         print(f"[ Top {top} ]")
         for stat in top_stats[:top]:
             print(stat)
+
+
+def execute(
+        task: Callable[[], None],
+        runtime: int = RUNTIME,
+        sample_frequency: int = SAMPLE_FREQUENCY,
+        report_frequency: int = REPORT_FREQUENCY):
+    """
+    Executes a single task with basic instrumentation of RAM usage and number of
+    execution cycles achieved. This is a utility function to make it easier to
+    validate functionality without repeating the same time management code over
+    and over.
+
+    @param task - Called to execute the test
+    @param runtime - The number of seconds to execute for
+    @param sample_frequency - The number of memory samples per second.
+    @param report_frequency - The number of time to report memory usage per second.
+    """
+
+    sample_period = 1_000_000_000 // max(sample_frequency, 1)
+    last_sample = 0
+
+    reporting_period = 1_000_000_000 // max(report_frequency, 1)
+    last_report = 0
+
+    # TODO: Move the RAM monitor into core.memory
+
+    def monitor() -> bool:
+        """
+        Samples and reports the memory usage at the required frequencies.
+        """
+        nonlocal last_sample, last_report
+        now = monotonic_ns()
+
+        sample = (now - last_sample) >= sample_period
+        report = (now - last_report) >= reporting_period
+
+        if sample:
+            last_sample = now
+            sample_memory_usage()
+
+        if report:
+            last_report = now
+            report_memory_usage()
+
+        return monotonic() < finish
+
+    cycles = 0
+
+    def update() -> bool:
+        """
+        Executes the task under test
+        This also tracks the number of cycles executed.
+        """
+        nonlocal cycles
+        cycles += 1
+        task()
+        return monotonic() < finish
+
+    tasks = []
+    if sample_frequency * report_frequency != 0:
+        tasks.append(monitor)
+    tasks.append(update)
+
+    finish = monotonic() + runtime + 0.05  # ake sure we get the start AND finish reports.
+
+    runner.run(tasks)
+    print(f"Total number of cycles executed .. : {cycles // 1_000:,d} K")
