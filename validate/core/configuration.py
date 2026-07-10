@@ -4,13 +4,13 @@
 def execute():
     import cptkip.core.logging as log
 
-    # Force the logging level to debug and prove it gets output
-    log.set_log_level(log.DEBUG)
-    print('VALIDATE : Log level debug should be output')
-    log.debug('Log level debug should be output')
-
-    # Now import the configuration file and validate that the log level is
-    # set to what is in the config file
+    # Import the configuration file and validate that the log level is
+    # set to what is in the config file which should be INFO (the default
+    # level is WARNING).
+    #
+    # NOTE: The config log level is only loaded once so if a previous script
+    #       loads config, that initial loading would set the config. this is
+    #       here in case this script is run completely independently.
     import cptkip.config.configuration as config
 
     # This tests that the logging level is loaded from the config file along with other properties.
@@ -21,7 +21,7 @@ def execute():
     print('VALIDATE : Log level info should be output')
     log.info('Log level info should be output')
 
-    # Debug should no longer be output.
+    # Debug should not be output.
     log.debug('FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL')
 
 
