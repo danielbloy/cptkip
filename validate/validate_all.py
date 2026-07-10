@@ -8,7 +8,7 @@ import validate.validate_performance as performance
 import validate.validate_pin as pin
 import validate.validate_task as task
 
-scripts = [core, pin, task, device, animation, performance]
+scripts = [core, task, pin, device, animation, performance]
 
 
 def execute():
