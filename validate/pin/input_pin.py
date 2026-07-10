@@ -7,8 +7,12 @@ def execute():
     pin = input_pin.InputPin(config.BUTTON_PIN, config.BUTTON_PULLUP)
 
     def task():
-        assert pin.value
+        nonlocal value
+        if value != pin.value:
+            value = pin.value
+            print(f"Input pin changed value to {value}")
 
+    value = pin.value
     utils.execute(task)
 
     pin.deinit()
