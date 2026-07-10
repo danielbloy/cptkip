@@ -3,10 +3,10 @@ import utils
 
 def execute():
     import cptkip.config.configuration as config
-    import cptkip.pin.input_pin as inputpin
+    import cptkip.pin.input_pin as input_pin
 
     # Use the BUTTON as an input pin
-    pin = inputpin.InputPin(config.BUTTON_PIN, config.BUTTON_PULLUP)
+    pin = input_pin.InputPin(config.BUTTON_PIN, config.BUTTON_PULLUP)
 
     def task():
         assert pin.value
