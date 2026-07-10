@@ -105,8 +105,6 @@ def execute(
     reporting_period = 1_000_000_000 // max(report_frequency, 1)
     last_report = 0
 
-    # TODO: Move the RAM monitor into core.memory
-
     def monitor() -> bool:
         """
         Samples and reports the memory usage at the required frequencies.
