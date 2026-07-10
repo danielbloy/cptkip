@@ -1,4 +1,5 @@
 def execute():
+    # TODO: Improve
     import time
 
     import cptkip.config.configuration as config
