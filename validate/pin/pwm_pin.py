@@ -1,17 +1,27 @@
 def execute():
-    # TODO: Improve
-    import time
+    from time import monotonic
+    import validate.utils as utils
 
     import cptkip.config.configuration as config
-    import cptkip.pin.pwm_pin as pwmpin
+    import cptkip.pin.pwm_pin as pwm_pin
 
-    pin = pwmpin.PwmPin(config.LED_PIN, invert=config.LED_INVERT)
-    finish = time.monotonic() + 2
-    while time.monotonic() < finish:
-        pin.on()
-        time.sleep(0.25)
-        pin.off()
-        time.sleep(0.25)
+    pin = pwm_pin.PwmPin(config.LED_PIN, invert=config.LED_INVERT)
+
+    def task():
+        nonlocal next_change
+        change = monotonic() >= next_change
+        if change:
+            print("Change PWM pin")
+            next_change += 0.25
+            if pin.value > 0.5:
+                pin.value = 0.25
+            else:
+                pin.value = 0.75
+
+    pin.on()
+    next_change = monotonic() + 0.25
+    utils.execute(task)
+    pin.off()
 
     pin.deinit()
     del pin
