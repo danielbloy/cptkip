@@ -1,7 +1,5 @@
-import utils
-
-
 def execute():
+    import validate.utils as utils
     import cptkip.config.configuration as config
     import cptkip.pin.input_pin as input_pin
 

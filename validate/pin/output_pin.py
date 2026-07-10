@@ -1,18 +1,20 @@
 def execute():
-    # TODO: Improve
-    import time
-
+    from time import monotonic
+    import validate.utils as utils
     import cptkip.config.configuration as config
-    import cptkip.pin.output_pin as outputpin
+    import cptkip.pin.output_pin as output_pin
 
     # Use the LED as an output pin
-    pin = outputpin.OutputPin(config.LED_PIN, invert=config.LED_INVERT)
-    finish = time.monotonic() + 2
-    while time.monotonic() < finish:
-        pin.on()
-        time.sleep(0.25)
-        pin.off()
-        time.sleep(0.25)
+    pin = output_pin.OutputPin(config.LED_PIN, invert=config.LED_INVERT)
+
+    next_change = 0
+
+    def task():
+        change = monotonic() >= next_change
+        if change:
+            pin.value = not pin.value
+
+    utils.execute(task)
 
     pin.deinit()
     del pin
