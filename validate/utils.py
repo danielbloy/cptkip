@@ -3,19 +3,21 @@ This module contains all the setup and instrumentation code to assist executing
 the on device validation and profiling. The only function you should need to use
 is execute() as it bootstraps everything else.
 """
+import asyncio
 import traceback
 from time import monotonic
 
 import cptkip.config.configuration as config
 import cptkip.task.basic_runner as runner
+import cptkip.task.basic_runner_async as runner_async
 from cptkip.core.environment import is_running_on_desktop
 from cptkip.core.memory import report_memory_usage_and_free
 from cptkip.core.memory import reset_memory_usage
-from cptkip.task import memory_monitor_task
+from cptkip.task import memory_monitor_task, memory_monitor_task_async
 
 # These are not available in CircuitPython.
 if is_running_on_desktop():
-    from collections.abc import Callable
+    from collections.abc import Callable, Awaitable
 
 RUNTIME = 4
 SAMPLE_FREQUENCY = 10
@@ -97,7 +99,7 @@ def execute(
     @param task - Called to execute the test
     @param runtime - The number of seconds to execute for
     @param sample_frequency - The number of memory samples per second.
-    @param report_frequency - The number of time to report memory usage per second.
+    @param report_frequency - The number of times to report memory usage per second.
     """
 
     continue_func = lambda: monotonic() < finish
@@ -120,9 +122,55 @@ def execute(
                 sample_frequency,
                 report_frequency,
                 continue_func))
-    tasks.append(update)
+
+    tasks.append(update)  # We add the update function last so memory monitor is always first.
 
     finish = monotonic() + runtime + 0.05  # ake sure we get the start AND finish reports.
 
     runner.run(tasks)
+    print(f"Total number of cycles executed .. : {cycles // 1_000:,d} K")
+
+
+def execute_async(
+        task: Callable[[], Awaitable[None]],
+        runtime: int = RUNTIME,
+        sample_frequency: int = SAMPLE_FREQUENCY,
+        report_frequency: int = REPORT_FREQUENCY):
+    """
+    This is an async version of execute(). It provides the same functionality but is adapted
+    to use async/await syntax and the different style of tasks that are used by the async runner.
+
+    @param task - Called to execute the test
+    @param runtime - The number of seconds to execute for
+    @param sample_frequency - The number of memory samples per second.
+    @param report_frequency - The number of times to report memory usage per second.
+    """
+
+    continue_func = lambda: monotonic() < finish
+    cycles = 0
+
+    async def update() -> None:
+        """
+        Executes the task under test
+        This also tracks the number of cycles executed.
+        """
+        nonlocal cycles
+        while continue_func():
+            cycles += 1
+            await task()
+            await asyncio.sleep(0)
+
+    tasks = []
+    if sample_frequency * report_frequency != 0:
+        tasks.append(
+            memory_monitor_task_async.create(
+                sample_frequency,
+                report_frequency,
+                continue_func))
+
+    tasks.append(update)  # We add the update function last so memory monitor is always first.
+
+    finish = monotonic() + runtime + 0.05  # ake sure we get the start AND finish reports.
+
+    runner_async.run(tasks)
     print(f"Total number of cycles executed .. : {cycles // 1_000:,d} K")

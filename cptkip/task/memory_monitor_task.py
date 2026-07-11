@@ -1,5 +1,6 @@
 from time import monotonic_ns
 
+import cptkip.core.control as control
 import cptkip.core.environment as environment
 from cptkip.core.memory import report_memory_usage
 from cptkip.core.memory import sample_memory_usage
@@ -16,18 +17,18 @@ def create(
     """
     Provides a relatively simple way to monitor the memory usage on the device over
     time. This monitoring function is susceptible to drift so is not suitable for
-    high precision monitoring. The minimum sample and report frequency are 1 second.
+    high-precision monitoring. The minimum sample and report frequency are 1 second.
 
     :param sample_frequency: The number of memory samples per second.
-    :param report_frequency: The number of time to report memory usage per second.
+    :param report_frequency: The number of times to report memory usage per second.
     :param continue_func: If specified, this will be periodically called to confirm
         the func should continue to be called.
     """
 
-    sample_period = 1_000_000_000 // max(sample_frequency, 1)
+    sample_period = control.NS_PER_SECOND // max(sample_frequency, 1)
     last_sample = 0
 
-    reporting_period = 1_000_000_000 // max(report_frequency, 1)
+    reporting_period = control.NS_PER_SECOND // max(report_frequency, 1)
     last_report = 0
 
     def monitor() -> bool:
