@@ -33,7 +33,6 @@ def create(
     last_report = 0
 
     sleep_interval = (min(sample_period, reporting_period) / control.PERIODIC_LOOP_WAIT_RATIO) / control.NS_PER_SECOND
-    print(sleep_interval)
 
     async def monitor() -> None:
         """
