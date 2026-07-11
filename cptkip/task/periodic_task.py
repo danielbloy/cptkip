@@ -39,14 +39,15 @@ def create(
         interval = 1 / frequency
     interval_ns: int = int(interval * control.NS_PER_SECOND)
     next_callback_ns: int = 0
-    begin_called: bool = False
+    call_begin: bool = True
+    call_end: bool = True
 
     def handler() -> bool:
-        nonlocal begin_called, next_callback_ns
-        if not begin_called:
+        nonlocal call_begin, call_end, next_callback_ns
+        if call_begin:
             if begin:
                 begin()
-            begin_called = True
+            call_begin = False
             next_callback_ns = monotonic_ns() + int(max(initial_delay, 0.0) * control.NS_PER_SECOND)
             return True
 
@@ -60,7 +61,8 @@ def create(
                 func()
             return True
 
-        if end:
+        if end and call_end:
+            call_end = False
             end()
 
         return False
