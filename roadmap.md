@@ -24,6 +24,7 @@ The following functionality is a priority to implement:
 
 The following functionality is planned to be implemented and is inspired by `pico-interactive`:
 
+* Move count_limiter, time_limiter and value_flip from test.utilities to task
 * Safe Runner - async and sync
 * Timed Events Task - async sync
 * One time on/off task - async and sync

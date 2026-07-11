@@ -5,12 +5,9 @@ import time
 
 import cptkip.config.configuration as config
 import cptkip.core.logging as log
-import cptkip.core.memory as memory
 from cptkip.device.button import Button
 from cptkip.pin.input_pin import InputPin
 from cptkip.pin.output_pin import OutputPin
-
-memory.report_memory_usage()
 
 log.set_log_level(log.INFO)
 
@@ -47,5 +44,3 @@ finish = time.monotonic() + 10
 
 while time.monotonic() < finish:
     button.update()
-
-memory.report_memory_usage_and_free()

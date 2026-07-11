@@ -3,7 +3,7 @@
 # of text ('one' or 'two') at a defined interval of time (every 0.3
 # seconds or every 0.5 seconds).
 #
-# An advantage of trivial tasks over periodic tasks tasks is that it uses
+# An advantage of trivial tasks over periodic tasks is that it uses
 # less RAM. The disadvantage is the presence of drift.
 #
 # An advantage of synchronous tasks over asynchronous tasks is that
@@ -18,10 +18,7 @@
 import time
 
 import cptkip.core.logging as log
-import cptkip.core.memory as memory
 import cptkip.task.basic_runner as runner
-
-memory.report_memory_usage()
 
 log.set_log_level(log.INFO)
 
@@ -51,5 +48,3 @@ def two() -> bool:
 
 
 runner.run([one, two])
-
-memory.report_memory_usage_and_free()

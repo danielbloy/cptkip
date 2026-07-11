@@ -6,13 +6,10 @@ import time
 
 import cptkip.config.configuration as config
 import cptkip.core.logging as log
-import cptkip.core.memory as memory
 import cptkip.device.melody as melody
 from cptkip.device.button import Button
 from cptkip.pin.buzzer_pin import BuzzerPin
 from cptkip.pin.input_pin import InputPin
-
-memory.report_memory_usage()
 
 log.set_log_level(log.INFO)
 
@@ -63,5 +60,3 @@ while time.monotonic() < finish:
     melody_sequence.update()
 
 pin.off()
-
-memory.report_memory_usage_and_free()

@@ -1,8 +1,10 @@
 def execute():
     import cptkip.cpu.cpu as cpu
-    import cptkip.core.logging as log
 
-    log.set_log_level(log.INFO)
+    print(f"Temperature .. : {cpu.info()["temperature"]}")
+    print(f"Frequency .... : {cpu.info()["frequency"]}")
+    print(f"Voltage ...... : {cpu.info()["voltage"]}")
+
     assert cpu.info() is not None
     assert len(cpu.info()) == 3
     assert cpu.info()["temperature"] is not None

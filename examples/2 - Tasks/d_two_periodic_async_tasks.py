@@ -18,11 +18,8 @@
 import time
 
 import cptkip.core.logging as log
-import cptkip.core.memory as memory
 import cptkip.task.basic_runner_async as runner
 import cptkip.task.periodic_task_async as periodic_task
-
-memory.report_memory_usage()
 
 log.set_log_level(log.INFO)
 
@@ -46,5 +43,3 @@ task_one = periodic_task.create(one, frequency=3, continue_func=should_continue)
 task_two = periodic_task.create(two, frequency=2, continue_func=should_continue)
 
 runner.run([task_one, task_two])
-
-memory.report_memory_usage_and_free()

@@ -7,12 +7,9 @@ import time
 
 import cptkip.config.configuration as config
 import cptkip.core.logging as log
-import cptkip.core.memory as memory
 from cptkip.device.button import Button
 from cptkip.device.pwm_audio import Audio, Queue
 from cptkip.pin.input_pin import InputPin
-
-memory.report_memory_usage()
 
 log.set_log_level(log.INFO)
 
@@ -47,5 +44,3 @@ while time.monotonic() < finish:
     queue.update()
 
 audio.deinit()
-
-memory.report_memory_usage_and_free()

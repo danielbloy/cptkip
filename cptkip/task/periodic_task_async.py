@@ -41,9 +41,13 @@ def create(
     interval_ns: int = int(interval * control.NS_PER_SECOND)
 
     sleep_interval = interval / control.PERIODIC_LOOP_WAIT_RATIO
+    call_begin: bool = True
+    call_end: bool = True
 
     async def handler() -> None:
-        if begin:
+        nonlocal call_begin, call_end
+        if begin and call_begin:
+            call_begin = False
             await begin()
 
         next_callback_ns = time.monotonic_ns() + int(max(initial_delay, 0.0) * control.NS_PER_SECOND)
@@ -57,7 +61,8 @@ def create(
 
             await asyncio.sleep(sleep_interval)
 
-        if end:
+        if end and call_end:
+            call_end = False
             await end()
 
     return handler

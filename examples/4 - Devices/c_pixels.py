@@ -8,10 +8,7 @@ from adafruit_led_animation.animation.rainbow import Rainbow
 
 import cptkip.config.configuration as config
 import cptkip.core.logging as log
-import cptkip.core.memory as memory
 import cptkip.device.pixels as pixel
-
-memory.report_memory_usage()
 
 log.set_log_level(log.INFO)
 
@@ -27,5 +24,3 @@ while time.monotonic() < finish:
 animation.freeze()
 pixels.fill(pixel.OFF)
 pixels.write()
-
-memory.report_memory_usage_and_free()
