@@ -54,10 +54,12 @@ def report_memory_usage():
     """
     sample_memory_usage()
     if __is_running_on_desktop:
+        # TODO: Remove f-string to save RAM - environment.py
         log.critical(
             f"Peak: {peak_used_ram:.2f} MB, Used: {used_ram:.2f} MB, Free: {free_ram:.2f} MB, Total: {total_ram:.2f} MB")
     else:
         # noinspection PyUnresolvedReferences
+        # TODO: Remove f-string to save RAM - environment.py
         log.critical(
             f"Peak: {peak_used_ram} bytes, Used: {used_ram} bytes, Free: {free_ram} bytes, Total: {total_ram} bytes")
 
