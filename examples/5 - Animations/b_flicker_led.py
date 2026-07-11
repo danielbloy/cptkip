@@ -20,8 +20,6 @@ led = Led(pin)
 animation = animations.Flicker(led, speed=0.5, color=JADE, base=100, flame=155)
 
 
-# TODO: See if we can turn these into lambdas
-
 async def update() -> None:
     animation.animate()
 
