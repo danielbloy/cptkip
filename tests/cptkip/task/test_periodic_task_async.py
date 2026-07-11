@@ -112,6 +112,11 @@ class TestPeriodicTaskAsync:
         assert count == 10
         assert begin_count == 1
 
+        # Run the task again and nothing should execute
+        asyncio.run(task())
+        assert count == 10
+        assert begin_count == 1
+
     def test_using_end_func(self):
         """
         Validates the end function is called once and only once after the function is called.
@@ -132,6 +137,11 @@ class TestPeriodicTaskAsync:
 
         task = create(func, continue_func=utils.count_limiter(10), end=end_func)
 
+        asyncio.run(task())
+        assert count == 10
+        assert end_count == 1
+
+        # Run the task again and nothing should execute
         asyncio.run(task())
         assert count == 10
         assert end_count == 1
@@ -167,6 +177,12 @@ class TestPeriodicTaskAsync:
 
         task = create(func, continue_func=utils.count_limiter(10), begin=begin_func, end=end_func)
 
+        asyncio.run(task())
+        assert count == 10
+        assert begin_count == 1
+        assert end_count == 1
+
+        # Run the task again and nothing should execute
         asyncio.run(task())
         assert count == 10
         assert begin_count == 1
