@@ -4,13 +4,14 @@ the on device validation and profiling. The only function you should need to use
 is execute() as it bootstraps everything else.
 """
 import traceback
-from time import monotonic, monotonic_ns
+from time import monotonic
 
 import cptkip.config.configuration as config
 import cptkip.task.basic_runner as runner
 from cptkip.core.environment import is_running_on_desktop
-from cptkip.core.memory import report_memory_usage, report_memory_usage_and_free
-from cptkip.core.memory import reset_memory_usage, sample_memory_usage
+from cptkip.core.memory import report_memory_usage_and_free
+from cptkip.core.memory import reset_memory_usage
+from cptkip.task import memory_monitor_task
 
 # These are not available in CircuitPython.
 if is_running_on_desktop():
@@ -99,32 +100,7 @@ def execute(
     @param report_frequency - The number of time to report memory usage per second.
     """
 
-    sample_period = 1_000_000_000 // max(sample_frequency, 1)
-    last_sample = 0
-
-    reporting_period = 1_000_000_000 // max(report_frequency, 1)
-    last_report = 0
-
-    def monitor() -> bool:
-        """
-        Samples and reports the memory usage at the required frequencies.
-        """
-        nonlocal last_sample, last_report
-        now = monotonic_ns()
-
-        sample = (now - last_sample) >= sample_period
-        report = (now - last_report) >= reporting_period
-
-        if sample:
-            last_sample = now
-            sample_memory_usage()
-
-        if report:
-            last_report = now
-            report_memory_usage()
-
-        return monotonic() < finish
-
+    continue_func = lambda: monotonic() < finish
     cycles = 0
 
     def update() -> bool:
@@ -135,11 +111,15 @@ def execute(
         nonlocal cycles
         cycles += 1
         task()
-        return monotonic() < finish
+        return continue_func()
 
     tasks = []
     if sample_frequency * report_frequency != 0:
-        tasks.append(monitor)
+        tasks.append(
+            memory_monitor_task.create(
+                sample_frequency,
+                report_frequency,
+                continue_func))
     tasks.append(update)
 
     finish = monotonic() + runtime + 0.05  # ake sure we get the start AND finish reports.
