@@ -1,5 +1,5 @@
 # This test is a bit of a bodge as the utils.execute() function wraps the passed in
-# task to enforce a configured time limit. Therefore, not all of the periodic_task
+# task to enforce a configured time limit. Therefore, not all the periodic_task
 # functionality can be tested. This is fine as we are only really validating that
 # it works on the device, the full functionality testing is done as part of tests.
 def execute():
