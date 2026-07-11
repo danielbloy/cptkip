@@ -3,17 +3,14 @@ This module contains all the setup and instrumentation code to assist executing
 the on device validation and profiling. The only function you should need to use
 is execute() as it bootstraps everything else.
 """
-import asyncio
+
 import traceback
 from time import monotonic
 
 import cptkip.config.configuration as config
-import cptkip.task.basic_runner as runner
-import cptkip.task.basic_runner_async as runner_async
 from cptkip.core.environment import is_running_on_desktop
 from cptkip.core.memory import report_memory_usage_and_free
 from cptkip.core.memory import reset_memory_usage
-from cptkip.task import memory_monitor_task, memory_monitor_task_async
 
 # These are not available in CircuitPython.
 if is_running_on_desktop():
@@ -101,6 +98,8 @@ def execute(
     @param sample_frequency - The number of memory samples per second.
     @param report_frequency - The number of times to report memory usage per second.
     """
+    import cptkip.task.basic_runner as runner
+    from cptkip.task import memory_monitor_task
 
     continue_func = lambda: monotonic() < finish
     cycles = 0
@@ -128,7 +127,7 @@ def execute(
     finish = monotonic() + runtime + 0.05  # ake sure we get the start AND finish reports.
 
     runner.run(tasks)
-    print(f"Total number of cycles executed .. : {cycles // 1_000:,d} K")
+    print(f"Total number of cycles executed .. : {(cycles // 100) / 10:,.1f} K")
 
 
 def execute_async(
@@ -145,6 +144,9 @@ def execute_async(
     @param sample_frequency - The number of memory samples per second.
     @param report_frequency - The number of times to report memory usage per second.
     """
+    import asyncio
+    import cptkip.task.basic_runner_async as runner_async
+    from cptkip.task import memory_monitor_task_async
 
     continue_func = lambda: monotonic() < finish
     cycles = 0
@@ -173,4 +175,4 @@ def execute_async(
     finish = monotonic() + runtime + 0.05  # ake sure we get the start AND finish reports.
 
     runner_async.run(tasks)
-    print(f"Total number of cycles executed .. : {cycles // 1_000:,d} K")
+    print(f"Total number of cycles executed .. : {(cycles // 100) / 10:,.1f} K")

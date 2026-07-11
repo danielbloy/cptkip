@@ -6,7 +6,7 @@ import validate.task.periodic_task as periodic_task
 import validate.task.periodic_task_async as periodic_task_async
 import validate.utils as utils
 
-modules = [basic_runner, memory_monitor, periodic_task, basic_runner_async, memory_monitor_async, periodic_task_async]
+modules = [basic_runner, basic_runner_async, memory_monitor, memory_monitor_async, periodic_task, periodic_task_async]
 
 if __name__ == '__main__':
     utils.execute_modules(modules)
