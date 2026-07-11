@@ -1,8 +1,11 @@
 import validate.task.basic_runner as basic_runner
 import validate.task.memory_monitor as memory_monitor
+import validate.task.periodic_task as periodic_task
 import validate.utils as utils
 
-modules = [basic_runner, memory_monitor]
+# TODO: Async tasks
+
+modules = [basic_runner, memory_monitor, periodic_task]
 
 if __name__ == '__main__':
     utils.execute_modules(modules)
