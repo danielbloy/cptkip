@@ -14,7 +14,9 @@ def create(
         report_frequency: int,
         continue_func: Callable[[], bool] | None = None) -> Callable[[], bool]:
     """
-    TODO: Notes, and tests.
+    Provides a relatively simple way to monitor the memory usage on the device over
+    time. This monitoring function is susceptible to drift so is not suitable for
+    high precision monitoring. The minimum sample and report frequency are 1 second.
 
     :param sample_frequency: The number of memory samples per second.
     :param report_frequency: The number of time to report memory usage per second.

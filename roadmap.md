@@ -32,7 +32,6 @@ The following functionality is planned to be implemented and is inspired by `pic
 
 The following functionality remains to be implemented:
 
-* Move the memory monitor from validate.utils into core.memory
 * Add support for communications between Picos using UART and possible 1-wire support.
 * Include a version/build number in the library and add it in automatically.
 * Add time of day support.
