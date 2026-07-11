@@ -39,9 +39,8 @@ def create(
         Samples and reports the memory usage at the required frequencies.
         """
         nonlocal last_sample, last_report
-        while not continue_func or continue_func():
+        while True:
             now = monotonic_ns()
-
             sample = (now - last_sample) >= sample_period
             report = (now - last_report) >= reporting_period
 
@@ -52,6 +51,9 @@ def create(
             if report:
                 last_report = now
                 report_memory_usage()
+
+            if continue_func and not continue_func():
+                break
 
             await asyncio.sleep(sleep_interval)
 

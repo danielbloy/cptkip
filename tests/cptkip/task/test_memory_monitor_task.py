@@ -13,10 +13,12 @@ class TestMemoryMonitorTask:
     memory, runs the task and validates that sample has been called.
     """
 
+    # TODO: Add test for continue_func.
+
     def test_always_samples_on_first_call(self):
         """
         Validates that memory monitor always samples on first call even if it
-        immediately termiantes.
+        immediately terminates.
         """
         memory.reset_memory_usage()
 
