@@ -93,10 +93,10 @@ def execute(
     validate functionality without repeating the same time management code over
     and over.
 
-    @param task - Called to execute the test
-    @param runtime - The number of seconds to execute for
-    @param sample_frequency - The number of memory samples per second.
-    @param report_frequency - The number of times to report memory usage per second.
+    :param task - Called to execute the test
+    :param runtime - The number of seconds to execute for
+    :param sample_frequency - The number of memory samples per second.
+    :param report_frequency - The number of times to report memory usage per second.
     """
     import cptkip.task.basic_runner as runner
     from cptkip.task import memory_monitor_task
@@ -139,10 +139,10 @@ def execute_async(
     This is an async version of execute(). It provides the same functionality but is adapted
     to use async/await syntax and the different style of tasks that are used by the async runner.
 
-    @param task - Called to execute the test
-    @param runtime - The number of seconds to execute for
-    @param sample_frequency - The number of memory samples per second.
-    @param report_frequency - The number of times to report memory usage per second.
+    :param task - Called to execute the test
+    :param runtime - The number of seconds to execute for
+    :param sample_frequency - The number of memory samples per second.
+    :param report_frequency - The number of times to report memory usage per second.
     """
     import asyncio
     import cptkip.task.basic_runner_async as runner_async
