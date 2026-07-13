@@ -15,7 +15,32 @@ class TestMemoryMonitorTask:
     memory, runs the task and validates that sample has been called.
     """
 
-    # TODO: Add test for continue_func.
+    # noinspection PyTypeChecker
+    def test_continue_func(self):
+        """
+        Validates that the continue function is used to restrict the number
+        of times the task is run.
+        """
+
+        left = 5
+        count = 0
+
+        def count_down() -> bool:
+            nonlocal left, count
+            left -= 1
+            count += 1
+            return left > 0
+
+        task = create(1, 1, continue_func=count_down)
+        asyncio.run(task())
+        assert left == 0
+        assert count == 5
+
+        left = 20
+        count = 0
+        asyncio.run(task())
+        assert left == 0
+        assert count == 20
 
     # noinspection PyTypeChecker
     def test_always_samples_on_first_call(self):
