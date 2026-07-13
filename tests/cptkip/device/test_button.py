@@ -21,7 +21,7 @@ class TestButton:
         """
         Validates the most basic case with no callbacks.
         """
-        for pullup in [True]:
+        for pullup in [True, False]:
             btn = button.Button(MockInputPin(pullup=pullup))
 
             async def update() -> None:
@@ -41,7 +41,7 @@ class TestButton:
         Validates the most basic case with a single click.
         """
 
-        for pullup in [True]:
+        for pullup in [True, False]:
             single_click_count: int = 0
 
             def single_click() -> None:
@@ -63,7 +63,7 @@ class TestButton:
         """
         Validates the most basic case with a multi click.
         """
-        for pullup in [True]:
+        for pullup in [True, False]:
             multi_click_count: int = 0
 
             def multi_click() -> None:
@@ -85,7 +85,7 @@ class TestButton:
         """
         Validates the most basic case with a long click.
         """
-        for pullup in [True]:
+        for pullup in [True, False]:
             long_click_count: int = 0
 
             def long_click() -> None:
@@ -110,7 +110,7 @@ class TestButton:
             * single-click
             * long-click
         """
-        for pullup in [True]:
+        for pullup in [True, False]:
             single_click_count: int = 0
             multi_click_count: int = 0
             long_click_count: int = 0
@@ -155,7 +155,7 @@ class TestButton:
         """
         Validates the multiple single clicks.
         """
-        for pullup in [True]:
+        for pullup in [True, False]:
             single_click_count: int = 0
 
             def single_click() -> None:
