@@ -2,6 +2,7 @@ import time
 
 import cptkip.core.memory as memory
 import tests.cptkip.utilities as utils
+from cptkip.task.basic_runner import run
 from cptkip.task.memory_monitor_task import create
 
 
@@ -13,7 +14,39 @@ class TestMemoryMonitorTask:
     memory, runs the task and validates that sample has been called.
     """
 
-    # TODO: Add test for continue_func.
+    def test_continue_func(self):
+        """
+        Validates that the continue function is used to restrict the number
+        of times the task is run.
+        """
+
+        left = 5
+        count = 0
+
+        def count_down() -> bool:
+            nonlocal left, count
+            left -= 1
+            count += 1
+            return left > 0
+
+        task = create(1, 1, continue_func=count_down)
+        run([task])
+        assert left == 0
+        assert count == 5
+
+        left = 20
+        count = 0
+        run([task])
+        assert left == 0
+        assert count == 20
+
+    def test_no_continue_func(self):
+        """
+        Validates that the task will run forever when no continue func is provided.
+        """
+        task = create(1, 1)
+        for _ in range(1000):
+            assert task()
 
     def test_always_samples_on_first_call(self):
         """
