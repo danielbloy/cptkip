@@ -10,9 +10,9 @@ if environment.is_running_on_desktop():
 
 class Button:
     def __init__(self, pin: InputPin,
-                 click: Callable[[], None] = None,
-                 multi_click: Callable[[], None] = None,
-                 long_click: Callable[[], None] = None):
+                 click: Callable[[], None] | None = None,
+                 multi_click: Callable[[], None] | None = None,
+                 long_click: Callable[[], None] | None = None):
         if pin is None:
             raise ValueError("pin cannot be None")
 
