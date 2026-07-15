@@ -1,7 +1,7 @@
-# TODO: implement validation script
+import validate.animation.flicker as flicker
 import validate.utils as utils
 
-modules = []
+modules = [flicker]
 
 if __name__ == '__main__':
     utils.execute_modules(modules)
