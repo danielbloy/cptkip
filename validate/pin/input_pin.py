@@ -13,6 +13,7 @@ def execute():
             print(f"Input pin changed value to {value}")
 
     value = pin.value
+    print("Press the button to validate")
     utils.execute(task)
 
     pin.deinit()

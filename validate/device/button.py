@@ -24,7 +24,7 @@ def execute():
     def task():
         button.update()
 
-    print("Press the button to test")
+    print("Press the button to validate")
     utils.execute(task)
 
     pin.deinit()

@@ -20,6 +20,7 @@ def execute():
 
     pin.on()
     next_change = monotonic() + 0.25
+    print("LED will pulse")
     utils.execute(task)
     pin.off()
 
