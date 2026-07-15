@@ -21,6 +21,7 @@ def execute():
     pin.frequency = 300
     pin.volume = 0.55
     next_change = monotonic() + 0.25
+    print("Buzzer will sound")
     utils.execute(task)
     pin.off()
 
