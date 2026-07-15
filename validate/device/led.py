@@ -10,11 +10,12 @@ def execute():
     # Add in validation for LED.
     led_pin = pwm_pin.PwmPin(config.LED_PIN, invert=config.LED_INVERT)
     onboard_led = led.Led(led_pin)
-    animation = Pulse(onboard_led, speed=0.1, color=WHITE)
+    animation = Pulse(onboard_led, speed=1 / 30, color=WHITE)
 
     def task():
         animation.animate()
 
+    onboard_led.off()
     print("LED will pulse")
     utils.execute(task)
 
