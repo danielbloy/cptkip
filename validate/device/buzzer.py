@@ -1,8 +1,7 @@
 def execute():
-    import validate.utils as utils
-
     import cptkip.config.configuration as config
     import cptkip.pin.buzzer_pin as buzzer_pin
+    import validate.utils as utils
     from cptkip.device.buzzer import Buzzer
 
     pin = buzzer_pin.BuzzerPin(config.BUZZER_PIN)
@@ -19,7 +18,7 @@ def execute():
             return
 
         frequency += 100
-        buzzer.play(buzzer.p, 0.25)
+        buzzer.play(frequency, 0.25)
 
     print("Buzzer will change frequency")
     utils.execute(task)
