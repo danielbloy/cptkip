@@ -53,11 +53,11 @@ Auto-reload is on. Simply save files over USB to run them or enter REPL to disab
 /validate/performance/d_memory.py output:
 START ...... : Used: 976 bytes, Free: 162608 bytes
 Running on microcontroller. Pins are available.
-CRITICAL : Peak: 5232 bytes, Used: 5232 bytes, Free: 158096 bytes, Total: 163328 bytes
-CRITICAL : Peak: 5328 bytes, Used: 5328 bytes, Free: 158000 bytes, Total: 163328 bytes
-CRITICAL : Peak: 5328 bytes, Used: 5232 bytes, Free: 158096 bytes, Total: 163328 bytes
-BEFORE GC .. : Used: 5328 bytes, Free: 158000 bytes
-AFTER GC ... : Used: 5232 bytes, Free: 158096 bytes
+CRITICAL : Peak: 5152 bytes, Used: 5152 bytes, Free: 158176 bytes, Total: 163328 bytes
+CRITICAL : Peak: 5248 bytes, Used: 5248 bytes, Free: 158080 bytes, Total: 163328 bytes
+CRITICAL : Peak: 5248 bytes, Used: 5152 bytes, Free: 158176 bytes, Total: 163328 bytes
+BEFORE GC .. : Used: 5248 bytes, Free: 158080 bytes
+AFTER GC ... : Used: 5152 bytes, Free: 158176 bytes
 
 Code done running.
 soft reboot
@@ -104,4 +104,3 @@ FINISHED
 Code done running.
 
 Press any key to enter the REPL. Use CTRL-D to reload.
-

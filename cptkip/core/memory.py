@@ -33,9 +33,9 @@ def sample_memory_usage():
     if __is_running_on_desktop:
         import psutil as psutil
         stats = psutil.virtual_memory()  # returns a named tuple
-        used_ram = stats.total / 1_048_576
-        free_ram = stats.free / 1_048_576
-        total_ram = stats.used / 1_048_576
+        used_ram = stats.total // 1_048_576
+        free_ram = stats.free // 1_048_576
+        total_ram = stats.used // 1_048_576
     else:
         # noinspection PyUnresolvedReferences
         used_ram = gc.mem_alloc()
@@ -55,7 +55,7 @@ def report_memory_usage():
     sample_memory_usage()
     if __is_running_on_desktop:
         log.critical(
-            f"Peak: {peak_used_ram:.2f} MB, Used: {used_ram:.2f} MB, Free: {free_ram:.2f} MB, Total: {total_ram:.2f} MB")
+            "Peak:", peak_used_ram, "MB, Used:", used_ram, "MB, Free:", free_ram, "MB, Total:", total_ram, "MB")
     else:
         # noinspection PyUnresolvedReferences
         log.critical("Peak:", peak_used_ram, "bytes, Used:", used_ram, "bytes, Free:", free_ram, "bytes, Total:",
