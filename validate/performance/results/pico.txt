@@ -43,8 +43,8 @@ Running on microcontroller. Pins are available.
 CRITICAL : This critical text will appear with log level info
 ERROR    : This error text will appear with log level info
 WARN     : This warning text will appear with log level info
-BEFORE GC .. : Used: 4608 bytes, Free: 158720 bytes
-AFTER GC ... : Used: 4608 bytes, Free: 158720 bytes
+BEFORE GC .. : Used: 4784 bytes, Free: 158544 bytes
+AFTER GC ... : Used: 4624 bytes, Free: 158704 bytes
 
 Code done running.
 soft reboot
@@ -53,11 +53,11 @@ Auto-reload is on. Simply save files over USB to run them or enter REPL to disab
 /validate/performance/d_memory.py output:
 START ...... : Used: 976 bytes, Free: 162608 bytes
 Running on microcontroller. Pins are available.
-CRITICAL : Peak: 5072 bytes, Used: 5072 bytes, Free: 158256 bytes, Total: 163328 bytes
-CRITICAL : Peak: 5296 bytes, Used: 5296 bytes, Free: 158032 bytes, Total: 163328 bytes
-CRITICAL : Peak: 5296 bytes, Used: 5168 bytes, Free: 158160 bytes, Total: 163328 bytes
-BEFORE GC .. : Used: 5392 bytes, Free: 157936 bytes
-AFTER GC ... : Used: 5072 bytes, Free: 158256 bytes
+CRITICAL : Peak: 5232 bytes, Used: 5232 bytes, Free: 158096 bytes, Total: 163328 bytes
+CRITICAL : Peak: 5328 bytes, Used: 5328 bytes, Free: 158000 bytes, Total: 163328 bytes
+CRITICAL : Peak: 5328 bytes, Used: 5232 bytes, Free: 158096 bytes, Total: 163328 bytes
+BEFORE GC .. : Used: 5328 bytes, Free: 158000 bytes
+AFTER GC ... : Used: 5232 bytes, Free: 158096 bytes
 
 Code done running.
 soft reboot
@@ -72,8 +72,8 @@ Config file loaded.
 Test value ... : 123.456
 Test string .. : Hello world!
 Debug ........ : True
-BEFORE GC .. : Used: 4992 bytes, Free: 158336 bytes
-AFTER GC ... : Used: 4992 bytes, Free: 158336 bytes
+BEFORE GC .. : Used: 5360 bytes, Free: 157968 bytes
+AFTER GC ... : Used: 5360 bytes, Free: 157968 bytes
 
 Code done running.
 soft reboot

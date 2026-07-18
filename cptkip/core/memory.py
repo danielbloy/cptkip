@@ -58,8 +58,8 @@ def report_memory_usage():
             f"Peak: {peak_used_ram:.2f} MB, Used: {used_ram:.2f} MB, Free: {free_ram:.2f} MB, Total: {total_ram:.2f} MB")
     else:
         # noinspection PyUnresolvedReferences
-        log.critical(
-            f"Peak: {peak_used_ram} bytes, Used: {used_ram} bytes, Free: {free_ram} bytes, Total: {total_ram} bytes")
+        log.critical("Peak:", peak_used_ram, "bytes, Used:", used_ram, "bytes, Free:", free_ram, "bytes, Total:",
+                     total_ram, "bytes")
 
 
 def report_memory_usage_and_free():
