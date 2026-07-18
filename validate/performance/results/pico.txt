@@ -90,10 +90,18 @@ soft reboot
 
 Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
 /validate/performance/g_adafruit_asyncio.py output:
-START ...... : Used: 864 bytes, Free: 154528 bytes
-BEFORE GC .. : Used: 8272 bytes, Free: 155056 bytes
-AFTER GC ... : Used: 8272 bytes, Free: 155056 bytes
+START ...... : Used: 944 bytes, Free: 154448 bytes
+BEFORE GC .. : Used: 8240 bytes, Free: 155088 bytes
+AFTER GC ... : Used: 8240 bytes, Free: 155088 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/z_finish.py output:
+FINISHED
 
 Code done running.
 
 Press any key to enter the REPL. Use CTRL-D to reload.
+
