@@ -38,13 +38,20 @@ Running the following script which is just output RAM usage with the simplest co
 ```python
 import gc
 
-print("START: Used:", gc.mem_alloc(), "bytes, Free:", gc.mem_free(), "bytes")
+print("START ...... : Used:", gc.mem_alloc(), "bytes, Free:", gc.mem_free(), "bytes")
 
 # Code under test goes here.
 
-print("BEFORE GC: Used:", gc.mem_alloc(), "bytes, Free:", gc.mem_free(), "bytes")
+print("BEFORE GC .. : Used:", gc.mem_alloc(), "bytes, Free:", gc.mem_free(), "bytes")
 gc.collect()
-print("AFTER GC: Used:", gc.mem_alloc(), "bytes, Free:", gc.mem_free(), "bytes")
+print("AFTER GC ... : Used:", gc.mem_alloc(), "bytes, Free:", gc.mem_free(), "bytes")
+
+# Load the next file
+import supervisor
+
+supervisor.set_next_code_file("/validate/performance/<filename>.py")
+supervisor.reload()
+
 ```
 
 | Vanilla CircuitPython   |                 |

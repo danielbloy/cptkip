@@ -36,7 +36,7 @@ def stacktrace(e: Exception) -> None:
         debug(s)
 
 
-def log(level, message: str):
+def log(level, *args):
     """Writes message at the specified log level."""
     if level <= LEVEL:
 
@@ -52,29 +52,29 @@ def log(level, message: str):
         elif level == DEBUG:
             prefix = D
 
-        print(prefix, ":", message)
+        print(prefix, ":", *args)
 
 
-def debug(message: str) -> None:
+def debug(*args) -> None:
     """Writes message at the DEBUG log level."""
-    log(DEBUG, message)
+    log(DEBUG, *args)
 
 
-def info(message: str) -> None:
+def info(*args) -> None:
     """Writes message at the INFO log level."""
-    log(INFO, message)
+    log(INFO, *args)
 
 
-def warn(message: str) -> None:
+def warn(*args) -> None:
     """Writes message at the WARNING log level."""
-    log(WARNING, message)
+    log(WARNING, *args)
 
 
-def error(message: str) -> None:
+def error(*args) -> None:
     """Writes message at the ERROR log level."""
-    log(ERROR, message)
+    log(ERROR, *args)
 
 
-def critical(message: str) -> None:
+def critical(*args) -> None:
     """Writes message at the CRITICAL log level."""
-    log(CRITICAL, message)
+    log(CRITICAL, *args)

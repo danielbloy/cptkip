@@ -1,7 +1,20 @@
-# TODO: implement validation script
-import validate.utils as utils
+#
+# This script is not run as part of validate all as it performs a series of
+# soft reboots of the device, running a different script each time. This script
+# also cannot be run using Thonny as Thonny will just intercept the REPL each
+# it tries to reboots. Therefore, this script needs to be run by connecting to
+# the device over a serial connection, dropping to the REPL and then importing
+# this file like this:
+#     import validate.validate_performance
+#
+# A series of scripts will then run with each tracking the memory and performance
+# characteristics of the device and the cptkip framework (plus a few adafruit
+# modules for good measure).
+#
+from cptkip.core.environment import is_running_on_microcontroller
 
-modules = []
+if is_running_on_microcontroller():
+    import supervisor
 
-if __name__ == '__main__':
-    utils.execute_modules(modules)
+    supervisor.set_next_code_file("/validate/performance/a_platform.py")
+    supervisor.reload()
