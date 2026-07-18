@@ -1,0 +1,99 @@
+>>> import validate.validate_performance
+Running on microcontroller. Pins are available.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/a_platform.py output:
+START ...... : Used: 1104 bytes, Free: 162480 bytes
+Running on: circuitpython v10.2.1 Raspberry Pi Pico with rp2040
+BEFORE GC .. : Used: 1392 bytes, Free: 162192 bytes
+AFTER GC ... : Used: 1168 bytes, Free: 162416 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/b_environment.py output:
+START ...... : Used: 1504 bytes, Free: 162080 bytes
+Running on microcontroller. Pins are available.
+Is running in CI ................. :  False
+Is running under test ............ :  False
+Is running on a microcontroller .. :  True
+Is running on a desktop .......... :  False
+Are pins available ............... :  True
+BEFORE GC .. : Used: 3088 bytes, Free: 160240 bytes
+AFTER GC ... : Used: 3088 bytes, Free: 160240 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/c_logging_adafruit.py output:
+START ...... : Used: 944 bytes, Free: 154448 bytes
+BEFORE GC .. : Used: 8720 bytes, Free: 154608 bytes
+AFTER GC ... : Used: 8720 bytes, Free: 154608 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/c_logging_cptkip.py output:
+START ...... : Used: 1424 bytes, Free: 153968 bytes
+Running on microcontroller. Pins are available.
+CRITICAL : This critical text will appear with log level info
+ERROR    : This error text will appear with log level info
+WARN     : This warning text will appear with log level info
+BEFORE GC .. : Used: 4016 bytes, Free: 159312 bytes
+AFTER GC ... : Used: 4016 bytes, Free: 159312 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/d_memory.py output:
+START ...... : Used: 976 bytes, Free: 154416 bytes
+Running on microcontroller. Pins are available.
+CRITICAL : Peak: 5120 bytes, Used: 5120 bytes, Free: 158208 bytes, Total: 163328 bytes
+CRITICAL : Peak: 5344 bytes, Used: 5344 bytes, Free: 157984 bytes, Total: 163328 bytes
+CRITICAL : Peak: 5344 bytes, Used: 5216 bytes, Free: 158112 bytes, Total: 163328 bytes
+BEFORE GC .. : Used: 5440 bytes, Free: 157888 bytes
+AFTER GC ... : Used: 5120 bytes, Free: 158208 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/e_configuration.py output:
+START ...... : Used: 1152 bytes, Free: 154240 bytes
+Running on microcontroller. Pins are available.
+Using LED
+Using GP27
+Config file loaded.
+Test value ... : 123.456
+Test string .. : Hello world!
+Debug ........ : True
+BEFORE GC .. : Used: 5040 bytes, Free: 158288 bytes
+AFTER GC ... : Used: 5040 bytes, Free: 158288 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/f_cpu.py output:
+START ...... : Used: 960 bytes, Free: 154432 bytes
+Running on microcontroller. Pins are available.
+BEFORE GC .. : Used: 3152 bytes, Free: 160176 bytes
+AFTER GC ... : Used: 3104 bytes, Free: 160224 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/g_adafruit_asyncio.py output:
+START ...... : Used: 864 bytes, Free: 154528 bytes
+BEFORE GC .. : Used: 8272 bytes, Free: 155056 bytes
+AFTER GC ... : Used: 8272 bytes, Free: 155056 bytes
+
+Code done running.
+
+Press any key to enter the REPL. Use CTRL-D to reload.
