@@ -64,7 +64,7 @@ def report_memory_usage():
 
 def report_memory_usage_and_free():
     """
-    Convenience function that reports memory usage, runs the garbage colector then
+    Convenience function that reports memory usage, runs the garbage collector then
     runs the report again.
     """
     report_memory_usage()
