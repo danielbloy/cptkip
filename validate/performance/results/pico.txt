@@ -21,15 +21,15 @@ Is running under test ............ :  False
 Is running on a microcontroller .. :  True
 Is running on a desktop .......... :  False
 Are pins available ............... :  True
-BEFORE GC .. : Used: 3088 bytes, Free: 160240 bytes
-AFTER GC ... : Used: 3088 bytes, Free: 160240 bytes
+BEFORE GC .. : Used: 3024 bytes, Free: 160560 bytes
+AFTER GC ... : Used: 3024 bytes, Free: 160560 bytes
 
 Code done running.
 soft reboot
 
 Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
 /validate/performance/c_logging_adafruit.py output:
-START ...... : Used: 944 bytes, Free: 154448 bytes
+START ...... : Used: 944 bytes, Free: 162640 bytes
 BEFORE GC .. : Used: 8720 bytes, Free: 154608 bytes
 AFTER GC ... : Used: 8720 bytes, Free: 154608 bytes
 
@@ -38,33 +38,33 @@ soft reboot
 
 Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
 /validate/performance/c_logging_cptkip.py output:
-START ...... : Used: 1424 bytes, Free: 153968 bytes
+START ...... : Used: 1424 bytes, Free: 162160 bytes
 Running on microcontroller. Pins are available.
 CRITICAL : This critical text will appear with log level info
 ERROR    : This error text will appear with log level info
 WARN     : This warning text will appear with log level info
-BEFORE GC .. : Used: 4016 bytes, Free: 159312 bytes
-AFTER GC ... : Used: 4016 bytes, Free: 159312 bytes
+BEFORE GC .. : Used: 4608 bytes, Free: 158720 bytes
+AFTER GC ... : Used: 4608 bytes, Free: 158720 bytes
 
 Code done running.
 soft reboot
 
 Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
 /validate/performance/d_memory.py output:
-START ...... : Used: 976 bytes, Free: 154416 bytes
+START ...... : Used: 976 bytes, Free: 162608 bytes
 Running on microcontroller. Pins are available.
-CRITICAL : Peak: 5120 bytes, Used: 5120 bytes, Free: 158208 bytes, Total: 163328 bytes
-CRITICAL : Peak: 5344 bytes, Used: 5344 bytes, Free: 157984 bytes, Total: 163328 bytes
-CRITICAL : Peak: 5344 bytes, Used: 5216 bytes, Free: 158112 bytes, Total: 163328 bytes
-BEFORE GC .. : Used: 5440 bytes, Free: 157888 bytes
-AFTER GC ... : Used: 5120 bytes, Free: 158208 bytes
+CRITICAL : Peak: 5072 bytes, Used: 5072 bytes, Free: 158256 bytes, Total: 163328 bytes
+CRITICAL : Peak: 5296 bytes, Used: 5296 bytes, Free: 158032 bytes, Total: 163328 bytes
+CRITICAL : Peak: 5296 bytes, Used: 5168 bytes, Free: 158160 bytes, Total: 163328 bytes
+BEFORE GC .. : Used: 5392 bytes, Free: 157936 bytes
+AFTER GC ... : Used: 5072 bytes, Free: 158256 bytes
 
 Code done running.
 soft reboot
 
 Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
 /validate/performance/e_configuration.py output:
-START ...... : Used: 1152 bytes, Free: 154240 bytes
+START ...... : Used: 1152 bytes, Free: 162432 bytes
 Running on microcontroller. Pins are available.
 Using LED
 Using GP27
@@ -72,25 +72,25 @@ Config file loaded.
 Test value ... : 123.456
 Test string .. : Hello world!
 Debug ........ : True
-BEFORE GC .. : Used: 5040 bytes, Free: 158288 bytes
-AFTER GC ... : Used: 5040 bytes, Free: 158288 bytes
+BEFORE GC .. : Used: 4992 bytes, Free: 158336 bytes
+AFTER GC ... : Used: 4992 bytes, Free: 158336 bytes
 
 Code done running.
 soft reboot
 
 Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
 /validate/performance/f_cpu.py output:
-START ...... : Used: 960 bytes, Free: 154432 bytes
+START ...... : Used: 960 bytes, Free: 162624 bytes
 Running on microcontroller. Pins are available.
-BEFORE GC .. : Used: 3152 bytes, Free: 160176 bytes
-AFTER GC ... : Used: 3104 bytes, Free: 160224 bytes
+BEFORE GC .. : Used: 3216 bytes, Free: 160112 bytes
+AFTER GC ... : Used: 3168 bytes, Free: 160160 bytes
 
 Code done running.
 soft reboot
 
 Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
 /validate/performance/g_adafruit_asyncio.py output:
-START ...... : Used: 944 bytes, Free: 154448 bytes
+START ...... : Used: 944 bytes, Free: 162640 bytes
 BEFORE GC .. : Used: 8240 bytes, Free: 155088 bytes
 AFTER GC ... : Used: 8240 bytes, Free: 155088 bytes
 

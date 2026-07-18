@@ -133,4 +133,6 @@ def report():
     running_on = "microcontroller" if is_running_on_microcontroller() else sys.platform
     pins_available = "are" if are_pins_available() else "are not"
 
-    print(f'Running on {running_on}. Pins {pins_available} available.')
+    # print() with multiple args avoids the temporary string an f-string would
+    # allocate; this runs on every `cptkip.core` import (see memory_usage.md).
+    print("Running on", running_on + ".", "Pins", pins_available, "available.")
