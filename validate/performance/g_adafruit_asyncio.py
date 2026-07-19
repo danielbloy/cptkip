@@ -10,6 +10,6 @@ gc.collect()
 print("AFTER GC ... : Used:", gc.mem_alloc(), "bytes, Free:", gc.mem_free(), "bytes")
 
 # Load the next file
-from validate.performance.runner import execute_next_script
+from validate.performance.script_runner import execute_next_script
 
 execute_next_script(__file__)
