@@ -1,12 +1,7 @@
-import gc
+from validate.performance.task_runner import execute
 
-print("START ...... : Used:", gc.mem_alloc(), "bytes, Free:", gc.mem_free(), "bytes")
-
-# TEST CODE IN HERE
-
-print("BEFORE GC .. : Used:", gc.mem_alloc(), "bytes, Free:", gc.mem_free(), "bytes")
-gc.collect()
-print("AFTER GC ... : Used:", gc.mem_alloc(), "bytes, Free:", gc.mem_free(), "bytes")
+execute(lambda: None, False)
+execute(lambda: None, True)
 
 # Load the next file
 from validate.performance.script_runner import execute_next_script
