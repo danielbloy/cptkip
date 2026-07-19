@@ -14,7 +14,6 @@
 from cptkip.core.environment import is_running_on_microcontroller
 
 if is_running_on_microcontroller():
-    import supervisor
+    from validate.performance.script_runner import execute_next_script
 
-    supervisor.set_next_code_file("/validate/performance/a_platform.py")
-    supervisor.reload()
+    execute_next_script()

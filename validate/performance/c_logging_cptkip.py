@@ -15,7 +15,6 @@ gc.collect()
 print("AFTER GC ... : Used:", gc.mem_alloc(), "bytes, Free:", gc.mem_free(), "bytes")
 
 # Load the next file
-import supervisor
+from validate.performance.script_runner import execute_next_script
 
-supervisor.set_next_code_file("/validate/performance/d_memory.py")
-supervisor.reload()
+execute_next_script(__file__)

@@ -19,7 +19,7 @@ def execute():
         begin_count += 1
 
     periodic_task = periodic_task.create(
-        task, frequency=3, continue_func=lambda: True, begin=begin, initial_delay=1)
+        task, frequency=3, continue_func=utils.continue_func, begin=begin, initial_delay=1)
 
     def wrapped_task():
         periodic_task()
