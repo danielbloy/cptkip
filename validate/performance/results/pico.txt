@@ -3,7 +3,7 @@ Running on microcontroller. Pins are available.
 soft reboot
 
 Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
-/validate/performance/a_platform.py output:
+/validate/performance/a_start.py output:
 START ...... : Used: 1120 bytes, Free: 162464 bytes
 Running on: circuitpython v10.2.1 Raspberry Pi Pico with rp2040
 BEFORE GC .. : Used: 1408 bytes, Free: 162176 bytes
@@ -93,6 +93,60 @@ Auto-reload is on. Simply save files over USB to run them or enter REPL to disab
 START ...... : Used: 880 bytes, Free: 162704 bytes
 BEFORE GC .. : Used: 8336 bytes, Free: 154992 bytes
 AFTER GC ... : Used: 8336 bytes, Free: 154992 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/h_basic_runner.py output:
+START ...... : Used: 880 bytes, Free: 162704 bytes
+BEFORE GC .. : Used: 880 bytes, Free: 162704 bytes
+AFTER GC ... : Used: 880 bytes, Free: 162704 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/h_basic_runner_async.py output:
+START ...... : Used: 880 bytes, Free: 162704 bytes
+BEFORE GC .. : Used: 880 bytes, Free: 162704 bytes
+AFTER GC ... : Used: 880 bytes, Free: 162704 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/i_periodic_task.py output:
+START ...... : Used: 880 bytes, Free: 162704 bytes
+BEFORE GC .. : Used: 880 bytes, Free: 162704 bytes
+AFTER GC ... : Used: 880 bytes, Free: 162704 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/i_periodic_task_async.py output:
+START ...... : Used: 880 bytes, Free: 162704 bytes
+BEFORE GC .. : Used: 880 bytes, Free: 162704 bytes
+AFTER GC ... : Used: 880 bytes, Free: 162704 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/j_memory_monitor.py output:
+START ...... : Used: 880 bytes, Free: 162704 bytes
+BEFORE GC .. : Used: 880 bytes, Free: 162704 bytes
+AFTER GC ... : Used: 880 bytes, Free: 162704 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/j_memory_monitor_async.py output:
+START ...... : Used: 880 bytes, Free: 162704 bytes
+BEFORE GC .. : Used: 880 bytes, Free: 162704 bytes
+AFTER GC ... : Used: 880 bytes, Free: 162704 bytes
 
 Code done running.
 soft reboot

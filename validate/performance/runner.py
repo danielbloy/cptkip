@@ -5,7 +5,7 @@ def execute_next_script(current_script: str | None = None):
     """
     import supervisor
     scripts = [
-        "/validate/performance/a_platform.py",
+        "/validate/performance/a_start.py",
         "/validate/performance/b_environment.py",
         "/validate/performance/c_logging_adafruit.py",
         "/validate/performance/c_logging_cptkip.py",
@@ -13,6 +13,12 @@ def execute_next_script(current_script: str | None = None):
         "/validate/performance/e_configuration.py",
         "/validate/performance/f_cpu.py",
         "/validate/performance/g_adafruit_asyncio.py",
+        "/validate/performance/h_basic_runner.py",
+        "/validate/performance/h_basic_runner_async.py",
+        "/validate/performance/i_periodic_task.py",
+        "/validate/performance/i_periodic_task_async.py",
+        "/validate/performance/j_memory_monitor.py",
+        "/validate/performance/j_memory_monitor_async.py",
         "/validate/performance/z_finish.py"
     ]
 
