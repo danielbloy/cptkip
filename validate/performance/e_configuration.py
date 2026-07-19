@@ -13,7 +13,6 @@ gc.collect()
 print("AFTER GC ... : Used:", gc.mem_alloc(), "bytes, Free:", gc.mem_free(), "bytes")
 
 # Load the next file
-import supervisor
+from validate.performance.runner import execute_next_script
 
-supervisor.set_next_code_file("/validate/performance/f_cpu.py")
-supervisor.reload()
+execute_next_script(__file__)
