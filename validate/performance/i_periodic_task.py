@@ -1,12 +1,21 @@
-import gc
+import cptkip.task.periodic_task as periodic_task
+from validate.performance.task_runner import execute, continue_func
 
-print("START ...... : Used:", gc.mem_alloc(), "bytes, Free:", gc.mem_free(), "bytes")
 
-# TEST CODE IN HERE
+def task() -> None:
+    print('task')
 
-print("BEFORE GC .. : Used:", gc.mem_alloc(), "bytes, Free:", gc.mem_free(), "bytes")
-gc.collect()
-print("AFTER GC ... : Used:", gc.mem_alloc(), "bytes, Free:", gc.mem_free(), "bytes")
+
+periodic_task = periodic_task.create(
+    task, frequency=3, continue_func=continue_func, initial_delay=1)
+
+
+def wrapped_task():
+    periodic_task()
+
+
+execute(wrapped_task, False)
+execute(wrapped_task, True)
 
 # Load the next file
 from validate.performance.script_runner import execute_next_script

@@ -17,8 +17,6 @@ def execute_next_script(current_script: str | None = None):
         "/validate/performance/h_basic_runner_async.py",
         "/validate/performance/i_periodic_task.py",
         "/validate/performance/i_periodic_task_async.py",
-        "/validate/performance/j_memory_monitor.py",
-        "/validate/performance/j_memory_monitor_async.py",
         "/validate/performance/z_finish.py"
     ]
 

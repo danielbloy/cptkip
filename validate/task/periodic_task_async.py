@@ -19,7 +19,7 @@ def execute():
         begin_count += 1
 
     periodic_task = periodic_task.create(
-        task, frequency=3, continue_func=lambda: task_count < 3, begin=begin, initial_delay=1)
+        task, frequency=3, continue_func=utils.continue_func, begin=begin, initial_delay=1)
 
     utils.execute_async(periodic_task)
 

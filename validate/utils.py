@@ -82,6 +82,10 @@ def __end_profiling(top: int = PROFILE_TOP):
             print(stat)
 
 
+finish = 0
+continue_func = lambda: monotonic() < finish
+
+
 def execute(
         task: Callable[[], None],
         runtime: int = RUNTIME,
@@ -101,13 +105,11 @@ def execute(
     import cptkip.task.basic_runner as runner
     from cptkip.task import memory_monitor_task
 
-    continue_func = lambda: monotonic() < finish
     cycles = 0
 
     def update() -> bool:
         """
-        Executes the task under test
-        This also tracks the number of cycles executed.
+        Executes the task under test. This also tracks the number of cycles executed.
         """
         nonlocal cycles
         cycles += 1
@@ -124,10 +126,11 @@ def execute(
 
     tasks.append(update)  # We add the update function last so memory monitor is always first.
 
+    global finish
     finish = monotonic() + runtime + 0.05  # ake sure we get the start AND finish reports.
 
     runner.run(tasks)
-    print(f"Total number of cycles executed .. : {(cycles // 100) / 10:,.1f} K")
+    print(f"Total number of cycles executed .. : {((cycles / runtime) // 100) / 10:,.1f} K/s")
 
 
 def execute_async(
@@ -148,13 +151,11 @@ def execute_async(
     import cptkip.task.basic_runner_async as runner_async
     from cptkip.task import memory_monitor_task_async
 
-    continue_func = lambda: monotonic() < finish
     cycles = 0
 
     async def update() -> None:
         """
-        Executes the task under test
-        This also tracks the number of cycles executed.
+        Executes the task under test. This also tracks the number of cycles executed.
         """
         nonlocal cycles
         while continue_func():
@@ -172,7 +173,8 @@ def execute_async(
 
     tasks.append(update)  # We add the update function last so memory monitor is always first.
 
+    global finish
     finish = monotonic() + runtime + 0.05  # ake sure we get the start AND finish reports.
 
     runner_async.run(tasks)
-    print(f"Total number of cycles executed .. : {(cycles // 100) / 10:,.1f} K")
+    print(f"Total number of cycles executed .. : {((cycles / runtime) // 100) / 10:,.1f} K/s")
