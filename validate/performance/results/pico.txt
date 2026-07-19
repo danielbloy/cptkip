@@ -21,8 +21,8 @@ Is running under test ............ :  False
 Is running on a microcontroller .. :  True
 Is running on a desktop .......... :  False
 Are pins available ............... :  True
-BEFORE GC .. : Used: 3088 bytes, Free: 160496 bytes
-AFTER GC ... : Used: 3088 bytes, Free: 160496 bytes
+BEFORE GC .. : Used: 3072 bytes, Free: 160512 bytes
+AFTER GC ... : Used: 3072 bytes, Free: 160512 bytes
 
 Code done running.
 soft reboot
@@ -38,7 +38,7 @@ soft reboot
 
 Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
 /validate/performance/c_logging_cptkip.py output:
-START ...... : Used: 1456 bytes, Free: 162128 bytes
+START ...... : Used: 1472 bytes, Free: 162112 bytes
 Running on microcontroller. Pins are available.
 CRITICAL : This critical text will appear with log level info
 ERROR    : This error text will appear with log level info
@@ -53,18 +53,18 @@ Auto-reload is on. Simply save files over USB to run them or enter REPL to disab
 /validate/performance/d_memory.py output:
 START ...... : Used: 1024 bytes, Free: 162560 bytes
 Running on microcontroller. Pins are available.
-CRITICAL : Peak: 5136 bytes, Used: 5136 bytes, Free: 158192 bytes, Total: 163328 bytes
-CRITICAL : Peak: 5232 bytes, Used: 5232 bytes, Free: 158096 bytes, Total: 163328 bytes
-CRITICAL : Peak: 5232 bytes, Used: 5136 bytes, Free: 158192 bytes, Total: 163328 bytes
-BEFORE GC .. : Used: 5232 bytes, Free: 158096 bytes
-AFTER GC ... : Used: 5136 bytes, Free: 158192 bytes
+CRITICAL : Peak: 5168 bytes, Used: 5168 bytes, Free: 158160 bytes, Total: 163328 bytes
+CRITICAL : Peak: 5264 bytes, Used: 5264 bytes, Free: 158064 bytes, Total: 163328 bytes
+CRITICAL : Peak: 5264 bytes, Used: 5168 bytes, Free: 158160 bytes, Total: 163328 bytes
+BEFORE GC .. : Used: 5264 bytes, Free: 158064 bytes
+AFTER GC ... : Used: 5168 bytes, Free: 158160 bytes
 
 Code done running.
 soft reboot
 
 Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
 /validate/performance/e_configuration.py output:
-START ...... : Used: 1184 bytes, Free: 162400 bytes
+START ...... : Used: 1200 bytes, Free: 162384 bytes
 Running on microcontroller. Pins are available.
 Using LED
 Using GP27
@@ -72,25 +72,25 @@ Config file loaded.
 Test value ... : 123.456
 Test string .. : Hello world!
 Debug ........ : True
-BEFORE GC .. : Used: 5344 bytes, Free: 157984 bytes
-AFTER GC ... : Used: 5344 bytes, Free: 157984 bytes
+BEFORE GC .. : Used: 5312 bytes, Free: 158016 bytes
+AFTER GC ... : Used: 5312 bytes, Free: 158016 bytes
 
 Code done running.
 soft reboot
 
 Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
 /validate/performance/f_cpu.py output:
-START ...... : Used: 1008 bytes, Free: 162576 bytes
+START ...... : Used: 1024 bytes, Free: 162560 bytes
 Running on microcontroller. Pins are available.
-BEFORE GC .. : Used: 3136 bytes, Free: 160192 bytes
-AFTER GC ... : Used: 3088 bytes, Free: 160240 bytes
+BEFORE GC .. : Used: 3264 bytes, Free: 160064 bytes
+AFTER GC ... : Used: 3216 bytes, Free: 160112 bytes
 
 Code done running.
 soft reboot
 
 Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
 /validate/performance/g_adafruit_asyncio.py output:
-START ...... : Used: 880 bytes, Free: 162704 bytes
+START ...... : Used: 992 bytes, Free: 162592 bytes
 BEFORE GC .. : Used: 8336 bytes, Free: 154992 bytes
 AFTER GC ... : Used: 8336 bytes, Free: 154992 bytes
 
@@ -99,54 +99,126 @@ soft reboot
 
 Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
 /validate/performance/h_basic_runner.py output:
-START ...... : Used: 880 bytes, Free: 162704 bytes
-BEFORE GC .. : Used: 880 bytes, Free: 162704 bytes
-AFTER GC ... : Used: 880 bytes, Free: 162704 bytes
+Running on microcontroller. Pins are available.
+START ...... : Used: 5072 bytes, Free: 158256 bytes
+CYCLES ..... : 9.2 K/s
+BEFORE GC .. : Used: 6784 bytes, Free: 156544 bytes
+AFTER GC ... : Used: 5120 bytes, Free: 158208 bytes
+START ...... : Used: 5184 bytes, Free: 158144 bytes
+CRITICAL : Peak: 8112 bytes, Used: 8112 bytes, Free: 155216 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15424 bytes, Used: 13552 bytes, Free: 149776 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15856 bytes, Used: 12112 bytes, Free: 151216 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15856 bytes, Used: 10384 bytes, Free: 152944 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15856 bytes, Used: 8800 bytes, Free: 154528 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15856 bytes, Used: 11552 bytes, Free: 151776 bytes, Total: 163328 bytes
+CYCLES ..... : 5.0 K/s
+BEFORE GC .. : Used: 11696 bytes, Free: 151632 bytes
+AFTER GC ... : Used: 8048 bytes, Free: 155280 bytes
 
 Code done running.
 soft reboot
 
 Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
 /validate/performance/h_basic_runner_async.py output:
-START ...... : Used: 880 bytes, Free: 162704 bytes
-BEFORE GC .. : Used: 880 bytes, Free: 162704 bytes
-AFTER GC ... : Used: 880 bytes, Free: 162704 bytes
+Running on microcontroller. Pins are available.
+START ...... : Used: 12816 bytes, Free: 150000 bytes
+CYCLES ..... : 1.7 K/s
+BEFORE GC .. : Used: 24864 bytes, Free: 137952 bytes
+AFTER GC ... : Used: 14352 bytes, Free: 148464 bytes
+START ...... : Used: 14416 bytes, Free: 148400 bytes
+CRITICAL : Peak: 18224 bytes, Used: 18224 bytes, Free: 144592 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31424 bytes, Used: 22080 bytes, Free: 140736 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31424 bytes, Used: 26112 bytes, Free: 136704 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31680 bytes, Used: 31488 bytes, Free: 131328 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31680 bytes, Used: 21824 bytes, Free: 140992 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31680 bytes, Used: 24816 bytes, Free: 138000 bytes, Total: 162816 bytes
+CYCLES ..... : 1.6 K/s
+BEFORE GC .. : Used: 24960 bytes, Free: 137856 bytes
+AFTER GC ... : Used: 17472 bytes, Free: 145344 bytes
 
 Code done running.
 soft reboot
 
 Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
 /validate/performance/i_periodic_task.py output:
-START ...... : Used: 880 bytes, Free: 162704 bytes
-BEFORE GC .. : Used: 880 bytes, Free: 162704 bytes
-AFTER GC ... : Used: 880 bytes, Free: 162704 bytes
+Running on microcontroller. Pins are available.
+START ...... : Used: 6176 bytes, Free: 157152 bytes
+task
+task
+task
+task
+task
+task
+task
+task
+task
+task
+CYCLES ..... : 5.0 K/s
+BEFORE GC .. : Used: 10608 bytes, Free: 152720 bytes
+AFTER GC ... : Used: 6256 bytes, Free: 157072 bytes
+START ...... : Used: 6320 bytes, Free: 157008 bytes
+CRITICAL : Peak: 10096 bytes, Used: 10096 bytes, Free: 153232 bytes, Total: 163328 bytes
+task
+task
+task
+CRITICAL : Peak: 15248 bytes, Used: 13904 bytes, Free: 149424 bytes, Total: 163328 bytes
+task
+task
+task
+CRITICAL : Peak: 15808 bytes, Used: 14448 bytes, Free: 148880 bytes, Total: 163328 bytes
+task
+task
+task
+CRITICAL : Peak: 15808 bytes, Used: 11584 bytes, Free: 151744 bytes, Total: 163328 bytes
+task
+task
+task
+CRITICAL : Peak: 15808 bytes, Used: 14784 bytes, Free: 148544 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15808 bytes, Used: 14032 bytes, Free: 149296 bytes, Total: 163328 bytes
+CYCLES ..... : 3.3 K/s
+BEFORE GC .. : Used: 14176 bytes, Free: 149152 bytes
+AFTER GC ... : Used: 10032 bytes, Free: 153296 bytes
 
 Code done running.
 soft reboot
 
 Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
 /validate/performance/i_periodic_task_async.py output:
-START ...... : Used: 880 bytes, Free: 162704 bytes
-BEFORE GC .. : Used: 880 bytes, Free: 162704 bytes
-AFTER GC ... : Used: 880 bytes, Free: 162704 bytes
-
-Code done running.
-soft reboot
-
-Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
-/validate/performance/j_memory_monitor.py output:
-START ...... : Used: 880 bytes, Free: 162704 bytes
-BEFORE GC .. : Used: 880 bytes, Free: 162704 bytes
-AFTER GC ... : Used: 880 bytes, Free: 162704 bytes
-
-Code done running.
-soft reboot
-
-Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
-/validate/performance/j_memory_monitor_async.py output:
-START ...... : Used: 880 bytes, Free: 162704 bytes
-BEFORE GC .. : Used: 880 bytes, Free: 162704 bytes
-AFTER GC ... : Used: 880 bytes, Free: 162704 bytes
+Running on microcontroller. Pins are available.
+START ...... : Used: 14144 bytes, Free: 148672 bytes
+task
+task
+task
+task
+task
+task
+task
+task
+task
+task
+CYCLES ..... : 0.0 K/s
+BEFORE GC .. : Used: 23744 bytes, Free: 139072 bytes
+AFTER GC ... : Used: 15712 bytes, Free: 147104 bytes
+START ...... : Used: 15776 bytes, Free: 147040 bytes
+CRITICAL : Peak: 19360 bytes, Used: 19360 bytes, Free: 143456 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31552 bytes, Used: 31552 bytes, Free: 131264 bytes, Total: 162816 bytes
+task
+task
+task
+CRITICAL : Peak: 31552 bytes, Used: 31552 bytes, Free: 131264 bytes, Total: 162816 bytes
+task
+task
+task
+CRITICAL : Peak: 31616 bytes, Used: 31616 bytes, Free: 131200 bytes, Total: 162816 bytes
+task
+task
+task
+CRITICAL : Peak: 31712 bytes, Used: 31712 bytes, Free: 131104 bytes, Total: 162816 bytes
+task
+CRITICAL : Peak: 31712 bytes, Used: 20272 bytes, Free: 142544 bytes, Total: 162816 bytes
+CYCLES ..... : 0.0 K/s
+BEFORE GC .. : Used: 20416 bytes, Free: 142400 bytes
+AFTER GC ... : Used: 18656 bytes, Free: 144160 bytes
 
 Code done running.
 soft reboot

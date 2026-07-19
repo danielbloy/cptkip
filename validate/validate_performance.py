@@ -14,6 +14,6 @@
 from cptkip.core.environment import is_running_on_microcontroller
 
 if is_running_on_microcontroller():
-    from validate.performance.runner import execute_next_script
+    from validate.performance.script_runner import execute_next_script
 
     execute_next_script()
