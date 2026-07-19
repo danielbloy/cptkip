@@ -11,5 +11,16 @@ def run(funcs: list[Callable[[], bool]]) -> None:
     returning False). No error handling is performed.
     """
 
-    while len(funcs):
-        funcs = [func for func in funcs if func()]
+    # Filter in place on a private copy instead of rebuilding a new list every
+    # pass: the old list comprehension allocated a fresh list on every single
+    # iteration of this loop (which can run for the program's whole lifetime),
+    # even when nothing finished. del only shifts the underlying array and only
+    # runs when a function actually completes.
+    active = list(funcs)
+    while active:
+        i = 0
+        while i < len(active):
+            if active[i]():
+                i += 1
+            else:
+                del active[i]

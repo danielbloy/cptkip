@@ -100,20 +100,20 @@ soft reboot
 Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
 /validate/performance/h_basic_runner.py output:
 Running on microcontroller. Pins are available.
-START ...... : Used: 5072 bytes, Free: 158256 bytes
-CYCLES ..... : 9.2 K/s
-BEFORE GC .. : Used: 6784 bytes, Free: 156544 bytes
-AFTER GC ... : Used: 5120 bytes, Free: 158208 bytes
-START ...... : Used: 5184 bytes, Free: 158144 bytes
-CRITICAL : Peak: 8112 bytes, Used: 8112 bytes, Free: 155216 bytes, Total: 163328 bytes
-CRITICAL : Peak: 15424 bytes, Used: 13552 bytes, Free: 149776 bytes, Total: 163328 bytes
-CRITICAL : Peak: 15856 bytes, Used: 12112 bytes, Free: 151216 bytes, Total: 163328 bytes
-CRITICAL : Peak: 15856 bytes, Used: 10384 bytes, Free: 152944 bytes, Total: 163328 bytes
-CRITICAL : Peak: 15856 bytes, Used: 8800 bytes, Free: 154528 bytes, Total: 163328 bytes
-CRITICAL : Peak: 15856 bytes, Used: 11552 bytes, Free: 151776 bytes, Total: 163328 bytes
-CYCLES ..... : 5.0 K/s
-BEFORE GC .. : Used: 11696 bytes, Free: 151632 bytes
-AFTER GC ... : Used: 8048 bytes, Free: 155280 bytes
+START ...... : Used: 5024 bytes, Free: 158304 bytes
+CYCLES ..... : 15.6 K/s
+BEFORE GC .. : Used: 5200 bytes, Free: 158128 bytes
+AFTER GC ... : Used: 5072 bytes, Free: 158256 bytes
+START ...... : Used: 5136 bytes, Free: 158192 bytes
+CRITICAL : Peak: 8016 bytes, Used: 8016 bytes, Free: 155312 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15856 bytes, Used: 15856 bytes, Free: 147472 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15856 bytes, Used: 15856 bytes, Free: 147472 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15856 bytes, Used: 15856 bytes, Free: 147472 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15856 bytes, Used: 8176 bytes, Free: 155152 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15856 bytes, Used: 10496 bytes, Free: 152832 bytes, Total: 163328 bytes
+CYCLES ..... : 6.0 K/s
+BEFORE GC .. : Used: 10640 bytes, Free: 152688 bytes
+AFTER GC ... : Used: 7952 bytes, Free: 155376 bytes
 
 Code done running.
 soft reboot
@@ -123,18 +123,18 @@ Auto-reload is on. Simply save files over USB to run them or enter REPL to disab
 Running on microcontroller. Pins are available.
 START ...... : Used: 12816 bytes, Free: 150000 bytes
 CYCLES ..... : 1.7 K/s
-BEFORE GC .. : Used: 24864 bytes, Free: 137952 bytes
+BEFORE GC .. : Used: 24928 bytes, Free: 137888 bytes
 AFTER GC ... : Used: 14352 bytes, Free: 148464 bytes
 START ...... : Used: 14416 bytes, Free: 148400 bytes
 CRITICAL : Peak: 18224 bytes, Used: 18224 bytes, Free: 144592 bytes, Total: 162816 bytes
-CRITICAL : Peak: 31424 bytes, Used: 22080 bytes, Free: 140736 bytes, Total: 162816 bytes
-CRITICAL : Peak: 31424 bytes, Used: 26112 bytes, Free: 136704 bytes, Total: 162816 bytes
-CRITICAL : Peak: 31680 bytes, Used: 31488 bytes, Free: 131328 bytes, Total: 162816 bytes
-CRITICAL : Peak: 31680 bytes, Used: 21824 bytes, Free: 140992 bytes, Total: 162816 bytes
-CRITICAL : Peak: 31680 bytes, Used: 24816 bytes, Free: 138000 bytes, Total: 162816 bytes
+CRITICAL : Peak: 30080 bytes, Used: 22848 bytes, Free: 139968 bytes, Total: 162816 bytes
+CRITICAL : Peak: 30080 bytes, Used: 27520 bytes, Free: 135296 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31424 bytes, Used: 18656 bytes, Free: 144160 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31424 bytes, Used: 23936 bytes, Free: 138880 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31424 bytes, Used: 24752 bytes, Free: 138064 bytes, Total: 162816 bytes
 CYCLES ..... : 1.6 K/s
-BEFORE GC .. : Used: 24960 bytes, Free: 137856 bytes
-AFTER GC ... : Used: 17472 bytes, Free: 145344 bytes
+BEFORE GC .. : Used: 24896 bytes, Free: 137920 bytes
+AFTER GC ... : Used: 17440 bytes, Free: 145376 bytes
 
 Code done running.
 soft reboot
@@ -142,7 +142,7 @@ soft reboot
 Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
 /validate/performance/i_periodic_task.py output:
 Running on microcontroller. Pins are available.
-START ...... : Used: 6176 bytes, Free: 157152 bytes
+START ...... : Used: 6144 bytes, Free: 157184 bytes
 task
 task
 task
@@ -153,31 +153,31 @@ task
 task
 task
 task
-CYCLES ..... : 5.0 K/s
-BEFORE GC .. : Used: 10608 bytes, Free: 152720 bytes
-AFTER GC ... : Used: 6256 bytes, Free: 157072 bytes
-START ...... : Used: 6320 bytes, Free: 157008 bytes
-CRITICAL : Peak: 10096 bytes, Used: 10096 bytes, Free: 153232 bytes, Total: 163328 bytes
+CYCLES ..... : 6.0 K/s
+BEFORE GC .. : Used: 11616 bytes, Free: 151712 bytes
+AFTER GC ... : Used: 6224 bytes, Free: 157104 bytes
+START ...... : Used: 6288 bytes, Free: 157040 bytes
+CRITICAL : Peak: 10208 bytes, Used: 10208 bytes, Free: 153120 bytes, Total: 163328 bytes
 task
 task
 task
-CRITICAL : Peak: 15248 bytes, Used: 13904 bytes, Free: 149424 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15568 bytes, Used: 13392 bytes, Free: 149936 bytes, Total: 163328 bytes
 task
 task
 task
-CRITICAL : Peak: 15808 bytes, Used: 14448 bytes, Free: 148880 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15568 bytes, Used: 11088 bytes, Free: 152240 bytes, Total: 163328 bytes
 task
 task
 task
-CRITICAL : Peak: 15808 bytes, Used: 11584 bytes, Free: 151744 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15824 bytes, Used: 14160 bytes, Free: 149168 bytes, Total: 163328 bytes
 task
 task
 task
-CRITICAL : Peak: 15808 bytes, Used: 14784 bytes, Free: 148544 bytes, Total: 163328 bytes
-CRITICAL : Peak: 15808 bytes, Used: 14032 bytes, Free: 149296 bytes, Total: 163328 bytes
-CYCLES ..... : 3.3 K/s
-BEFORE GC .. : Used: 14176 bytes, Free: 149152 bytes
-AFTER GC ... : Used: 10032 bytes, Free: 153296 bytes
+CRITICAL : Peak: 15824 bytes, Used: 12112 bytes, Free: 151216 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15824 bytes, Used: 12128 bytes, Free: 151200 bytes, Total: 163328 bytes
+CYCLES ..... : 3.8 K/s
+BEFORE GC .. : Used: 12272 bytes, Free: 151056 bytes
+AFTER GC ... : Used: 10128 bytes, Free: 153200 bytes
 
 Code done running.
 soft reboot
@@ -201,23 +201,23 @@ BEFORE GC .. : Used: 23744 bytes, Free: 139072 bytes
 AFTER GC ... : Used: 15712 bytes, Free: 147104 bytes
 START ...... : Used: 15776 bytes, Free: 147040 bytes
 CRITICAL : Peak: 19360 bytes, Used: 19360 bytes, Free: 143456 bytes, Total: 162816 bytes
-CRITICAL : Peak: 31552 bytes, Used: 31552 bytes, Free: 131264 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31680 bytes, Used: 31680 bytes, Free: 131136 bytes, Total: 162816 bytes
 task
 task
 task
-CRITICAL : Peak: 31552 bytes, Used: 31552 bytes, Free: 131264 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31680 bytes, Used: 19600 bytes, Free: 143216 bytes, Total: 162816 bytes
 task
 task
 task
-CRITICAL : Peak: 31616 bytes, Used: 31616 bytes, Free: 131200 bytes, Total: 162816 bytes
+task
+CRITICAL : Peak: 31680 bytes, Used: 19904 bytes, Free: 142912 bytes, Total: 162816 bytes
 task
 task
+CRITICAL : Peak: 31680 bytes, Used: 19824 bytes, Free: 142992 bytes, Total: 162816 bytes
 task
-CRITICAL : Peak: 31712 bytes, Used: 31712 bytes, Free: 131104 bytes, Total: 162816 bytes
-task
-CRITICAL : Peak: 31712 bytes, Used: 20272 bytes, Free: 142544 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31680 bytes, Used: 20624 bytes, Free: 142192 bytes, Total: 162816 bytes
 CYCLES ..... : 0.0 K/s
-BEFORE GC .. : Used: 20416 bytes, Free: 142400 bytes
+BEFORE GC .. : Used: 20768 bytes, Free: 142048 bytes
 AFTER GC ... : Used: 18656 bytes, Free: 144160 bytes
 
 Code done running.

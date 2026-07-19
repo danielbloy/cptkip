@@ -1,3 +1,5 @@
+import asyncio
+
 import pytest
 
 from cptkip.task.basic_runner_async import run
@@ -44,6 +46,38 @@ class TestBasicRunnerAsync:
 
         assert one_count == 1
         assert two_count == 1
+
+    def test_run_with_three_tasks(self):
+        """
+        Runs three tasks, each of which completes at a different point in time.
+        """
+        one_count: int = 0
+        two_count: int = 0
+        three_count: int = 0
+
+        async def one() -> None:
+            nonlocal one_count
+            while one_count < 11:
+                one_count += 1
+                await asyncio.sleep(0)
+
+        async def two() -> None:
+            nonlocal two_count
+            while two_count < 22:
+                two_count += 1
+                await asyncio.sleep(0)
+
+        async def three() -> None:
+            nonlocal three_count
+            while three_count < 33:
+                three_count += 1
+                await asyncio.sleep(0)
+
+        run([three, one, two])
+
+        assert one_count == 11
+        assert two_count == 22
+        assert three_count == 33
 
     def test_run_with_task_that_throws_exception(self):
         """
