@@ -5,6 +5,8 @@ from cptkip.task.basic_runner import run
 
 class TestBasicRunner:
 
+    # TODO: Write tests to validate interleaving tasks run as expected.
+
     def test_run_with_no_tasks(self):
         """
         Calls run() but passes an empty list of functions. run() should return gracefully.
