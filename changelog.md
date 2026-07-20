@@ -5,6 +5,8 @@
 Removed CircuitPython device images from the project (the Adafruit libs have been kept).
 Overhaul of how the on-device validate scripts work to amke it easier to run and identify issues.
 Added a relatively simple memory monitor task to assist with on device performance tuning.
+Some small performance improvements were made to the basic runner.
+Support was added for device.py to be loaded after config.py.
 
 ## 0.1.1 - Beta
 

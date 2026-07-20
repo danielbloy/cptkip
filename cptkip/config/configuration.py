@@ -1,6 +1,11 @@
 # The configuration values loaded in here are expected can be overridden
-# through settings in a config.py file which is located in the same place
+# through settings in a `config.py` file which is located in the same place
 # as the working directory when the application is executed.
+#
+# The `config.py` file is useful for general purpose configuration settings
+# that are fairly universal and control the application. An additional file
+# called `device.py` is also loaded if present and this is to be used to load
+# device specific settings which will override those from `config.py`.
 
 import cptkip.core.logging as logging
 
@@ -14,12 +19,17 @@ try:
 
     print("Config file loaded.")
 
-    # TODO: Take inspiration from pmpge and add support for device specific config
-    #       as well as application specific config
-
-    # TODO: We could potentially output the configuration values.
-
 except ImportError:
     print("No config file found.")
 
 logging.set_log_level(LOG_LEVEL)
+
+try:
+
+    # noinspection PyPackageRequirements
+    from device import *
+
+    print("Device file loaded.")
+
+except ImportError:
+    print("No device file found.")
