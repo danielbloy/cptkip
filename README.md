@@ -48,6 +48,33 @@ The packages and their dependencies are illustrated in the table below.
 | `cptkip.device`    |      Yes      |                 |              |     Yes      |               |       n/a       |
 | `cptkip.animation` |               |                 |              |              |               |                 |
 
+## Performance
+
+This project has been implemented in a manner that is sensitive to memory
+usage to try and reduce the overhead of the framework as much as possible.
+Gathering accurate statistics on memory usage is tricky as it is not an
+exact science as each small change to the framework impacts its performance.
+Notwithstanding, there is a script called `validate/validate_performance.py`
+which is used to generate some useful data on both memory usage and general
+performance of the framework. From that script, we can see the following
+when run on a Raspberry Pi Pico:
+
+* A basic script without using the framework requires 1 to 1.5Kb of RAM.
+* The `cptkip.core.environment` module uses about 1.5Kb of RAM.
+* The `adafruit_logging` library requires about 7.5Kb of RAM.
+* The `cptkip.core.logging` module uses about 3Kb of RAM.
+* The `cptkip.core.memory` module uses about 4Kb of RAM.
+* The `cptkip.core.cpu` module uses about 2Kb of RAM.
+* The `cptkip.config.configuration` module uses about 4Kb of RAM.
+* The `asyncio` library uses about 8Kb of RAM.
+* The sync examples are much faster than their async counterparts in non-blocking scenarios (3 to 8 times faster).
+* The sync examples much less RAM than their async counterparts (16Kb vs 32Kb).
+
+### Lessons learned
+
+* Prefer small modules with only a few items of functionality over larger modules to save RAM.
+* F strings are expensive in temporary memory usage, it's more efficient to use `print()` with
+  multiple arguments.
 
 ## Setting up a Development Environment
 
