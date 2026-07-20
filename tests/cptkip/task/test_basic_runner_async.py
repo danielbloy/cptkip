@@ -7,8 +7,6 @@ from cptkip.task.basic_runner_async import run
 
 class TestBasicRunnerAsync:
 
-    # TODO: Write tests to validate interleaving tasks run as expected.
-
     def test_run_with_no_tasks(self):
         """
         Calls run() but passes an empty list of functions. run() should return gracefully.
@@ -80,6 +78,71 @@ class TestBasicRunnerAsync:
         assert one_count == 11
         assert two_count == 22
         assert three_count == 33
+
+    def test_run_with_three_tasks_round_robin(self):
+        """
+        Runs three tasks and validates they run in a round-robin fashion.
+        """
+        one_count: int = 0
+        two_count: int = 0
+        three_count: int = 0
+        call_order = []
+
+        async def one() -> None:
+            nonlocal one_count
+            while one_count < 2:
+                one_count += 1
+                call_order.append("one")
+                await asyncio.sleep(0)
+
+        async def two() -> None:
+            nonlocal two_count
+            while two_count < 3:
+                two_count += 1
+                call_order.append("two")
+                await asyncio.sleep(0)
+
+        async def three() -> None:
+            nonlocal three_count
+            while three_count < 1:
+                three_count += 1
+                call_order.append("three")
+                await asyncio.sleep(0)
+
+        run([one, two, three])
+
+        assert call_order == ["one", "two", "three", "one", "two", "two"]
+
+    def test_run_with_three_tasks_round_robin_no_await(self):
+        """
+        Runs three tasks and none have an await so they will not run in a round-robin fashion
+        """
+        one_count: int = 0
+        two_count: int = 0
+        three_count: int = 0
+        call_order = []
+
+        async def one() -> None:
+            nonlocal one_count
+            while one_count < 2:
+                one_count += 1
+                call_order.append("one")
+
+        async def two() -> None:
+            nonlocal two_count
+            while two_count < 3:
+                two_count += 1
+                call_order.append("two")
+
+        async def three() -> None:
+            nonlocal three_count
+            while three_count < 1:
+                three_count += 1
+                call_order.append("three")
+
+        run([one, two, three])
+
+        assert call_order == ["one", "one", "two", "two", "two", "three"]
 
     def test_run_with_task_that_throws_exception(self):
         """

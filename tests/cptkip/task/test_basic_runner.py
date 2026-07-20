@@ -5,8 +5,6 @@ from cptkip.task.basic_runner import run
 
 class TestBasicRunner:
 
-    # TODO: Write tests to validate interleaving tasks run as expected.
-
     def test_run_with_no_tasks(self):
         """
         Calls run() but passes an empty list of functions. run() should return gracefully.
@@ -78,6 +76,37 @@ class TestBasicRunner:
         assert one_count == 11
         assert two_count == 22
         assert three_count == 33
+
+    def test_run_with_three_tasks_round_robin(self):
+        """
+        Runs three tasks and validates they run in a round-robin fashion.
+        """
+        one_count: int = 0
+        two_count: int = 0
+        three_count: int = 0
+        call_order = []
+
+        def one() -> bool:
+            nonlocal one_count
+            one_count += 1
+            call_order.append("one")
+            return one_count < 2
+
+        def two() -> bool:
+            nonlocal two_count
+            two_count += 1
+            call_order.append("two")
+            return two_count < 3
+
+        def three() -> bool:
+            nonlocal three_count
+            three_count += 1
+            call_order.append("three")
+            return three_count < 1
+
+        run([one, two, three])
+
+        assert call_order == ["one", "two", "three", "one", "two", "two"]
 
     def test_run_with_task_that_throws_exception(self):
         """

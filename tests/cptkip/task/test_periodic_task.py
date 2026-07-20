@@ -231,3 +231,35 @@ class TestPeriodicTask:
         duration = (func_time - begin_time) / NS_PER_SECOND
         assert duration > (0.6 * 0.9)  # within 10%
         assert duration < (0.6 * 1.1)  # within 10%
+
+    def test_run_with_three_tasks_round_robin(self):
+        """
+        Runs three tasks and validates they run in a round-robin fashion.
+        """
+        one_count: int = 0
+        two_count: int = 0
+        three_count: int = 0
+        call_order = []
+
+        def one() -> None:
+            nonlocal one_count
+            one_count += 1
+            call_order.append("one")
+
+        def two() -> None:
+            nonlocal two_count
+            two_count += 1
+            call_order.append("two")
+
+        def three() -> None:
+            nonlocal three_count
+            three_count += 1
+            call_order.append("three")
+
+        task_one = create(one, continue_func=lambda: one_count < 2)
+        task_two = create(two, continue_func=lambda: two_count < 3)
+        task_three = create(three, continue_func=lambda: three_count < 1)
+
+        run([task_one, task_two, task_three])
+
+        assert call_order == ["one", "two", "three", "one", "two", "two"]
