@@ -3,6 +3,7 @@ def execute_next_script(current_script: str | None = None):
     Executes the next script based on the script that has just run.
     If no script is specified then the first script is executed.
     """
+    # noinspection PyUnresolvedReferences
     import supervisor
     scripts = [
         "/validate/performance/a_start.py",
@@ -17,6 +18,16 @@ def execute_next_script(current_script: str | None = None):
         "/validate/performance/h_basic_runner_async.py",
         "/validate/performance/i_periodic_task.py",
         "/validate/performance/i_periodic_task_async.py",
+        "/validate/performance/k_output_pin_.py",
+        "/validate/performance/k_input_pin.py",
+        "/validate/performance/k_pwm_pin.py",
+        "/validate/performance/k_buzzer_pin.py",
+        "/validate/performance/l_button.py",
+        "/validate/performance/m_led.py",
+        "/validate/performance/m_pixels.py",
+        "/validate/performance/n_buzzer.py",
+        "/validate/performance/n_melody.py",
+        "/validate/performance/n_pwm_audio.py",
         "/validate/performance/z_finish.py"
     ]
 
