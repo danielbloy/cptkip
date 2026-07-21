@@ -1,9 +1,12 @@
+import cptkip.config.configuration as config
+from cptkip.pin.input_pin import InputPin
 from validate.performance.task_runner import execute
+
+pin = InputPin(config.BUTTON_PIN, config.BUTTON_PULLUP)
 
 
 def task():
-    pass
-    # TODO: Implement
+    _ = pin.value
 
 
 execute(task, False)
