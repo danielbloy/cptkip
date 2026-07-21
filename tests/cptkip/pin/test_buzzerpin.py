@@ -21,6 +21,8 @@ class TestBuzzerPin:
 
         assert pin.pin == 4
         assert pin.volume == 1.0
+        assert pin.playing is False
+        assert pin.frequency == 0
 
     def test_construction(self):
         """
@@ -30,15 +32,21 @@ class TestBuzzerPin:
 
         assert pin.pin == 5
         assert pin.volume == 0.7
+        assert pin.playing is False
+        assert pin.frequency == 0
 
     def test_multiple_deinit(self):
         """
         Call deinit() multiple times without error.
         """
         pin = BuzzerPin(3)
+        assert pin.playing is False
         pin.deinit()
+        assert pin.playing is False
         pin.deinit()
+        assert pin.playing is False
         pin.deinit()
+        assert pin.playing is False
 
     def test_on_off(self):
         """
@@ -48,25 +56,31 @@ class TestBuzzerPin:
         pin.play(1234)
         assert pin.volume == 1.0
         assert pin.frequency == 1234
+        assert pin.playing is True
 
         pin.off()
         assert pin.volume == 1.0
         assert pin.frequency == 1234
+        assert pin.playing is False
 
         pin.on()
         assert pin.volume == 1.0
         assert pin.frequency == 1234
+        assert pin.playing is True
 
         pin.volume = 0.5
         pin.frequency = 4321
+        assert pin.playing is True
 
         pin.on()
         assert pin.volume == 0.5
         assert pin.frequency == 4321
+        assert pin.playing is True
 
         pin.off()
         assert pin.volume == 0.5
         assert pin.frequency == 4321
+        assert pin.playing is False
 
     def test_volume(self):
         """
@@ -74,21 +88,27 @@ class TestBuzzerPin:
         """
         pin = BuzzerPin(3)
         assert pin.volume == 1.0
+        assert pin.playing is False
 
         pin.volume = 0.0
         assert pin.volume == 0.0
+        assert pin.playing is False
 
         pin.volume = 1.0
         assert pin.volume == 1.0
+        assert pin.playing is False
 
         pin.volume = 1.0
         assert pin.volume == 1.0
+        assert pin.playing is False
 
         pin.volume = 0.2
         assert pin.volume == 0.2
+        assert pin.playing is False
 
         pin.volume = 0.0
         assert pin.volume == 0.0
+        assert pin.playing is False
 
     def test_play(self):
         """
@@ -96,15 +116,19 @@ class TestBuzzerPin:
         """
         pin = BuzzerPin(3)
         assert pin.frequency == 0
+        assert pin.playing is False
 
         pin.play(1000)
         assert pin.frequency == 1000
+        assert pin.playing is True
 
         pin.play(500)
         assert pin.frequency == 500
+        assert pin.playing is True
 
         pin.play(1234)
         assert pin.frequency == 1234
+        assert pin.playing is True
 
     def test_setting_frequency_or_volume_calls_play(self) -> None:
         """

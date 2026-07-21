@@ -20,8 +20,10 @@ class BuzzerPin:
         self._buzzer = None
         self._volume = max(min(volume, 1.0), 0.0)
         self._frequency = 0
+        self._playing = False
 
     def deinit(self) -> None:
+        self._playing = False
         if self._buzzer:
             self._buzzer.duty_cycle = 0
             self._buzzer.deinit()
@@ -61,8 +63,14 @@ class BuzzerPin:
 
         :param frequency: The new frequency.
         """
-        self._frequency = frequency
         self.play(frequency)
+
+    @property
+    def playing(self) -> bool:
+        """
+        Returns whether the buzzer is playing or not.
+        """
+        return self._playing
 
     def play(self, frequency: int) -> None:
         """
@@ -81,6 +89,8 @@ class BuzzerPin:
 
         if self._buzzer and frequency > 0 and environment.are_pins_available():
             self._buzzer.duty_cycle = int(self.volume * (2 ** 10))
+
+        self._playing = True
 
     def off(self):
         """
