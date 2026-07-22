@@ -9,11 +9,12 @@ led.brightness = 0.0
 
 
 def task():
-    led.brightness += 0.0001
+    led.brightness += 0.00011
 
 
 execute(task, False)
 execute(task, True)
+led.off()
 
 # Load the next file
 from validate.performance.script_runner import execute_next_script
