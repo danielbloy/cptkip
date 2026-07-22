@@ -69,11 +69,12 @@ Running on microcontroller. Pins are available.
 Using LED
 Using GP27
 Config file loaded.
+No device file found.
 Test value ... : 123.456
 Test string .. : Hello world!
 Debug ........ : True
-BEFORE GC .. : Used: 5312 bytes, Free: 158016 bytes
-AFTER GC ... : Used: 5312 bytes, Free: 158016 bytes
+BEFORE GC .. : Used: 5328 bytes, Free: 158000 bytes
+AFTER GC ... : Used: 5328 bytes, Free: 158000 bytes
 
 Code done running.
 soft reboot
@@ -100,20 +101,20 @@ soft reboot
 Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
 /validate/performance/h_basic_runner.py output:
 Running on microcontroller. Pins are available.
-START ...... : Used: 5024 bytes, Free: 158304 bytes
+START ...... : Used: 5008 bytes, Free: 158320 bytes
 CYCLES ..... : 15.6 K/s
-BEFORE GC .. : Used: 5200 bytes, Free: 158128 bytes
-AFTER GC ... : Used: 5072 bytes, Free: 158256 bytes
-START ...... : Used: 5136 bytes, Free: 158192 bytes
-CRITICAL : Peak: 8016 bytes, Used: 8016 bytes, Free: 155312 bytes, Total: 163328 bytes
-CRITICAL : Peak: 15856 bytes, Used: 15856 bytes, Free: 147472 bytes, Total: 163328 bytes
-CRITICAL : Peak: 15856 bytes, Used: 15856 bytes, Free: 147472 bytes, Total: 163328 bytes
-CRITICAL : Peak: 15856 bytes, Used: 15856 bytes, Free: 147472 bytes, Total: 163328 bytes
-CRITICAL : Peak: 15856 bytes, Used: 8176 bytes, Free: 155152 bytes, Total: 163328 bytes
-CRITICAL : Peak: 15856 bytes, Used: 10496 bytes, Free: 152832 bytes, Total: 163328 bytes
+BEFORE GC .. : Used: 5184 bytes, Free: 158144 bytes
+AFTER GC ... : Used: 5056 bytes, Free: 158272 bytes
+START ...... : Used: 5120 bytes, Free: 158208 bytes
+CRITICAL : Peak: 8128 bytes, Used: 8128 bytes, Free: 155200 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15376 bytes, Used: 9168 bytes, Free: 154160 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15600 bytes, Used: 11664 bytes, Free: 151664 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15696 bytes, Used: 13296 bytes, Free: 150032 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15696 bytes, Used: 14832 bytes, Free: 148496 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15696 bytes, Used: 9760 bytes, Free: 153568 bytes, Total: 163328 bytes
 CYCLES ..... : 6.0 K/s
-BEFORE GC .. : Used: 10640 bytes, Free: 152688 bytes
-AFTER GC ... : Used: 7952 bytes, Free: 155376 bytes
+BEFORE GC .. : Used: 9904 bytes, Free: 153424 bytes
+AFTER GC ... : Used: 8080 bytes, Free: 155248 bytes
 
 Code done running.
 soft reboot
@@ -123,18 +124,18 @@ Auto-reload is on. Simply save files over USB to run them or enter REPL to disab
 Running on microcontroller. Pins are available.
 START ...... : Used: 12816 bytes, Free: 150000 bytes
 CYCLES ..... : 1.7 K/s
-BEFORE GC .. : Used: 24928 bytes, Free: 137888 bytes
+BEFORE GC .. : Used: 24864 bytes, Free: 137952 bytes
 AFTER GC ... : Used: 14352 bytes, Free: 148464 bytes
 START ...... : Used: 14416 bytes, Free: 148400 bytes
 CRITICAL : Peak: 18224 bytes, Used: 18224 bytes, Free: 144592 bytes, Total: 162816 bytes
-CRITICAL : Peak: 30080 bytes, Used: 22848 bytes, Free: 139968 bytes, Total: 162816 bytes
-CRITICAL : Peak: 30080 bytes, Used: 27520 bytes, Free: 135296 bytes, Total: 162816 bytes
-CRITICAL : Peak: 31424 bytes, Used: 18656 bytes, Free: 144160 bytes, Total: 162816 bytes
-CRITICAL : Peak: 31424 bytes, Used: 23936 bytes, Free: 138880 bytes, Total: 162816 bytes
-CRITICAL : Peak: 31424 bytes, Used: 24752 bytes, Free: 138064 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31040 bytes, Used: 21888 bytes, Free: 140928 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31040 bytes, Used: 26624 bytes, Free: 136192 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31552 bytes, Used: 30560 bytes, Free: 132256 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31552 bytes, Used: 21632 bytes, Free: 141184 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31552 bytes, Used: 24688 bytes, Free: 138128 bytes, Total: 162816 bytes
 CYCLES ..... : 1.6 K/s
-BEFORE GC .. : Used: 24896 bytes, Free: 137920 bytes
-AFTER GC ... : Used: 17440 bytes, Free: 145376 bytes
+BEFORE GC .. : Used: 24832 bytes, Free: 137984 bytes
+AFTER GC ... : Used: 17472 bytes, Free: 145344 bytes
 
 Code done running.
 soft reboot
@@ -154,29 +155,29 @@ task
 task
 task
 CYCLES ..... : 6.0 K/s
-BEFORE GC .. : Used: 11616 bytes, Free: 151712 bytes
+BEFORE GC .. : Used: 10912 bytes, Free: 152416 bytes
 AFTER GC ... : Used: 6224 bytes, Free: 157104 bytes
 START ...... : Used: 6288 bytes, Free: 157040 bytes
 CRITICAL : Peak: 10208 bytes, Used: 10208 bytes, Free: 153120 bytes, Total: 163328 bytes
 task
 task
 task
-CRITICAL : Peak: 15568 bytes, Used: 13392 bytes, Free: 149936 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15440 bytes, Used: 13008 bytes, Free: 150320 bytes, Total: 163328 bytes
 task
 task
 task
-CRITICAL : Peak: 15568 bytes, Used: 11088 bytes, Free: 152240 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15440 bytes, Used: 10832 bytes, Free: 152496 bytes, Total: 163328 bytes
 task
 task
 task
-CRITICAL : Peak: 15824 bytes, Used: 14160 bytes, Free: 149168 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15440 bytes, Used: 14160 bytes, Free: 149168 bytes, Total: 163328 bytes
 task
 task
 task
-CRITICAL : Peak: 15824 bytes, Used: 12112 bytes, Free: 151216 bytes, Total: 163328 bytes
-CRITICAL : Peak: 15824 bytes, Used: 12128 bytes, Free: 151200 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15440 bytes, Used: 11600 bytes, Free: 151728 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15440 bytes, Used: 11968 bytes, Free: 151360 bytes, Total: 163328 bytes
 CYCLES ..... : 3.8 K/s
-BEFORE GC .. : Used: 12272 bytes, Free: 151056 bytes
+BEFORE GC .. : Used: 12112 bytes, Free: 151216 bytes
 AFTER GC ... : Used: 10128 bytes, Free: 153200 bytes
 
 Code done running.
@@ -201,24 +202,324 @@ BEFORE GC .. : Used: 23744 bytes, Free: 139072 bytes
 AFTER GC ... : Used: 15712 bytes, Free: 147104 bytes
 START ...... : Used: 15776 bytes, Free: 147040 bytes
 CRITICAL : Peak: 19360 bytes, Used: 19360 bytes, Free: 143456 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31552 bytes, Used: 31552 bytes, Free: 131264 bytes, Total: 162816 bytes
+task
+task
+task
 CRITICAL : Peak: 31680 bytes, Used: 31680 bytes, Free: 131136 bytes, Total: 162816 bytes
 task
 task
 task
-CRITICAL : Peak: 31680 bytes, Used: 19600 bytes, Free: 143216 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31680 bytes, Used: 19536 bytes, Free: 143280 bytes, Total: 162816 bytes
 task
 task
 task
+CRITICAL : Peak: 31680 bytes, Used: 19664 bytes, Free: 143152 bytes, Total: 162816 bytes
 task
-CRITICAL : Peak: 31680 bytes, Used: 19904 bytes, Free: 142912 bytes, Total: 162816 bytes
-task
-task
-CRITICAL : Peak: 31680 bytes, Used: 19824 bytes, Free: 142992 bytes, Total: 162816 bytes
-task
-CRITICAL : Peak: 31680 bytes, Used: 20624 bytes, Free: 142192 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31680 bytes, Used: 20464 bytes, Free: 142352 bytes, Total: 162816 bytes
 CYCLES ..... : 0.0 K/s
-BEFORE GC .. : Used: 20768 bytes, Free: 142048 bytes
+BEFORE GC .. : Used: 20608 bytes, Free: 142208 bytes
 AFTER GC ... : Used: 18656 bytes, Free: 144160 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/k_output_pin.py output:
+Running on microcontroller. Pins are available.
+Using LED
+Using GP27
+Config file loaded.
+No device file found.
+START ...... : Used: 8064 bytes, Free: 155264 bytes
+CYCLES ..... : 7.0 K/s
+BEFORE GC .. : Used: 8240 bytes, Free: 155088 bytes
+AFTER GC ... : Used: 8112 bytes, Free: 155216 bytes
+START ...... : Used: 8176 bytes, Free: 155152 bytes
+CRITICAL : Peak: 11120 bytes, Used: 11120 bytes, Free: 152208 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15072 bytes, Used: 12704 bytes, Free: 150624 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15072 bytes, Used: 14816 bytes, Free: 148512 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15392 bytes, Used: 11456 bytes, Free: 151872 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15392 bytes, Used: 13376 bytes, Free: 149952 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15488 bytes, Used: 14448 bytes, Free: 148880 bytes, Total: 163328 bytes
+CYCLES ..... : 3.5 K/s
+BEFORE GC .. : Used: 14592 bytes, Free: 148736 bytes
+AFTER GC ... : Used: 11040 bytes, Free: 152288 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/k_input_pin.py output:
+Running on microcontroller. Pins are available.
+Using LED
+Using GP27
+Config file loaded.
+No device file found.
+START ...... : Used: 7808 bytes, Free: 155520 bytes
+CYCLES ..... : 6.7 K/s
+BEFORE GC .. : Used: 7984 bytes, Free: 155344 bytes
+AFTER GC ... : Used: 7856 bytes, Free: 155472 bytes
+START ...... : Used: 7920 bytes, Free: 155408 bytes
+CRITICAL : Peak: 10784 bytes, Used: 10784 bytes, Free: 152544 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15424 bytes, Used: 14336 bytes, Free: 148992 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15424 bytes, Used: 13120 bytes, Free: 150208 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15616 bytes, Used: 11552 bytes, Free: 151776 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15616 bytes, Used: 15584 bytes, Free: 147744 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15616 bytes, Used: 15056 bytes, Free: 148272 bytes, Total: 163328 bytes
+CYCLES ..... : 3.3 K/s
+BEFORE GC .. : Used: 15200 bytes, Free: 148128 bytes
+AFTER GC ... : Used: 10688 bytes, Free: 152640 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/k_pwm_pin.py output:
+Running on microcontroller. Pins are available.
+Using LED
+Using GP27
+Config file loaded.
+No device file found.
+START ...... : Used: 7904 bytes, Free: 155424 bytes
+CYCLES ..... : 4.7 K/s
+BEFORE GC .. : Used: 8080 bytes, Free: 155248 bytes
+AFTER GC ... : Used: 7952 bytes, Free: 155376 bytes
+START ...... : Used: 8016 bytes, Free: 155312 bytes
+CRITICAL : Peak: 10992 bytes, Used: 10992 bytes, Free: 152336 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15440 bytes, Used: 15440 bytes, Free: 147888 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15632 bytes, Used: 14768 bytes, Free: 148560 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15632 bytes, Used: 14096 bytes, Free: 149232 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15632 bytes, Used: 13328 bytes, Free: 150000 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15632 bytes, Used: 14496 bytes, Free: 148832 bytes, Total: 163328 bytes
+CYCLES ..... : 2.5 K/s
+BEFORE GC .. : Used: 14640 bytes, Free: 148688 bytes
+AFTER GC ... : Used: 10896 bytes, Free: 152432 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/k_buzzer_pin.py output:
+Running on microcontroller. Pins are available.
+Using LED
+Using GP27
+Config file loaded.
+No device file found.
+START ...... : Used: 8464 bytes, Free: 154864 bytes
+CYCLES ..... : 12.1 K/s
+BEFORE GC .. : Used: 13232 bytes, Free: 150096 bytes
+AFTER GC ... : Used: 8512 bytes, Free: 154816 bytes
+START ...... : Used: 8608 bytes, Free: 154720 bytes
+CRITICAL : Peak: 11552 bytes, Used: 11552 bytes, Free: 151776 bytes, Total: 163328 bytes
+CRITICAL : Peak: 14144 bytes, Used: 11712 bytes, Free: 151616 bytes, Total: 163328 bytes
+CRITICAL : Peak: 14784 bytes, Used: 12608 bytes, Free: 150720 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15008 bytes, Used: 13344 bytes, Free: 149984 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15008 bytes, Used: 13952 bytes, Free: 149376 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15008 bytes, Used: 12304 bytes, Free: 151024 bytes, Total: 163328 bytes
+CYCLES ..... : 4.7 K/s
+BEFORE GC .. : Used: 12448 bytes, Free: 150880 bytes
+AFTER GC ... : Used: 11488 bytes, Free: 151840 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/l_button.py output:
+Running on microcontroller. Pins are available.
+Using LED
+Using GP27
+Config file loaded.
+No device file found.
+START ...... : Used: 13888 bytes, Free: 148928 bytes
+CYCLES ..... : 1.2 K/s
+BEFORE GC .. : Used: 14064 bytes, Free: 148752 bytes
+AFTER GC ... : Used: 13936 bytes, Free: 148880 bytes
+START ...... : Used: 14000 bytes, Free: 148816 bytes
+CRITICAL : Peak: 15888 bytes, Used: 15888 bytes, Free: 146928 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31456 bytes, Used: 30816 bytes, Free: 132000 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31456 bytes, Used: 29760 bytes, Free: 133056 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31456 bytes, Used: 28608 bytes, Free: 134208 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31456 bytes, Used: 27552 bytes, Free: 135264 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31456 bytes, Used: 15920 bytes, Free: 146896 bytes, Total: 162816 bytes
+CYCLES ..... : 0.9 K/s
+BEFORE GC .. : Used: 16064 bytes, Free: 146752 bytes
+AFTER GC ... : Used: 15808 bytes, Free: 147008 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/m_led.py output:
+Running on microcontroller. Pins are available.
+Using LED
+Using GP27
+Config file loaded.
+No device file found.
+START ...... : Used: 11168 bytes, Free: 151648 bytes
+CYCLES ..... : 2.8 K/s
+BEFORE GC .. : Used: 11344 bytes, Free: 151472 bytes
+AFTER GC ... : Used: 11216 bytes, Free: 151600 bytes
+START ...... : Used: 11280 bytes, Free: 151536 bytes
+CRITICAL : Peak: 13232 bytes, Used: 13232 bytes, Free: 149584 bytes, Total: 162816 bytes
+CRITICAL : Peak: 30800 bytes, Used: 22064 bytes, Free: 140752 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31088 bytes, Used: 31088 bytes, Free: 131728 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31472 bytes, Used: 21104 bytes, Free: 141712 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31472 bytes, Used: 30128 bytes, Free: 132688 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31472 bytes, Used: 18240 bytes, Free: 144576 bytes, Total: 162816 bytes
+CYCLES ..... : 1.6 K/s
+BEFORE GC .. : Used: 18384 bytes, Free: 144432 bytes
+AFTER GC ... : Used: 13136 bytes, Free: 149680 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/m_pixels.py output:
+Running on microcontroller. Pins are available.
+Using LED
+Using GP27
+Config file loaded.
+No device file found.
+START ...... : Used: 10752 bytes, Free: 152576 bytes
+CYCLES ..... : 12.5 K/s
+BEFORE GC .. : Used: 12256 bytes, Free: 151072 bytes
+AFTER GC ... : Used: 10800 bytes, Free: 152528 bytes
+START ...... : Used: 10864 bytes, Free: 152464 bytes
+CRITICAL : Peak: 12800 bytes, Used: 12800 bytes, Free: 150016 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31600 bytes, Used: 27312 bytes, Free: 135504 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31600 bytes, Used: 22864 bytes, Free: 139952 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31600 bytes, Used: 17776 bytes, Free: 145040 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31600 bytes, Used: 13424 bytes, Free: 149392 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31600 bytes, Used: 16160 bytes, Free: 146656 bytes, Total: 162816 bytes
+CYCLES ..... : 5.3 K/s
+BEFORE GC .. : Used: 16304 bytes, Free: 146512 bytes
+AFTER GC ... : Used: 12720 bytes, Free: 150096 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/n_buzzer.py output:
+Running on microcontroller. Pins are available.
+Using LED
+Using GP27
+Config file loaded.
+No device file found.
+START ...... : Used: 10816 bytes, Free: 152512 bytes
+CYCLES ..... : 5.4 K/s
+BEFORE GC .. : Used: 11040 bytes, Free: 152288 bytes
+AFTER GC ... : Used: 10928 bytes, Free: 152400 bytes
+START ...... : Used: 10992 bytes, Free: 152336 bytes
+CRITICAL : Peak: 12736 bytes, Used: 12736 bytes, Free: 150080 bytes, Total: 162816 bytes
+CRITICAL : Peak: 30256 bytes, Used: 29680 bytes, Free: 133136 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31728 bytes, Used: 22352 bytes, Free: 140464 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31728 bytes, Used: 14928 bytes, Free: 147888 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31728 bytes, Used: 27248 bytes, Free: 135568 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31728 bytes, Used: 25280 bytes, Free: 137536 bytes, Total: 162816 bytes
+CYCLES ..... : 3.2 K/s
+BEFORE GC .. : Used: 25424 bytes, Free: 137392 bytes
+AFTER GC ... : Used: 12688 bytes, Free: 150128 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/n_melody.py output:
+Running on microcontroller. Pins are available.
+Using LED
+Using GP27
+Config file loaded.
+No device file found.
+START ...... : Used: 15840 bytes, Free: 145952 bytes
+CYCLES ..... : 3.6 K/s
+BEFORE GC .. : Used: 59136 bytes, Free: 102656 bytes
+AFTER GC ... : Used: 15920 bytes, Free: 145872 bytes
+START ...... : Used: 15984 bytes, Free: 145808 bytes
+CRITICAL : Peak: 17664 bytes, Used: 17664 bytes, Free: 144128 bytes, Total: 161792 bytes
+CRITICAL : Peak: 59264 bytes, Used: 59264 bytes, Free: 102528 bytes, Total: 161792 bytes
+CRITICAL : Peak: 63136 bytes, Used: 53792 bytes, Free: 108000 bytes, Total: 161792 bytes
+CRITICAL : Peak: 63136 bytes, Used: 48224 bytes, Free: 113568 bytes, Total: 161792 bytes
+CRITICAL : Peak: 63136 bytes, Used: 42912 bytes, Free: 118880 bytes, Total: 161792 bytes
+CRITICAL : Peak: 63136 bytes, Used: 55856 bytes, Free: 105936 bytes, Total: 161792 bytes
+CYCLES ..... : 2.4 K/s
+BEFORE GC .. : Used: 56000 bytes, Free: 105792 bytes
+AFTER GC ... : Used: 17568 bytes, Free: 144224 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/n_pwm_audio.py output:
+Running on microcontroller. Pins are available.
+Using LED
+Using GP27
+Config file loaded.
+No device file found.
+START ...... : Used: 44944 bytes, Free: 116848 bytes
+CYCLES ..... : 2.6 K/s
+BEFORE GC .. : Used: 49920 bytes, Free: 111872 bytes
+AFTER GC ... : Used: 49600 bytes, Free: 112192 bytes
+START ...... : Used: 49664 bytes, Free: 112128 bytes
+CRITICAL : Peak: 52608 bytes, Used: 52608 bytes, Free: 109184 bytes, Total: 161792 bytes
+CRITICAL : Peak: 63264 bytes, Used: 54400 bytes, Free: 107392 bytes, Total: 161792 bytes
+CRITICAL : Peak: 63424 bytes, Used: 53120 bytes, Free: 108672 bytes, Total: 161792 bytes
+CRITICAL : Peak: 63424 bytes, Used: 56128 bytes, Free: 105664 bytes, Total: 161792 bytes
+CRITICAL : Peak: 63424 bytes, Used: 56480 bytes, Free: 105312 bytes, Total: 161792 bytes
+CRITICAL : Peak: 63424 bytes, Used: 60144 bytes, Free: 101648 bytes, Total: 161792 bytes
+CYCLES ..... : 1.0 K/s
+BEFORE GC .. : Used: 60288 bytes, Free: 101504 bytes
+AFTER GC ... : Used: 52544 bytes, Free: 109248 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/o_blink.py output:
+Running on microcontroller. Pins are available.
+Using LED
+Using GP27
+Config file loaded.
+No device file found.
+START ...... : Used: 16928 bytes, Free: 113120 bytes
+CYCLES ..... : 4.5 K/s
+BEFORE GC .. : Used: 27824 bytes, Free: 102224 bytes
+AFTER GC ... : Used: 16992 bytes, Free: 113056 bytes
+START ...... : Used: 17056 bytes, Free: 112992 bytes
+CRITICAL : Peak: 18960 bytes, Used: 18960 bytes, Free: 111088 bytes, Total: 130048 bytes
+CRITICAL : Peak: 30064 bytes, Used: 25104 bytes, Free: 104944 bytes, Total: 130048 bytes
+CRITICAL : Peak: 31504 bytes, Used: 31504 bytes, Free: 98544 bytes, Total: 130048 bytes
+CRITICAL : Peak: 31632 bytes, Used: 24144 bytes, Free: 105904 bytes, Total: 130048 bytes
+CRITICAL : Peak: 31664 bytes, Used: 30704 bytes, Free: 99344 bytes, Total: 130048 bytes
+CRITICAL : Peak: 31664 bytes, Used: 23744 bytes, Free: 106304 bytes, Total: 130048 bytes
+CYCLES ..... : 2.7 K/s
+BEFORE GC .. : Used: 23888 bytes, Free: 106160 bytes
+AFTER GC ... : Used: 18896 bytes, Free: 111152 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/o_flicker.py output:
+Running on microcontroller. Pins are available.
+Using LED
+Using GP27
+Config file loaded.
+No device file found.
+START ...... : Used: 15568 bytes, Free: 147248 bytes
+CYCLES ..... : 5.3 K/s
+BEFORE GC .. : Used: 15712 bytes, Free: 147104 bytes
+AFTER GC ... : Used: 15568 bytes, Free: 147248 bytes
+START ...... : Used: 15632 bytes, Free: 147184 bytes
+CRITICAL : Peak: 17568 bytes, Used: 17568 bytes, Free: 145248 bytes, Total: 162816 bytes
+CRITICAL : Peak: 30736 bytes, Used: 24928 bytes, Free: 137888 bytes, Total: 162816 bytes
+CRITICAL : Peak: 30752 bytes, Used: 30752 bytes, Free: 132064 bytes, Total: 162816 bytes
+CRITICAL : Peak: 30752 bytes, Used: 21408 bytes, Free: 141408 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31072 bytes, Used: 27232 bytes, Free: 135584 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31072 bytes, Used: 19824 bytes, Free: 142992 bytes, Total: 162816 bytes
+CYCLES ..... : 3.1 K/s
+BEFORE GC .. : Used: 19968 bytes, Free: 142848 bytes
+AFTER GC ... : Used: 17504 bytes, Free: 145312 bytes
 
 Code done running.
 soft reboot

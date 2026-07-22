@@ -48,7 +48,7 @@ class Led:
     def brightness(self, value: float):
         value = min(max(value, 0.0), 1.0)
         change = value - self._brightness
-        if -0.001 < change < 0.001:
+        if -0.0001 < change < 0.0001:
             return
 
         self._brightness = value

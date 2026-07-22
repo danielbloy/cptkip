@@ -9,7 +9,11 @@ class BuzzerPin:
     Buzzer is a very lightweight implementation that uses PWM to play a
     sound at a given frequency by modifying the frequency and the duty
     cycle (for volume). This is different to a PwmPin that uses a fixed
-    frequency and changes only the duty cycle
+    frequency and changes only the duty cycle. Setting a frequency above
+    zero and a volume above zero will play a sound. Sound can be stopped
+    by calling off() but this does not persist. Changing the volume or
+    frequency will make the buzzer sound again. This makes its behaviour
+    consistent(ish) with pwm and output pins.
     """
 
     def __init__(self, pin, volume: float = 1.0):
@@ -20,8 +24,10 @@ class BuzzerPin:
         self._buzzer = None
         self._volume = max(min(volume, 1.0), 0.0)
         self._frequency = 0
+        self._playing = False
 
     def deinit(self) -> None:
+        self._playing = False
         if self._buzzer:
             self._buzzer.duty_cycle = 0
             self._buzzer.deinit()
@@ -61,8 +67,15 @@ class BuzzerPin:
 
         :param frequency: The new frequency.
         """
-        self._frequency = frequency
         self.play(frequency)
+
+    @property
+    def playing(self) -> bool:
+        """
+        Returns whether the buzzer is playing or not. This will be true if the
+        volume and frequency are both above zero and off() has not been called.
+        """
+        return self._playing
 
     def play(self, frequency: int) -> None:
         """
@@ -79,8 +92,10 @@ class BuzzerPin:
             if frequency > 0 and environment.are_pins_available():
                 self._buzzer = pwmio.PWMOut(self.pin, frequency=frequency)
 
-        if self._buzzer and frequency > 0 and environment.are_pins_available():
+        if self._buzzer:
             self._buzzer.duty_cycle = int(self.volume * (2 ** 10))
+
+        self._playing = frequency > 0 and self.volume > 0
 
     def off(self):
         """
