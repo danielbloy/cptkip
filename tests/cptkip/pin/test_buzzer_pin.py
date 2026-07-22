@@ -138,9 +138,55 @@ class TestBuzzerPin:
         pin = TrackingBuzzerPin(3)
         pin.play(1000)
         assert pin.play_count == 1
+        assert pin.playing is True
 
         pin.volume = 0.5
         assert pin.play_count == 2
+        assert pin.playing is True
 
         pin.frequency = 300
         assert pin.play_count == 3
+        assert pin.playing is True
+
+        # Setting a volume of zero will stop playing
+        pin.volume = 0
+        assert pin.play_count == 4
+        assert pin.playing is False
+
+        # Setting a volume above zero will start playing
+        pin.volume = 0.5
+        assert pin.play_count == 5
+        assert pin.playing is True
+
+        # Setting a frequency of zero will stop playing.
+        pin.frequency = 0
+        assert pin.play_count == 6
+        assert pin.playing is False
+
+        # Setting a frequency above zero will start playing
+        pin.frequency = 300
+        assert pin.play_count == 7
+        assert pin.playing is True
+
+        # Set both frequency and volume to zero.
+        pin.volume = 0
+        pin.frequency = 0
+        assert pin.play_count == 9
+        assert pin.playing is False
+
+        # Setting a volume above zero will not start playing
+        pin.volume = 0.5
+        assert pin.play_count == 10
+        assert pin.playing is False
+        pin.volume = 0
+
+        # Setting a frequency above zero will not start playing
+        pin.frequency = 300
+        assert pin.play_count == 12
+        assert pin.playing is False
+
+        # Set both frequency and volume above zero, it should start playing.
+        pin.frequency = 300
+        pin.volume = 0.5
+        assert pin.play_count == 14
+        assert pin.playing is True
