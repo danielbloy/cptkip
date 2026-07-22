@@ -13,6 +13,7 @@ def task():
 
 
 execute(task, False)
+led.off()
 execute(task, True)
 led.off()
 
