@@ -28,6 +28,7 @@ The following functionality is planned to be implemented and is inspired by `pic
 * Safe Runner - async and sync
 * Timed Events Task - async sync
 * One time on/off task - async and sync
+* Do a more detailed analysis of RAM usage in README.md
 
 ## Later
 
