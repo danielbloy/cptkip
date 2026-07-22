@@ -8,23 +8,22 @@ from validate.performance.task_runner import execute
 pin = BuzzerPin(config.BUZZER_PIN)
 pin.volume = 0.1
 
-change = 0.0
-
 
 def task():
     global change
     now = monotonic()
     if now > change:
-        change = now + 0.2
-        pin.frequency += 10
+        change = now + 0.01
+        pin.frequency += 1
 
 
-change = monotonic() + 0.2
+change = monotonic() + 0.01
 pin.play(300)
 execute(task, False)
 pin.off()
 
-change = monotonic() + 0.2
+# noinspection PyRedeclaration
+change = monotonic() + 0.01
 pin.play(300)
 execute(task, True)
 pin.off()
