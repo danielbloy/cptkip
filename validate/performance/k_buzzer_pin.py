@@ -4,7 +4,7 @@ from validate.performance.task_runner import execute
 
 # Create the pin, set the frequency and volume.
 pin = BuzzerPin(config.BUZZER_PIN)
-pin.volume = 0.5
+pin.volume = 0.3
 
 
 def task():
