@@ -1,5 +1,7 @@
 # Changelog
 
+## Next
+
 ## 0.1.2 - Beta
 
 Removed CircuitPython device images from the project (the Adafruit libs have been kept). Overhaul of how the on-device
