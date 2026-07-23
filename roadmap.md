@@ -28,7 +28,6 @@ The following functionality is planned to be implemented and is inspired by `pic
 * Safe Runner - async and sync
 * Timed Events Task - async sync
 * One time on/off task - async and sync
-* Do a more detailed analysis of RAM usage in README.md
 
 ## Later
 
@@ -45,20 +44,19 @@ The following functionality remains to be implemented:
 
 ### Issues to consider when reworking configuration
 
-1. `cptkip/config/configuration.py:5-20` — `import cptkip.core.logging as logging` can be
-   silently shadowed by `from config import *` if the user's `config.py` imports anything
-   named `logging` (e.g. stdlib `logging`), causing an `AttributeError` at import time.
-2. `cptkip/config/configuration.py:10-18` — `except ImportError` around config loading
-   also swallows `ImportError`s raised from inside a real `config.py`, misreporting
-   genuine failures as "no config file found."
+1. `cptkip/config/configuration.py:5-20` — `import cptkip.core.logging as logging` can be silently shadowed by
+   `from config import *` if the user's `config.py` imports anything named `logging` (e.g. stdlib `logging`), causing an
+   `AttributeError` at import time.
+2. `cptkip/config/configuration.py:10-18` — `except ImportError` around config loading also swallows `ImportError`s
+   raised from inside a real `config.py`, misreporting genuine failures as "no config file found."
 
 ## Test gaps
 
 - **Logging**: `core/logging.py` tests leave `LEVEL=WARNING` throughout, so the
   `DEBUG`/`INFO` prefix branches and actual `print()` call are never hit.
-- **Sync/async parity untested**: no test confirms `basic_runner`/`periodic_task` and
-  their `_async` counterparts behave equivalently for the same parameters; no test covers
-  exceptions raised from `periodic_task`'s `func`/`begin`/`end`/`continue_func` callbacks.
+- **Sync/async parity untested**: no test confirms `basic_runner`/`periodic_task` and their `_async` counterparts behave
+  equivalently for the same parameters; no test covers exceptions raised from `periodic_task`'s `func`/`begin`/`end`/
+  `continue_func` callbacks.
 - **Boundary/invalid input untested**:
     - `buzzer_pin`/`pwm_pin` volume clamping outside [0,1]
     - negative frequency in `play()`

@@ -4,34 +4,31 @@ Please see my website [Code Club Adventures](http://codeclubadventures.com/) for
 
 ## Origins
 
-For details of the origins of this project, see [pico-interactive](https://github.com/danielbloy/pico-interactive).
-This project is expected to be significantly different in structure and principles from the
-original project, so I've decided to make it and new project rather than a version 2 of
+For details of the origins of this project, see [pico-interactive](https://github.com/danielbloy/pico-interactive). This
+project is expected to be significantly different in structure and principles from the original project, so I've decided
+to make it and new project rather than a version 2 of
 [pico-interactive](https://github.com/danielbloy/pico-interactive) which I will continue to support as I use it in lots
-of my existing
-projects.
+of my existing projects.
 
-Rather than focus on a single universal framework (aimed primarily at Raspberry Pi Pico based
-boards), this project aims to be more of a toolkit that supports a wide range of CircuitPython
-divides as well as standard Python on a computer. It is designed to be both simpler to use and
-simpler to extend/maintain than `pico-interactive` which requires a fair bit more boilerplate
-to add new functionality. I have also tried to reduce the memory demands of using some of the
-lower level modules such as logging which can be found in the `core` module.
+Rather than focus on a single universal framework (aimed primarily at Raspberry Pi Pico based boards), this project aims
+to be more of a toolkit that supports a wide range of CircuitPython divides as well as standard Python on a computer. It
+is designed to be both simpler to use and simpler to extend/maintain than `pico-interactive` which requires a fair bit
+more boilerplate to add new functionality. I have also tried to reduce the memory demands of using some of the lower
+level modules such as logging which can be found in the `core` module.
 
 ## Overview
 
 For information on how to setup a development environment, see
 [development_environment.md](development_environment.md).
 
-The structure of the project is arranged in the following modules (listed in
-order of importance):
+The structure of the project is arranged in the following modules (listed in order of importance):
 
-* `core` - required for every `cptkip` project as it provides information about execution
-  environment, memory and logging. It has no dependencies on other `cptkip` packages.
+* `core` - required for every `cptkip` project as it provides information about execution environment, memory and
+  logging. It has no dependencies on other `cptkip` packages.
 * `config` - provides overridable configuration properties.
 * `cpu` - provides information about the CPU and provides some operations.
-* `task` - provides async thread runners and task scheduling that works across all supported
-  platforms (CircuitPython and Python).
+* `task` - provides async thread runners and task scheduling that works across all supported platforms (CircuitPython
+  and Python).
 * `pin` - provides an abstraction layer to support environments with no physical pins.
 * `device` - provides abstractions for hardware components.
 * `animation` - provides additional animations such as `Flicker`.
@@ -50,14 +47,13 @@ The packages and their dependencies are illustrated in the table below.
 
 ## Performance
 
-This project has been implemented in a manner that is sensitive to memory
-usage to try and reduce the overhead of the framework as much as possible.
-Gathering accurate statistics on memory usage is tricky as it is not an
-exact science as each small change to the framework impacts its performance.
-Notwithstanding, there is a script called `validate/validate_performance.py`
-which is used to generate some useful data on both memory usage and general
-performance of the framework. From that script, we can see the following
-when run on a Raspberry Pi Pico:
+This project has been implemented in a manner that is sensitive to memory usage to try and reduce the overhead of the
+framework as much as possible. Gathering accurate statistics on memory usage is tricky as it is not an exact science as
+each small change to the framework impacts its performance. Notwithstanding, there is a script called
+`validate/validate_performance.py`
+which is used to generate some useful data on both memory usage and general performance of the framework. From that
+script, we can see the following when run on a Raspberry Pi Pico (for more detailed information, see
+`validate/performance/results/pico.txt`):
 
 * A basic script without using the framework requires 1 to 1.5Kb of RAM.
 * The `cptkip.core.environment` module uses about 1.5Kb of RAM.
@@ -69,12 +65,12 @@ when run on a Raspberry Pi Pico:
 * The `asyncio` library uses about 8Kb of RAM.
 * The sync examples are much faster than their async counterparts in non-blocking scenarios (3 to 8 times faster).
 * The sync examples much less RAM than their async counterparts (16Kb vs 32Kb).
+* The `cptkip.task.memory_monitor_task` (sync and async) uses about 3Kb of RAM but is expensive in cycles.
 
 ### Lessons learned
 
 * Prefer small modules with only a few items of functionality over larger modules to save RAM.
-* F strings are expensive in temporary memory usage, it's more efficient to use `print()` with
-  multiple arguments.
+* F strings are expensive in temporary memory usage, it's more efficient to use `print()` with multiple arguments.
 
 ## Setting up a Development Environment
 
@@ -87,8 +83,8 @@ In PyCharm, the following "Project Structure" is used:
 
 ## Roadmap and Changelog
 
-For information on current development priorities, see [roadmap](./roadmap.md). For
-details of releases, see [changelog](./changelog.md).
+For information on current development priorities, see [roadmap](./roadmap.md). For details of releases,
+see [changelog](./changelog.md).
 
 ## License
 
