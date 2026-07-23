@@ -32,18 +32,20 @@ The structure of the project is arranged in the following modules (listed in ord
 * `pin` - provides an abstraction layer to support environments with no physical pins.
 * `device` - provides abstractions for hardware components.
 * `animation` - provides additional animations such as `Flicker`.
+* `network` - provides network support.
 
 The packages and their dependencies are illustrated in the table below.
 
-|                    | `cptkip.core` | `cptkip.config` | `cptkip.cpu` | `cptkip.pin` | `cptkip.task` | `cptkip.device` |
-|--------------------|:-------------:|:---------------:|:------------:|:------------:|:-------------:|:---------------:|
-| `cptkip.core`      |      n/a      |                 |              |              |               |                 |
-| `cptkip.config`    |      yes      |       n/a       |              |              |               |                 |
-| `cptkip.cpu`       |      Yes      |                 |     n/a      |              |               |                 |
-| `cptkip.pin`       |      Yes      |                 |              |     n/a      |               |                 |
-| `cptkip.task`      |      Yes      |                 |              |              |      n/a      |                 |
-| `cptkip.device`    |      Yes      |                 |              |     Yes      |               |       n/a       |
-| `cptkip.animation` |               |                 |              |              |               |                 |
+|                    | `cptkip.core` | `cptkip.config` | `cptkip.cpu` | `cptkip.pin` | `cptkip.task` | `cptkip.device` | `cptkip.network` |
+|--------------------|:-------------:|:---------------:|:------------:|:------------:|:-------------:|:---------------:|:----------------:|
+| `cptkip.core`      |      n/a      |                 |              |              |               |                 |                  |
+| `cptkip.config`    |      yes      |       n/a       |              |              |               |                 |                  |
+| `cptkip.cpu`       |      Yes      |                 |     n/a      |              |               |                 |                  |
+| `cptkip.pin`       |      Yes      |                 |              |     n/a      |               |                 |                  |
+| `cptkip.task`      |      Yes      |                 |              |              |      n/a      |                 |                  |
+| `cptkip.device`    |      Yes      |                 |              |     Yes      |               |       n/a       |                  |
+| `cptkip.animation` |               |                 |              |              |               |                 |                  |
+| `cptkip.network`   |               |                 |              |              |               |                 |       n/a        |
 
 ## Performance
 
