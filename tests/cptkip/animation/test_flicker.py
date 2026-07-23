@@ -65,6 +65,26 @@ class TestFlicker:
         with pytest.raises(Exception):
             flicker.set(2, (0, 0, 0))
 
+    def test_get_and_set(self) -> None:
+        """
+        Validates that get() and set() work as expected including writing
+        through to the underlying pixel_object.
+        """
+        pixels = MockPixels(3)
+        flicker = Flicker(pixels, speed=0.1, color=(0, 0, 0))
+
+        flicker.set(0, (0xFF, 0x00, 0x80))
+        assert flicker.get(0) == (0xFF, 0x00, 0x80)
+        assert pixels[0] == (0xFF, 0x00, 0x80)
+
+        flicker.set(1, (0x10, 0x20, 0x30))
+        assert flicker.get(1) == (0x10, 0x20, 0x30)
+        assert pixels[1] == (0x10, 0x20, 0x30)
+
+        # Untouched pixel is unaffected.
+        assert flicker.get(2) == (0, 0, 0)
+        assert pixels[2] == (0, 0, 0)
+
     def test_get_and_set_item(self) -> None:
         """
         Validates that __getitem__ and __setitem__ behave the same as get() and set(),
@@ -108,34 +128,37 @@ class TestFlicker:
             assert flicker[i] == (0x11, 0x22, 0x33)
             assert pixels[i] == (0x11, 0x22, 0x33)
 
-    def test_draw_with_zero_flame_holds_base_brightness(self) -> None:
+    def test_zero_flame_holds_base_brightness(self) -> None:
         """
         Validates that with flame=0 (no randomness), draw() scales each pixel by
         base / 255 exactly.
         """
-        pixels = MockPixels(1)
-        flicker = Flicker(pixels, speed=0.1, color=(255, 255, 255), base=128, flame=0)
+        for base in [128, 37, 45, 255]:
+            pixels = MockPixels(1)
+            flicker = Flicker(pixels, speed=0.1, color=(255, 255, 255), base=base, flame=0)
 
-        flicker.draw()
+            expected = int(255 * base / 255)
 
-        expected = int(255 * 128 / 255)
-        assert pixels[0] == (expected, expected, expected)
+            for i in range(10):
+                flicker.draw()
+                assert pixels[0] == (expected, expected, expected)
 
-    def test_draw_clamps_instead_of_wrapping_when_base_plus_flame_exceeds_255(self, monkeypatch) -> None:
+    def test_draw_clamps_to_255(self, monkeypatch) -> None:
         """
         Validates that draw() clamps to full brightness rather than wrapping when
-        base + flame exceeds 255 (regression test for BUGS.md item 7).
+        base + flame exceeds 255.
         """
-        pixels = MockPixels(1)
-        flicker = Flicker(pixels, speed=0.1, color=(255, 255, 255), base=200, flame=100)
+        for base, flame in [(200, 100), (100, 200), (200, 200)]:
+            pixels = MockPixels(1)
+            flicker = Flicker(pixels, speed=0.1, color=(255, 255, 255), base=base, flame=flame)
 
-        # Force the random flame contribution to its maximum so base + brightness (300)
-        # deterministically exceeds 255.
-        monkeypatch.setattr(flicker_module.random, "randint", lambda a, b: b)
+            # Force the random flame contribution to its maximum so base + brightness (300)
+            # deterministically exceeds 255.
+            monkeypatch.setattr(flicker_module.random, "randint", lambda a, b: b)
 
-        flicker.draw()
+            flicker.draw()
 
-        assert pixels[0] == (255, 255, 255)
+            assert pixels[0] == (255, 255, 255)
 
     def test_draw_respects_spacing(self) -> None:
         """
@@ -156,3 +179,19 @@ class TestFlicker:
         assert pixels[1] == (10, 20, 30)  # untouched - not on the spacing interval
         assert pixels[2] == (expected, expected, expected)
         assert pixels[3] == (10, 20, 30)  # untouched - not on the spacing interval
+
+        # Try a different spacing
+        pixels = MockPixels(4)
+        flicker = Flicker(pixels, speed=0.1, color=(255, 255, 255), spacing=3, base=100, flame=0)
+
+        # Give pixels 1 and 2 a distinct colour so we can detect if draw() touches them.
+        flicker.set(1, (10, 20, 30))
+        flicker.set(2, (10, 20, 30))
+
+        flicker.draw()
+
+        expected = int(255 * 100 / 255)
+        assert pixels[0] == (expected, expected, expected)
+        assert pixels[1] == (10, 20, 30)  # untouched - not on the spacing interval
+        assert pixels[2] == (10, 20, 30)  # untouched - not on the spacing interval
+        assert pixels[3] == (expected, expected, expected)
