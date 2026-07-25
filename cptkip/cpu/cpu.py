@@ -7,7 +7,10 @@ if environment.is_running_on_microcontroller():
 # noinspection PyUnresolvedReferences
 def info():
     """
-    Returns some basic information about the state of the CPU.
+    Returns some basic information about the state of the CPU: temperature,
+    frequency and voltage. On a microcontroller these are real values, or
+    "n/a" if the board doesn't report a particular one. On desktop, all
+    three are always "n/a".
     """
     if environment.is_running_on_microcontroller():
         return {

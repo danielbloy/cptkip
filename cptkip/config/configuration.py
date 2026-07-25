@@ -22,8 +22,6 @@ try:
 except ImportError:
     print("No config file found.")
 
-logging.set_log_level(LOG_LEVEL)
-
 try:
 
     # noinspection PyPackageRequirements
@@ -33,3 +31,7 @@ try:
 
 except ImportError:
     print("No device file found.")
+
+# Apply logging level after both config.py and device.py have had a chance to
+# override LOG_LEVEL.
+logging.set_log_level(LOG_LEVEL)

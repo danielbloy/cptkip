@@ -37,7 +37,12 @@ def stacktrace(e: Exception) -> None:
 
 
 def log(level, *args):
-    """Writes message at the specified log level."""
+    """
+    Writes message at the specified log level. Severity is numbered the
+    opposite way to Python's stdlib logging module: CRITICAL (0) is the
+    lowest number and DEBUG (4) is the highest, with lower-or-equal to LEVEL
+    being logged.
+    """
     if level <= LEVEL:
 
         prefix = D
@@ -49,8 +54,6 @@ def log(level, *args):
             prefix = W
         elif level == INFO:
             prefix = I
-        elif level == DEBUG:
-            prefix = D
 
         print(prefix, ":", *args)
 

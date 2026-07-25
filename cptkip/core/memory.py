@@ -15,7 +15,8 @@ total_ram = 0
 
 def reset_memory_usage() -> None:
     """
-    Resets the internal counters to zero used when sampling
+    Resets the internal counters to zero used when sampling. Units are MB on
+    desktop and bytes on a microcontroller (see sample_memory_usage()).
     """
     global peak_used_ram, used_ram, free_ram, total_ram
     peak_used_ram = 0
@@ -27,15 +28,17 @@ def reset_memory_usage() -> None:
 def sample_memory_usage():
     """
     Samples the memory usage statistics, storing them in the global counters.
+    Values are in MB when running on desktop and in bytes when running on a
+    microcontroller.
     """
     global peak_used_ram, used_ram, free_ram, total_ram
 
     if __is_running_on_desktop:
         import psutil as psutil
         stats = psutil.virtual_memory()  # returns a named tuple
-        used_ram = stats.total // 1_048_576
+        used_ram = stats.used // 1_048_576
         free_ram = stats.free // 1_048_576
-        total_ram = stats.used // 1_048_576
+        total_ram = stats.total // 1_048_576
     else:
         # noinspection PyUnresolvedReferences
         used_ram = gc.mem_alloc()

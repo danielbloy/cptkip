@@ -134,5 +134,5 @@ def report():
     pins_available = "are" if are_pins_available() else "are not"
 
     # print() with multiple args avoids the temporary string an f-string would
-    # allocate; this runs on every `cptkip.core` import (see memory_usage.md).
+    # allocate; this runs on every `cptkip.core` import.
     print("Running on", running_on + ".", "Pins", pins_available, "available.")
