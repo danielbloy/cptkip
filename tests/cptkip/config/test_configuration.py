@@ -2,7 +2,7 @@ import cptkip.config.configuration as configuration
 import cptkip.core.logging as logging
 
 
-class TestNode:
+class TestConfiguration:
     # noinspection PyUnresolvedReferences
     def test_config_is_loaded(self) -> None:
         """

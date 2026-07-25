@@ -42,7 +42,7 @@ class InputPin:
         self._pin = None
 
     @property
-    def value(self):
+    def value(self) -> bool:
         """
         The current input logic level of the pin. Read-only: an input pin's
         value is driven by whatever is connected to it, not by this code.

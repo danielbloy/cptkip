@@ -25,7 +25,7 @@ def reset_memory_usage() -> None:
     total_ram = 0
 
 
-def sample_memory_usage():
+def sample_memory_usage() -> None:
     """
     Samples the memory usage statistics, storing them in the global counters.
     Values are in MB when running on desktop and in bytes when running on a
@@ -34,7 +34,7 @@ def sample_memory_usage():
     global peak_used_ram, used_ram, free_ram, total_ram
 
     if __is_running_on_desktop:
-        import psutil as psutil
+        import psutil
         stats = psutil.virtual_memory()  # returns a named tuple
         used_ram = stats.used // 1_048_576
         free_ram = stats.free // 1_048_576
@@ -50,7 +50,7 @@ def sample_memory_usage():
         peak_used_ram = used_ram
 
 
-def report_memory_usage():
+def report_memory_usage() -> None:
     """
     Provides basic reporting of the memory usage. It performs a sample, prior to
     reporting.
@@ -65,7 +65,7 @@ def report_memory_usage():
                      total_ram, "bytes")
 
 
-def report_memory_usage_and_free():
+def report_memory_usage_and_free() -> None:
     """
     Convenience function that reports memory usage, runs the garbage collector then
     runs the report again.

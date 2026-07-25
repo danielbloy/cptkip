@@ -5,7 +5,7 @@ if environment.is_running_on_microcontroller():
 
 
 # noinspection PyUnresolvedReferences
-def info():
+def info() -> dict:
     """
     Returns some basic information about the state of the CPU: temperature,
     frequency and voltage. On a microcontroller these are real values, or
@@ -28,7 +28,7 @@ def info():
 
 
 # noinspection PyUnresolvedReferences
-def restart():
+def restart() -> None:
     """
     Reboots the microcontroller; does nothing for a non-microcontroller.
     """

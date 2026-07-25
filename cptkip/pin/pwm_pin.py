@@ -37,24 +37,24 @@ class PwmPin:
 
         self._pwm = None
 
-    def on(self):
+    def on(self) -> None:
         """
         Turns the PWM fully on.
         """
         self.value = 1.0
 
-    def off(self):
+    def off(self) -> None:
         """
         Turns the PWM fully off.
         """
         self.value = 0.0
 
     @property
-    def value(self):
+    def value(self) -> float:
         return self._value
 
     @value.setter
-    def value(self, value: float):
+    def value(self, value: float) -> None:
         value = min(max(value, 0.0), 1.0)
 
         self._value = value

@@ -52,5 +52,5 @@ class Button:
             elif short_count > 1 and self.multi_click:
                 self.multi_click()
 
-        if self.button.long_press and self.long_click is not None:
+        if self.button.long_press and self.long_click:
             self.long_click()

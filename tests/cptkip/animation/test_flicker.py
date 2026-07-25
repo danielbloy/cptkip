@@ -46,10 +46,10 @@ class TestFlicker:
         pixels = MockPixels(2)
         flicker = Flicker(pixels, speed=0.1, color=(0, 0, 0))
 
-        with pytest.raises(Exception):
+        with pytest.raises(ValueError):
             flicker.get(-1)
 
-        with pytest.raises(Exception):
+        with pytest.raises(ValueError):
             flicker.get(2)
 
     def test_set_out_of_bounds(self) -> None:
@@ -59,10 +59,10 @@ class TestFlicker:
         pixels = MockPixels(2)
         flicker = Flicker(pixels, speed=0.1, color=(0, 0, 0))
 
-        with pytest.raises(Exception):
+        with pytest.raises(ValueError):
             flicker.set(-1, (0, 0, 0))
 
-        with pytest.raises(Exception):
+        with pytest.raises(ValueError):
             flicker.set(2, (0, 0, 0))
 
     def test_get_and_set(self) -> None:

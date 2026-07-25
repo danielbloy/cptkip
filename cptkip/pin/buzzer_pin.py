@@ -97,13 +97,13 @@ class BuzzerPin:
 
         self._playing = frequency > 0 and self.volume > 0
 
-    def off(self):
+    def off(self) -> None:
         """
         Stops the buzzer playing any sound.
         """
         self.deinit()
 
-    def on(self):
+    def on(self) -> None:
         """
         Plays the buzzer at previous frequency and volume.
         """

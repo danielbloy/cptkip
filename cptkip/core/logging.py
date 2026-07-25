@@ -15,7 +15,7 @@ I = "INFO    "
 D = "DEBUG   "
 
 
-def set_log_level(level) -> None:
+def set_log_level(level: int) -> None:
     """
     Sets the logging level to use in the same way as Logging. Defaults to WARNING.
 
@@ -36,7 +36,7 @@ def stacktrace(e: Exception) -> None:
         debug(s)
 
 
-def log(level, *args):
+def log(level: int, *args) -> None:
     """
     Writes message at the specified log level. Severity is numbered the
     opposite way to Python's stdlib logging module: CRITICAL (0) is the

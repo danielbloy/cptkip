@@ -125,60 +125,60 @@ class Queue:
         if not isinstance(audio, Audio):
             raise ValueError("audio must be of type Audio")
 
-        self.__audio = audio
-        self.__queue = []
+        self._audio = audio
+        self._queue = []
 
-    def queue(self, filename: str):
+    def queue(self, filename: str) -> None:
         """
         Adds an MP3 file to the queue to be picked up and played.
 
         :param filename: The MP3 file to add to the queue.
         """
-        self.__queue.append(filename)
+        self._queue.append(filename)
 
     @property
     def playing(self) -> bool:
         """
         Returns whether the audio is playing or not.
         """
-        return self.__audio.playing
+        return self._audio.playing
 
     @property
     def paused(self) -> bool:
         """
         Returns whether the audio is paused or not.
         """
-        return self.__audio.paused
+        return self._audio.paused
 
-    def pause(self):
+    def pause(self) -> None:
         """
         Pauses the audio payback.
         """
-        return self.__audio.pause()
+        return self._audio.pause()
 
-    def resume(self):
+    def resume(self) -> None:
         """
         Resumes the audio playback.
         """
-        return self.__audio.resume()
+        return self._audio.resume()
 
-    def stop(self):
+    def stop(self) -> None:
         """
         Stops the audio playback.
         """
-        return self.__audio.stop()
+        return self._audio.stop()
 
-    def cancel(self):
+    def cancel(self) -> None:
         """
         Stops playing any music and empties the queue.
         """
-        self.__queue.clear()
-        self.__audio.stop()
+        self._queue.clear()
+        self._audio.stop()
 
-    def update(self):
+    def update(self) -> None:
         """
         Checks for songs in the queue and plays them if nothing is playing.
         """
-        if not self.__audio.playing and len(self.__queue) > 0:
-            song = self.__queue.pop(0)
-            self.__audio.play(song)
+        if not self._audio.playing and len(self._queue) > 0:
+            song = self._queue.pop(0)
+            self._audio.play(song)
