@@ -1,3 +1,6 @@
+import pytest
+
+import cptkip.core.environment as environment
 from cptkip.pin.output_pin import OutputPin
 
 
@@ -79,3 +82,13 @@ class TestOutputPin:
 
             pin.value = False
             assert not pin.value
+
+    def test_construction_with_none_pin_raises_when_pins_available(self, monkeypatch):
+        """
+        The pin-cannot-be-None guard can only be exercised when pins are
+        available, which is never true in the desktop/CI test environment
+        by default - so it must be forced on via monkeypatching to cover it.
+        """
+        monkeypatch.setattr(environment, "are_pins_available", lambda: True)
+        with pytest.raises(ValueError):
+            OutputPin(None)

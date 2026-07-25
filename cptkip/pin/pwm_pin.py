@@ -10,19 +10,18 @@ class PwmPin:
     """
     Simple Pin using a value between 0.0 (fully off) and 1.0 (fully on) to control PWM on a
     Pin. This can be used to control the brightness in LEDS for example.
-    """
 
-    """
-    :param value: The initial PWM value between 0.0 and 1.0.
-    :param invert: Set to True for connected devices where they are active on low.
-                   An example would be the RGB LEDs on a Pimoroni Tiny 2040.
+    :param pin:       The pin to use as a PWM pin.
+    :param value:     The initial PWM value between 0.0 and 1.0.
+    :param invert:    Set to True for connected devices where they are active on low.
+                       An example would be the RGB LEDs on a Pimoroni Tiny 2040.
     :param frequency: The frequency of the PWM value.
     """
 
     def __init__(self, pin, value: float = 0.0, invert: bool = False, frequency: int = 1000):
         if environment.are_pins_available() and pin is None:
             raise ValueError("pin cannot be None")
-        
+
         self.pin = pin
         self._pwm = None
 
@@ -38,12 +37,16 @@ class PwmPin:
 
         self._pwm = None
 
-    # Turns the PWM fully on.
     def on(self):
+        """
+        Turns the PWM fully on.
+        """
         self.value = 1.0
 
-    # Turns the PWM fully off.
     def off(self):
+        """
+        Turns the PWM fully off.
+        """
         self.value = 0.0
 
     @property

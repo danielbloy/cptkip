@@ -20,7 +20,7 @@ class InputPin:
     def __init__(self, pin, pullup: bool | None = True):
         if environment.are_pins_available() and pin is None:
             raise ValueError("pin cannot be None")
-        
+
         self.pin = pin
         self._pin = None
         self.pullup = pullup
@@ -43,6 +43,10 @@ class InputPin:
 
     @property
     def value(self):
+        """
+        The current input logic level of the pin. Read-only: an input pin's
+        value is driven by whatever is connected to it, not by this code.
+        """
         # Return the value of the pin if we have one.
         if self._pin:
             return self._pin.value
@@ -53,8 +57,3 @@ class InputPin:
 
         # Default to True
         return True
-
-    @value.setter
-    def value(self, value: bool):
-        if self._pin:
-            self._pin.value = value

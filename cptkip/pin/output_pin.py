@@ -36,12 +36,16 @@ class OutputPin:
 
         self._pin = None
 
-    # Turns the pin fully on.
     def on(self):
+        """
+        Turns the pin fully on.
+        """
         self.value = True
 
-    # Turns the pin fully off.
     def off(self):
+        """
+        Turns the pin fully off.
+        """
         self.value = False
 
     @property
