@@ -1,7 +1,7 @@
 import array
 import random
 
-from adafruit_led_animation.animation import Animation as Animation
+from adafruit_led_animation.animation import Animation
 
 
 class Flicker(Animation):
@@ -21,9 +21,9 @@ class Flicker(Animation):
         self._spacing = spacing
         self._base = base
         self._flame = flame
-        self._red = array.array("B", [0 for _ in range(size)])
-        self._green = array.array("B", [0 for _ in range(size)])
-        self._blue = array.array("B", [0 for _ in range(size)])
+        self._red = array.array("B", bytes(size))
+        self._green = array.array("B", bytes(size))
+        self._blue = array.array("B", bytes(size))
         super().__init__(pixel_object, speed, color, name=name)
 
     def _set_color(self, color):
@@ -36,16 +36,15 @@ class Flicker(Animation):
 
     def get(self, i):
         if i < 0 or i >= self._size:
-            raise ValueError("Index %s is out of bounds!" % i)
+            raise ValueError(f"Index {i} is out of bounds!")
 
-        r = int(self._red[i]) & 0xFF  # 8-bit stored red (base colour, not dimmed)
-        g = int(self._green[i]) & 0xFF  # 8-bit stored green (base colour, not dimmed)
-        b = int(self._blue[i]) & 0xFF  # 8-bit stored blue (base colour, not dimmed)
-        return r, g, b
+        # array.array("B", ...) already yields a plain 0-255 int, so no
+        # int()/mask needed here - these are the stored base colour, not dimmed.
+        return self._red[i], self._green[i], self._blue[i]
 
     def set(self, i, colour):
         if i < 0 or i >= self._size:
-            raise ValueError("Index %s is out of bounds!" % i)
+            raise ValueError(f"Index {i} is out of bounds!")
 
         self._red[i] = colour[0] & 0xFF
         self._green[i] = colour[1] & 0xFF
