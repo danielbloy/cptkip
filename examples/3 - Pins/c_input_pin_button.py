@@ -16,5 +16,5 @@ input_pin = InputPin(config.BUTTON_PIN, config.BUTTON_PULLUP)
 finish = time.monotonic() + 10
 
 while time.monotonic() < finish:
-    log.info("Input value: {}".format(input_pin.value))
+    log.info(f"Input value: {input_pin.value}")
     time.sleep(0.25)

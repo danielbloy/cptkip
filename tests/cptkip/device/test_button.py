@@ -141,9 +141,9 @@ class TestButton:
             async def update() -> None:
                 btn.update()
 
-            task = periodic_task.create(update,
-                                        continue_func=utils.value_flip(3.5, pin,
-                                                                       [0.1, 0.3, 0.4, 0.6, 0.9, 1.1, 1.2, 3.3]))
+            task = periodic_task.create(
+                update,
+                continue_func=utils.value_flip(3.5, pin, [0.1, 0.3, 0.4, 0.6, 0.9, 1.1, 1.2, 3.3]))
             asyncio.run(task())
 
             assert single_click_count == 1

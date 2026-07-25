@@ -7,9 +7,9 @@
 # called `device.py` is also loaded if present and this is to be used to load
 # device specific settings which will override those from `config.py`.
 
-import cptkip.core.logging as logging
+import cptkip.core.logging as log
 
-LOG_LEVEL = logging.WARNING
+LOG_LEVEL = log.WARNING
 
 # Try loading local device settings as overrides.
 try:
@@ -22,8 +22,6 @@ try:
 except ImportError:
     print("No config file found.")
 
-logging.set_log_level(LOG_LEVEL)
-
 try:
 
     # noinspection PyPackageRequirements
@@ -33,3 +31,7 @@ try:
 
 except ImportError:
     print("No device file found.")
+
+# Apply logging level after both config.py and device.py have had a chance to
+# override LOG_LEVEL.
+log.set_log_level(LOG_LEVEL)

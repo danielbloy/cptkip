@@ -1,15 +1,10 @@
-import cptkip.core.environment as environment
 from cptkip.pin.pwm_pin import PwmPin
-
-# collections.abc is not available in CircuitPython.
-if environment.is_running_on_desktop():
-    pass
 
 try:
     # noinspection PyUnresolvedReferences
-    from typing import Optional, Tuple, Union, Sequence
+    from typing import Sequence
 
-    ColorUnion = Union[int, Tuple[int, int, int], Tuple[int, int, int, int]]
+    ColorUnion = int | tuple[int, int, int] | tuple[int, int, int, int]
 except ImportError:
     pass
 
@@ -36,6 +31,9 @@ class Led:
         self.brightness = brightness
 
     def deinit(self) -> None:
+        """
+        Turns the LED off and releases the underlying pin.
+        """
         self.fill(0)
         self.show()
         self.pin.deinit()
@@ -56,22 +54,34 @@ class Led:
         if self.auto_write:
             self.show()
 
-    # Turns the LED fully on.
     def on(self):
+        """
+        Turns the LED fully on.
+        """
         self.brightness = 1.0
 
-    # Turns the LED fully off.
     def off(self):
+        """
+        Turns the LED fully off.
+        """
         self.brightness = 0.0
 
     @property
     def n(self) -> int:
+        """
+        Number of pixels. Always 1 - present for API compatibility with
+        multi-pixel devices such as NeoPixel strands.
+        """
         return 1
 
     def __len__(self):
         return 1
 
     def show(self) -> None:
+        """
+        Applies the current brightness to the underlying pin. Called
+        automatically by brightness/fill/__setitem__ when auto_write is True.
+        """
         self.pin.value = self._brightness
 
     def fill(self, color: ColorUnion):
@@ -86,7 +96,7 @@ class Led:
         self.brightness = w / 0xFF
 
     @staticmethod
-    def _parse_color(value: ColorUnion) -> Tuple[int, int, int, int]:
+    def _parse_color(value: ColorUnion) -> tuple[int, int, int, int]:
         """
         Converts the passed in value to a 4 digit RGBW tuple. The value can be
         one of the following:
@@ -130,16 +140,26 @@ class Led:
         if len(value) == 3:
             r, g, b = value
             # Average out the RBG intensities.
-            w = (r + g + b) / 3
+            w = int((r + g + b) / 3)
         else:
             r, g, b, w = value
 
         return r, g, b, w
 
-    def __setitem__(self, index: Union[int, slice], val: Union[ColorUnion, Sequence[ColorUnion]]):
+    def __setitem__(self, index: int | slice, val: ColorUnion | Sequence[ColorUnion]):
+        """
+        Equivalent to fill(val) - index/slice is accepted but ignored since
+        there is only ever a single logical pixel.
+        """
         r, g, b, w = self._parse_color(val)
         self.fill((r, g, b, w))
 
-    def __getitem__(self, index: Union[int, slice]):
+    def __getitem__(self, index: int | slice):
+        """
+        Returns the current brightness as a grayscale (val, val, val) tuple.
+        This is derived purely from brightness, not the original RGB values
+        last passed to fill()/__setitem__ - colour information beyond the
+        computed brightness is not retained.
+        """
         val = self.brightness * 255
         return val, val, val

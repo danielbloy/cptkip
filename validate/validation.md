@@ -11,7 +11,8 @@ on a CircuitPython device.
 1. Copy the entire `cptkip` directory to the root of the device.
 2. Copy the entire `validate` directory in the root of the device.
 3. Create a `lib` directory in the root of the device.
-4. Copy the `config.py` file from the root of `cptkip` to the root of your device. 
+4. Copy the `config.py` file from the root of the repository (not the `cptkip` package
+   directory - it is a sibling of it, not part of it) to the root of your device.
 5. Copy across the contents of `CircuitPython/<version>/lib` into the `lib`
    directory on the device for your version of CircuitPython.
 6. Use Thonny to run one of the validate scripts such as`validate_performance.py`.

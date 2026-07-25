@@ -23,7 +23,7 @@ if sys.implementation.name == "circuitpython":
 else:
     # We are not running on CircuitPython so we can assume we are running on
     # a desktop type environment (Windows, Linux or Mac).
-    __is_running_on_linux = sys.platform == "linux" or sys.platform == "linux2"
+    __is_running_on_linux = sys.platform in ("linux", "linux2")
     __is_running_on_mac = sys.platform == "darwin"
     __is_running_on_windows = sys.platform == "win32"
 
@@ -123,7 +123,7 @@ def are_pins_available() -> bool:
     return __are_pins_available
 
 
-def report():
+def report() -> None:
     """
     Produces a simple report of the environment the code is running in.
     """
@@ -134,5 +134,5 @@ def report():
     pins_available = "are" if are_pins_available() else "are not"
 
     # print() with multiple args avoids the temporary string an f-string would
-    # allocate; this runs on every `cptkip.core` import (see memory_usage.md).
+    # allocate; this runs on every `cptkip.core` import.
     print("Running on", running_on + ".", "Pins", pins_available, "available.")

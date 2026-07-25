@@ -2,6 +2,17 @@ import cptkip.device.pixels as pixels
 
 
 class TestPixels:
+    def test_none_pin_is_accepted(self):
+        """
+        Unlike the hardware-backed pin/device constructors, this desktop stub
+        must accept pin=None without error: config values such as
+        config.PIXELS_PIN are legitimately None on desktop (no physical pins
+        available), and examples pass them straight through to create()/Pixels()
+        without checking are_pins_available() first.
+        """
+        pix = pixels.Pixels(None, 8, 1.0)
+        assert pix.pin is None
+
     def test_default_construction(self):
         """
         Just tests that dummy Pixels default construction works.

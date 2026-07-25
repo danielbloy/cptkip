@@ -82,8 +82,14 @@ def get_folders(folder, exclusion_list: list[str] | None = None):
 
             folders.append(item)
 
-    # Sort folders by name to ensure consistent order
-    folders.sort(key=lambda x: x.name)
+    # Sort folders by their leading number (e.g. "2 - Tasks" before "10 - X")
+    # rather than lexicographically, which would sort "10 - X" before "2 - Tasks".
+    # Falls back to the plain name for folders with no leading number.
+    def sort_key(path):
+        prefix = path.name.split(" ", 1)[0]
+        return (0, int(prefix)) if prefix.isdigit() else (1, path.name)
+
+    folders.sort(key=sort_key)
     return folders
 
 

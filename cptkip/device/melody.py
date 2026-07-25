@@ -14,7 +14,8 @@ class Melody:
     which is useful when grouping multiple melodies in a Melody Sequence.
     """
 
-    def __init__(self, buzzer: BuzzerPin, song: list[tuple[int, int]], tempo=120, loop=True, paused=False, name=None):
+    def __init__(self, buzzer: BuzzerPin, song: list[tuple[int, int]], tempo: float = 120,
+                 loop: bool = True, paused: bool = False, name: str | None = None):
         """
         Constructs a new Melody. The parameters are self-explanatory. Creating a melody is simple as the
         following two identical examples demonstrate:
@@ -63,7 +64,7 @@ class Melody:
         self._index = 0  # The next note to play.
         self._next_update = time.monotonic_ns()  # The next note is due to play now.
 
-    def update(self):
+    def update(self) -> None:
         """
         Call update() repeatedly to keep the melody playing. If paused, calling update() will
         do nothing. If playing and the next note is due, update() will play the note.
@@ -103,7 +104,7 @@ class Melody:
         """
         return self._paused
 
-    def pause(self):
+    def pause(self) -> None:
         """
         Stops playing until resumed.
         """
@@ -174,16 +175,20 @@ class Melody:
 
 class MelodySequence:
     """
-    MelodySequence is intended to be used to play  multiple Melody instances one
+    MelodySequence is intended to be used to play multiple Melody instances one
     after the other. MelodySequence is a drop in replacement for Melody and provides
     the same public interface for pausing and resuming songs.
     """
 
     def __init__(self, *members: Melody, loop=True):
         """
-        MelodySequence is used to
+        MelodySequence is used to play the given Melody instances one after
+        the other, in the order given.
+
+        :param members: One or more Melody instances to play in sequence.
+        :param loop:    If true, the sequence restarts from the first melody after the last one finishes.
         """
-        if members is None or len(members) <= 0 or members[0] is None:
+        if len(members) <= 0 or members[0] is None:
             raise ValueError("members must be Melody objects")
 
         self._members = members
@@ -200,7 +205,12 @@ class MelodySequence:
         for the melody or a string based name that was provided for the melody.
         """
         if isinstance(index, str):
-            self._current = [member.name for member in self._members].index(index)
+            for i, member in enumerate(self._members):
+                if member.name == index:
+                    self._current = i
+                    break
+            else:
+                raise ValueError("no melody named %s" % index)
         else:
             self._current = index
 
@@ -222,7 +232,7 @@ class MelodySequence:
 
     def previous(self):
         """
-        Jumps to the previous melody. Unlike previous, this ignores whether
+        Jumps to the previous melody. Unlike `next()`, this ignores whether
         looping is enabled or disabled.
         """
         current = self._current - 1
@@ -351,7 +361,7 @@ def standardise_note(note: str) -> str:
     note = note.upper().replace("P", "R")
 
     if length == 1:
-        if note in __note_to_n or note == "R":
+        if note in _NOTE_TO_N or note == "R":
             return note
 
         raise ValueError("note is invalid")
@@ -365,14 +375,14 @@ def standardise_note(note: str) -> str:
         else:
             note = chr(ord(note[0]) - 1) + "#"
 
-    if note in __note_to_n:
+    if note in _NOTE_TO_N:
         return note
 
     raise ValueError("note is invalid")
 
 
 # Maps a standardised note to it's n value representing a semi-tone from C.
-__note_to_n = {"C": 0, "C#": 1, "D": 2, "D#": 3, "E": 4, "F": 5, "F#": 6, "G": 7, "G#": 8, "A": 9, "A#": 10, "B": 11}
+_NOTE_TO_N = {"C": 0, "C#": 1, "D": 2, "D#": 3, "E": 4, "F": 5, "F#": 6, "G": 7, "G#": 8, "A": 9, "A#": 10, "B": 11}
 
 
 def note_to_frequency(note: str, octave: int) -> int:
@@ -389,9 +399,9 @@ def note_to_frequency(note: str, octave: int) -> int:
     if note == "R":
         return 0
 
-    n = __note_to_n[note]
+    n = _NOTE_TO_N[note]
 
     # Using A4 (note number 9, octave 4) as a reference as it is roughly in the middle
-    N = ((octave - 4) * 12) + (n - 9)
-    frequency = 440 * pow(2, (N / 12))
+    semitone_offset = ((octave - 4) * 12) + (n - 9)
+    frequency = 440 * pow(2, (semitone_offset / 12))
     return round(frequency)

@@ -45,7 +45,7 @@ def execute_modules(modules: list[object]):
     """
     for module in modules:
         try:
-            print("\nExecuting module {}".format(module))
+            print(f"\nExecuting module {module}")
             reset_memory_usage()
             print("Initial memory profile (before and after GC):")
             report_memory_usage_and_free()

@@ -20,8 +20,8 @@ toolkit shims out the dependencies. There are therefore three primary environmen
 ## Python
 
 To test with plain old vanilla Python, simply use PyCharm to setup a new Virtual Environment
-(VENV). This project is tested with Python 3.12. In PyCharm, the following "Project Structure"
-is used:
+(VENV). This project is tested with Python 3.12, 3.13 and 3.14. In PyCharm, the following
+"Project Structure" is used:
 
 ![Project Structure](./project_structure.png)
 

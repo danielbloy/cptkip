@@ -35,7 +35,7 @@ def execute_next_script(current_script: str | None = None):
 
     index = 0
     if current_script:
-        if not current_script in scripts:
+        if current_script not in scripts:
             raise Exception(f"script {current_script} does not exist")
 
         index = scripts.index(current_script)

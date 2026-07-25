@@ -35,6 +35,13 @@ class TestMemory:
         assert memory.free_ram != 0
         assert memory.total_ram != 0
 
+        # total must always be at least as large as used and free individually,
+        # and used + free should not exceed total. This catches the used/total
+        # values being accidentally swapped or otherwise mixed up.
+        assert memory.total_ram >= memory.used_ram
+        assert memory.total_ram >= memory.free_ram
+        assert memory.used_ram + memory.free_ram <= memory.total_ram
+
         # Call multiple times to check for errors.
         memory.sample_memory_usage()
         memory.sample_memory_usage()

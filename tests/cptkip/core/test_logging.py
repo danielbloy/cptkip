@@ -54,3 +54,39 @@ class TestLogging:
         Simply tests there is no error when calling critical()
         """
         log.critical("CRITICAL message")
+
+    def test_log_prefix_per_level(self, capsys):
+        """
+        Validates that log() selects the correct prefix for each level.
+        """
+        log.set_log_level(log.DEBUG)
+        try:
+            for level, prefix in (
+                    (log.CRITICAL, log.C),
+                    (log.ERROR, log.E),
+                    (log.WARNING, log.W),
+                    (log.INFO, log.I),
+                    (log.DEBUG, log.D)):
+                log.log(level, "message")
+                out = capsys.readouterr().out
+                assert out.startswith(prefix)
+        finally:
+            log.set_log_level(log.WARNING)
+
+    def test_log_level_filtering(self, capsys):
+        """
+        Validates that messages more verbose than the current level are
+        suppressed and messages at or below it are printed.
+        """
+        log.set_log_level(log.WARNING)
+        try:
+            log.info("suppressed")
+            assert capsys.readouterr().out == ""
+
+            log.warn("shown")
+            assert capsys.readouterr().out != ""
+
+            log.critical("shown")
+            assert capsys.readouterr().out != ""
+        finally:
+            log.set_log_level(log.WARNING)
