@@ -195,3 +195,81 @@ class TestFlicker:
         assert pixels[1] == (10, 20, 30)  # untouched - not on the spacing interval
         assert pixels[2] == (10, 20, 30)  # untouched - not on the spacing interval
         assert pixels[3] == (expected, expected, expected)
+
+    def test_construction_with_int_color(self) -> None:
+        """
+        Regression test: an int/hex colour (a documented, supported form for
+        every other Animation subclass) used to crash the constructor because
+        it bypassed the base class's int-to-tuple conversion.
+        """
+        pixels = MockPixels(2)
+        flicker = Flicker(pixels, speed=0.1, color=0xFFAA00)
+
+        assert flicker[0] == (0xFF, 0xAA, 0x00)
+        assert pixels[0] == (0xFF, 0xAA, 0x00)
+
+    def test_reassigning_color_updates_pixels(self) -> None:
+        """
+        Regression test: setting .color after construction used to silently
+        do nothing, because Flicker never overrode _set_color() so the base
+        class's default no-op implementation was used instead.
+        """
+        pixels = MockPixels(2)
+        flicker = Flicker(pixels, speed=0.1, color=(0x10, 0x20, 0x30))
+
+        flicker.color = (0x40, 0x50, 0x60)
+
+        assert flicker[0] == (0x40, 0x50, 0x60)
+        assert flicker[1] == (0x40, 0x50, 0x60)
+        assert pixels[0] == (0x40, 0x50, 0x60)
+        assert pixels[1] == (0x40, 0x50, 0x60)
+
+    def test_construction_with_invalid_spacing_raises(self) -> None:
+        """
+        Validates that spacing < 1 raises immediately at construction, rather
+        than crashing inside draw() (spacing=0) or silently becoming a
+        permanent no-op (negative spacing).
+        """
+        pixels = MockPixels(4)
+
+        with pytest.raises(ValueError):
+            Flicker(pixels, speed=0.1, color=(0, 0, 0), spacing=0)
+
+        with pytest.raises(ValueError):
+            Flicker(pixels, speed=0.1, color=(0, 0, 0), spacing=-1)
+
+    def test_out_of_bounds_raises_value_error(self) -> None:
+        """
+        Bounds checks should raise ValueError, consistent with every other
+        validation check in the codebase, not a bare Exception.
+        """
+        pixels = MockPixels(2)
+        flicker = Flicker(pixels, speed=0.1, color=(0, 0, 0))
+
+        with pytest.raises(ValueError):
+            flicker.get(-1)
+
+        with pytest.raises(ValueError):
+            flicker.set(2, (0, 0, 0))
+
+    def test_name_parameter(self) -> None:
+        """
+        Validates that the name parameter is accepted and stored, as it is
+        for every other Animation subclass.
+        """
+        pixels = MockPixels(2)
+        flicker = Flicker(pixels, speed=0.1, color=(0, 0, 0), name="my-flicker")
+
+        assert flicker.name == "my-flicker"
+
+    def test_construction_forces_auto_write_off(self) -> None:
+        """
+        Validates the base Animation class's behaviour of forcing
+        pixel_object.auto_write to False is in effect for Flicker too.
+        """
+        pixels = MockPixels(2)
+        assert pixels.auto_write is True
+
+        Flicker(pixels, speed=0.1, color=(0, 0, 0))
+
+        assert pixels.auto_write is False

@@ -13,6 +13,9 @@ class Flicker(Animation):
 
     def __init__(
             self, pixel_object, speed, color, spacing=1, base=150, flame=105, name=None):
+        if spacing < 1:
+            raise ValueError("spacing must be at least 1")
+
         size = len(pixel_object)
         self._size = size
         self._spacing = spacing
@@ -22,20 +25,27 @@ class Flicker(Animation):
         self._green = array.array("B", [0 for _ in range(size)])
         self._blue = array.array("B", [0 for _ in range(size)])
         super().__init__(pixel_object, speed, color, name=name)
+
+    def _set_color(self, color):
+        # Overridden so that setting .color (including at construction, via
+        # Animation.__init__) actually updates the stored base colour used by
+        # draw(). This also routes int/hex colours through the base class's
+        # existing int-to-tuple conversion, so set_all() never sees a raw int.
+        super()._set_color(color)
         self.set_all(color)
 
     def get(self, i):
         if i < 0 or i >= self._size:
-            raise Exception("NeoPixels: Index %s is out of bounds!" % i)
+            raise ValueError("Index %s is out of bounds!" % i)
 
-        r = int(self._red[i]) & 0xFF  # 8-bit red dimmed to brightness
-        g = int(self._green[i]) & 0xFF  # 8-bit green dimmed to brightness
-        b = int(self._blue[i]) & 0xFF  # 8-bit blue dimmed to brightness
+        r = int(self._red[i]) & 0xFF  # 8-bit stored red (base colour, not dimmed)
+        g = int(self._green[i]) & 0xFF  # 8-bit stored green (base colour, not dimmed)
+        b = int(self._blue[i]) & 0xFF  # 8-bit stored blue (base colour, not dimmed)
         return r, g, b
 
     def set(self, i, colour):
         if i < 0 or i >= self._size:
-            raise Exception("NeoPixels: Index %s is out of bounds!" % i)
+            raise ValueError("Index %s is out of bounds!" % i)
 
         self._red[i] = colour[0] & 0xFF
         self._green[i] = colour[1] & 0xFF
