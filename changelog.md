@@ -1,6 +1,9 @@
 # Changelog
 
-## Next
+## 0.1.3 - Beta
+
+Used claude to do an analysis of the code base, making a small range of bug fixes and documentation updates whilst
+maintaining backwards compatibility.
 
 ## 0.1.2 - Beta
 
