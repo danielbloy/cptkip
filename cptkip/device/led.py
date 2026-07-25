@@ -1,15 +1,10 @@
-import cptkip.core.environment as environment
 from cptkip.pin.pwm_pin import PwmPin
-
-# collections.abc is not available in CircuitPython.
-if environment.is_running_on_desktop():
-    pass
 
 try:
     # noinspection PyUnresolvedReferences
-    from typing import Optional, Tuple, Union, Sequence
+    from typing import Sequence
 
-    ColorUnion = Union[int, Tuple[int, int, int], Tuple[int, int, int, int]]
+    ColorUnion = int | tuple[int, int, int] | tuple[int, int, int, int]
 except ImportError:
     pass
 
@@ -101,7 +96,7 @@ class Led:
         self.brightness = w / 0xFF
 
     @staticmethod
-    def _parse_color(value: ColorUnion) -> Tuple[int, int, int, int]:
+    def _parse_color(value: ColorUnion) -> tuple[int, int, int, int]:
         """
         Converts the passed in value to a 4 digit RGBW tuple. The value can be
         one of the following:
@@ -151,7 +146,7 @@ class Led:
 
         return r, g, b, w
 
-    def __setitem__(self, index: Union[int, slice], val: Union[ColorUnion, Sequence[ColorUnion]]):
+    def __setitem__(self, index: int | slice, val: ColorUnion | Sequence[ColorUnion]):
         """
         Equivalent to fill(val) - index/slice is accepted but ignored since
         there is only ever a single logical pixel.
@@ -159,7 +154,7 @@ class Led:
         r, g, b, w = self._parse_color(val)
         self.fill((r, g, b, w))
 
-    def __getitem__(self, index: Union[int, slice]):
+    def __getitem__(self, index: int | slice):
         """
         Returns the current brightness as a grayscale (val, val, val) tuple.
         This is derived purely from brightness, not the original RGB values
