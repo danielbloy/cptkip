@@ -28,7 +28,11 @@ def create(
     :param continue_func: If specified, this will be periodically called to confirm
         the func should continue to be called.
     :param begin: If specified, this will be executed once at the beginning
-        and before any initial delay.
+        and before any initial delay. It always runs on the first invocation
+        of the returned handler, even if continue_func would immediately
+        return False - continue_func is not consulted until the invocation
+        after begin has run. In that case end (if specified) will then run
+        on the following invocation.
     :param end: If specified, this will be executed once at the end.
     :param initial_delay: If specified, this will delay the first invocation of
         func by the specified number of seconds. A value of less than zero is ignored.
