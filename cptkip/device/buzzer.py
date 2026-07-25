@@ -75,7 +75,7 @@ class Buzzer:
 
     def update(self):
         """
-        Call to turn the buzzer off at the desired time internal.
+        Call to turn the buzzer off at the desired time interval.
         """
         now = time.monotonic_ns()
         if self.__playing and now >= self.__stop_time_ns:
@@ -83,7 +83,7 @@ class Buzzer:
 
             # Allow for a delay between beeps. It won't be playing but will have a stop time.
             if self.__beeps > 0:
-                self.__stop_time_ns += (0.1 * control.NS_PER_SECOND)
+                self.__stop_time_ns += int(0.1 * control.NS_PER_SECOND)
 
         if self.__beeps > 0 and now >= self.__stop_time_ns:
             self.beep()

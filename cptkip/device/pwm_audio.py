@@ -31,6 +31,9 @@ class Audio:
     """
 
     def __init__(self, pin):
+        """
+        :param pin: The pin to output audio on.
+        """
         if environment.are_pins_available() and pin is None:
             raise ValueError("pin cannot be None")
 
@@ -45,6 +48,9 @@ class Audio:
             self.decoder = decoder
 
     def deinit(self) -> None:
+        """
+        Releases the decoder and audio output. Safe to call multiple times.
+        """
         if self.audio:
             self.decoder.deinit()
             self.audio.deinit()
@@ -53,6 +59,11 @@ class Audio:
             self.pin = None
 
     def play(self, filename: str) -> None:
+        """
+        Plays the given MP3 file, interrupting anything currently playing.
+
+        :param filename: The MP3 file to play.
+        """
         if filename is None or len(filename) <= 0:
             raise ValueError("filename must be specified")
 
@@ -62,21 +73,36 @@ class Audio:
 
     @property
     def playing(self) -> bool:
+        """
+        Returns whether audio is currently playing.
+        """
         return self.audio.playing if self.audio else False
 
     @property
     def paused(self) -> bool:
+        """
+        Returns whether playback is currently paused.
+        """
         return self.audio.paused if self.audio else False
 
     def pause(self) -> None:
+        """
+        Pauses playback.
+        """
         if self.audio:
             self.audio.pause()
 
     def resume(self) -> None:
+        """
+        Resumes playback after a pause.
+        """
         if self.audio:
             self.audio.resume()
 
     def stop(self) -> None:
+        """
+        Stops playback.
+        """
         if self.audio:
             self.audio.stop()
 

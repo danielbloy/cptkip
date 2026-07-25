@@ -9,10 +9,22 @@ if environment.is_running_on_desktop():
 
 
 class Button:
+    """
+    Wraps an InputPin with adafruit_debouncer to provide debounced click,
+    multi-click and long-click callbacks. Call update() regularly (e.g. once
+    per main loop iteration) to poll the pin and fire the relevant callback.
+    """
+
     def __init__(self, pin: InputPin,
                  click: Callable[[], None] | None = None,
                  multi_click: Callable[[], None] | None = None,
                  long_click: Callable[[], None] | None = None):
+        """
+        :param pin:         The InputPin the button is connected to.
+        :param click:       Called on a single short press, if specified.
+        :param multi_click: Called on two or more short presses in quick succession, if specified.
+        :param long_click:  Called when the button is held down for a long press (2 seconds), if specified.
+        """
         if pin is None:
             raise ValueError("pin cannot be None")
 
@@ -25,6 +37,10 @@ class Button:
         self.button = DebounceButton(pin, long_duration_ms=2000, value_when_pressed=value_when_pressed)
 
     def update(self):
+        """
+        Polls the pin and fires click/multi_click/long_click as appropriate.
+        Call this regularly, e.g. once per main loop iteration.
+        """
         self.button.update()
 
         short_count = self.button.short_count

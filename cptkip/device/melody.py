@@ -174,16 +174,20 @@ class Melody:
 
 class MelodySequence:
     """
-    MelodySequence is intended to be used to play  multiple Melody instances one
+    MelodySequence is intended to be used to play multiple Melody instances one
     after the other. MelodySequence is a drop in replacement for Melody and provides
     the same public interface for pausing and resuming songs.
     """
 
     def __init__(self, *members: Melody, loop=True):
         """
-        MelodySequence is used to
+        MelodySequence is used to play the given Melody instances one after
+        the other, in the order given.
+
+        :param members: One or more Melody instances to play in sequence.
+        :param loop:    If true, the sequence restarts from the first melody after the last one finishes.
         """
-        if members is None or len(members) <= 0 or members[0] is None:
+        if len(members) <= 0 or members[0] is None:
             raise ValueError("members must be Melody objects")
 
         self._members = members
@@ -222,7 +226,7 @@ class MelodySequence:
 
     def previous(self):
         """
-        Jumps to the previous melody. Unlike previous, this ignores whether
+        Jumps to the previous melody. Unlike `next()`, this ignores whether
         looping is enabled or disabled.
         """
         current = self._current - 1
