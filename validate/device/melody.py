@@ -15,8 +15,8 @@ def execute():
         "E:2", "G:2", "C:2", "D:2", "E:8", "R:8"]
 
     melody_sequence = melody.MelodySequence(
-        melody.Melody(pin, melody.decode_melody(scale.split()), 120),
-        melody.Melody(pin, melody.decode_melody(tune)))
+        melody.Melody(pin, melody.decode_melody(scale.split()), 240),
+        melody.Melody(pin, melody.decode_melody(tune), 480))
 
     def task():
         melody_sequence.update()
