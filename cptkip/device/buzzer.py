@@ -18,22 +18,22 @@ class Buzzer:
         if not isinstance(buzzer, BuzzerPin):
             raise ValueError("buzzer must be of type BuzzerPin")
 
-        self.__buzzer = buzzer
-        self.__playing = False
-        self.__stop_time_ns = 0
-        self.__beeps = 0
+        self._buzzer = buzzer
+        self._playing = False
+        self._stop_time_ns = 0
+        self._beeps = 0
 
     @property
     def playing(self):
         """Is the buzzer playing or not"""
-        return self.__playing
+        return self._playing
 
     def beep(self) -> None:
         """Makes a beep."""
         if self.playing:
-            self.__beeps += 1
+            self._beeps += 1
         else:
-            self.__beeps = max(self.__beeps - 1, 0)
+            self._beeps = max(self._beeps - 1, 0)
             self.play(262, 0.3)
 
     def beeps(self, count: int) -> None:
@@ -46,7 +46,7 @@ class Buzzer:
             return
 
         self.beep()
-        self.__beeps += max(count - 1, 0)
+        self._beeps += max(count - 1, 0)
 
     def play(self, frequency: int, duration: float) -> None:
         """
@@ -58,32 +58,32 @@ class Buzzer:
         :param duration: The duration in seconds to play the tone for.
         """
         # Calculate the stop time.
-        self.__stop_time_ns = time.monotonic_ns() + int(duration * control.NS_PER_SECOND)
-        self.__playing = True
-        self.__buzzer.play(frequency)
+        self._stop_time_ns = time.monotonic_ns() + int(duration * control.NS_PER_SECOND)
+        self._playing = True
+        self._buzzer.play(frequency)
 
     def off(self) -> None:
         """
         Turns off the buzzer; cancelling and additional beeps.
         """
-        self.__beeps = 0
-        self.__off()
+        self._beeps = 0
+        self._off()
 
-    def __off(self) -> None:
-        self.__playing = False
-        self.__buzzer.off()
+    def _off(self) -> None:
+        self._playing = False
+        self._buzzer.off()
 
-    def update(self):
+    def update(self) -> None:
         """
         Call to turn the buzzer off at the desired time interval.
         """
         now = time.monotonic_ns()
-        if self.__playing and now >= self.__stop_time_ns:
-            self.__off()
+        if self._playing and now >= self._stop_time_ns:
+            self._off()
 
             # Allow for a delay between beeps. It won't be playing but will have a stop time.
-            if self.__beeps > 0:
-                self.__stop_time_ns += int(0.1 * control.NS_PER_SECOND)
+            if self._beeps > 0:
+                self._stop_time_ns += int(0.1 * control.NS_PER_SECOND)
 
-        if self.__beeps > 0 and now >= self.__stop_time_ns:
+        if self._beeps > 0 and now >= self._stop_time_ns:
             self.beep()
