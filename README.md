@@ -31,7 +31,7 @@ The structure of the project is arranged in the following modules (listed in ord
   and Python).
 * `pin` - provides an abstraction layer to support environments with no physical pins.
 * `device` - provides abstractions for hardware components.
-* `animation` - provides additional animations such as `Flicker`.
+* `animation` - provides additional animations, currently just `Flicker`.
 * `network` - provides network support.
 
 The packages and their dependencies are illustrated in the table below.
