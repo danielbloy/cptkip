@@ -1,13 +1,13 @@
 #
-# This example plays an MP3 audio file using the Audio and Queue classes.
+# This example plays an MP3 audio file using the PwmAudio and Queue classes.
 # A Button is used to add more "songs" to the queue as well as pause/unpause
-# the audio.
+# the audio. This example is almost identical to g_i2sß_audio.py.
 #
 import time
 
 import cptkip.config.configuration as config
 import cptkip.core.logging as log
-from cptkip.device.audio import PwmAudio, Queue
+from cptkip.device.audio import PwmAudio as Audio, Queue
 from cptkip.device.button import Button
 from cptkip.pin.input_pin import InputPin
 
@@ -15,7 +15,7 @@ log.set_log_level(log.INFO)
 
 AUDIO_FILE = "examples/lion.mp3"
 
-audio = PwmAudio(config.BUZZER_PIN)
+audio = Audio(config.BUZZER_PIN)
 queue = Queue(audio)
 
 
