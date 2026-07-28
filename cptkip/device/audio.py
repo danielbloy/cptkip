@@ -1,9 +1,3 @@
-# See the following sources for reference:
-#  * https://docs.circuitpython.org/en/latest/shared-bindings/audiopwmio/
-#  * https://docs.circuitpython.org/en/latest/shared-bindings/audiomp3/
-#  * https://learn.adafruit.com/circuitpython-essentials/circuitpython-audio-out
-#  * https://learn.adafruit.com/circuitpython-essentials/circuitpython-mp3-audio
-#
 import cptkip.core.environment as environment
 
 if environment.are_pins_available():
@@ -24,6 +18,11 @@ if environment.are_pins_available():
             pass  # not always supported by every board!
 
 
+# See the following sources for reference:
+#  * https://docs.circuitpython.org/en/latest/shared-bindings/audiopwmio/
+#  * https://docs.circuitpython.org/en/latest/shared-bindings/audiomp3/
+#  * https://learn.adafruit.com/circuitpython-essentials/circuitpython-audio-out
+#  * https://learn.adafruit.com/circuitpython-essentials/circuitpython-mp3-audio
 class PwmAudio:
     """
     Audio wraps up AudioOut and an MP3 Decoder to make it simpler to play
@@ -107,7 +106,11 @@ class PwmAudio:
             self.audio.stop()
 
 
-class I2SAudio:
+# See the following sources for reference:
+#  * https://docs.circuitpython.org/en/latest/shared-bindings/audiobusio/
+#  * https://learn.adafruit.com/mp3-playback-rp2040/pico-i2s-mp3
+#  * https://learn.adafruit.com/i2s-amplifier-bff/circuitpython
+class I2sAudio:
     pass
     # TODO: Implement
 
@@ -121,11 +124,11 @@ class Queue:
     clears the queue.
     """
 
-    def __init__(self, audio: PwmAudio | I2SAudio):
+    def __init__(self, audio: PwmAudio | I2sAudio):
         if audio is None:
             raise ValueError("audio cannot be None")
 
-        if not isinstance(audio, PwmAudio | I2SAudio):
+        if not isinstance(audio, PwmAudio | I2sAudio):
             raise ValueError("audio must be of type PwmAudio or I2SAudio")
 
         self._audio = audio
