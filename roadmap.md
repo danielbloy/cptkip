@@ -15,7 +15,6 @@ The following functionality is a priority to implement and is inspired by `pico-
 
 The following functionality is a priority to implement:
 
-* Support for I2S audio
 * Support for MEMS microphone
 
 ## Next
