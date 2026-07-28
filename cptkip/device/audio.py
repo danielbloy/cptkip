@@ -7,41 +7,17 @@ if environment.are_pins_available():
     except ImportError:
         pass
 
-    try:
-        # noinspection PyPackageRequirements
-        from audioio import AudioOut
-    except ImportError:
-        try:
-            # noinspection PyUnresolvedReferences
-            from audiopwmio import PWMAudioOut as AudioOut
-        except ImportError:
-            pass  # not always supported by every board!
 
+class Audio:
 
-# See the following sources for reference:
-#  * https://docs.circuitpython.org/en/latest/shared-bindings/audiopwmio/
-#  * https://docs.circuitpython.org/en/latest/shared-bindings/audiomp3/
-#  * https://learn.adafruit.com/circuitpython-essentials/circuitpython-audio-out
-#  * https://learn.adafruit.com/circuitpython-essentials/circuitpython-mp3-audio
-class PwmAudio:
-    """
-    Audio wraps up AudioOut and an MP3 Decoder to make it simpler to play
-    music. It is a relatively light wrapper buts saves some boilerplate.
-    """
-
-    def __init__(self, pin):
-        """
-        :param pin: The pin to output audio on.
-        """
-        if environment.are_pins_available() and pin is None:
-            raise ValueError("pin cannot be None")
-
-        self.pin = pin
-        self.audio = None
+    def __init__(self, audio):
+        self.audio = audio
         self.decoder = None
 
-        if environment.are_pins_available():
-            self.audio = AudioOut(pin)
+        if environment.are_pins_available() and audio is None:
+            raise ValueError("audio cannot be None")
+
+        if audio is not None:
             # You have to specify some mp3 file when creating the decoder
             decoder = MP3Decoder(open("cptkip/mp3.mp3", "rb"))
             self.decoder = decoder
@@ -107,10 +83,46 @@ class PwmAudio:
 
 
 # See the following sources for reference:
+#  * https://docs.circuitpython.org/en/latest/shared-bindings/audiopwmio/
+#  * https://docs.circuitpython.org/en/latest/shared-bindings/audiomp3/
+#  * https://learn.adafruit.com/circuitpython-essentials/circuitpython-audio-out
+#  * https://learn.adafruit.com/circuitpython-essentials/circuitpython-mp3-audio
+class PwmAudio(Audio):
+    """
+    Audio wraps up AudioOut and an MP3 Decoder to make it simpler to play
+    music. It is a relatively light wrapper buts saves some boilerplate.
+    """
+
+    def __init__(self, pin):
+        """
+        :param pin: The pin to output audio on.
+        """
+        if environment.are_pins_available() and pin is None:
+            raise ValueError("pin cannot be None")
+
+        audio = None
+
+        if environment.are_pins_available():
+            try:
+                # noinspection PyPackageRequirements
+                from audioio import AudioOut
+            except ImportError:
+                try:
+                    # noinspection PyUnresolvedReferences
+                    from audiopwmio import PWMAudioOut as AudioOut
+                except ImportError:
+                    pass  # not always supported by every board!
+
+            audio = AudioOut(pin)
+
+        super().__init__(audio)
+
+
+# See the following sources for reference:
 #  * https://docs.circuitpython.org/en/latest/shared-bindings/audiobusio/
 #  * https://learn.adafruit.com/mp3-playback-rp2040/pico-i2s-mp3
 #  * https://learn.adafruit.com/i2s-amplifier-bff/circuitpython
-class I2sAudio:
+class I2sAudio(Audio):
     pass
     # TODO: Implement
 
@@ -124,11 +136,11 @@ class Queue:
     clears the queue.
     """
 
-    def __init__(self, audio: PwmAudio | I2sAudio):
+    def __init__(self, audio: Audio):
         if audio is None:
             raise ValueError("audio cannot be None")
 
-        if not isinstance(audio, PwmAudio | I2sAudio):
+        if not isinstance(audio, Audio):
             raise ValueError("audio must be of type PwmAudio or I2SAudio")
 
         self._audio = audio
