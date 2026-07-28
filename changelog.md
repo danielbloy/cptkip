@@ -1,5 +1,10 @@
 # Changelog
 
+## Next
+
+Renamed `cptkip/device/pwm_audio.py` to `cptkip/device/audio.py` so it can contain the I2S audio too. This is a breaking
+change.
+
 ## 0.1.3 - Beta
 
 Used claude to do an analysis of the code base, making a small range of bug fixes and documentation updates whilst

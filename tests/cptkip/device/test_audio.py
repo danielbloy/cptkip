@@ -1,9 +1,9 @@
 import pytest
 
-from cptkip.device.pwm_audio import Audio, Queue
+from cptkip.device.audio import Audio, Queue
 
 
-class TestAudio:
+class TestPwmAudio:
     def test_play_validates_name(self) -> None:
         """Validates a name cannot be none or an empty string."""
         audio = Audio(1)

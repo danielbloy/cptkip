@@ -7,8 +7,8 @@ import time
 
 import cptkip.config.configuration as config
 import cptkip.core.logging as log
+from cptkip.device.audio import Audio, Queue
 from cptkip.device.button import Button
-from cptkip.device.pwm_audio import Audio, Queue
 from cptkip.pin.input_pin import InputPin
 
 log.set_log_level(log.INFO)

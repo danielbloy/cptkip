@@ -1,5 +1,5 @@
 import cptkip.config.configuration as config
-from cptkip.device.pwm_audio import Audio, Queue
+from cptkip.device.audio import Audio, Queue
 from validate.performance.task_runner import execute
 
 AUDIO_FILE = "examples/lion.mp3"

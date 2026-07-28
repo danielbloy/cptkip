@@ -1,6 +1,6 @@
 def execute():
     import cptkip.config.configuration as config
-    import cptkip.device.pwm_audio as pwm_audio
+    import cptkip.device.audio as pwm_audio
     import validate.utils as utils
 
     audio = pwm_audio.Audio(config.BUZZER_PIN if config.BUZZER_PIN else "none")
