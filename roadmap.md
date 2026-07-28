@@ -4,9 +4,7 @@
 
 The following functionality is a priority to implement and inspired by `pmpge`:
 
-* Improvements to loading configuration, specifically for device specific config
 * lightweight object hierarchy to control multiple devices
-* Continued evolement of the project structure with an improved validation process
 
 The following functionality is a priority to implement and is inspired by `pico-interactive`:
 
