@@ -3,7 +3,7 @@
 ## Next
 
 Renamed `cptkip/device/pwm_audio.py` to `cptkip/device/audio.py` so it can contain the I2S audio too. This is a breaking
-change.
+change. Added I2SAudio class as an alternative to PwmAudio.
 
 ## 0.1.3 - Beta
 

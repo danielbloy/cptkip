@@ -7,7 +7,7 @@ import time
 
 import cptkip.config.configuration as config
 import cptkip.core.logging as log
-from cptkip.device.audio import Audio, Queue
+from cptkip.device.audio import PwmAudio, Queue
 from cptkip.device.button import Button
 from cptkip.pin.input_pin import InputPin
 
@@ -15,7 +15,7 @@ log.set_log_level(log.INFO)
 
 AUDIO_FILE = "examples/lion.mp3"
 
-audio = Audio(config.BUZZER_PIN)
+audio = PwmAudio(config.BUZZER_PIN)
 queue = Queue(audio)
 
 

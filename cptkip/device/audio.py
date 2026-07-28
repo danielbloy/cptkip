@@ -24,7 +24,7 @@ if environment.are_pins_available():
             pass  # not always supported by every board!
 
 
-class Audio:
+class PwmAudio:
     """
     Audio wraps up AudioOut and an MP3 Decoder to make it simpler to play
     music. It is a relatively light wrapper buts saves some boilerplate.
@@ -107,6 +107,11 @@ class Audio:
             self.audio.stop()
 
 
+class I2SAudio:
+    pass
+    # TODO: Implement
+
+
 class Queue:
     """
     Queue is used to play MP3 audio files in a sequence. Queue allows
@@ -114,16 +119,14 @@ class Queue:
     played through the Audio instance. Basic controls to pause, resume and
     stop are provided along with a cancel option which stops the music and
     clears the queue.
-
-    Instances of this class will need to register() with a Runner in order to work.
     """
 
-    def __init__(self, audio: Audio):
+    def __init__(self, audio: PwmAudio | I2SAudio):
         if audio is None:
             raise ValueError("audio cannot be None")
 
-        if not isinstance(audio, Audio):
-            raise ValueError("audio must be of type Audio")
+        if not isinstance(audio, PwmAudio | I2SAudio):
+            raise ValueError("audio must be of type PwmAudio or I2SAudio")
 
         self._audio = audio
         self._queue = []
