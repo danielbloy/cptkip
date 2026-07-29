@@ -92,6 +92,7 @@ class Audio:
 #  * https://docs.circuitpython.org/en/latest/shared-bindings/audiomp3/
 #  * https://learn.adafruit.com/circuitpython-essentials/circuitpython-audio-out
 #  * https://learn.adafruit.com/circuitpython-essentials/circuitpython-mp3-audio
+# TODO: rename to pwm_audio
 def PwmAudio(pin):
     """
     Returns an Audio that uses a single pin to play music via PWM.
@@ -101,7 +102,7 @@ def PwmAudio(pin):
     if environment.are_pins_available() and pin is None:
         raise ValueError("pin cannot be None")
 
-    audio = None
+    audio_out = None
 
     if environment.are_pins_available():
         try:
@@ -114,18 +115,36 @@ def PwmAudio(pin):
             except ImportError:
                 pass  # not always supported by every board!
 
-        audio = AudioOut(pin)
+        audio_out = AudioOut(pin)
 
-    return Audio(audio)
+    return Audio(audio_out)
 
 
 # See the following sources for reference:
 #  * https://docs.circuitpython.org/en/latest/shared-bindings/audiobusio/
 #  * https://learn.adafruit.com/mp3-playback-rp2040/pico-i2s-mp3
 #  * https://learn.adafruit.com/i2s-amplifier-bff/circuitpython
-class I2sAudio(Audio):
-    pass
-    # audio_out = audiobusio.I2SOut(board.GP0, board.GP1, board.GP2)
+# TODO: rename to i2s_audio
+def I2sAudio(bit_clock, left_right_clock, data):
+    """
+    Returns an Audio that uses three pins to play music via PWM.
+    """
+    if environment.are_pins_available():
+        if bit_clock is None:
+            raise ValueError("bit_clock cannot be None")
+        if left_right_clock is None:
+            raise ValueError("left_right_clock cannot be None")
+        if data is None:
+            raise ValueError("data cannot be None")
+
+    audio_out = None
+
+    if environment.are_pins_available():
+        from audiobusio import I2SOut
+
+        audio_out = audiobusio.I2SOut(bit_clock, left_right_clock, data)
+
+    return Audio(audio_out)
 
 
 class Queue:

@@ -90,3 +90,11 @@ if environment.are_pins_available():
 
 if not BUZZER_PIN:
     print('No Buzzer found')
+
+################################################################################
+# I 2 S    A U D I O
+################################################################################
+# TODO: Do properly.
+I2S_BIT_CLOCK = board.GP0
+I2S_LEFT_RIGHT_CLOCK = board.GP1
+I2S_DATA = board.GP2
