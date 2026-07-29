@@ -9,15 +9,16 @@ TEST_STRING = "Hello world!"
 
 DEBUG = True
 
+if environment.are_pins_available():
+    # noinspection PyPackageRequirements
+    import board
+
 ################################################################################
 # L E D
 ################################################################################
 LED_PIN = None
 LED_INVERT = False
 if environment.are_pins_available():
-    # noinspection PyPackageRequirements
-    import board
-
     # Support using the LED pin from either a plain old Pi Pico board or a Pimoroni Tiny board.
     try:
         # noinspection PyUnresolvedReferences
@@ -41,9 +42,6 @@ if not LED_PIN:
 BUTTON_PIN = None
 BUTTON_PULLUP = True
 if environment.are_pins_available():
-    # noinspection PyPackageRequirements
-    import board
-
     # Support using the button from a Pimoroni Tiny board.
     try:
         # noinspection PyUnresolvedReferences
@@ -67,9 +65,6 @@ if not BUTTON_PIN:
 PIXELS_PIN = None
 
 if environment.are_pins_available():
-    # noinspection PyPackageRequirements
-    import board
-
     # noinspection PyUnresolvedReferences
     PIXELS_PIN = board.GP28
 
@@ -82,9 +77,6 @@ if not PIXELS_PIN:
 BUZZER_PIN = None
 
 if environment.are_pins_available():
-    # noinspection PyPackageRequirements
-    import board
-
     # noinspection PyUnresolvedReferences
     BUZZER_PIN = board.GP3
 
@@ -94,7 +86,14 @@ if not BUZZER_PIN:
 ################################################################################
 # I 2 S    A U D I O
 ################################################################################
-# TODO: Do properly.
-I2S_BIT_CLOCK = board.GP0
-I2S_LEFT_RIGHT_CLOCK = board.GP1
-I2S_DATA = board.GP2
+I2S_BIT_CLOCK = None
+I2S_LEFT_RIGHT_CLOCK = None
+I2S_DATA = None
+
+if environment.are_pins_available():
+    # noinspection unresolved-references
+    I2S_BIT_CLOCK = board.GP0
+    # noinspection unresolved-references
+    I2S_LEFT_RIGHT_CLOCK = board.GP1
+    # noinspection unresolved-references
+    I2S_DATA = board.GP2
