@@ -142,7 +142,7 @@ def I2sAudio(bit_clock, left_right_clock, data):
     if environment.are_pins_available():
         from audiobusio import I2SOut
 
-        audio_out = audiobusio.I2SOut(bit_clock, left_right_clock, data)
+        audio_out = I2SOut(bit_clock, left_right_clock, data)
 
     return Audio(audio_out)
 
