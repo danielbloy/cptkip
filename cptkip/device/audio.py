@@ -92,35 +92,31 @@ class Audio:
 #  * https://docs.circuitpython.org/en/latest/shared-bindings/audiomp3/
 #  * https://learn.adafruit.com/circuitpython-essentials/circuitpython-audio-out
 #  * https://learn.adafruit.com/circuitpython-essentials/circuitpython-mp3-audio
-class PwmAudio(Audio):
+def PwmAudio(pin):
     """
-    Audio wraps up AudioOut and an MP3 Decoder to make it simpler to play
-    music. It is a relatively light wrapper buts saves some boilerplate.
+    Returns an Audio that uses a single pin to play music via PWM.
+
+    :param pin: The pin to output audio on.
     """
+    if environment.are_pins_available() and pin is None:
+        raise ValueError("pin cannot be None")
 
-    def __init__(self, pin):
-        """
-        :param pin: The pin to output audio on.
-        """
-        if environment.are_pins_available() and pin is None:
-            raise ValueError("pin cannot be None")
+    audio = None
 
-        audio = None
-
-        if environment.are_pins_available():
+    if environment.are_pins_available():
+        try:
+            # noinspection PyPackageRequirements
+            from audioio import AudioOut
+        except ImportError:
             try:
-                # noinspection PyPackageRequirements
-                from audioio import AudioOut
+                # noinspection PyUnresolvedReferences
+                from audiopwmio import PWMAudioOut as AudioOut
             except ImportError:
-                try:
-                    # noinspection PyUnresolvedReferences
-                    from audiopwmio import PWMAudioOut as AudioOut
-                except ImportError:
-                    pass  # not always supported by every board!
+                pass  # not always supported by every board!
 
-            audio = AudioOut(pin)
+        audio = AudioOut(pin)
 
-        super().__init__(audio)
+    return Audio(audio)
 
 
 # See the following sources for reference:
