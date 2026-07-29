@@ -9,15 +9,20 @@ if environment.are_pins_available():
 
 
 class Audio:
+    """
+    Audio wraps an MP3 Decoder to make it simpler to play music. It is a relatively
+    light wrapper buts saves some boilerplate. It requires an audio_out to play the
+    music such as an AudioOut or I2SOut.
+    """
 
-    def __init__(self, audio):
-        self.audio = audio
+    def __init__(self, audio_out):
+        self.audio_out = audio_out
         self.decoder = None
 
-        if environment.are_pins_available() and audio is None:
+        if environment.are_pins_available() and audio_out is None:
             raise ValueError("audio cannot be None")
 
-        if audio is not None:
+        if audio_out is not None:
             # You have to specify some mp3 file when creating the decoder
             decoder = MP3Decoder(open("cptkip/mp3.mp3", "rb"))
             self.decoder = decoder
@@ -26,11 +31,11 @@ class Audio:
         """
         Releases the decoder and audio output. Safe to call multiple times.
         """
-        if self.audio:
+        if self.audio_out:
             self.decoder.deinit()
-            self.audio.deinit()
+            self.audio_out.deinit()
             self.decoder = None
-            self.audio = None
+            self.audio_out = None
             self.pin = None
 
     def play(self, filename: str) -> None:
@@ -42,44 +47,44 @@ class Audio:
         if filename is None or len(filename) <= 0:
             raise ValueError("filename must be specified")
 
-        if self.audio:
+        if self.audio_out:
             self.decoder.file = open(filename, "rb")
-            self.audio.play(self.decoder)
+            self.audio_out.play(self.decoder)
 
     @property
     def playing(self) -> bool:
         """
         Returns whether audio is currently playing.
         """
-        return self.audio.playing if self.audio else False
+        return self.audio_out.playing if self.audio_out else False
 
     @property
     def paused(self) -> bool:
         """
         Returns whether playback is currently paused.
         """
-        return self.audio.paused if self.audio else False
+        return self.audio_out.paused if self.audio_out else False
 
     def pause(self) -> None:
         """
         Pauses playback.
         """
-        if self.audio:
-            self.audio.pause()
+        if self.audio_out:
+            self.audio_out.pause()
 
     def resume(self) -> None:
         """
         Resumes playback after a pause.
         """
-        if self.audio:
-            self.audio.resume()
+        if self.audio_out:
+            self.audio_out.resume()
 
     def stop(self) -> None:
         """
         Stops playback.
         """
-        if self.audio:
-            self.audio.stop()
+        if self.audio_out:
+            self.audio_out.stop()
 
 
 # See the following sources for reference:
@@ -124,7 +129,7 @@ class PwmAudio(Audio):
 #  * https://learn.adafruit.com/i2s-amplifier-bff/circuitpython
 class I2sAudio(Audio):
     pass
-    # TODO: Implement
+    # audio_out = audiobusio.I2SOut(board.GP0, board.GP1, board.GP2)
 
 
 class Queue:

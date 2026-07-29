@@ -1,8 +1,9 @@
 import pytest
 
-from cptkip.device.audio import PwmAudio, Queue
+from cptkip.device.audio import PwmAudio, Queue, Audio
 
 
+# TODO: Rename to test audio and test audio.
 class TestPwmAudio:
     def test_play_validates_name(self) -> None:
         """Validates a name cannot be none or an empty string."""
@@ -60,11 +61,12 @@ class TestPwmAudio:
 
 
 # TODO: Test I2SAudio
+# TODO: Test PwmAudio
 
 
-class MockPwmAudio(PwmAudio):
+class MockAudio(Audio):
     def __init__(self):
-        super().__init__("pin")
+        super().__init__(None)
         self.playing_count = 0
         self.filename = ""
         self.files = []
@@ -135,7 +137,7 @@ class TestQueue:
         """
         Validates the Queue picks up a queued song and plays it.
         """
-        audio = MockPwmAudio()
+        audio = MockAudio()
         queue = Queue(audio)
 
         # queue a single song.
@@ -153,7 +155,7 @@ class TestQueue:
         Validates the Queue picks up multiple queued songs and
         plays them in order.
         """
-        audio = MockPwmAudio()
+        audio = MockAudio()
         queue = Queue(audio)
 
         # queue three songs.
@@ -176,7 +178,7 @@ class TestQueue:
         Validates the Queue correctly passes on controls such
         as pause, resume and stopped to Audio.
         """
-        audio = MockPwmAudio()
+        audio = MockAudio()
         queue = Queue(audio)
 
         # queue three songs.
