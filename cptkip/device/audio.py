@@ -144,6 +144,15 @@ def I2sAudio(bit_clock, left_right_clock, data) -> Audio:
         from audiobusio import I2SOut
         audio_out = I2SOut(bit_clock, left_right_clock, data)
 
+        import audiomixer
+        # Create mixer (use standard MP3 parameters: 1 channel/mono or 2 channels/stereo)
+        mixer = audiomixer.Mixer(voice_count=1, sample_rate=24000, channel_count=2,
+                                 bits_per_sample=16, samples_signed=True)
+
+        audio_out.play(mixer)
+        mixer.voice[0].level = 1.0
+        return Audio(mixer)
+
     return Audio(audio_out)
 
 
