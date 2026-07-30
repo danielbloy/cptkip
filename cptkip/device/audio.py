@@ -92,8 +92,8 @@ class Audio:
 #  * https://docs.circuitpython.org/en/latest/shared-bindings/audiomp3/
 #  * https://learn.adafruit.com/circuitpython-essentials/circuitpython-audio-out
 #  * https://learn.adafruit.com/circuitpython-essentials/circuitpython-mp3-audio
-# TODO: rename to pwm_audio
-def PwmAudio(pin):
+# noinspection pep8-naming
+def PwmAudio(pin) -> Audio:
     """
     Returns an Audio that uses a single pin to play music via PWM.
 
@@ -124,8 +124,8 @@ def PwmAudio(pin):
 #  * https://docs.circuitpython.org/en/latest/shared-bindings/audiobusio/
 #  * https://learn.adafruit.com/mp3-playback-rp2040/pico-i2s-mp3
 #  * https://learn.adafruit.com/i2s-amplifier-bff/circuitpython
-# TODO: rename to i2s_audio
-def I2sAudio(bit_clock, left_right_clock, data):
+# noinspection pep8-naming
+def I2sAudio(bit_clock, left_right_clock, data) -> Audio:
     """
     Returns an Audio that uses three pins to play music via PWM.
     """
