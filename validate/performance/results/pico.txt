@@ -29,7 +29,7 @@ soft reboot
 
 Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
 /validate/performance/c_logging_adafruit.py output:
-START ...... : Used: 1008 bytes, Free: 162576 bytes
+START ...... : Used: 1008 bytes, Free: 154384 bytes
 BEFORE GC .. : Used: 8736 bytes, Free: 154592 bytes
 AFTER GC ... : Used: 8736 bytes, Free: 154592 bytes
 
@@ -38,7 +38,7 @@ soft reboot
 
 Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
 /validate/performance/c_logging_cptkip.py output:
-START ...... : Used: 1472 bytes, Free: 162112 bytes
+START ...... : Used: 1472 bytes, Free: 153920 bytes
 Running on microcontroller. Pins are available.
 CRITICAL : This critical text will appear with log level info
 ERROR    : This error text will appear with log level info
@@ -51,7 +51,7 @@ soft reboot
 
 Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
 /validate/performance/d_memory.py output:
-START ...... : Used: 1024 bytes, Free: 162560 bytes
+START ...... : Used: 1024 bytes, Free: 154368 bytes
 Running on microcontroller. Pins are available.
 CRITICAL : Peak: 5168 bytes, Used: 5168 bytes, Free: 158160 bytes, Total: 163328 bytes
 CRITICAL : Peak: 5264 bytes, Used: 5264 bytes, Free: 158064 bytes, Total: 163328 bytes
@@ -64,7 +64,7 @@ soft reboot
 
 Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
 /validate/performance/e_configuration.py output:
-START ...... : Used: 1200 bytes, Free: 162384 bytes
+START ...... : Used: 1200 bytes, Free: 154192 bytes
 Running on microcontroller. Pins are available.
 Using LED
 Using GP27
@@ -73,15 +73,15 @@ No device file found.
 Test value ... : 123.456
 Test string .. : Hello world!
 Debug ........ : True
-BEFORE GC .. : Used: 5488 bytes, Free: 157840 bytes
-AFTER GC ... : Used: 5488 bytes, Free: 157840 bytes
+BEFORE GC .. : Used: 5232 bytes, Free: 158096 bytes
+AFTER GC ... : Used: 5232 bytes, Free: 158096 bytes
 
 Code done running.
 soft reboot
 
 Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
 /validate/performance/f_cpu.py output:
-START ...... : Used: 1024 bytes, Free: 162560 bytes
+START ...... : Used: 1024 bytes, Free: 154368 bytes
 Running on microcontroller. Pins are available.
 BEFORE GC .. : Used: 3280 bytes, Free: 160048 bytes
 AFTER GC ... : Used: 3232 bytes, Free: 160096 bytes
@@ -91,7 +91,7 @@ soft reboot
 
 Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
 /validate/performance/g_adafruit_asyncio.py output:
-START ...... : Used: 992 bytes, Free: 162592 bytes
+START ...... : Used: 992 bytes, Free: 154400 bytes
 BEFORE GC .. : Used: 8336 bytes, Free: 154992 bytes
 AFTER GC ... : Used: 8336 bytes, Free: 154992 bytes
 
@@ -102,18 +102,18 @@ Auto-reload is on. Simply save files over USB to run them or enter REPL to disab
 /validate/performance/h_basic_runner.py output:
 Running on microcontroller. Pins are available.
 START ...... : Used: 5024 bytes, Free: 158304 bytes
-CYCLES ..... : 15.6 K/s
+CYCLES ..... : 15.7 K/s
 BEFORE GC .. : Used: 5200 bytes, Free: 158128 bytes
 AFTER GC ... : Used: 5072 bytes, Free: 158256 bytes
 START ...... : Used: 5136 bytes, Free: 158192 bytes
 CRITICAL : Peak: 8000 bytes, Used: 8000 bytes, Free: 155328 bytes, Total: 163328 bytes
 CRITICAL : Peak: 15424 bytes, Used: 15424 bytes, Free: 147904 bytes, Total: 163328 bytes
-CRITICAL : Peak: 15616 bytes, Used: 15616 bytes, Free: 147712 bytes, Total: 163328 bytes
-CRITICAL : Peak: 15616 bytes, Used: 15616 bytes, Free: 147712 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15616 bytes, Used: 15424 bytes, Free: 147904 bytes, Total: 163328 bytes
 CRITICAL : Peak: 15616 bytes, Used: 15328 bytes, Free: 148000 bytes, Total: 163328 bytes
-CRITICAL : Peak: 15616 bytes, Used: 9968 bytes, Free: 153360 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15616 bytes, Used: 15136 bytes, Free: 148192 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15616 bytes, Used: 9872 bytes, Free: 153456 bytes, Total: 163328 bytes
 CYCLES ..... : 6.0 K/s
-BEFORE GC .. : Used: 10112 bytes, Free: 153216 bytes
+BEFORE GC .. : Used: 10016 bytes, Free: 153312 bytes
 AFTER GC ... : Used: 7936 bytes, Free: 155392 bytes
 
 Code done running.
@@ -124,14 +124,14 @@ Auto-reload is on. Simply save files over USB to run them or enter REPL to disab
 Running on microcontroller. Pins are available.
 START ...... : Used: 12832 bytes, Free: 149984 bytes
 CYCLES ..... : 1.7 K/s
-BEFORE GC .. : Used: 24688 bytes, Free: 138128 bytes
+BEFORE GC .. : Used: 24560 bytes, Free: 138256 bytes
 AFTER GC ... : Used: 14368 bytes, Free: 148448 bytes
 START ...... : Used: 14432 bytes, Free: 148384 bytes
 CRITICAL : Peak: 18144 bytes, Used: 18144 bytes, Free: 144672 bytes, Total: 162816 bytes
-CRITICAL : Peak: 31648 bytes, Used: 21920 bytes, Free: 140896 bytes, Total: 162816 bytes
-CRITICAL : Peak: 31648 bytes, Used: 26272 bytes, Free: 136544 bytes, Total: 162816 bytes
-CRITICAL : Peak: 31648 bytes, Used: 30432 bytes, Free: 132384 bytes, Total: 162816 bytes
-CRITICAL : Peak: 31648 bytes, Used: 20512 bytes, Free: 142304 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31648 bytes, Used: 21408 bytes, Free: 141408 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31648 bytes, Used: 25888 bytes, Free: 136928 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31648 bytes, Used: 30240 bytes, Free: 132576 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31648 bytes, Used: 20640 bytes, Free: 142176 bytes, Total: 162816 bytes
 CRITICAL : Peak: 31648 bytes, Used: 21904 bytes, Free: 140912 bytes, Total: 162816 bytes
 CYCLES ..... : 1.6 K/s
 BEFORE GC .. : Used: 22048 bytes, Free: 140768 bytes
@@ -155,30 +155,30 @@ task
 task
 task
 CYCLES ..... : 6.0 K/s
-BEFORE GC .. : Used: 7440 bytes, Free: 155888 bytes
+BEFORE GC .. : Used: 7728 bytes, Free: 155600 bytes
 AFTER GC ... : Used: 6240 bytes, Free: 157088 bytes
 START ...... : Used: 6304 bytes, Free: 157024 bytes
 CRITICAL : Peak: 10064 bytes, Used: 10064 bytes, Free: 153264 bytes, Total: 163328 bytes
 task
 task
 task
-CRITICAL : Peak: 15728 bytes, Used: 10256 bytes, Free: 153072 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15584 bytes, Used: 15584 bytes, Free: 147744 bytes, Total: 163328 bytes
 task
 task
 task
-CRITICAL : Peak: 15728 bytes, Used: 10992 bytes, Free: 152336 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15584 bytes, Used: 15072 bytes, Free: 148256 bytes, Total: 163328 bytes
 task
 task
 task
-CRITICAL : Peak: 15792 bytes, Used: 11888 bytes, Free: 151440 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15712 bytes, Used: 15072 bytes, Free: 148256 bytes, Total: 163328 bytes
 task
 task
 task
-CRITICAL : Peak: 15792 bytes, Used: 12272 bytes, Free: 151056 bytes, Total: 163328 bytes
-CRITICAL : Peak: 15792 bytes, Used: 11616 bytes, Free: 151712 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15712 bytes, Used: 15200 bytes, Free: 148128 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15712 bytes, Used: 14832 bytes, Free: 148496 bytes, Total: 163328 bytes
 CYCLES ..... : 3.9 K/s
-BEFORE GC .. : Used: 11760 bytes, Free: 151568 bytes
-AFTER GC ... : Used: 10032 bytes, Free: 153296 bytes
+BEFORE GC .. : Used: 14976 bytes, Free: 148352 bytes
+AFTER GC ... : Used: 10016 bytes, Free: 153312 bytes
 
 Code done running.
 soft reboot
@@ -202,23 +202,23 @@ BEFORE GC .. : Used: 23760 bytes, Free: 139056 bytes
 AFTER GC ... : Used: 15728 bytes, Free: 147088 bytes
 START ...... : Used: 15792 bytes, Free: 147024 bytes
 CRITICAL : Peak: 19360 bytes, Used: 19360 bytes, Free: 143456 bytes, Total: 162816 bytes
-CRITICAL : Peak: 31680 bytes, Used: 31680 bytes, Free: 131136 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31552 bytes, Used: 31552 bytes, Free: 131264 bytes, Total: 162816 bytes
 task
 task
 task
-task
-CRITICAL : Peak: 31680 bytes, Used: 19792 bytes, Free: 143024 bytes, Total: 162816 bytes
-task
-task
-task
-CRITICAL : Peak: 31680 bytes, Used: 19968 bytes, Free: 142848 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31712 bytes, Used: 31712 bytes, Free: 131104 bytes, Total: 162816 bytes
 task
 task
 task
-CRITICAL : Peak: 31680 bytes, Used: 20160 bytes, Free: 142656 bytes, Total: 162816 bytes
-CRITICAL : Peak: 31680 bytes, Used: 20688 bytes, Free: 142128 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31712 bytes, Used: 19600 bytes, Free: 143216 bytes, Total: 162816 bytes
+task
+task
+task
+CRITICAL : Peak: 31712 bytes, Used: 19632 bytes, Free: 143184 bytes, Total: 162816 bytes
+task
+CRITICAL : Peak: 31712 bytes, Used: 20560 bytes, Free: 142256 bytes, Total: 162816 bytes
 CYCLES ..... : 0.0 K/s
-BEFORE GC .. : Used: 20832 bytes, Free: 141984 bytes
+BEFORE GC .. : Used: 20704 bytes, Free: 142112 bytes
 AFTER GC ... : Used: 18656 bytes, Free: 144160 bytes
 
 Code done running.
@@ -231,20 +231,20 @@ Using LED
 Using GP27
 Config file loaded.
 No device file found.
-START ...... : Used: 7824 bytes, Free: 155504 bytes
+START ...... : Used: 8288 bytes, Free: 155040 bytes
 CYCLES ..... : 7.0 K/s
-BEFORE GC .. : Used: 8000 bytes, Free: 155328 bytes
-AFTER GC ... : Used: 7872 bytes, Free: 155456 bytes
-START ...... : Used: 7936 bytes, Free: 155392 bytes
-CRITICAL : Peak: 10864 bytes, Used: 10864 bytes, Free: 152464 bytes, Total: 163328 bytes
-CRITICAL : Peak: 15056 bytes, Used: 15056 bytes, Free: 148272 bytes, Total: 163328 bytes
-CRITICAL : Peak: 15440 bytes, Used: 14288 bytes, Free: 149040 bytes, Total: 163328 bytes
-CRITICAL : Peak: 15440 bytes, Used: 13136 bytes, Free: 150192 bytes, Total: 163328 bytes
-CRITICAL : Peak: 15824 bytes, Used: 12176 bytes, Free: 151152 bytes, Total: 163328 bytes
-CRITICAL : Peak: 15824 bytes, Used: 12576 bytes, Free: 150752 bytes, Total: 163328 bytes
-CYCLES ..... : 3.5 K/s
-BEFORE GC .. : Used: 12720 bytes, Free: 150608 bytes
-AFTER GC ... : Used: 10800 bytes, Free: 152528 bytes
+BEFORE GC .. : Used: 8464 bytes, Free: 154864 bytes
+AFTER GC ... : Used: 8336 bytes, Free: 154992 bytes
+START ...... : Used: 8400 bytes, Free: 154928 bytes
+CRITICAL : Peak: 11504 bytes, Used: 11504 bytes, Free: 151824 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15568 bytes, Used: 15184 bytes, Free: 148144 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15568 bytes, Used: 14128 bytes, Free: 149200 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15568 bytes, Used: 13072 bytes, Free: 150256 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15568 bytes, Used: 12112 bytes, Free: 151216 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15568 bytes, Used: 14336 bytes, Free: 148992 bytes, Total: 163328 bytes
+CYCLES ..... : 3.4 K/s
+BEFORE GC .. : Used: 14480 bytes, Free: 148848 bytes
+AFTER GC ... : Used: 11408 bytes, Free: 151920 bytes
 
 Code done running.
 soft reboot
@@ -256,20 +256,20 @@ Using LED
 Using GP27
 Config file loaded.
 No device file found.
-START ...... : Used: 7680 bytes, Free: 155648 bytes
-CYCLES ..... : 6.7 K/s
-BEFORE GC .. : Used: 7856 bytes, Free: 155472 bytes
-AFTER GC ... : Used: 7728 bytes, Free: 155600 bytes
-START ...... : Used: 7792 bytes, Free: 155536 bytes
-CRITICAL : Peak: 10720 bytes, Used: 10720 bytes, Free: 152608 bytes, Total: 163328 bytes
-CRITICAL : Peak: 15008 bytes, Used: 11648 bytes, Free: 151680 bytes, Total: 163328 bytes
-CRITICAL : Peak: 15488 bytes, Used: 12800 bytes, Free: 150528 bytes, Total: 163328 bytes
-CRITICAL : Peak: 15584 bytes, Used: 13760 bytes, Free: 149568 bytes, Total: 163328 bytes
-CRITICAL : Peak: 15776 bytes, Used: 14528 bytes, Free: 148800 bytes, Total: 163328 bytes
-CRITICAL : Peak: 15872 bytes, Used: 13584 bytes, Free: 149744 bytes, Total: 163328 bytes
-CYCLES ..... : 3.3 K/s
-BEFORE GC .. : Used: 13728 bytes, Free: 149600 bytes
-AFTER GC ... : Used: 10656 bytes, Free: 152672 bytes
+START ...... : Used: 8208 bytes, Free: 155120 bytes
+CYCLES ..... : 8.3 K/s
+BEFORE GC .. : Used: 8384 bytes, Free: 154944 bytes
+AFTER GC ... : Used: 8256 bytes, Free: 155072 bytes
+START ...... : Used: 8320 bytes, Free: 155008 bytes
+CRITICAL : Peak: 11440 bytes, Used: 11440 bytes, Free: 151888 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15664 bytes, Used: 12400 bytes, Free: 150928 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15664 bytes, Used: 14064 bytes, Free: 149264 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15856 bytes, Used: 15856 bytes, Free: 147472 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15856 bytes, Used: 12688 bytes, Free: 150640 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15856 bytes, Used: 11456 bytes, Free: 151872 bytes, Total: 163328 bytes
+CYCLES ..... : 3.8 K/s
+BEFORE GC .. : Used: 11600 bytes, Free: 151728 bytes
+AFTER GC ... : Used: 11344 bytes, Free: 151984 bytes
 
 Code done running.
 soft reboot
@@ -281,20 +281,20 @@ Using LED
 Using GP27
 Config file loaded.
 No device file found.
-START ...... : Used: 7856 bytes, Free: 155472 bytes
-CYCLES ..... : 4.7 K/s
-BEFORE GC .. : Used: 8032 bytes, Free: 155296 bytes
-AFTER GC ... : Used: 7904 bytes, Free: 155424 bytes
 START ...... : Used: 7968 bytes, Free: 155360 bytes
-CRITICAL : Peak: 10928 bytes, Used: 10928 bytes, Free: 152400 bytes, Total: 163328 bytes
-CRITICAL : Peak: 15392 bytes, Used: 11072 bytes, Free: 152256 bytes, Total: 163328 bytes
-CRITICAL : Peak: 15584 bytes, Used: 11264 bytes, Free: 152064 bytes, Total: 163328 bytes
-CRITICAL : Peak: 15872 bytes, Used: 11360 bytes, Free: 151968 bytes, Total: 163328 bytes
-CRITICAL : Peak: 15872 bytes, Used: 11456 bytes, Free: 151872 bytes, Total: 163328 bytes
-CRITICAL : Peak: 15872 bytes, Used: 12240 bytes, Free: 151088 bytes, Total: 163328 bytes
+CYCLES ..... : 4.7 K/s
+BEFORE GC .. : Used: 8144 bytes, Free: 155184 bytes
+AFTER GC ... : Used: 8016 bytes, Free: 155312 bytes
+START ...... : Used: 8080 bytes, Free: 155248 bytes
+CRITICAL : Peak: 11232 bytes, Used: 11232 bytes, Free: 152096 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15680 bytes, Used: 11552 bytes, Free: 151776 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15680 bytes, Used: 15392 bytes, Free: 147936 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15872 bytes, Used: 14240 bytes, Free: 149088 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15872 bytes, Used: 13088 bytes, Free: 150240 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15872 bytes, Used: 14736 bytes, Free: 148592 bytes, Total: 163328 bytes
 CYCLES ..... : 2.5 K/s
-BEFORE GC .. : Used: 12384 bytes, Free: 150944 bytes
-AFTER GC ... : Used: 10848 bytes, Free: 152480 bytes
+BEFORE GC .. : Used: 14880 bytes, Free: 148448 bytes
+AFTER GC ... : Used: 11136 bytes, Free: 152192 bytes
 
 Code done running.
 soft reboot
@@ -306,20 +306,20 @@ Using LED
 Using GP27
 Config file loaded.
 No device file found.
-START ...... : Used: 8656 bytes, Free: 154672 bytes
-CYCLES ..... : 12.0 K/s
-BEFORE GC .. : Used: 14288 bytes, Free: 149040 bytes
-AFTER GC ... : Used: 8704 bytes, Free: 154624 bytes
 START ...... : Used: 8800 bytes, Free: 154528 bytes
-CRITICAL : Peak: 11696 bytes, Used: 11696 bytes, Free: 151632 bytes, Total: 163328 bytes
-CRITICAL : Peak: 15664 bytes, Used: 14832 bytes, Free: 148496 bytes, Total: 163328 bytes
-CRITICAL : Peak: 15664 bytes, Used: 13616 bytes, Free: 149712 bytes, Total: 163328 bytes
-CRITICAL : Peak: 15856 bytes, Used: 11888 bytes, Free: 151440 bytes, Total: 163328 bytes
-CRITICAL : Peak: 15856 bytes, Used: 15280 bytes, Free: 148048 bytes, Total: 163328 bytes
-CRITICAL : Peak: 15856 bytes, Used: 15424 bytes, Free: 147904 bytes, Total: 163328 bytes
+CYCLES ..... : 12.0 K/s
+BEFORE GC .. : Used: 14656 bytes, Free: 148672 bytes
+AFTER GC ... : Used: 8848 bytes, Free: 154480 bytes
+START ...... : Used: 8944 bytes, Free: 154384 bytes
+CRITICAL : Peak: 11840 bytes, Used: 11840 bytes, Free: 151488 bytes, Total: 163328 bytes
+CRITICAL : Peak: 14048 bytes, Used: 12704 bytes, Free: 150624 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15072 bytes, Used: 15072 bytes, Free: 148256 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15072 bytes, Used: 12256 bytes, Free: 151072 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15232 bytes, Used: 13920 bytes, Free: 149408 bytes, Total: 163328 bytes
+CRITICAL : Peak: 15232 bytes, Used: 13712 bytes, Free: 149616 bytes, Total: 163328 bytes
 CYCLES ..... : 4.6 K/s
-BEFORE GC .. : Used: 15568 bytes, Free: 147760 bytes
-AFTER GC ... : Used: 11600 bytes, Free: 151728 bytes
+BEFORE GC .. : Used: 13856 bytes, Free: 149472 bytes
+AFTER GC ... : Used: 11744 bytes, Free: 151584 bytes
 
 Code done running.
 soft reboot
@@ -331,20 +331,20 @@ Using LED
 Using GP27
 Config file loaded.
 No device file found.
-START ...... : Used: 13648 bytes, Free: 149168 bytes
-CYCLES ..... : 1.2 K/s
-BEFORE GC .. : Used: 13824 bytes, Free: 148992 bytes
-AFTER GC ... : Used: 13696 bytes, Free: 149120 bytes
-START ...... : Used: 13760 bytes, Free: 149056 bytes
-CRITICAL : Peak: 15712 bytes, Used: 15712 bytes, Free: 147104 bytes, Total: 162816 bytes
-CRITICAL : Peak: 30976 bytes, Used: 29920 bytes, Free: 132896 bytes, Total: 162816 bytes
-CRITICAL : Peak: 30976 bytes, Used: 28000 bytes, Free: 134816 bytes, Total: 162816 bytes
-CRITICAL : Peak: 31552 bytes, Used: 26080 bytes, Free: 136736 bytes, Total: 162816 bytes
-CRITICAL : Peak: 31552 bytes, Used: 24160 bytes, Free: 138656 bytes, Total: 162816 bytes
-CRITICAL : Peak: 31552 bytes, Used: 28304 bytes, Free: 134512 bytes, Total: 162816 bytes
-CYCLES ..... : 0.9 K/s
-BEFORE GC .. : Used: 28448 bytes, Free: 134368 bytes
-AFTER GC ... : Used: 15632 bytes, Free: 147184 bytes
+START ...... : Used: 13808 bytes, Free: 149008 bytes
+CYCLES ..... : 1.3 K/s
+BEFORE GC .. : Used: 13984 bytes, Free: 148832 bytes
+AFTER GC ... : Used: 13856 bytes, Free: 148960 bytes
+START ...... : Used: 13920 bytes, Free: 148896 bytes
+CRITICAL : Peak: 15856 bytes, Used: 15856 bytes, Free: 146960 bytes, Total: 162816 bytes
+CRITICAL : Peak: 29936 bytes, Used: 20112 bytes, Free: 142704 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31376 bytes, Used: 24336 bytes, Free: 138480 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31376 bytes, Used: 28656 bytes, Free: 134160 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31376 bytes, Used: 16976 bytes, Free: 145840 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31376 bytes, Used: 21504 bytes, Free: 141312 bytes, Total: 162816 bytes
+CYCLES ..... : 1.0 K/s
+BEFORE GC .. : Used: 21648 bytes, Free: 141168 bytes
+AFTER GC ... : Used: 15792 bytes, Free: 147024 bytes
 
 Code done running.
 soft reboot
@@ -356,20 +356,20 @@ Using LED
 Using GP27
 Config file loaded.
 No device file found.
-START ...... : Used: 11536 bytes, Free: 151280 bytes
-CYCLES ..... : 3.5 K/s
-BEFORE GC .. : Used: 11712 bytes, Free: 151104 bytes
-AFTER GC ... : Used: 11584 bytes, Free: 151232 bytes
-START ...... : Used: 11648 bytes, Free: 151168 bytes
-CRITICAL : Peak: 13584 bytes, Used: 13584 bytes, Free: 149232 bytes, Total: 162816 bytes
-CRITICAL : Peak: 30768 bytes, Used: 24656 bytes, Free: 138160 bytes, Total: 162816 bytes
-CRITICAL : Peak: 30768 bytes, Used: 17264 bytes, Free: 145552 bytes, Total: 162816 bytes
-CRITICAL : Peak: 31440 bytes, Used: 28560 bytes, Free: 134256 bytes, Total: 162816 bytes
-CRITICAL : Peak: 31440 bytes, Used: 20976 bytes, Free: 141840 bytes, Total: 162816 bytes
-CRITICAL : Peak: 31440 bytes, Used: 28864 bytes, Free: 133952 bytes, Total: 162816 bytes
-CYCLES ..... : 1.8 K/s
-BEFORE GC .. : Used: 29008 bytes, Free: 133808 bytes
-AFTER GC ... : Used: 13488 bytes, Free: 149328 bytes
+START ...... : Used: 11472 bytes, Free: 151344 bytes
+CYCLES ..... : 2.7 K/s
+BEFORE GC .. : Used: 11648 bytes, Free: 151168 bytes
+AFTER GC ... : Used: 11520 bytes, Free: 151296 bytes
+START ...... : Used: 11584 bytes, Free: 151232 bytes
+CRITICAL : Peak: 13616 bytes, Used: 13616 bytes, Free: 149200 bytes, Total: 162816 bytes
+CRITICAL : Peak: 30416 bytes, Used: 25040 bytes, Free: 137776 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31472 bytes, Used: 18320 bytes, Free: 144496 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31472 bytes, Used: 29936 bytes, Free: 132880 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31472 bytes, Used: 23216 bytes, Free: 139600 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31472 bytes, Used: 30144 bytes, Free: 132672 bytes, Total: 162816 bytes
+CYCLES ..... : 1.6 K/s
+BEFORE GC .. : Used: 30288 bytes, Free: 132528 bytes
+AFTER GC ... : Used: 13520 bytes, Free: 149296 bytes
 
 Code done running.
 soft reboot
@@ -381,20 +381,20 @@ Using LED
 Using GP27
 Config file loaded.
 No device file found.
-START ...... : Used: 10320 bytes, Free: 153008 bytes
-CYCLES ..... : 12.5 K/s
-BEFORE GC .. : Used: 11536 bytes, Free: 151792 bytes
-AFTER GC ... : Used: 10400 bytes, Free: 152928 bytes
-START ...... : Used: 10464 bytes, Free: 152864 bytes
-CRITICAL : Peak: 12384 bytes, Used: 12384 bytes, Free: 150944 bytes, Total: 163328 bytes
-CRITICAL : Peak: 14912 bytes, Used: 14912 bytes, Free: 148416 bytes, Total: 163328 bytes
-CRITICAL : Peak: 15392 bytes, Used: 14336 bytes, Free: 148992 bytes, Total: 163328 bytes
-CRITICAL : Peak: 15584 bytes, Used: 13152 bytes, Free: 150176 bytes, Total: 163328 bytes
-CRITICAL : Peak: 15584 bytes, Used: 12512 bytes, Free: 150816 bytes, Total: 163328 bytes
-CRITICAL : Peak: 15584 bytes, Used: 12528 bytes, Free: 150800 bytes, Total: 163328 bytes
-CYCLES ..... : 4.7 K/s
-BEFORE GC .. : Used: 12672 bytes, Free: 150656 bytes
-AFTER GC ... : Used: 12288 bytes, Free: 151040 bytes
+START ...... : Used: 10480 bytes, Free: 152848 bytes
+CYCLES ..... : 9.9 K/s
+BEFORE GC .. : Used: 11824 bytes, Free: 151504 bytes
+AFTER GC ... : Used: 10560 bytes, Free: 152768 bytes
+START ...... : Used: 10624 bytes, Free: 152704 bytes
+CRITICAL : Peak: 12640 bytes, Used: 12640 bytes, Free: 150176 bytes, Total: 162816 bytes
+CRITICAL : Peak: 30320 bytes, Used: 30192 bytes, Free: 132624 bytes, Total: 162816 bytes
+CRITICAL : Peak: 30384 bytes, Used: 28272 bytes, Free: 134544 bytes, Total: 162816 bytes
+CRITICAL : Peak: 30384 bytes, Used: 26352 bytes, Free: 136464 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31280 bytes, Used: 24336 bytes, Free: 138480 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31280 bytes, Used: 23936 bytes, Free: 138880 bytes, Total: 162816 bytes
+CYCLES ..... : 4.3 K/s
+BEFORE GC .. : Used: 24080 bytes, Free: 138736 bytes
+AFTER GC ... : Used: 12560 bytes, Free: 150256 bytes
 
 Code done running.
 soft reboot
@@ -406,20 +406,20 @@ Using LED
 Using GP27
 Config file loaded.
 No device file found.
-START ...... : Used: 10800 bytes, Free: 152528 bytes
-CYCLES ..... : 6.2 K/s
-BEFORE GC .. : Used: 13792 bytes, Free: 149536 bytes
-AFTER GC ... : Used: 10928 bytes, Free: 152400 bytes
-START ...... : Used: 10992 bytes, Free: 152336 bytes
-CRITICAL : Peak: 12640 bytes, Used: 12640 bytes, Free: 150176 bytes, Total: 162816 bytes
-CRITICAL : Peak: 30448 bytes, Used: 17840 bytes, Free: 144976 bytes, Total: 162816 bytes
-CRITICAL : Peak: 30576 bytes, Used: 23024 bytes, Free: 139792 bytes, Total: 162816 bytes
-CRITICAL : Peak: 30576 bytes, Used: 28208 bytes, Free: 134608 bytes, Total: 162816 bytes
-CRITICAL : Peak: 30832 bytes, Used: 13104 bytes, Free: 149712 bytes, Total: 162816 bytes
-CRITICAL : Peak: 30832 bytes, Used: 14912 bytes, Free: 147904 bytes, Total: 162816 bytes
+START ...... : Used: 10912 bytes, Free: 152416 bytes
+CYCLES ..... : 6.0 K/s
+BEFORE GC .. : Used: 13840 bytes, Free: 149488 bytes
+AFTER GC ... : Used: 11040 bytes, Free: 152288 bytes
+START ...... : Used: 11104 bytes, Free: 152224 bytes
+CRITICAL : Peak: 12784 bytes, Used: 12784 bytes, Free: 150032 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31440 bytes, Used: 16336 bytes, Free: 146480 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31440 bytes, Used: 20048 bytes, Free: 142768 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31440 bytes, Used: 23504 bytes, Free: 139312 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31440 bytes, Used: 26960 bytes, Free: 135856 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31440 bytes, Used: 28416 bytes, Free: 134400 bytes, Total: 162816 bytes
 CYCLES ..... : 3.6 K/s
-BEFORE GC .. : Used: 15056 bytes, Free: 147760 bytes
-AFTER GC ... : Used: 12592 bytes, Free: 150224 bytes
+BEFORE GC .. : Used: 28560 bytes, Free: 134256 bytes
+AFTER GC ... : Used: 12752 bytes, Free: 150064 bytes
 
 Code done running.
 soft reboot
@@ -431,20 +431,20 @@ Using LED
 Using GP27
 Config file loaded.
 No device file found.
-START ...... : Used: 15920 bytes, Free: 145872 bytes
-CYCLES ..... : 3.6 K/s
-BEFORE GC .. : Used: 59696 bytes, Free: 102096 bytes
-AFTER GC ... : Used: 16000 bytes, Free: 145792 bytes
-START ...... : Used: 16064 bytes, Free: 145728 bytes
-CRITICAL : Peak: 17728 bytes, Used: 17728 bytes, Free: 144064 bytes, Total: 161792 bytes
-CRITICAL : Peak: 59168 bytes, Used: 59168 bytes, Free: 102624 bytes, Total: 161792 bytes
-CRITICAL : Peak: 63200 bytes, Used: 53920 bytes, Free: 107872 bytes, Total: 161792 bytes
-CRITICAL : Peak: 63200 bytes, Used: 48736 bytes, Free: 113056 bytes, Total: 161792 bytes
-CRITICAL : Peak: 63200 bytes, Used: 43968 bytes, Free: 117824 bytes, Total: 161792 bytes
-CRITICAL : Peak: 63200 bytes, Used: 57136 bytes, Free: 104656 bytes, Total: 161792 bytes
-CYCLES ..... : 2.4 K/s
-BEFORE GC .. : Used: 57280 bytes, Free: 104512 bytes
-AFTER GC ... : Used: 17632 bytes, Free: 144160 bytes
+START ...... : Used: 15984 bytes, Free: 145808 bytes
+CYCLES ..... : 3.7 K/s
+BEFORE GC .. : Used: 24144 bytes, Free: 137648 bytes
+AFTER GC ... : Used: 16064 bytes, Free: 145728 bytes
+START ...... : Used: 16128 bytes, Free: 145664 bytes
+CRITICAL : Peak: 17808 bytes, Used: 17808 bytes, Free: 143984 bytes, Total: 161792 bytes
+CRITICAL : Peak: 60432 bytes, Used: 19120 bytes, Free: 142672 bytes, Total: 161792 bytes
+CRITICAL : Peak: 60432 bytes, Used: 20784 bytes, Free: 141008 bytes, Total: 161792 bytes
+CRITICAL : Peak: 60688 bytes, Used: 22480 bytes, Free: 139312 bytes, Total: 161792 bytes
+CRITICAL : Peak: 63440 bytes, Used: 24496 bytes, Free: 137296 bytes, Total: 161792 bytes
+CRITICAL : Peak: 63440 bytes, Used: 38208 bytes, Free: 123584 bytes, Total: 161792 bytes
+CYCLES ..... : 2.5 K/s
+BEFORE GC .. : Used: 38352 bytes, Free: 123440 bytes
+AFTER GC ... : Used: 17744 bytes, Free: 144048 bytes
 
 Code done running.
 soft reboot
@@ -456,20 +456,45 @@ Using LED
 Using GP27
 Config file loaded.
 No device file found.
-START ...... : Used: 44640 bytes, Free: 117152 bytes
+START ...... : Used: 46096 bytes, Free: 115696 bytes
 CYCLES ..... : 2.6 K/s
-BEFORE GC .. : Used: 49616 bytes, Free: 112176 bytes
-AFTER GC ... : Used: 49296 bytes, Free: 112496 bytes
-START ...... : Used: 49360 bytes, Free: 112432 bytes
-CRITICAL : Peak: 52224 bytes, Used: 52224 bytes, Free: 109568 bytes, Total: 161792 bytes
-CRITICAL : Peak: 63136 bytes, Used: 63136 bytes, Free: 98656 bytes, Total: 161792 bytes
-CRITICAL : Peak: 63136 bytes, Used: 59168 bytes, Free: 102624 bytes, Total: 161792 bytes
-CRITICAL : Peak: 63392 bytes, Used: 58144 bytes, Free: 103648 bytes, Total: 161792 bytes
-CRITICAL : Peak: 63392 bytes, Used: 54752 bytes, Free: 107040 bytes, Total: 161792 bytes
-CRITICAL : Peak: 63392 bytes, Used: 58416 bytes, Free: 103376 bytes, Total: 161792 bytes
+BEFORE GC .. : Used: 51072 bytes, Free: 110720 bytes
+AFTER GC ... : Used: 50752 bytes, Free: 111040 bytes
+START ...... : Used: 50816 bytes, Free: 110976 bytes
+CRITICAL : Peak: 52752 bytes, Used: 52752 bytes, Free: 109040 bytes, Total: 161792 bytes
+CRITICAL : Peak: 63376 bytes, Used: 55280 bytes, Free: 106512 bytes, Total: 161792 bytes
+CRITICAL : Peak: 63376 bytes, Used: 54896 bytes, Free: 106896 bytes, Total: 161792 bytes
+CRITICAL : Peak: 63376 bytes, Used: 58928 bytes, Free: 102864 bytes, Total: 161792 bytes
+CRITICAL : Peak: 63376 bytes, Used: 59504 bytes, Free: 102288 bytes, Total: 161792 bytes
+CRITICAL : Peak: 63376 bytes, Used: 63264 bytes, Free: 98528 bytes, Total: 161792 bytes
 CYCLES ..... : 1.0 K/s
-BEFORE GC .. : Used: 58560 bytes, Free: 103232 bytes
-AFTER GC ... : Used: 52160 bytes, Free: 109632 bytes
+BEFORE GC .. : Used: 63408 bytes, Free: 98384 bytes
+AFTER GC ... : Used: 52656 bytes, Free: 109136 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/n_i2s_audio.py output:
+Running on microcontroller. Pins are available.
+Using LED
+Using GP27
+Config file loaded.
+No device file found.
+START ...... : Used: 46464 bytes, Free: 115328 bytes
+CYCLES ..... : 2.4 K/s
+BEFORE GC .. : Used: 51440 bytes, Free: 110352 bytes
+AFTER GC ... : Used: 51120 bytes, Free: 110672 bytes
+START ...... : Used: 51184 bytes, Free: 110608 bytes
+CRITICAL : Peak: 53328 bytes, Used: 53328 bytes, Free: 108464 bytes, Total: 161792 bytes
+CRITICAL : Peak: 59616 bytes, Used: 59616 bytes, Free: 102176 bytes, Total: 161792 bytes
+CRITICAL : Peak: 63456 bytes, Used: 53472 bytes, Free: 108320 bytes, Total: 161792 bytes
+CRITICAL : Peak: 63456 bytes, Used: 59040 bytes, Free: 102752 bytes, Total: 161792 bytes
+CRITICAL : Peak: 63456 bytes, Used: 53472 bytes, Free: 108320 bytes, Total: 161792 bytes
+CRITICAL : Peak: 63456 bytes, Used: 56272 bytes, Free: 105520 bytes, Total: 161792 bytes
+CYCLES ..... : 1.0 K/s
+BEFORE GC .. : Used: 56416 bytes, Free: 105376 bytes
+AFTER GC ... : Used: 53216 bytes, Free: 108576 bytes
 
 Code done running.
 soft reboot
@@ -481,20 +506,20 @@ Using LED
 Using GP27
 Config file loaded.
 No device file found.
-START ...... : Used: 17040 bytes, Free: 145776 bytes
-CYCLES ..... : 5.3 K/s
-BEFORE GC .. : Used: 22416 bytes, Free: 140400 bytes
-AFTER GC ... : Used: 17088 bytes, Free: 145728 bytes
-START ...... : Used: 17152 bytes, Free: 145664 bytes
-CRITICAL : Peak: 19104 bytes, Used: 19104 bytes, Free: 143712 bytes, Total: 162816 bytes
-CRITICAL : Peak: 30320 bytes, Used: 25056 bytes, Free: 137760 bytes, Total: 162816 bytes
-CRITICAL : Peak: 30320 bytes, Used: 19168 bytes, Free: 143648 bytes, Total: 162816 bytes
-CRITICAL : Peak: 31616 bytes, Used: 25088 bytes, Free: 137728 bytes, Total: 162816 bytes
-CRITICAL : Peak: 31616 bytes, Used: 19168 bytes, Free: 143648 bytes, Total: 162816 bytes
-CRITICAL : Peak: 31616 bytes, Used: 28480 bytes, Free: 134336 bytes, Total: 162816 bytes
-CYCLES ..... : 3.1 K/s
-BEFORE GC .. : Used: 28624 bytes, Free: 134192 bytes
-AFTER GC ... : Used: 19040 bytes, Free: 143776 bytes
+START ...... : Used: 17168 bytes, Free: 145648 bytes
+CYCLES ..... : 4.5 K/s
+BEFORE GC .. : Used: 28560 bytes, Free: 134256 bytes
+AFTER GC ... : Used: 17216 bytes, Free: 145600 bytes
+START ...... : Used: 17280 bytes, Free: 145536 bytes
+CRITICAL : Peak: 19232 bytes, Used: 19232 bytes, Free: 143584 bytes, Total: 162816 bytes
+CRITICAL : Peak: 29184 bytes, Used: 21824 bytes, Free: 140992 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31584 bytes, Used: 24544 bytes, Free: 138272 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31584 bytes, Used: 27584 bytes, Free: 135232 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31584 bytes, Used: 30304 bytes, Free: 132512 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31584 bytes, Used: 24304 bytes, Free: 138512 bytes, Total: 162816 bytes
+CYCLES ..... : 2.7 K/s
+BEFORE GC .. : Used: 24448 bytes, Free: 138368 bytes
+AFTER GC ... : Used: 19168 bytes, Free: 143648 bytes
 
 Code done running.
 soft reboot
@@ -506,20 +531,20 @@ Using LED
 Using GP27
 Config file loaded.
 No device file found.
-START ...... : Used: 15456 bytes, Free: 147360 bytes
-CYCLES ..... : 5.4 K/s
-BEFORE GC .. : Used: 15968 bytes, Free: 146848 bytes
-AFTER GC ... : Used: 15504 bytes, Free: 147312 bytes
-START ...... : Used: 15568 bytes, Free: 147248 bytes
-CRITICAL : Peak: 17488 bytes, Used: 17488 bytes, Free: 145328 bytes, Total: 162816 bytes
-CRITICAL : Peak: 30224 bytes, Used: 29200 bytes, Free: 133616 bytes, Total: 162816 bytes
-CRITICAL : Peak: 30224 bytes, Used: 25680 bytes, Free: 137136 bytes, Total: 162816 bytes
-CRITICAL : Peak: 30480 bytes, Used: 22160 bytes, Free: 140656 bytes, Total: 162816 bytes
-CRITICAL : Peak: 30640 bytes, Used: 18320 bytes, Free: 144496 bytes, Total: 162816 bytes
-CRITICAL : Peak: 30640 bytes, Used: 26688 bytes, Free: 136128 bytes, Total: 162816 bytes
-CYCLES ..... : 3.2 K/s
-BEFORE GC .. : Used: 26832 bytes, Free: 135984 bytes
-AFTER GC ... : Used: 17424 bytes, Free: 145392 bytes
+START ...... : Used: 15680 bytes, Free: 147136 bytes
+CYCLES ..... : 5.2 K/s
+BEFORE GC .. : Used: 29808 bytes, Free: 133008 bytes
+AFTER GC ... : Used: 15680 bytes, Free: 147136 bytes
+START ...... : Used: 15744 bytes, Free: 147072 bytes
+CRITICAL : Peak: 17808 bytes, Used: 17808 bytes, Free: 145008 bytes, Total: 162816 bytes
+CRITICAL : Peak: 30016 bytes, Used: 28896 bytes, Free: 133920 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31536 bytes, Used: 24176 bytes, Free: 138640 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31536 bytes, Used: 19376 bytes, Free: 143440 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31536 bytes, Used: 29456 bytes, Free: 133360 bytes, Total: 162816 bytes
+CRITICAL : Peak: 31536 bytes, Used: 23008 bytes, Free: 139808 bytes, Total: 162816 bytes
+CYCLES ..... : 3.1 K/s
+BEFORE GC .. : Used: 23152 bytes, Free: 139664 bytes
+AFTER GC ... : Used: 17712 bytes, Free: 145104 bytes
 
 Code done running.
 soft reboot

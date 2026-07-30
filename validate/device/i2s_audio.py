@@ -11,7 +11,7 @@ def execute():
     def task():
         queue.update()
 
-    print("Lion roar will play through buzzer")
+    print("Lion roar will play through speaker")
     utils.execute(task)
 
     audio.deinit()
