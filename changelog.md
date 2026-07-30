@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.2.0 - Beta, breaking change to for `cptkip/device/pwm_audio.py`
+
+Renamed `cptkip/device/pwm_audio.py` to `cptkip/device/audio.py` as it contains support for I2S audio as well as PWM
+audio. This is a breaking change. The Audio class no longer takes a pin object (for PWM) but an audio_out so that it can
+be used with PWM or I2S. Two convenience functions (`PwmAudio` and `I2sAudio`) have been added to make it trivial to
+create the correct audio type. Existing code can easily be migrated through a simple change to the import statement
+from:
+
+```python
+from cptkip.device.pwm_audio import Audio, Queue
+```
+
+to
+
+```python
+from cptkip.device.audio import PwmAudio as Audio, Queue
+```
+
 ## 0.1.3 - Beta
 
 Used claude to do an analysis of the code base, making a small range of bug fixes and documentation updates whilst

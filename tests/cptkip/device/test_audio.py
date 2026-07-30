@@ -1,12 +1,12 @@
 import pytest
 
-from cptkip.device.pwm_audio import Audio, Queue
+from cptkip.device.audio import Queue, Audio, PwmAudio, I2sAudio
 
 
 class TestAudio:
     def test_play_validates_name(self) -> None:
         """Validates a name cannot be none or an empty string."""
-        audio = Audio(1)
+        audio = Audio(None)
 
         with pytest.raises(ValueError):
             # noinspection PyTypeChecker
@@ -18,50 +18,86 @@ class TestAudio:
 
     def test_play_can_be_called(self) -> None:
         """Validate that play() can be called safely."""
-        audio = Audio(1)
+        audio = Audio(None)
         audio.play("my-file.mp3")
         audio.play("another-file.mp3")
 
     def test_deinit_can_be_called(self) -> None:
         """Validate that deinit() can be called safely."""
-        audio = Audio(1)
+        audio = Audio(None)
         audio.deinit()
         audio.deinit()
 
     def test_playing_can_be_called(self) -> None:
         """Validate that playing() can be called safely."""
-        audio = Audio(1)
+        audio = Audio(None)
         assert not audio.playing
         assert not audio.playing
 
     def test_paused_can_be_called(self) -> None:
         """Validate that paused() can be called safely."""
-        audio = Audio(1)
+        audio = Audio(None)
         assert not audio.paused
         assert not audio.paused
 
     def test_pause_can_be_called(self) -> None:
         """Validate that pause() can be called safely."""
-        audio = Audio(1)
+        audio = Audio(None)
         audio.pause()
         audio.pause()
 
     def test_resume_can_be_called(self) -> None:
         """Validate that resume() can be called safely."""
-        audio = Audio(1)
+        audio = Audio(None)
         audio.resume()
         audio.resume()
 
     def test_stop_can_be_called(self) -> None:
         """Validate that stop() can be called safely."""
-        audio = Audio(1)
+        audio = Audio(None)
         audio.stop()
         audio.stop()
+
+
+class TestPwmAudio:
+    """
+    Very simple validation to ensure we get an Audio object that we can
+    call methods and set properties on.
+    """
+
+    def test_pwm_can_be_called(self) -> None:
+        """
+        Validate that PwmAudio() can be called safely.
+        """
+        audio = PwmAudio(1)
+        assert isinstance(audio, Audio)
+        audio.play("my-file.mp3")
+        assert not audio.paused
+        audio.play("another-file.mp3")
+        assert not audio.paused
+
+
+class TestI2sAudio:
+    """
+    Very simple validation to ensure we get an Audio object that we can
+    call methods and set properties on.
+    """
+
+    def test_i2s_can_be_called(self) -> None:
+        """
+        Validate that I2sAudio() can be called safely.
+        """
+        audio = I2sAudio(1, 2, 3)
+        assert isinstance(audio, Audio)
+        audio.play("my-file.mp3")
+        assert not audio.paused
+        audio.play("another-file.mp3")
+        assert not audio.paused
 
 
 class MockAudio(Audio):
     def __init__(self):
-        super().__init__("pin")
+        super().__init__(None)
         self.playing_count = 0
         self.filename = ""
         self.files = []

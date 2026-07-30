@@ -1,10 +1,10 @@
 import cptkip.config.configuration as config
-from cptkip.device.audio import PwmAudio as Audio, Queue
+from cptkip.device.audio import I2sAudio as Audio, Queue
 from validate.performance.task_runner import execute
 
 AUDIO_FILE = "examples/lion.mp3"
 
-audio = Audio(config.BUZZER_PIN)
+audio = Audio(config.I2S_BIT_CLOCK, config.I2S_LEFT_RIGHT_CLOCK, config.I2S_DATA)
 queue = Queue(audio)
 
 
