@@ -3,7 +3,7 @@ def execute():
     from cptkip.device.audio import I2sAudio as Audio, Queue
     import validate.utils as utils
 
-    audio = Audio(config.BUZZER_PIN if config.BUZZER_PIN else "none")  # TODO: Make work
+    audio = Audio(config.I2S_BIT_CLOCK, config.I2S_LEFT_RIGHT_CLOCK, config.I2S_DATA)
     queue = Queue(audio)
     queue.queue("validate/lion.mp3")
     queue.queue("validate/lion.mp3")

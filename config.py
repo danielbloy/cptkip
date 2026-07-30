@@ -97,3 +97,6 @@ if environment.are_pins_available():
     I2S_LEFT_RIGHT_CLOCK = board.GP1
     # noinspection unresolved-references
     I2S_DATA = board.GP2
+
+if not I2S_BIT_CLOCK or not I2S_LEFT_RIGHT_CLOCK or not I2S_DATA:
+    print('No I2S Audio found')
