@@ -2,20 +2,14 @@
 
 ## Now
 
-The following functionality is a priority to implement and inspired by `pmpge`:
-
-* lightweight object hierarchy to control multiple devices
-
-The following functionality is a priority to implement and is inspired by `pico-interactive`:
+The following functionality is a priority to implement:
 
 * Network stack - ideally integrating a light-weight, fast and async HTTP server stack such
   as [Biplane](https://github.com/Uberi/biplane).
-* Triggered Tasks - async and sync
-* Ultrasonic sensors
-
-The following functionality is a priority to implement:
-
 * Support for MEMS microphone
+* Support for ultrasonic sensors
+* Triggered Tasks - async and sync
+* lightweight object hierarchy to control multiple devices
 
 ## Next
 
