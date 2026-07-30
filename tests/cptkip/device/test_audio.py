@@ -66,7 +66,9 @@ class TestPwmAudio:
     """
 
     def test_pwm_can_be_called(self) -> None:
-        """Validate that pwm() can be called safely."""
+        """
+        Validate that PwmAudio() can be called safely.
+        """
         audio = PwmAudio(1)
         assert isinstance(audio, Audio)
         audio.play("my-file.mp3")
@@ -82,7 +84,9 @@ class TestI2sAudio:
     """
 
     def test_i2s_can_be_called(self) -> None:
-        """Validate that pwm() can be called safely."""
+        """
+        Validate that I2sAudio() can be called safely.
+        """
         audio = I2sAudio(1, 2, 3)
         assert isinstance(audio, Audio)
         audio.play("my-file.mp3")
@@ -139,8 +143,6 @@ class MockAudio(Audio):
 
 
 class TestQueue:
-
-    # TODO: Include tests for I2SAudio
 
     def test_creating_with_none_audio_errors(self) -> None:
         """
