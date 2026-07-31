@@ -10,6 +10,9 @@ PASSWORD = os.getenv('WIFI_PASSWORD')
 NAME = "app"
 
 server = biplane.Server()
+from cptkip.network.test_routes import routes
+
+routes(server)
 
 
 @server.route("/", "GET")
@@ -32,6 +35,12 @@ def blink_builtin_led():
             yield from asyncio_sleep(0.05)
 
 
-for _ in zip(blink_builtin_led(),
-             server.circuitpython_start_wifi_station(SSID, PASSWORD, NAME)):
-    pass
+#for _ in zip(blink_builtin_led(),
+#             server.circuitpython_start_wifi_station(SSID, PASSWORD, NAME)):
+#    pass
+
+blink = blink_builtin_led()
+listen = server.circuitpython_start_wifi_station(SSID, PASSWORD, NAME)
+while True:
+    blink.__next__()
+    listen.__next__()
