@@ -2,6 +2,9 @@
 
 ## Now
 
+Investigate the "Free: 162464 bytes" value on the validate performance tests and identify how to maximise it.
+Specifically investigate the decrease after adding the I2S support.
+
 The following functionality is a priority to implement:
 
 * Network stack - ideally integrating a light-weight, fast and async HTTP server stack such
