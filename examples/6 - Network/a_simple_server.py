@@ -1,13 +1,12 @@
 #
 # This example uses biplane to run a simple server that can respond to a
-# single route.
+# single route to display "Hello, world!".
 #
 import time
 
 import cptkip.core.logging as log
-from cptkip.network import server_task
+from cptkip.core.environment import is_running_under_test
 from cptkip.network.biplane import Server, Response
-from cptkip.task import memory_monitor_task
 
 log.set_log_level(log.INFO)
 
@@ -19,11 +18,9 @@ def main(query_parameters, headers, body):
     return Response("<b>Hello, world!</b>", content_type="text/html")
 
 
-monitor_task = memory_monitor_task.create(4, 1, lambda: True)
-listen_task = server_task.create(server, lambda: True)
+listen = server.create_task(lambda: True)
 
-finish = time.monotonic() + 10
+finish = time.monotonic() + (10 if is_running_under_test() else 120)
 
 while time.monotonic() < finish:
-    _ = listen_task()
-    _ = monitor_task()
+    listen()

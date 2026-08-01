@@ -1,7 +1,22 @@
 #
 # The biplane library has been vendored into cptkip as I added support for Windows
-# by squashing the BlockingIOError. There is some custom code but that is marked at
-# the end of the file.
+# by squashing the BlockingIOError. There is some custom code at the start and end
+# of the file.
+from cptkip.core.environment import is_running_on_desktop, is_running_under_test
+
+# collections.abc is not available in CircuitPython.
+if is_running_on_desktop():
+    from collections.abc import Callable
+else:
+    # noinspection shadowing-builtins
+    class BlockingIOError(OSError):
+        pass
+
+import os
+
+########################################
+# S T A R T    O F    B I P L A N E
+########################################
 import errno
 import time
 
@@ -214,13 +229,14 @@ class Server:
             client_processors = new_client_processors
             yield
 
+    # noinspection unresolved-references
     def circuitpython_start_wifi_ap(self, ssid, password, mdns_hostname, listen_on=('0.0.0.0', 80),
                                     max_parallel_connections=5):
         import wifi
         import mdns
         import socketpool
         wifi.radio.start_ap(ssid=ssid, password=password)
-        print(f"starting mDNS at {mdns_hostname}.local (IP address {wifi.radio.ipv4_address_ap})")
+        print(f"Starting mDNS at {mdns_hostname}.local (IP address {wifi.radio.ipv4_address_ap})")
         server = mdns.Server(wifi.radio)
         server.hostname = mdns_hostname
         server.advertise_service(service_type="_http", protocol="_tcp", port=listen_on[1])
@@ -228,13 +244,14 @@ class Server:
         with pool.socket() as server_socket:
             yield from self.start(server_socket, listen_on, max_parallel_connections)
 
+    # noinspection unresolved-references
     def circuitpython_start_wifi_station(self, ssid, password, mdns_hostname,
                                          listen_on=('0.0.0.0', 80), max_parallel_connections=5):
         import wifi
         import mdns
         import socketpool
         wifi.radio.connect(ssid, password)
-        print(f"starting mDNS at {mdns_hostname}.local (IP address {wifi.radio.ipv4_address})")
+        print(f"Starting mDNS at {mdns_hostname}.local (IP address {wifi.radio.ipv4_address})")
         server = mdns.Server(wifi.radio)
         server.hostname = mdns_hostname
         server.advertise_service(service_type="_http", protocol="_tcp", port=listen_on[1])
@@ -242,13 +259,69 @@ class Server:
         with pool.socket() as server_socket:
             yield from self.start(server_socket, listen_on, max_parallel_connections)
 
+    ########################################
+    # E N D    O F    B I P L A N E
+    ########################################
+    def python_start_wifi_station(self, listen_on=('127.0.0.1', 8000)):
+        import socket
+        server_socket = socket.socket()
+        server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        print(f"Starting on IP address {listen_on[0]}:{listen_on[1]}")
+        return self.start(server_socket, listen_on=(listen_on[0], listen_on[1]))
 
-#
-# C U S T OM    C O D E
-#
-from cptkip.core.environment import is_running_on_microcontroller
+    def create_task(self, continue_func: Callable[[], bool] | None = None) -> Callable[[], bool]:
+        """
+        TODO: Comments
 
-if is_running_on_microcontroller():
-    # noinspection shadowing-builtins
-    class BlockingIOError(OSError):
-        pass
+        :param server:
+        :param continue_func:
+        :return:
+        """
+        listen_on = (_get_host(), _get_port())
+        if is_running_on_desktop():
+            listen = self.python_start_wifi_station(listen_on=listen_on)
+        else:
+            listen = self.circuitpython_start_wifi_station(
+                os.getenv('WIFI_SSID'), os.getenv('WIFI_PASSWORD'), "app",  # TODO: Proper hostname
+                listen_on=listen_on)
+
+        def monitor() -> bool:
+            listen.__next__()
+            return not continue_func or continue_func()
+
+        return monitor
+
+
+def _get_host():
+    if is_running_under_test():
+        return "127.0.0.1"
+    elif is_running_on_desktop():
+        import socket
+        # from https://stackoverflow.com/a/28950776
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.settimeout(0)
+        try:
+            # doesn't even have to be reachable
+            s.connect(('10.254.254.254', 1))
+            ip = s.getsockname()[0]
+        except:
+            ip = '127.0.0.1'
+        finally:
+            s.close()
+        return ip
+    else:
+        return "0.0.0.0"
+
+
+def _get_port() -> int:
+    if is_running_under_test():
+        from random import randint
+        return randint(5001, 50000)
+    elif is_running_on_desktop():
+        from cptkip.core.control import NETWORK_PORT_DESKTOP
+        return NETWORK_PORT_DESKTOP
+    else:
+        from cptkip.core.control import NETWORK_PORT_MICROCONTROLLER
+        return NETWORK_PORT_MICROCONTROLLER
+
+# TODO: Consider replacing print statements with logging.
