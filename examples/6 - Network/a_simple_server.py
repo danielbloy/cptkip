@@ -5,9 +5,9 @@
 import time
 
 import cptkip.core.logging as log
+from cptkip.network import server_task
 from cptkip.network.biplane import Server, Response
 from cptkip.task import memory_monitor_task
-from network import server_task
 
 log.set_log_level(log.INFO)
 

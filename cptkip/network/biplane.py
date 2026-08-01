@@ -1,9 +1,6 @@
 #
 # The biplane library has been vendored into cptkip as I added support for Windows
-# by squashing the BlockingIOError. Everything else is identical. This does mean that
-# on Windows there will be a chance of Connection was reset but that is an acceptable
-# trade-off as Windows is just a testing platform as the primary target for the code
-# is circuitPython.
+# by squashing the BlockingIOError. Everything else is identical.
 import errno
 import time
 
@@ -42,6 +39,10 @@ class BufferedNonBlockingSocket:
                 self.end = self.sock.recv_into(self.read_buffer, len(self.read_buffer))
                 if self.end == 0:  # client closed connection, there's no more to read
                     break
+            except BlockingIOError:
+                # Because on Windows we get annoying BlockingIOErrors when running the network,
+                # we swallow those here as they make all other output difficult to see.
+                pass
             except OSError as e:
                 if e.errno != errno.EAGAIN:
                     raise
@@ -203,10 +204,6 @@ class Server:
                     if now - start_time > self.request_timeout_seconds:
                         raise StopIteration()  # timed out
                     next(client_processor)
-                except BlockingIOError:
-                    # Because on Windows we get annoying BlockingIOErrors when running the network,
-                    # we swallow those here as they make all other output difficult to see.
-                    client_socket.close()
                 except Exception as e:
                     client_socket.close()
                     if not isinstance(e, StopIteration):
