@@ -1,6 +1,7 @@
 #
 # The biplane library has been vendored into cptkip as I added support for Windows
-# by squashing the BlockingIOError. Everything else is identical.
+# by squashing the BlockingIOError. There is some custom code but that is marked at
+# the end of the file.
 import errno
 import time
 
@@ -240,3 +241,14 @@ class Server:
         pool = socketpool.SocketPool(wifi.radio)
         with pool.socket() as server_socket:
             yield from self.start(server_socket, listen_on, max_parallel_connections)
+
+
+#
+# C U S T OM    C O D E
+#
+from cptkip.core.environment import is_running_on_microcontroller
+
+if is_running_on_microcontroller():
+    # noinspection shadowing-builtins
+    class BlockingIOError(OSError):
+        pass

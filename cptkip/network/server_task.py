@@ -4,6 +4,8 @@ from random import randint
 from cptkip.core.environment import is_running_on_desktop, is_running_under_test
 from cptkip.network.biplane import Server
 
+# TODO: Could all of this be collapsed into biplane?
+
 # collections.abc is not available in CircuitPython.
 if is_running_on_desktop():
     from collections.abc import Callable
