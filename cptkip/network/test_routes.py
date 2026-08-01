@@ -1,7 +1,9 @@
-import biplane
+from cptkip.network.biplane import Server, Response
 
 
-def routes(server: biplane.Server):
+# TODO: Replace this with our own set of routes to be compatible with pico-interactive.
+
+def routes(server: Server):
     @server.route("/hi", "GET")
     def main(query_parameters, headers, body):
-        return biplane.Response("<b>hi!</b>", content_type="text/html")
+        return Response("<b>hi!</b>", content_type="text/html")
