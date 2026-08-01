@@ -22,7 +22,7 @@ def main(query_parameters, headers, body):
 monitor_task = memory_monitor_task.create(4, 1, lambda: True)
 listen_task = server_task.create(server, lambda: True)
 
-finish = time.monotonic() + 30
+finish = time.monotonic() + 10
 
 while time.monotonic() < finish:
     _ = listen_task()
