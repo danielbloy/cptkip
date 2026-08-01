@@ -11,11 +11,11 @@
 # The requests library itself:
 #  * https://requests.readthedocs.io/en/latest/user/quickstart/
 
+# TODO: This might need a better name.
 import os
-import ssl
+from random import randint
 
-from cptkip.core.environment import is_running_on_microcontroller, \
-    is_running_under_test
+from cptkip.core.environment import is_running_on_microcontroller, is_running_under_test
 
 # Rather than doing something different based on whether we have pins available or not
 # we make the network decision based on whether we are running on a microcontroller or
@@ -23,7 +23,6 @@ from cptkip.core.environment import is_running_on_microcontroller, \
 if is_running_on_microcontroller():
     import wifi
     import socketpool
-    import adafruit_requests
 
     # To set a static IP address
     # import ipaddress
@@ -39,8 +38,6 @@ if is_running_on_microcontroller():
     pool = socketpool.SocketPool(wifi.radio)
     print("IP address: ", wifi.radio.ipv4_address)
 
-    requests = adafruit_requests.Session(pool, ssl.create_default_context())
-
 
     def get_ip():
         return wifi.radio.ipv4_address
@@ -49,21 +46,11 @@ if is_running_on_microcontroller():
 else:
     import socket
     import toml
-    import requests
 
+    # TODO: Can this be removed?
     if os.path.isfile('settings.toml'):
         with open('settings.toml') as f:
             config = toml.load(f)
-
-    pool = socket
-
-    import socket
-
-
-    def __hide() -> None:
-        """This is not expected to be needed but stops PyCharm removing the import"""
-        request: requests.Request
-        del request
 
 
     def get_ip():
@@ -80,20 +67,15 @@ else:
             s.close()
         return IP
 
-# Above: From polyfill/network
-# Below: From interactive/network
-NETWORK_PORT_MICROCONTROLLER = 80
-NETWORK_PORT_DESKTOP = 5001
-
-from random import randint
-
 
 def _get_port() -> int:
     if is_running_under_test():
         return randint(5001, 50000)
     elif is_running_on_microcontroller():
+        from cptkip.core.control import NETWORK_PORT_MICROCONTROLLER
         return NETWORK_PORT_MICROCONTROLLER
     else:
+        from cptkip.core.control import NETWORK_PORT_DESKTOP
         return NETWORK_PORT_DESKTOP
 
 
@@ -108,7 +90,6 @@ def _get_host():
 
 def get_address() -> str:
     """
-    Returns the address of this node including the port that is being
-    listened on.
+    Returns the address of this node including the port that is being listened on.
     """
     return f"{_get_host()}:{_get_port()}"

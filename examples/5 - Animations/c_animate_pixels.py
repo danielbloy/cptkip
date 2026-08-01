@@ -1,5 +1,5 @@
 #
-# this example uses a range of Adafruit animations on Pixels/NeoPixels.
+# This example uses a range of Adafruit animations on Pixels/NeoPixels.
 #
 import time
 
@@ -32,7 +32,8 @@ animations = [
     Blink(pixels, speed=0.5, color=JADE),
     Comet(pixels, speed=0.01, color=PINK, tail_length=7, bounce=True),
     Chase(pixels, speed=0.1, size=3, spacing=6, color=OLD_LACE),
-    ColorCycle(pixels, 0.5, colors=[RED, YELLOW, ORANGE, GREEN, TEAL, CYAN, BLUE, PURPLE, MAGENTA, BLACK]),
+    ColorCycle(pixels, 0.5,
+               colors=[RED, YELLOW, ORANGE, GREEN, TEAL, CYAN, BLUE, PURPLE, MAGENTA, BLACK]),
     Pulse(pixels, speed=0.1, color=AQUA, period=3),
     Sparkle(pixels, speed=0.05, color=GOLD, num_sparkles=3),
     Rainbow(pixels, speed=0.1, period=2),
