@@ -98,10 +98,11 @@ releases, see [changelog](./changelog.md).
 
 ## License
 
-All materials provided in this project is licensed under the Creative Commons
-Attribution-NonCommercial-ShareAlike 4.0 International License. To view a copy of this license,
-visit
-<https://creativecommons.org/licenses/by-nc-sa/4.0/>.
+Copyright 2026 Daniel Bloy
+
+All materials provided in this project (except `cptkip/network/biplane.py`) is licensed under the
+Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. To view a copy of
+this license, visit <https://creativecommons.org/licenses/by-nc-sa/4.0/>.
 
 In summary, this means that you are free to:
 
@@ -116,3 +117,12 @@ Provided you follow these terms:
 * **NonCommercial** — You may not use the material for commercial purposes.
 * **ShareAlike** — If you remix, transform, or build upon the material, you must distribute your
   contributions under the same license as the original.
+
+### Biplane license
+
+The file `cptkip/network/biplane.py` is a modified version of
+https://github.com/Uberi/biplane/blob/main/biplane.py available
+from https://github.com/Uberi/biplane
+and is distributed under an MIT license. Therefore, the file `cptkip/network/biplane.py` is also
+provided under the same MIT license which is available at
+https://github.com/Uberi/biplane/blob/main/LICENSE.txt.

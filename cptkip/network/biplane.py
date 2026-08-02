@@ -2,6 +2,11 @@
 # The biplane library has been vendored into cptkip as I added support for Windows
 # by squashing the BlockingIOError. There is some custom code at the start and end
 # of the file.
+#
+# As biplane is provided with an MIT license, this file, including my modifications
+# is therefore also made available under the MIT license. See `LICENSE.txt` available
+# at https://github.com/Uberi/biplane/blob/main/LICENSE.txt.
+#
 from cptkip.core.environment import is_running_on_desktop, is_running_under_test
 
 # collections.abc is not available in CircuitPython.
