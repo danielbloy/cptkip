@@ -5,6 +5,12 @@ import gc
 import cptkip.core.environment as environment
 import cptkip.core.logging as log
 
+# TODO: Strictly speaking the memory sizes are heap RAM available, not total RAM.
+#       Review all of RAM monitoring and refine to make it clearer and even more useful.
+# See: https://docs.circuitpython.org/en/latest/docs/library/gc.html#functions
+# And: https://docs.circuitpython.org/en/latest/shared-bindings/memorymap/index.html
+# And: https://picogame.makerclass.cz/memory/
+
 __is_running_on_desktop: bool = environment.is_running_on_desktop()
 
 peak_used_ram = 0
@@ -58,10 +64,12 @@ def report_memory_usage() -> None:
     sample_memory_usage()
     if __is_running_on_desktop:
         log.critical(
-            "Peak:", peak_used_ram, "MB, Used:", used_ram, "MB, Free:", free_ram, "MB, Total:", total_ram, "MB")
+            "Peak:", peak_used_ram, "MB, Used:", used_ram, "MB, Free:", free_ram, "MB, Total:",
+            total_ram, "MB")
     else:
         # noinspection PyUnresolvedReferences
-        log.critical("Peak:", peak_used_ram, "bytes, Used:", used_ram, "bytes, Free:", free_ram, "bytes, Total:",
+        log.critical("Peak:", peak_used_ram, "bytes, Used:", used_ram, "bytes, Free:", free_ram,
+                     "bytes, Total:",
                      total_ram, "bytes")
 
 

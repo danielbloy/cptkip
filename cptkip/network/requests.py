@@ -19,6 +19,8 @@ from cptkip.core.environment import is_running_on_microcontroller
 
 # TODO: This is for sending requests and needs much more thought.
 
+# TODO: We could also probably add get/put/post etc. in here.
+
 # Rather than doing something different based on whether we have pins available or not
 # we make the network decision based on whether we are running on a microcontroller or
 # not it has a different network stack compared to a desktop.
