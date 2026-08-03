@@ -24,6 +24,17 @@ class Buzzer:
         self._beeps = 0
 
     @property
+    def volume(self):
+        """The volume of the buzzer"""
+        return self._buzzer.volume
+
+    @volume.setter
+    def volume(self, value: float):
+        """Set the volume of the buzzer"""
+        value = min(max(value, 0.0), 1.0)
+        self._buzzer.volume = value
+
+    @property
     def playing(self):
         """Is the buzzer playing or not"""
         return self._playing
