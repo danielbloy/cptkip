@@ -58,6 +58,7 @@ HEADERS = {
 }
 
 
+# TODO: Come up with a better name.
 def send_message(path: str, host: str,
                  protocol: str = "http", method="GET",
                  data=None, json=None):

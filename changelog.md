@@ -18,7 +18,9 @@ to
 from cptkip.device.audio import PwmAudio as Audio, Queue
 ```
 
-Implemented the first version of the network stack.
+Implemented the first version of the network stack, using a vendored version of Biplane for the
+server. Also introduced `cptkip.zero` to make it simpler to use devices using the standard
+conventions used in the default configuration file.
 
 ## 0.1.3 - Beta
 
