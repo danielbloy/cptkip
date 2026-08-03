@@ -8,9 +8,15 @@ if environment.is_running_on_desktop():
     pass
 
 
+def create_led_pin() -> PwmPin:
+    """
+    Simple utility function to make it easy to create the LED Pin object.
+    """
+    return PwmPin(config.LED_PIN, invert=config.LED_INVERT)
+
+
 def create_led() -> Led:
     """
-    Simple utility function to make it easy to create a button.
+    Simple utility function to make it easy to create a LED based on configuration.
     """
-    pin = PwmPin(config.LED_PIN, invert=config.LED_INVERT)
-    return Led(pin)
+    return Led(create_led_pin())

@@ -8,9 +8,15 @@ if environment.is_running_on_desktop():
     pass
 
 
+def create_buzzer_pin() -> BuzzerPin:
+    """
+    Simple utility function to make it easy to create a BuzzerPin based on configuration.
+    """
+    return BuzzerPin(config.BUZZER_PIN)
+
+
 def create_buzzer() -> Buzzer:
     """
-    Simple utility function to make it easy to create a buzzer based on configuration.
+    Simple utility function to make it easy to create a Buzzer based on configuration.
     """
-    pin = BuzzerPin(config.BUZZER_PIN)
-    return Buzzer(pin)
+    return Buzzer(create_buzzer_pin())

@@ -1,5 +1,6 @@
 #
 # This example blinks the board LED using a simple loop.
+# Uses `cptkip.zero.led`.
 #
 import time
 

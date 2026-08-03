@@ -1,7 +1,7 @@
 #
 # This example demonstrates using the Buzzer which provides more
 # control for beeping and playing notes for a duration than a
-# plain BuzzerPin.
+# plain BuzzerPin. Uses `cptkip.zero.buzzer`.
 #
 import time
 

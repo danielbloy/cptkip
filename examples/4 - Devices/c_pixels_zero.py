@@ -1,6 +1,6 @@
 #
 # This example demonstrates using Pixels/NeoPixels. An Animation is
-# used to provide a Rainbow effect.
+# used to provide a Rainbow effect. Uses `cptkip.zero.pixels`.
 #
 import time
 

@@ -1,28 +1,35 @@
 #
 # This example demonstrates using a Button to blink the board LED.
+# Uses `cptkip.zero.button`.
 #
 import time
 
-import cptkip.config.configuration as config
 import cptkip.core.logging as log
-from cptkip.pin.output_pin import OutputPin
 from cptkip.zero.button import create_button
+from cptkip.zero.led import create_led
 
 log.set_log_level(log.INFO)
 
-led = OutputPin(config.LED_PIN, invert=config.LED_INVERT)
+led = create_led()
+
+
+def switch():
+    if led.brightness > 0:
+        led.brightness = 1
+    else:
+        led.brightness = 0
 
 
 def single_click_handler() -> None:
     log.info('Single click!')
-    led.value = not led.value
+    switch()
 
 
 def multi_click_handler() -> None:
     log.info('Multi click!')
-    led.value = not led.value
+    switch()
     time.sleep(0.25)
-    led.value = not led.value
+    switch()
 
 
 def long_press_handler() -> None:
