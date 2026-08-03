@@ -43,6 +43,35 @@ class TestBuzzer:
         buzzer = Buzzer(BuzzerPin(1))
         assert not buzzer.playing
 
+    def test_volume(self):
+        """
+        Validates that a buzzer can have the volume set (on the pin).
+        """
+        pin = MockBuzzerPin()
+        assert pin.volume == 1.0
+
+        buzzer = Buzzer(pin)
+        assert buzzer.volume == 1.0
+
+        # Change volume via buzzer
+        buzzer.volume = 0.1
+        assert pin.volume == 0.1
+        assert buzzer.volume == 0.1
+
+        # Change volume via pin
+        pin.volume = 0.8
+        assert pin.volume == 0.8
+        assert buzzer.volume == 0.8
+
+        # Validate clamping.
+        buzzer.volume = 2.0
+        assert pin.volume == 1.0
+        assert buzzer.volume == 1.0
+
+        buzzer.volume = -1.0
+        assert pin.volume == 0.0
+        assert buzzer.volume == 0.0
+
     def test_play_once(self):
         """
         Validates that play() plays the tone in the buzzer for the required duration.
