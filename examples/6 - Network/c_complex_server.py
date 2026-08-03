@@ -7,28 +7,25 @@ import time
 
 from adafruit_led_animation.animation.blink import Blink
 
-import cptkip.config.configuration as config
 import cptkip.core.logging as log
 import cptkip.device.pixels as pixel
 from cptkip.core.environment import is_running_under_test
-from cptkip.device.audio import PwmAudio as Audio, Queue
-from cptkip.device.led import Led
 from cptkip.network.biplane import Server, Response
-from cptkip.pin.pwm_pin import PwmPin
 from cptkip.task import memory_monitor_task
+from cptkip.zero.audio import create_pwm_queue
+from cptkip.zero.led import create_led
+from cptkip.zero.pixels import create_pixels
 
 log.set_log_level(log.INFO)
 
 AUDIO_FILE = "examples/lion.mp3"
 
-audio = Audio(config.BUZZER_PIN)
-queue = Queue(audio)
+queue = create_pwm_queue()
 
-pin = PwmPin(config.LED_PIN, invert=config.LED_INVERT)
-led = Led(pin)
+led = create_led()
 animation = Blink(led, speed=0.5, color=(255, 255, 255))
 
-pixels = pixel.create(config.PIXELS_PIN, 8, brightness=0.5)
+pixels = create_pixels(brightness=0.5)
 
 r = 10
 rdx = 10
@@ -78,3 +75,5 @@ led.show()
 
 pixels.fill(pixel.OFF)
 pixels.write()
+
+queue.deinit()

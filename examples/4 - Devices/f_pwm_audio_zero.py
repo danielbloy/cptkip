@@ -1,22 +1,20 @@
 #
-# This example plays an MP3 audio file using the I2SAudio and Queue classes.
+# This example plays an MP3 audio file using the PwmAudio and Queue classes.
 # A Button is used to add more "songs" to the queue as well as pause/unpause
-# the audio. This example is almost identical to f_pwm_audio.py.
+# the audio. This example is almost identical to g_i2sß_audio.py. Uses
+# `cptkip.zero.audio` and `cptkip.zero.button`.
 #
 import time
 
-import cptkip.config.configuration as config
 import cptkip.core.logging as log
-from cptkip.device.audio import I2sAudio as Audio, Queue
-from cptkip.device.button import Button
-from cptkip.pin.input_pin import InputPin
+from cptkip.zero.audio import create_pwm_queue
+from cptkip.zero.button import create_button
 
 log.set_log_level(log.INFO)
 
 AUDIO_FILE = "examples/lion.mp3"
 
-audio = Audio(config.I2S_BIT_CLOCK, config.I2S_LEFT_RIGHT_CLOCK, config.I2S_DATA)
-queue = Queue(audio)
+queue = create_pwm_queue()
 
 
 def single_click_handler() -> None:
@@ -31,8 +29,7 @@ def multi_click_handler() -> None:
     queue.queue(AUDIO_FILE)
 
 
-input_pin = InputPin(config.BUTTON_PIN, config.BUTTON_PULLUP)
-button = Button(input_pin, click=single_click_handler, multi_click=multi_click_handler)
+button = create_button(click=single_click_handler, multi_click=multi_click_handler)
 
 # Run the loop for 10 seconds
 log.info("Press the button to pause/unpause the audio.")

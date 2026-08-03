@@ -243,3 +243,5 @@ class TestQueue:
         queue.update()
         assert len(audio.files) == 0
         assert audio.playing_count <= 0
+
+# TODO: Test deinit()

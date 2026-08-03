@@ -9,6 +9,6 @@ if environment.is_running_on_desktop():
 
 def create_pixels(brightness: float = 1.0) -> Pixels:
     """
-    Simple wrapper to create Pixels based on the config values.
+    Simple wrapper to create Pixels based on the configuration values.
     """
     return create(config.PIXELS_PIN, config.PIXELS_COUNT, brightness=brightness)

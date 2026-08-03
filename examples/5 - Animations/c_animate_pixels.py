@@ -16,16 +16,15 @@ from adafruit_led_animation.animation.sparkle import Sparkle
 from adafruit_led_animation.color import *
 from adafruit_led_animation.sequence import AnimationSequence
 
-import cptkip.config.configuration as config
 import cptkip.core.logging as log
 import cptkip.device.pixels as pixel
 from cptkip.animation.flicker import Flicker
-from cptkip.device.button import Button
-from cptkip.pin.input_pin import InputPin
+from cptkip.zero.button import create_button
+from cptkip.zero.pixels import create_pixels
 
 log.set_log_level(log.INFO)
 
-pixels = pixel.create(config.PIXELS_PIN, 8, brightness=0.5)
+pixels = create_pixels(brightness=0.5)
 
 animations = [
     Flicker(pixels, speed=0.1, color=AMBER, spacing=2),
@@ -56,10 +55,7 @@ def long_press_handler() -> None:
     animation.reset()
 
 
-input_pin = InputPin(config.BUTTON_PIN, config.BUTTON_PULLUP)
-
-button = Button(
-    input_pin,
+button = create_button(
     click=single_click_handler,
     multi_click=multi_click_handler,
     long_click=long_press_handler)

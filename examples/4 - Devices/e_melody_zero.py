@@ -1,6 +1,7 @@
 #
 # This example uses Melody to play some tunes through the Buzzer.
-# A Button is used to play, pause and unpause the melody.
+# A Button is used to play, pause and unpause the melody. Uses
+# `cptkip.zero.button` and `cptkip.zero.buzzer`.
 #
 import time
 
