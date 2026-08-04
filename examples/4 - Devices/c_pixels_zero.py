@@ -24,3 +24,5 @@ while time.monotonic() < finish:
 animation.freeze()
 pixels.fill(pixel.OFF)
 pixels.write()
+
+# TODO: Add common tidy up to cptkip.zero

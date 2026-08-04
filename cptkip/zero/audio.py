@@ -1,20 +1,20 @@
 import cptkip.config.configuration as config
 import cptkip.core.environment as environment
-from cptkip.device.audio import PwmAudio, I2sAudio, Queue
+from cptkip.device.audio import Audio, PwmAudio, I2sAudio, Queue
 
 # collections.abc is not available in CircuitPython.
 if environment.is_running_on_desktop():
     pass
 
 
-def create_pwm_audio() -> PwmAudio:
+def create_pwm_audio() -> Audio:
     """
     Simple utility function to make it easy to create a PwmAudio.
     """
     return PwmAudio(config.BUZZER_PIN)
 
 
-def create_i2s_audio() -> I2sAudio:
+def create_i2s_audio() -> Audio:
     """
     Simple utility function to make it easy to create a I2sAudio.
     """

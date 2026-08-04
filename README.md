@@ -36,6 +36,8 @@ The structure of the project is arranged in the following modules (listed in ord
 * `device` - provides abstractions for hardware components.
 * `animation` - provides additional animations, currently just `Flicker`.
 * `network` - provides network support.
+* `zero` - provides convenience functions that uses the configuration data to simplify creating
+  devices.
 
 The packages and their dependencies are illustrated in the table below.
 
