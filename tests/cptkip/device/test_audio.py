@@ -106,6 +106,7 @@ class MockAudio(Audio):
         self.pause_called = False
         self.resume_called = False
         self.stop_called = False
+        self.deinit_called = False
 
     def play(self, filename: str):
         assert self.playing_count <= 0
@@ -140,6 +141,9 @@ class MockAudio(Audio):
 
     def stop(self):
         self.stop_called = True
+
+    def deinit(self) -> None:
+        self.deinit_called = True
 
 
 class TestQueue:
@@ -223,20 +227,20 @@ class TestQueue:
         assert audio.paused_called
         audio.paused_called = False
 
-        assert not queue.pause()
+        queue.pause()
         assert audio.pause_called
         audio.pause_called = False
 
-        assert not queue.resume()
+        queue.resume()
         assert audio.resume_called
         audio.resume_called = False
 
-        assert not queue.stop()
+        queue.stop()
         assert audio.stop_called
         audio.stop_called = False
 
         # Validate cancel stops anything playing and emptys the queue
-        assert not queue.cancel()
+        queue.cancel()
         assert audio.stop_called
         audio.stop_called = False
 
@@ -244,4 +248,23 @@ class TestQueue:
         assert len(audio.files) == 0
         assert audio.playing_count <= 0
 
-# TODO: Test deinit()
+    def test_deinit(self) -> None:
+        """
+        Validates the deinit() method correctly clears up.
+        """
+        audio = MockAudio()
+        queue = Queue(audio)
+
+        # queue three songs.
+        queue.queue("track-1.mp3")
+        queue.queue("track-2.mp3")
+        queue.queue("track-3.mp3")
+
+        queue.update()
+        assert queue.playing
+
+        queue.deinit()
+
+        assert audio.stop_called
+        assert audio.deinit_called
+        assert not queue._queue

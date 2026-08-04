@@ -192,19 +192,19 @@ class Queue:
         """
         Pauses the audio payback.
         """
-        return self._audio.pause()
+        self._audio.pause()
 
     def resume(self) -> None:
         """
         Resumes the audio playback.
         """
-        return self._audio.resume()
+        self._audio.resume()
 
     def stop(self) -> None:
         """
         Stops the audio playback.
         """
-        return self._audio.stop()
+        self._audio.stop()
 
     def cancel(self) -> None:
         """
