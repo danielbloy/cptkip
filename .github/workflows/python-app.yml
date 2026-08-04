@@ -48,8 +48,8 @@ jobs:
 
       - name: Test with pytest
         run: |
+          pytest tests/
           # The PYTHONPATH needs setting to make the config.py file available.
-          PYTHONPATH=.. pytest tests/
           PYTHONPATH=../.. pytest examples/
 
       - name: Run validation
