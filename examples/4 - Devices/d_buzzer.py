@@ -15,8 +15,7 @@ log.set_log_level(log.INFO)
 pin = BuzzerPin(config.BUZZER_PIN)
 buzzer = Buzzer(pin)
 
-buzzer.beep()
-buzzer.beep()
+buzzer.beeps(2)
 finish = time.monotonic() + 1.0
 while time.monotonic() < finish:
     buzzer.update()
