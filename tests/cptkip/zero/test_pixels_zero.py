@@ -16,13 +16,13 @@ class TestPixelsZero:
         # No brightness
         pixels = create_pixels()
         assert pixels
-        assert pixels.pin == config.PIXELS_PIN
-        assert pixels.n == config.PIXELS_COUNT
+        assert pixels.pin == config.PIXELS_PIN == "pixels_pin"
+        assert pixels.n == config.PIXELS_COUNT == 37
         assert pixels.brightness == 1.0
 
         # with brightness
         pixels = create_pixels(0.1)
         assert pixels
-        assert pixels.pin == config.PIXELS_PIN
-        assert pixels.n == config.PIXELS_COUNT
+        assert pixels.pin == config.PIXELS_PIN == "pixels_pin"
+        assert pixels.n == config.PIXELS_COUNT == 37
         assert pixels.brightness == 0.1

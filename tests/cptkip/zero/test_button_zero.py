@@ -15,8 +15,8 @@ class TestButtonZero:
         """
         pin = create_button_pin()
         assert pin
-        assert pin.pin == config.BUTTON_PIN
-        assert pin.pullup == config.BUTTON_PULLUP
+        assert pin.pin == config.BUTTON_PIN == "button_pin"
+        assert pin.pullup == config.BUTTON_PULLUP == "button_pullup"
 
     def test_create_button(self):
         """
@@ -24,6 +24,8 @@ class TestButtonZero:
         """
         btn = create_button()
         assert btn
+        assert btn.pin.pin == config.BUTTON_PIN == "button_pin"
+        assert btn.pin.pullup == config.BUTTON_PULLUP == "button_pullup"
 
     def test_create_button_click(self):
         """

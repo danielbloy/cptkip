@@ -15,7 +15,7 @@ class TestBuzzerZero:
         """
         pin = create_buzzer_pin()
         assert pin
-        assert pin.pin == config.BUZZER_PIN
+        assert pin.pin == config.BUZZER_PIN == "buzzer_pin"
 
     def test_create_buzzer(self):
         """
@@ -23,3 +23,4 @@ class TestBuzzerZero:
         """
         buzzer = create_buzzer()
         assert buzzer
+        assert buzzer._buzzer.pin == config.BUZZER_PIN == "buzzer_pin"

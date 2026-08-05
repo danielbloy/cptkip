@@ -1,13 +1,13 @@
-LED_PIN = None
-LED_INVERT = False
+LED_PIN = "led_pin"
+LED_INVERT = "led_invert"
 
-BUTTON_PIN = None
-BUTTON_PULLUP = True
+BUTTON_PIN = "button_pin"
+BUTTON_PULLUP = "button_pullup"
 
-PIXELS_PIN = None
-PIXELS_COUNT = 8
+PIXELS_PIN = "pixels_pin"
+PIXELS_COUNT = 37
 
-BUZZER_PIN = None
+BUZZER_PIN = "buzzer_pin"
 
 I2S_BIT_CLOCK = None
 I2S_LEFT_RIGHT_CLOCK = None
