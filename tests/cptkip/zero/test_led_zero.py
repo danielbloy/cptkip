@@ -24,5 +24,5 @@ class TestLedZero:
         """
         led = create_led()
         assert led
-        assert led.pin == config.LED_PIN == "led_pin"
-        assert led.invert == config.LED_INVERT == "led_invert"
+        assert led.pin.pin == config.LED_PIN == "led_pin"
+        assert led.pin.invert == config.LED_INVERT == "led_invert"
