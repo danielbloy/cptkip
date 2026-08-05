@@ -6,15 +6,15 @@
 import time
 
 from adafruit_led_animation.animation.blink import Blink
+from adafruit_led_animation.animation.pulse import Pulse
 
 import cptkip.core.logging as log
-import cptkip.device.pixels as pixel
 from cptkip.core.environment import is_running_under_test
 from cptkip.network.biplane import Server, Response
 from cptkip.task import memory_monitor_task
 from cptkip.zero.audio import create_pwm_queue
-from cptkip.zero.led import create_led
-from cptkip.zero.pixels import create_pixels
+from cptkip.zero.led import create_led, stop_animation as stop_led_animation
+from cptkip.zero.pixels import create_pixels, stop_animation as stop_pixels_animation
 
 log.set_log_level(log.INFO)
 
@@ -23,29 +23,10 @@ AUDIO_FILE = "examples/lion.mp3"
 queue = create_pwm_queue()
 
 led = create_led()
-animation = Blink(led, speed=0.5, color=(255, 255, 255))
+led_animation = Blink(led, speed=0.5, color=(255, 255, 255))
 
 pixels = create_pixels(brightness=0.5)
-
-r = 10
-rdx = 10
-
-
-def pulse_pixels():
-    global change, r, rdx
-    now = time.monotonic()
-    if now > change:
-        change = now + 0.02
-        r += rdx
-        if r > 200:
-            rdx = -10
-        if r < 40:
-            rdx = 10
-
-        pixels.fill((r, 0, 0))
-        pixels.write()
-
-
+pixels_animation = Pulse(pixels, speed=0.1, color=(255, 0, 0), period=3)
 server = Server()
 
 
@@ -65,15 +46,9 @@ while time.monotonic() < finish:
     listen()
     monitor()
     queue.update()
-    animation.animate()
-    pulse_pixels()
+    led_animation.animate()
+    pixels_animation.animate()
 
-animation.freeze()
-
-led.off()
-led.show()
-
-pixels.fill(pixel.OFF)
-pixels.write()
-
+stop_led_animation(led_animation)
+stop_pixels_animation(pixels_animation)
 queue.deinit()
