@@ -17,10 +17,9 @@ from adafruit_led_animation.color import *
 from adafruit_led_animation.sequence import AnimationSequence
 
 import cptkip.core.logging as log
-import cptkip.device.pixels as pixel
 from cptkip.animation.flicker import Flicker
 from cptkip.zero.button import create_button
-from cptkip.zero.pixels import create_pixels
+from cptkip.zero.pixels import create_pixels, stop_animation
 
 log.set_log_level(log.INFO)
 
@@ -68,6 +67,4 @@ while time.monotonic() < finish:
     button.update()
     animation.animate()
 
-animation.freeze()
-pixels.fill(pixel.OFF)
-pixels.write()
+stop_animation(animation)

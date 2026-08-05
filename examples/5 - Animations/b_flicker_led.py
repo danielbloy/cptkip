@@ -9,7 +9,7 @@ import cptkip.animation.flicker as animations
 import cptkip.core.logging as log
 import cptkip.task.basic_runner_async as runner
 import cptkip.task.periodic_task_async as periodic_task
-from cptkip.zero.led import create_led
+from cptkip.zero.led import create_led, stop_animation
 
 log.set_log_level(log.INFO)
 
@@ -34,6 +34,4 @@ task = periodic_task.create(update, frequency=30, continue_func=should_continue)
 
 runner.run([task])
 
-animation.freeze()
-led.off()
-led.show()
+stop_animation(animation)

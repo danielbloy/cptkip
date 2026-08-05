@@ -7,8 +7,7 @@ import time
 from adafruit_led_animation.animation.rainbow import Rainbow
 
 import cptkip.core.logging as log
-import cptkip.device.pixels as pixel
-from cptkip.zero.pixels import create_pixels
+from cptkip.zero.pixels import create_pixels, stop_animation
 
 log.set_log_level(log.INFO)
 
@@ -21,8 +20,4 @@ finish = time.monotonic() + 5
 while time.monotonic() < finish:
     animation.animate()
 
-animation.freeze()
-pixels.fill(pixel.OFF)
-pixels.write()
-
-# TODO: Add common tidy up to cptkip.zero
+stop_animation(animation)
