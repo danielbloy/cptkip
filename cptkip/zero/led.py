@@ -1,4 +1,5 @@
 from adafruit_led_animation.animation import Animation
+from adafruit_led_animation.sequence import AnimationSequence
 
 import cptkip.config.configuration as config
 from cptkip.device.led import Led
@@ -19,8 +20,20 @@ def create_led() -> Led:
     return Led(create_led_pin())
 
 
-# TODO: Comment and test
-def stop_animation(animation: Animation):
+def stop_animation(animation: Animation | AnimationSequence):
+    """
+    Simple utility function to make it easy to turn off LED animations.
+    """
     animation.freeze()
-    animation.pixel_object.off()
-    animation.pixel_object.show()
+    if isinstance(animation, AnimationSequence):
+        animation = animation.current_animation
+
+    stop_led(animation.pixel_object)
+
+
+def stop_led(led: Led):
+    """
+    Simple utility function to make it easy to turn off an LED.
+    """
+    led.off()
+    led.show()
