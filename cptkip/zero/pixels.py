@@ -13,8 +13,10 @@ def create_pixels(brightness: float = 1.0) -> Pixels:
     return create(config.PIXELS_PIN, config.PIXELS_COUNT, brightness=brightness)
 
 
-# TODO: Comment and test
 def stop_animation(animation: Animation | AnimationSequence):
+    """
+    Simple utility function to make it easy to turn off Pixel animations.
+    """
     animation.freeze()
     if isinstance(animation, AnimationSequence):
         animation = animation.current_animation
@@ -22,7 +24,10 @@ def stop_animation(animation: Animation | AnimationSequence):
     stop_pixels(animation.pixel_object)
 
 
-# TODO: Comment and test
 def stop_pixels(pixels: Pixels):
+    """
+    Simple utility function to make it easy to turn off Pixels.
+    """
+    pixels.brightness = 0.0
     pixels.fill(OFF)
     pixels.write()
