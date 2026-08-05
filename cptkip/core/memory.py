@@ -1,15 +1,15 @@
 # This module contains utility functions for tracking and reporting how much RAM the
-# system has available whilst it is running.
+# system has available whilst it is running. Strictly speaking the memory sizes
+# refer to the amount of heap RAM available, not total system RAM. Some of the system
+# RAM is allocated to CircuitPython; the amount reserved is statically allocated and
+# depends on the CircuitPython build used. See the following references:
+#  * https://docs.circuitpython.org/en/latest/docs/library/gc.html#functions
+#  * https://docs.circuitpython.org/en/latest/shared-bindings/memorymap/index.html
+#
 import gc
 
 import cptkip.core.environment as environment
 import cptkip.core.logging as log
-
-# TODO: Strictly speaking the memory sizes are heap RAM available, not total RAM.
-#       Review all of RAM monitoring and refine to make it clearer and even more useful.
-# See: https://docs.circuitpython.org/en/latest/docs/library/gc.html#functions
-# And: https://docs.circuitpython.org/en/latest/shared-bindings/memorymap/index.html
-# And: https://picogame.makerclass.cz/memory/
 
 __is_running_on_desktop: bool = environment.is_running_on_desktop()
 
