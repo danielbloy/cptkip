@@ -63,6 +63,7 @@ if not BUTTON_PIN:
 # N E O P I X E L S
 ################################################################################
 PIXELS_PIN = None
+PIXELS_COUNT = 8
 
 if environment.are_pins_available():
     # noinspection PyUnresolvedReferences

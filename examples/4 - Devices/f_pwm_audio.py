@@ -43,4 +43,4 @@ while time.monotonic() < finish:
     button.update()
     queue.update()
 
-audio.deinit()
+queue.deinit()

@@ -192,19 +192,19 @@ class Queue:
         """
         Pauses the audio payback.
         """
-        return self._audio.pause()
+        self._audio.pause()
 
     def resume(self) -> None:
         """
         Resumes the audio playback.
         """
-        return self._audio.resume()
+        self._audio.resume()
 
     def stop(self) -> None:
         """
         Stops the audio playback.
         """
-        return self._audio.stop()
+        self._audio.stop()
 
     def cancel(self) -> None:
         """
@@ -220,3 +220,11 @@ class Queue:
         if not self._audio.playing and len(self._queue) > 0:
             song = self._queue.pop(0)
             self._audio.play(song)
+
+    def deinit(self) -> None:
+        """
+        Clears the queue and deinits() the audio.
+        """
+        self._audio.stop()
+        self._queue.clear()
+        self._audio.deinit()
