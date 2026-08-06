@@ -1,7 +1,6 @@
 #
 # This example uses a range of Adafruit animations on Pixels/NeoPixels.
 #
-import time
 
 from adafruit_led_animation.animation.blink import Blink
 from adafruit_led_animation.animation.chase import Chase
@@ -20,6 +19,7 @@ import cptkip.core.logging as log
 from cptkip.animation.flicker import Flicker
 from cptkip.zero.button import create_button
 from cptkip.zero.pixels import create_pixels, stop_animation
+from cptkip.zero.run import update_for
 
 log.set_log_level(log.INFO)
 
@@ -61,10 +61,6 @@ button = create_button(
 
 # Run the loop for 10 seconds
 log.info("Press the button to change the animation.")
-finish = time.monotonic() + 10
-
-while time.monotonic() < finish:
-    button.update()
-    animation.animate()
+update_for(10, button, animation)
 
 stop_animation(animation)
