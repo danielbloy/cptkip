@@ -1,12 +1,13 @@
 #
 # This example demonstrates using a Button to blink the board LED.
-# Uses `cptkip.zero.button`.
+# Uses `cptkip.zero.button` and `cptkip.zero.run`
 #
 import time
 
 import cptkip.core.logging as log
 from cptkip.zero.button import create_button
 from cptkip.zero.led import create_led
+from cptkip.zero.run import update_for
 
 log.set_log_level(log.INFO)
 
@@ -43,7 +44,4 @@ button = create_button(
 
 # Run the loop for 10 seconds
 log.info("Press the button to change the LED.")
-finish = time.monotonic() + 10
-
-while time.monotonic() < finish:
-    button.update()
+update_for(10, button)

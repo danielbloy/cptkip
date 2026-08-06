@@ -1,14 +1,14 @@
 #
 # This example uses Melody to play some tunes through the Buzzer.
 # A Button is used to play, pause and unpause the melody. Uses
-# `cptkip.zero.button` and `cptkip.zero.buzzer`.
+# `cptkip.zero.button`, `cptkip.zero.buzzer` and `cptkip.zero.run`.
 #
-import time
 
 import cptkip.core.logging as log
 import cptkip.device.melody as melody
 from cptkip.zero.button import create_button
 from cptkip.zero.buzzer import create_buzzer_pin
+from cptkip.zero.run import update_for
 
 log.set_log_level(log.INFO)
 
@@ -51,10 +51,6 @@ button = create_button(click=single_click_handler, multi_click=multi_click_handl
 # Run the loop for 10 seconds
 log.info("Press the button to pause/unpause the sound.")
 log.info("Multi-press the button to reset the melody.")
-finish = time.monotonic() + 15
-
-while time.monotonic() < finish:
-    button.update()
-    melody_sequence.update()
+update_for(15, button, melody_sequence)
 
 pin.off()
