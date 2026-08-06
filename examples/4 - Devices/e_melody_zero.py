@@ -51,6 +51,6 @@ button = create_button(click=single_click_handler, multi_click=multi_click_handl
 # Run the loop for 10 seconds
 log.info("Press the button to pause/unpause the sound.")
 log.info("Multi-press the button to reset the melody.")
-update_for(15, button, melody_sequence)
+update_for(10, button, melody_sequence)
 
 pin.off()

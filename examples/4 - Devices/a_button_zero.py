@@ -16,9 +16,9 @@ led = create_led()
 
 def switch():
     if led.brightness > 0:
-        led.brightness = 1
-    else:
         led.brightness = 0
+    else:
+        led.brightness = 1
 
 
 def single_click_handler() -> None:

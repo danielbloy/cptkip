@@ -53,7 +53,7 @@ button = Button(input_pin, click=single_click_handler, multi_click=multi_click_h
 # Run the loop for 10 seconds
 log.info("Press the button to pause/unpause the sound.")
 log.info("Multi-press the button to reset the melody.")
-finish = time.monotonic() + 15
+finish = time.monotonic() + 10
 
 while time.monotonic() < finish:
     button.update()
