@@ -144,10 +144,10 @@ class TestMemoryMonitorTask:
         """
         # First validate that we do not get errors.
         task = create(0, 0, continue_func=utils.stop)
-        asyncio.run(task())
+        task()
 
         task = create(-1, -1, continue_func=utils.stop)
-        asyncio.run(task())
+        task()
 
         count = 0
         end_time = 0
