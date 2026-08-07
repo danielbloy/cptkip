@@ -322,20 +322,37 @@ class Server:
 
     def create_task(self, continue_func: Callable[[], bool] | None = None) -> Callable[[], bool]:
         """
-        TODO: Comments
-
-        :param server:
-        :param continue_func:
-        :return:
+        Starts a Biplane server that can be used to listen for requests based on whether we are
+        running on Python or CircuitPython. The server is then wrapped in a task that matches
+        the form of tasks in `cptkip.tasks` and the runners in `cptkip.task`.
         """
         listen_on = (_get_host(), _get_port())
         if is_running_on_desktop():
             listen = self.python_start_wifi_station(listen_on=listen_on)
         else:
             from os import getenv
+            if not getenv('WIFI_SSID'):
+                raise ValueError("WIFI_SSID must be specified in settings.toml")
+
+            if not getenv('WIFI_PASSWORD'):
+                raise ValueError("WIFI_PASSWORD must be specified in settings.toml")
+
+            # For hostname, we use the following order of preference:
+            #     * A value specified in setting.toml
+            #     * A config value specified in config.py or device.py
+            #     * "app"
+            hostname = getenv('HOSTNAME')
+            if not hostname:
+                import cptkip.config.configuration as config
+
+                hostname = "app"
+
+                if hasattr(config, 'HOSTNAME'):
+                    hostname = config.HOSTNAME
+
+            # noinspection bad-argument-type
             listen = self.circuitpython_start_wifi_station(
-                getenv('WIFI_SSID'), getenv('WIFI_PASSWORD'), "app",  # TODO: Proper hostname
-                listen_on=listen_on)
+                getenv('WIFI_SSID'), getenv('WIFI_PASSWORD'), hostname, listen_on=listen_on)
 
         def monitor() -> bool:
             listen.__next__()
