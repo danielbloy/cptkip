@@ -23,7 +23,7 @@ else:
         pass
 
 
-def _get_host():
+def get_host():
     """
     Convenience function that provides the hostname based on the environment within which it is
     running.
@@ -49,7 +49,7 @@ def _get_host():
         return "0.0.0.0"
 
 
-def _get_port() -> int:
+def get_port() -> int:
     """
     Convenience function that provides a port to listen on based on the environment within which it
     is running.
@@ -313,20 +313,21 @@ class Server:
     ########################################
     # E N D    O F    B I P L A N E
     ########################################
-    def python_start_wifi_station(self, listen_on=('127.0.0.1', 8000)):
+    def python_start_wifi_station(self, listen_on=(get_host(), get_port())):
         import socket
         server_socket = socket.socket()
         server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         print(f"Starting on IP address {listen_on[0]}:{listen_on[1]}")
         return self.start(server_socket, listen_on=(listen_on[0], listen_on[1]))
 
-    def create_task(self, continue_func: Callable[[], bool] | None = None) -> Callable[[], bool]:
+    def create_task(self,
+                    listen_on=(get_host(), get_port()),
+                    continue_func: Callable[[], bool] | None = None) -> Callable[[], bool]:
         """
         Starts a Biplane server that can be used to listen for requests based on whether we are
         running on Python or CircuitPython. The server is then wrapped in a task that matches
         the form of tasks in `cptkip.tasks` and the runners in `cptkip.task`.
         """
-        listen_on = (_get_host(), _get_port())
         if is_running_on_desktop():
             listen = self.python_start_wifi_station(listen_on=listen_on)
         else:
