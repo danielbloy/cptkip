@@ -1,6 +1,8 @@
-# see: https://learn.adafruit.com/networking-in-circuitpython/making-http-andhttps-requests
+#
+# For more examples, see: https://learn.adafruit.com/networking-in-circuitpython/making-http-andhttps-requests
+#
 from cptkip.core.memory import report_memory_usage_and_free
-from cptkip.network.requests import send_message
+from cptkip.network.requests import requests
 
 report_memory_usage_and_free()
 
@@ -16,7 +18,7 @@ for _ in range(3):
         host = query["host"]
         path = query["path"]
         print(f"Calling {protocol}://{host}/{path}...")
-        with send_message(path, host, protocol) as response:
+        with requests.request("GET", f"{protocol}://{host}/{path}") as response:
             print(f"Status ..... : {response.status_code}")
             print(f"Reason ..... : {response.reason}")
             print(f"Text ....... : {response.text}")

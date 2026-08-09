@@ -1,8 +1,8 @@
-#
 # This example uses biplane to run a simple server that can respond to a
 # single route which triggers some PWM audio through the buzzer. At the
-# same time it is blinking the LED and flashing the NeoPixels.
-#
+# same time it is blinking the LED and flashing the NeoPixels. This is
+# primarily showing how you can do multiple thinks at the same time
+# whilst listening and responding to network messages.
 
 from adafruit_led_animation.animation.blink import Blink
 from adafruit_led_animation.animation.pulse import Pulse
