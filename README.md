@@ -35,7 +35,7 @@ The structure of the project is arranged in the following modules (listed in ord
 * `pin` - provides an abstraction layer to support environments with no physical pins.
 * `device` - provides abstractions for hardware components.
 * `animation` - provides additional animations, currently just `Flicker`.
-* `network` - provides network support.
+* `network` - provides network support, both server and client.
 * `zero` - provides convenience functions that uses the configuration data to simplify creating
   devices.
 

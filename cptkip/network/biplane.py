@@ -3,6 +3,11 @@
 # by squashing the BlockingIOError. There is some custom code at the start and end
 # of the file.
 #
+# To avoid changing biplane more than the absolute minimum, it continues to use
+# print statements rather than the cptkip logging mechanism.
+#
+# To see the additions in the actual biplane code, search for: ADDITION.
+#
 # As biplane is provided with an MIT license, this file, including my modifications
 # is therefore also made available under the MIT license. See `LICENSE.txt` available
 # at https://github.com/Uberi/biplane/blob/main/LICENSE.txt.
@@ -17,7 +22,48 @@ else:
     class BlockingIOError(OSError):
         pass
 
-import os
+
+def get_host() -> str:
+    """
+    Convenience function that provides the hostname based on the environment within which it is
+    running.
+    """
+    if is_running_under_test():
+        return "127.0.0.1"
+    elif is_running_on_desktop():
+        import socket
+        # from https://stackoverflow.com/a/28950776
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.settimeout(0)
+        # noinspection broad-exception
+        try:
+            # doesn't even have to be reachable
+            s.connect(('10.254.254.254', 1))
+            ip = s.getsockname()[0]
+        except:
+            ip = '127.0.0.1'
+        finally:
+            s.close()
+        return ip
+    else:
+        return "0.0.0.0"
+
+
+def get_port() -> int:
+    """
+    Convenience function that provides a port to listen on based on the environment within which it
+    is running.
+    """
+    if is_running_under_test():
+        from random import randint
+        return randint(5001, 9000)
+    elif is_running_on_desktop():
+        from cptkip.core.control import NETWORK_PORT_DESKTOP
+        return NETWORK_PORT_DESKTOP
+    else:
+        from cptkip.core.control import NETWORK_PORT_MICROCONTROLLER
+        return NETWORK_PORT_MICROCONTROLLER
+
 
 ########################################
 # S T A R T    O F    B I P L A N E
@@ -60,7 +106,7 @@ class BufferedNonBlockingSocket:
                 self.end = self.sock.recv_into(self.read_buffer, len(self.read_buffer))
                 if self.end == 0:  # client closed connection, there's no more to read
                     break
-            except BlockingIOError:
+            except BlockingIOError:  # ADDITION
                 # Because on Windows we get annoying BlockingIOErrors when running the network,
                 # we swallow those here as they make all other output difficult to see.
                 pass
@@ -203,7 +249,7 @@ class Server:
             if len(client_processors) < max_parallel_connections:
                 try:
                     new_client_socket, new_client_address = server_socket.accept()
-                except BlockingIOError:
+                except BlockingIOError:  # ADDITION
                     # Because on Windows we get annoying BlockingIOErrors when running the network,
                     # we swallow those here as they make all other output difficult to see.
                     pass
@@ -267,66 +313,50 @@ class Server:
     ########################################
     # E N D    O F    B I P L A N E
     ########################################
-    def python_start_wifi_station(self, listen_on=('127.0.0.1', 8000)):
+    def python_start_wifi_station(self, listen_on=(get_host(), get_port())):
         import socket
         server_socket = socket.socket()
         server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         print(f"Starting on IP address {listen_on[0]}:{listen_on[1]}")
         return self.start(server_socket, listen_on=(listen_on[0], listen_on[1]))
 
-    def create_task(self, continue_func: Callable[[], bool] | None = None) -> Callable[[], bool]:
+    def create_task(self,
+                    continue_func: Callable[[], bool] | None = None,
+                    listen_on=(get_host(), get_port())) -> Callable[[], bool]:
         """
-        TODO: Comments
-
-        :param server:
-        :param continue_func:
-        :return:
+        Starts a Biplane server that can be used to listen for requests based on whether we are
+        running on Python or CircuitPython. The server is then wrapped in a task that matches
+        the form of tasks in `cptkip.tasks` and the runners in `cptkip.task`.
         """
-        listen_on = (_get_host(), _get_port())
         if is_running_on_desktop():
             listen = self.python_start_wifi_station(listen_on=listen_on)
         else:
+            from os import getenv
+            if not getenv('WIFI_SSID'):
+                raise ValueError("WIFI_SSID must be specified in settings.toml")
+
+            if not getenv('WIFI_PASSWORD'):
+                raise ValueError("WIFI_PASSWORD must be specified in settings.toml")
+
+            # For hostname, we use the following order of preference:
+            #     * A value specified in setting.toml
+            #     * A config value specified in config.py or device.py
+            #     * "app"
+            hostname = getenv('HOSTNAME')
+            if not hostname:
+                import cptkip.config.configuration as config
+
+                hostname = "app"
+
+                if hasattr(config, 'HOSTNAME'):
+                    hostname = config.HOSTNAME
+
+            # noinspection bad-argument-type
             listen = self.circuitpython_start_wifi_station(
-                os.getenv('WIFI_SSID'), os.getenv('WIFI_PASSWORD'), "app",  # TODO: Proper hostname
-                listen_on=listen_on)
+                getenv('WIFI_SSID'), getenv('WIFI_PASSWORD'), hostname, listen_on=listen_on)
 
         def monitor() -> bool:
             listen.__next__()
             return not continue_func or continue_func()
 
         return monitor
-
-
-def _get_host():
-    if is_running_under_test():
-        return "127.0.0.1"
-    elif is_running_on_desktop():
-        import socket
-        # from https://stackoverflow.com/a/28950776
-        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        s.settimeout(0)
-        try:
-            # doesn't even have to be reachable
-            s.connect(('10.254.254.254', 1))
-            ip = s.getsockname()[0]
-        except:
-            ip = '127.0.0.1'
-        finally:
-            s.close()
-        return ip
-    else:
-        return "0.0.0.0"
-
-
-def _get_port() -> int:
-    if is_running_under_test():
-        from random import randint
-        return randint(5001, 50000)
-    elif is_running_on_desktop():
-        from cptkip.core.control import NETWORK_PORT_DESKTOP
-        return NETWORK_PORT_DESKTOP
-    else:
-        from cptkip.core.control import NETWORK_PORT_MICROCONTROLLER
-        return NETWORK_PORT_MICROCONTROLLER
-
-# TODO: Consider replacing print statements with logging.
