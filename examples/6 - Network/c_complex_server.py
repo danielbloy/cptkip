@@ -3,7 +3,6 @@
 # single route which triggers some PWM audio through the buzzer. At the
 # same time it is blinking the LED and flashing the NeoPixels.
 #
-import time
 
 from adafruit_led_animation.animation.blink import Blink
 from adafruit_led_animation.animation.pulse import Pulse
@@ -15,6 +14,7 @@ from cptkip.task import memory_monitor_task
 from cptkip.zero.audio import create_pwm_queue
 from cptkip.zero.led import create_led, stop_animation as stop_led_animation
 from cptkip.zero.pixels import create_pixels, stop_animation as stop_pixels_animation
+from cptkip.zero.run import run_for
 
 log.set_log_level(log.INFO)
 
@@ -39,15 +39,16 @@ def main(query_parameters, headers, body):
 monitor = memory_monitor_task.create(4, 1, lambda: True)
 listen = server.create_task(lambda: True)
 
-finish = time.monotonic() + (10 if is_running_under_test() else 120)
-change = time.monotonic() + 0.01
 
-while time.monotonic() < finish:
+def run():
     listen()
     monitor()
     queue.update()
     led_animation.animate()
     pixels_animation.animate()
+
+
+run_for(10 if is_running_under_test() else 60, run)
 
 stop_led_animation(led_animation)
 stop_pixels_animation(pixels_animation)

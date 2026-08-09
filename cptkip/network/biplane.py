@@ -321,8 +321,8 @@ class Server:
         return self.start(server_socket, listen_on=(listen_on[0], listen_on[1]))
 
     def create_task(self,
-                    listen_on=(get_host(), get_port()),
-                    continue_func: Callable[[], bool] | None = None) -> Callable[[], bool]:
+                    continue_func: Callable[[], bool] | None = None,
+                    listen_on=(get_host(), get_port())) -> Callable[[], bool]:
         """
         Starts a Biplane server that can be used to listen for requests based on whether we are
         running on Python or CircuitPython. The server is then wrapped in a task that matches

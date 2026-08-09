@@ -1,4 +1,3 @@
-# TODO: Implement calling TEXT_URL = "http://wifitest.adafruit.com/testwifi/index.html"
 # see: https://learn.adafruit.com/networking-in-circuitpython/making-http-andhttps-requests
 from cptkip.core.memory import report_memory_usage_and_free
 from cptkip.network.requests import send_message

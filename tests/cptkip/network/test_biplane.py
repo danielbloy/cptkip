@@ -14,7 +14,7 @@ def run_biplane_test(server: Server, test_func: Callable[[str, int], None]):
     """
     host = get_host()
     port = get_port()
-    task = server.create_task((host, port), lambda: running)
+    task = server.create_task(lambda: running, (host, port))
 
     def run_server():
         while task():

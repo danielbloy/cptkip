@@ -7,17 +7,17 @@ if environment.is_running_on_desktop():
     from collections.abc import Callable
 
 
-def run_for(seconds: float | int, func: Callable[[], None]):
+def run_for(seconds: float | int, func: Callable[[], None] | Callable[[], bool]):
     """
-    Runs the func for the given number of seconds.
+    Runs the func for the given number of seconds. If func returns a value, it is ignored.
     """
     if seconds <= 0:
         raise ValueError(f"Argument {seconds} is not positive")
-    
+
     finish = time.monotonic() + seconds
 
     while time.monotonic() < finish:
-        func()
+        _ = func()
 
 
 def update_for(seconds: float | int, *args):
