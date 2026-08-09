@@ -7,13 +7,18 @@ from cptkip.network.requests import requests
 
 
 def run_biplane_test(server: Server, test_func: Callable[[str, int], None]):
+    """
+    Runs a test on a biplane server. the Server is run on a separate thread to process
+    requests whilst the test function runs on this thread. they are then joined together
+    to complete the test.
+    """
     host = get_host()
     port = get_port()
-    listen = server.python_start_wifi_station((host, port))
+    task = server.create_task((host, port), lambda: running)
 
     def run_server():
-        while running:
-            listen.__next__()
+        while task():
+            pass
 
     running = True
     thread = Thread(target=run_server)
@@ -43,11 +48,13 @@ class TestBiPlane:
         the CI environment.
         """
         for _ in range(100):
-            assert 5001 <= get_port() <= 50000
+            assert 5001 <= get_port() <= 9000
 
-    def test_python_start_wifi_station(self):
+    def test_create_task(self):
         """
         Validates that we can start the server and receive requests.
+        This tests both test_create_task() and python_start_wifi_station() as it
+        is simply not worth testing them separately.
         """
 
         def test_no_routes(host, port):
@@ -67,10 +74,3 @@ class TestBiPlane:
             assert response.text == "<b>Hello, world!</b>"
 
         run_biplane_test(server, test_one_route)
-
-    def test_create_task(self):
-        """
-        Validates that we can create a server task and run with it.
-        """
-        # TODO: Implement
-        assert True

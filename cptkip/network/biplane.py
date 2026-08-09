@@ -56,7 +56,7 @@ def get_port() -> int:
     """
     if is_running_under_test():
         from random import randint
-        return randint(5001, 50000)
+        return randint(5001, 9000)
     elif is_running_on_desktop():
         from cptkip.core.control import NETWORK_PORT_DESKTOP
         return NETWORK_PORT_DESKTOP
