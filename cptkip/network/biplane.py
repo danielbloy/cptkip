@@ -23,7 +23,7 @@ else:
         pass
 
 
-def get_host():
+def get_host() -> str:
     """
     Convenience function that provides the hostname based on the environment within which it is
     running.

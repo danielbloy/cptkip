@@ -1,14 +1,29 @@
-# TODO: MockServer with custom ports and endpoints.
-import asyncio
+from collections.abc import Callable
 from threading import Thread
 
 # noinspection protected-member
-from cptkip.network.biplane import get_host as get_host, get_port as get_port, Server
-from network.requests import requests
+from cptkip.network.biplane import get_host as get_host, get_port as get_port, Server, Response
+from cptkip.network.requests import requests
 
 
-def python_start_wifi_station(param):
-    pass
+def run_biplane_test(server: Server, test_func: Callable[[str, int], None]):
+    host = get_host()
+    port = get_port()
+    listen = server.python_start_wifi_station((host, port))
+
+    def run_server():
+        while running:
+            listen.__next__()
+
+    running = True
+    thread = Thread(target=run_server)
+    try:
+        thread.start()
+        test_func(host, port)
+
+    finally:
+        running = False
+        thread.join()
 
 
 class TestBiPlane:
@@ -34,37 +49,24 @@ class TestBiPlane:
         """
         Validates that we can start the server and receive requests.
         """
-        host = get_host()
-        port = get_port()
+
+        def test_no_routes(host, port):
+            response = requests.get(f"http://{host}:{port}")
+            assert response.status_code == 404
+
         server = Server()
-        listen = server.python_start_wifi_station((host, port))
+        run_biplane_test(server, test_no_routes)
 
-        running = False
+        @server.route("/", "GET")
+        def main(query_parameters, headers, body):
+            return Response("<b>Hello, world!</b>", content_type="text/html")
 
-        # TODO: This does not need to be async at all, we can do it on our thread.
-        async def run_server():
-            print("a")
-            while running:
-                listen.__next__()
-                await asyncio.sleep(0)
-            print("b")
+        def test_one_route(host, port):
+            response = requests.get(f"http://{host}:{port}/")
+            assert response.status_code == 200
+            assert response.text == "<b>Hello, world!</b>"
 
-        def test():
-            nonlocal running
-            print("c")
-            x = requests.get(f"http://{host}:{port}/")
-            print("d")
-
-        # print(f"http://{host}:{port}/")
-        # requests.get(f"http://{host}:{port}/")
-        # print("got")
-        asyncio.run(run_server())
-
-        thread = Thread(target=test)
-        thread.start()
-        thread.join()
-        running = False
-        print("g")
+        run_biplane_test(server, test_one_route)
 
     def test_create_task(self):
         """
