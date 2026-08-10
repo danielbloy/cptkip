@@ -17,5 +17,3 @@ if is_running_on_microcontroller():
     from validate.performance.script_runner import execute_next_script
 
     execute_next_script()
-
-# TODO: Add network performance details to README.md

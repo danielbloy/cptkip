@@ -7,20 +7,22 @@ from cptkip.core.environment import is_running_on_desktop
 if is_running_on_desktop():
     from collections.abc import Callable
 
+finish = 0
+continue_func = lambda: monotonic() < finish
+
 
 def execute(task: Callable[[], None] | Callable[[], bool], monitor: bool = True):
     """
     Executes a single task with basic instrumentation of RAM usage and number of
     execution cycles achieved. If a task returns a boolean, it is ignored.
     """
+    global finish
     import gc
     from validate.performance.task_settings import sample_frequency, report_frequency, runtime
 
     print("START ...... : Used:", gc.mem_alloc(), "bytes, Free:", gc.mem_free(), "bytes")
 
     cycles = 0
-
-    continue_func = lambda: monotonic() < finish
 
     def update() -> bool:
         """

@@ -2,7 +2,7 @@ import cptkip.config.configuration as config
 from cptkip.device.audio import I2sAudio as Audio, Queue
 from validate.performance.task_runner import execute
 
-AUDIO_FILE = "examples/lion.mp3"
+AUDIO_FILE = "validate/lion.mp3"
 
 audio = Audio(config.I2S_BIT_CLOCK, config.I2S_LEFT_RIGHT_CLOCK, config.I2S_DATA)
 queue = Queue(audio)

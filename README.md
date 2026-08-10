@@ -77,6 +77,8 @@ detailed information, see
 * The sync examples much less RAM than their async counterparts (16Kb vs 32Kb).
 * The `cptkip.task.memory_monitor_task` (sync and async) uses about 3Kb of RAM but is expensive in
   cycles.
+* The `cptkip.network.requests` module uses about 30Kb to 40Kb of RAM.
+* The `cptkip.network.biplane` module uses about 20Kb of RAM.
 
 ### Lessons learned
 
