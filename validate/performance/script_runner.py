@@ -28,8 +28,11 @@ def execute_next_script(current_script: str | None = None):
         "/validate/performance/n_buzzer.py",
         "/validate/performance/n_melody.py",
         "/validate/performance/n_pwm_audio.py",
+        "/validate/performance/n_i2s_audio.py",
         "/validate/performance/o_blink.py",
         "/validate/performance/o_flicker.py",
+        "/validate/performance/s_client.py",
+        "/validate/performance/s_server.py",
         "/validate/performance/z_finish.py"
     ]
 

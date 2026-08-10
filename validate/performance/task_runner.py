@@ -11,10 +11,10 @@ finish = 0
 continue_func = lambda: monotonic() < finish
 
 
-def execute(task: Callable[[], None], monitor: bool = True):
+def execute(task: Callable[[], None] | Callable[[], bool], monitor: bool = True):
     """
     Executes a single task with basic instrumentation of RAM usage and number of
-    execution cycles achieved.
+    execution cycles achieved. If a task returns a boolean, it is ignored.
     """
     global finish
     import gc

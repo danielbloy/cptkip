@@ -1,8 +1,8 @@
 import cptkip.config.configuration as config
-from cptkip.device.pwm_audio import Audio, Queue
+from cptkip.device.audio import PwmAudio as Audio, Queue
 from validate.performance.task_runner import execute
 
-AUDIO_FILE = "examples/lion.mp3"
+AUDIO_FILE = "validate/lion.mp3"
 
 audio = Audio(config.BUZZER_PIN)
 queue = Queue(audio)
