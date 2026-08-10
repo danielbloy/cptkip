@@ -1,3 +1,5 @@
+import pytest
+
 from cptkip.network.requests import requests
 
 
@@ -11,7 +13,7 @@ class TestRequests:
                               f"http://wifitest.adafruit.com/testwifi/index.html") as response:
             # We do not always get wonderful reliability in CI.
             if response.status_code == 504:
-                return
+                pytest.skip("there was a gateway timeout reaching the service")
 
             assert response.status_code == 200
             assert response.reason == "OK"
@@ -26,7 +28,7 @@ class TestRequests:
         with requests.get("https://httpbin.org/get") as response:
             # We do not always get wonderful reliability in CI.
             if response.status_code == 504:
-                return
+                pytest.skip("there was a gateway timeout reaching the service")
 
             assert response.status_code == 200
             assert response.reason == "OK"
@@ -40,11 +42,11 @@ class TestRequests:
                            data="This is an example of a JSON value") as response:
             # We do not always get wonderful reliability in CI.
             if response.status_code == 504:
-                return
+                pytest.skip("there was a gateway timeout reaching the service")
 
             assert response.status_code == 200
             assert response.reason == "OK"
-            
+
             json_resp = response.json()
             assert json_resp['data'] == "This is an example of a JSON value"
             assert json_resp['headers']['Content-Length'] == '34'
