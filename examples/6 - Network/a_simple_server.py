@@ -1,4 +1,3 @@
-#
 # This example uses biplane to run a simple server that can respond to a
 # single route to display "Hello, world!".
 #

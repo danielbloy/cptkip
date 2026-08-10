@@ -87,7 +87,7 @@ continue_func = lambda: monotonic() < finish
 
 
 def execute(
-        task: Callable[[], None],
+        task: Callable[[], None] | Callable[[], bool],
         runtime: int = RUNTIME,
         sample_frequency: int = SAMPLE_FREQUENCY,
         report_frequency: int = REPORT_FREQUENCY):
@@ -95,7 +95,7 @@ def execute(
     Executes a single task with basic instrumentation of RAM usage and number of
     execution cycles achieved. This is a utility function to make it easier to
     validate functionality without repeating the same time management code over
-    and over.
+    and over. If task returns a boolean value, it is ignored.
 
     :param task - Called to execute the test
     :param runtime - The number of seconds to execute for
