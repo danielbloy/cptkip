@@ -14,7 +14,6 @@ The following functionality is a priority to implement:
 * Support for MEMS microphone
 * Support for ultrasonic sensors
 * Triggered Tasks - async and sync
-* lightweight object hierarchy to control multiple devices
 
 ## Next
 
@@ -25,6 +24,7 @@ The following functionality is planned to be implemented and is inspired by
 * Safe Runner - async and sync
 * Timed Events Task - async sync
 * One time on/off task - async and sync
+* lightweight object hierarchy to control multiple devices
 
 ## Later
 

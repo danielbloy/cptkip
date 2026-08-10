@@ -17,11 +17,11 @@ for query in queries:
     path = query["path"]
     print(f"Calling {protocol}://{host}/{path}...")
     with requests.request("GET", f"{protocol}://{host}/{path}") as response:
-        print(f"Status ..... : {response.status_code}")
-        print(f"Reason ..... : {response.reason}")
-        print(f"Text ....... : {response.text}")
-        print(f"Encoding ... : {response.encoding}")
-        print(f"Headers .... : {response.headers}\n")
+        print(f"Status .................. : {response.status_code}")
+        print(f"Reason .................. : {response.reason}")
+        print(f"Text .................... : {response.text}")
+        print(f"Encoding ................ : {response.encoding}")
+        print(f"Headers ................. : {response.headers}\n")
 
 report_memory_usage_and_free()
 
@@ -32,12 +32,16 @@ JSON_GET_URL = "https://httpbin.org/get"
 JSON_POST_URL = "https://httpbin.org/post"
 
 with requests.get(JSON_GET_URL) as response:
-    print(f"Unparsed Full JSON Response: {response.json()}\n")
+    print(f"Status .................. : {response.status_code}")
+    print(f"Reason .................. : {response.reason}")
+    print(f"Unparsed JSON Response .. : {response.json()}\n")
 
 DATA = "This is an example of a JSON value"
 with requests.post(JSON_POST_URL, data=DATA) as response:
-    json_resp = response.json()
+    print(f"Status .................. : {response.status_code}")
+    print(f"Reason .................. : {response.reason}")
     # Parse out the 'data' key from json_resp dict.
-    print(f"JSON 'value' Response: {json_resp['data']}\n")
+    json_resp = response.json()
+    print(f"JSON 'value' Response ... : {json_resp['data']}\n")
 
 report_memory_usage_and_free()
