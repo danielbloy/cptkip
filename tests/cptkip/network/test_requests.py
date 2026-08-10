@@ -9,6 +9,10 @@ class TestRequests:
         """
         with requests.request("GET",
                               f"http://wifitest.adafruit.com/testwifi/index.html") as response:
+            # We do not always get wonderful reliability in CI.
+            if response.status_code == 504:
+                return
+
             assert response.status_code == 200
             assert response.reason == "OK"
             assert response.text == "This is a test of Adafruit WiFi!\nIf you can read this, its working :)"
@@ -20,7 +24,12 @@ class TestRequests:
         Simple validation for a get request.
         """
         with requests.get("https://httpbin.org/get") as response:
+            # We do not always get wonderful reliability in CI.
+            if response.status_code == 504:
+                return
+
             assert response.status_code == 200
+            assert response.reason == "OK"
             assert response.json()["url"] == "https://httpbin.org/get"
 
     def test_post(self):
@@ -29,6 +38,13 @@ class TestRequests:
         """
         with requests.post("https://httpbin.org/post",
                            data="This is an example of a JSON value") as response:
+            # We do not always get wonderful reliability in CI.
+            if response.status_code == 504:
+                return
+
+            assert response.status_code == 200
+            assert response.reason == "OK"
+            
             json_resp = response.json()
             assert json_resp['data'] == "This is an example of a JSON value"
             assert json_resp['headers']['Content-Length'] == '34'
