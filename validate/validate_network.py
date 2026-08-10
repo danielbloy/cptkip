@@ -6,4 +6,9 @@ import validate.utils as utils
 modules = [client, server]
 
 if __name__ == '__main__':
-    utils.execute_modules(modules)
+    try:
+        import wifi
+
+        utils.execute_modules(modules)
+    except ImportError:
+        print("WiFi not available")

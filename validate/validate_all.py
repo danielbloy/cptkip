@@ -4,10 +4,11 @@ import validate.utils as utils
 import validate.validate_animation as animation
 import validate.validate_core as core
 import validate.validate_device as device
+import validate.validate_network as network
 import validate.validate_pin as pin
 import validate.validate_task as task
 
-scripts = [core, task, pin, device, animation]
+scripts = [core, task, pin, device, animation, network]
 
 
 def execute():
