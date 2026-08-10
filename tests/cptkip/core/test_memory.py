@@ -9,18 +9,18 @@ class TestMemory:
         reset the counters.
         """
         memory.reset_memory_usage()
-        assert memory.peak_used_ram == 0
-        assert memory.used_ram == 0
-        assert memory.free_ram == 0
-        assert memory.total_ram == 0
+        assert memory.peak_used_heap == 0
+        assert memory.used_heap == 0
+        assert memory.free_heap == 0
+        assert memory.total_heap == 0
 
         memory.sample_memory_usage()
 
         memory.reset_memory_usage()
-        assert memory.peak_used_ram == 0
-        assert memory.used_ram == 0
-        assert memory.free_ram == 0
-        assert memory.total_ram == 0
+        assert memory.peak_used_heap == 0
+        assert memory.used_heap == 0
+        assert memory.free_heap == 0
+        assert memory.total_heap == 0
 
     def test_sample_memory_usage(self):
         """
@@ -30,17 +30,17 @@ class TestMemory:
         memory.reset_memory_usage()
 
         memory.sample_memory_usage()
-        assert memory.peak_used_ram != 0
-        assert memory.used_ram != 0
-        assert memory.free_ram != 0
-        assert memory.total_ram != 0
+        assert memory.peak_used_heap != 0
+        assert memory.used_heap != 0
+        assert memory.free_heap != 0
+        assert memory.total_heap != 0
 
         # total must always be at least as large as used and free individually,
         # and used + free should not exceed total. This catches the used/total
         # values being accidentally swapped or otherwise mixed up.
-        assert memory.total_ram >= memory.used_ram
-        assert memory.total_ram >= memory.free_ram
-        assert memory.used_ram + memory.free_ram <= memory.total_ram
+        assert memory.total_heap >= memory.used_heap
+        assert memory.total_heap >= memory.free_heap
+        assert memory.used_heap + memory.free_heap <= memory.total_heap
 
         # Call multiple times to check for errors.
         memory.sample_memory_usage()

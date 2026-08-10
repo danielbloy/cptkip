@@ -2,18 +2,15 @@
 
 ## Now
 
-Investigate the "Free: 162464 bytes" value on the validate performance tests and identify how to
-maximise it. Specifically investigate the decrease after adding the I2S support.
-
-Investigate a solution to the issue of the on-board LED on a Pico-W being connected to CywPin which
-does not support PWM (only digital In/Out) which means the LED examples will fail on the device (and
-probably the validation too).
-
 The following functionality is a priority to implement:
 
 * Support for MEMS microphone
 * Support for ultrasonic sensors
 * Triggered Tasks - async and sync
+
+Investigate a solution to the issue of the on-board LED on a Pico-W being connected to CywPin which
+does not support PWM (only digital In/Out) which means the LED examples will fail on the device (and
+probably the validation too).
 
 ## Next
 

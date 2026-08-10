@@ -13,10 +13,10 @@ import cptkip.core.logging as log
 
 __is_running_on_desktop: bool = environment.is_running_on_desktop()
 
-peak_used_ram = 0
-used_ram = 0
-free_ram = 0
-total_ram = 0
+peak_used_heap = 0
+used_heap = 0
+free_heap = 0
+total_heap = 0
 
 
 def reset_memory_usage() -> None:
@@ -24,11 +24,11 @@ def reset_memory_usage() -> None:
     Resets the internal counters to zero used when sampling. Units are MB on
     desktop and bytes on a microcontroller (see sample_memory_usage()).
     """
-    global peak_used_ram, used_ram, free_ram, total_ram
-    peak_used_ram = 0
-    used_ram = 0
-    free_ram = 0
-    total_ram = 0
+    global peak_used_heap, used_heap, free_heap, total_heap
+    peak_used_heap = 0
+    used_heap = 0
+    free_heap = 0
+    total_heap = 0
 
 
 def sample_memory_usage() -> None:
@@ -37,23 +37,23 @@ def sample_memory_usage() -> None:
     Values are in MB when running on desktop and in bytes when running on a
     microcontroller.
     """
-    global peak_used_ram, used_ram, free_ram, total_ram
+    global peak_used_heap, used_heap, free_heap, total_heap
 
     if __is_running_on_desktop:
         import psutil
         stats = psutil.virtual_memory()  # returns a named tuple
-        used_ram = stats.used // 1_048_576
-        free_ram = stats.free // 1_048_576
-        total_ram = stats.total // 1_048_576
+        used_heap = stats.used // 1_048_576
+        free_heap = stats.free // 1_048_576
+        total_heap = stats.total // 1_048_576
     else:
         # noinspection PyUnresolvedReferences
-        used_ram = gc.mem_alloc()
+        used_heap = gc.mem_alloc()
         # noinspection PyUnresolvedReferences
-        free_ram = gc.mem_free()
-        total_ram = used_ram + free_ram
+        free_heap = gc.mem_free()
+        total_heap = used_heap + free_heap
 
-    if used_ram > peak_used_ram:
-        peak_used_ram = used_ram
+    if used_heap > peak_used_heap:
+        peak_used_heap = used_heap
 
 
 def report_memory_usage() -> None:
@@ -64,13 +64,13 @@ def report_memory_usage() -> None:
     sample_memory_usage()
     if __is_running_on_desktop:
         log.critical(
-            "Peak:", peak_used_ram, "MB, Used:", used_ram, "MB, Free:", free_ram, "MB, Total:",
-            total_ram, "MB")
+            "Peak:", peak_used_heap, "MB, Used:", used_heap, "MB, Free:", free_heap, "MB, Total:",
+            total_heap, "MB")
     else:
         # noinspection PyUnresolvedReferences
-        log.critical("Peak:", peak_used_ram, "bytes, Used:", used_ram, "bytes, Free:", free_ram,
+        log.critical("Peak:", peak_used_heap, "bytes, Used:", used_heap, "bytes, Free:", free_heap,
                      "bytes, Total:",
-                     total_ram, "bytes")
+                     total_heap, "bytes")
 
 
 def report_memory_usage_and_free() -> None:

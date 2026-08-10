@@ -53,10 +53,10 @@ class TestMemoryMonitorTask:
         task = create(1, 1, continue_func=utils.stop)
         asyncio.run(task())
 
-        assert memory.peak_used_ram != 0
-        assert memory.used_ram != 0
-        assert memory.free_ram != 0
-        assert memory.total_ram != 0
+        assert memory.peak_used_heap != 0
+        assert memory.used_heap != 0
+        assert memory.free_heap != 0
+        assert memory.total_heap != 0
 
     # noinspection PyTypeChecker
     def test_correctly_terminate(self):
@@ -109,26 +109,26 @@ class TestMemoryMonitorTask:
                 memory.reset_memory_usage()
             elif count == 2:
                 # Check we have not sampled
-                assert memory.peak_used_ram == 0
-                assert memory.used_ram == 0
-                assert memory.free_ram == 0
-                assert memory.total_ram == 0
+                assert memory.peak_used_heap == 0
+                assert memory.used_heap == 0
+                assert memory.free_heap == 0
+                assert memory.total_heap == 0
 
             if monotonic_ns() > first_sample:
                 first_sample += control.NS_PER_SECOND
-                assert memory.peak_used_ram != 0
-                assert memory.used_ram != 0
-                assert memory.free_ram != 0
-                assert memory.total_ram != 0
+                assert memory.peak_used_heap != 0
+                assert memory.used_heap != 0
+                assert memory.free_heap != 0
+                assert memory.total_heap != 0
                 memory.reset_memory_usage()
 
             if monotonic_ns() > second_sample:
                 second_sample += control.NS_PER_SECOND
                 done = True
-                assert memory.peak_used_ram != 0
-                assert memory.used_ram != 0
-                assert memory.free_ram != 0
-                assert memory.total_ram != 0
+                assert memory.peak_used_heap != 0
+                assert memory.used_heap != 0
+                assert memory.free_heap != 0
+                assert memory.total_heap != 0
                 memory.reset_memory_usage()
 
             return monotonic_ns() < end_time
@@ -168,10 +168,10 @@ class TestMemoryMonitorTask:
             if monotonic_ns() > first_sample:
                 first_sample += control.NS_PER_SECOND
                 done = True
-                assert memory.peak_used_ram != 0
-                assert memory.used_ram != 0
-                assert memory.free_ram != 0
-                assert memory.total_ram != 0
+                assert memory.peak_used_heap != 0
+                assert memory.used_heap != 0
+                assert memory.free_heap != 0
+                assert memory.total_heap != 0
                 memory.reset_memory_usage()
 
             return monotonic_ns() < end_time

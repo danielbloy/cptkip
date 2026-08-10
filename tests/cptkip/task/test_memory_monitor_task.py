@@ -58,10 +58,10 @@ class TestMemoryMonitorTask:
         task = create(1, 1, continue_func=utils.stop)
         assert not task()
 
-        assert memory.peak_used_ram != 0
-        assert memory.used_ram != 0
-        assert memory.free_ram != 0
-        assert memory.total_ram != 0
+        assert memory.peak_used_heap != 0
+        assert memory.used_heap != 0
+        assert memory.free_heap != 0
+        assert memory.total_heap != 0
 
     def test_correctly_terminate(self):
         """
@@ -89,27 +89,27 @@ class TestMemoryMonitorTask:
         task()
         memory.reset_memory_usage()
         task()
-        assert memory.peak_used_ram == 0
-        assert memory.used_ram == 0
-        assert memory.free_ram == 0
-        assert memory.total_ram == 0
+        assert memory.peak_used_heap == 0
+        assert memory.used_heap == 0
+        assert memory.free_heap == 0
+        assert memory.total_heap == 0
 
         # Wait a quarter second (and a bit) and sample again.
         time.sleep(0.26)
         task()
 
-        assert memory.peak_used_ram != 0
-        assert memory.used_ram != 0
-        assert memory.free_ram != 0
-        assert memory.total_ram != 0
+        assert memory.peak_used_heap != 0
+        assert memory.used_heap != 0
+        assert memory.free_heap != 0
+        assert memory.total_heap != 0
 
         # Immediately call again and it wont sample.
         memory.reset_memory_usage()
         task()
-        assert memory.peak_used_ram == 0
-        assert memory.used_ram == 0
-        assert memory.free_ram == 0
-        assert memory.total_ram == 0
+        assert memory.peak_used_heap == 0
+        assert memory.used_heap == 0
+        assert memory.free_heap == 0
+        assert memory.total_heap == 0
 
     def test_sample_and_reporting_limits(self):
         """
@@ -127,29 +127,29 @@ class TestMemoryMonitorTask:
         task()
         memory.reset_memory_usage()
         task()
-        assert memory.peak_used_ram == 0
-        assert memory.used_ram == 0
-        assert memory.free_ram == 0
-        assert memory.total_ram == 0
+        assert memory.peak_used_heap == 0
+        assert memory.used_heap == 0
+        assert memory.free_heap == 0
+        assert memory.total_heap == 0
 
         time.sleep(0.45)
         task()
-        assert memory.peak_used_ram == 0
-        assert memory.used_ram == 0
-        assert memory.free_ram == 0
-        assert memory.total_ram == 0
+        assert memory.peak_used_heap == 0
+        assert memory.used_heap == 0
+        assert memory.free_heap == 0
+        assert memory.total_heap == 0
 
         time.sleep(0.45)
         task()
-        assert memory.peak_used_ram == 0
-        assert memory.used_ram == 0
-        assert memory.free_ram == 0
-        assert memory.total_ram == 0
+        assert memory.peak_used_heap == 0
+        assert memory.used_heap == 0
+        assert memory.free_heap == 0
+        assert memory.total_heap == 0
 
         # Now tick over the 1-second boundary.
         time.sleep(0.11)
         task()
-        assert memory.peak_used_ram != 0
-        assert memory.used_ram != 0
-        assert memory.free_ram != 0
-        assert memory.total_ram != 0
+        assert memory.peak_used_heap != 0
+        assert memory.used_heap != 0
+        assert memory.free_heap != 0
+        assert memory.total_heap != 0
