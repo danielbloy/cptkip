@@ -6,11 +6,6 @@ The following functionality is a priority to implement:
 
 * Support for MEMS microphone
 * Support for ultrasonic sensors
-* Triggered Tasks - async and sync
-
-Investigate a solution to the issue of the on-board LED on a Pico-W being connected to CywPin which
-does not support PWM (only digital In/Out) which means the LED examples will fail on the device (and
-probably the validation too).
 
 ## Next
 
@@ -22,6 +17,10 @@ The following functionality is planned to be implemented and is inspired by
 * Timed Events Task - async sync
 * One time on/off task - async and sync
 * lightweight object hierarchy to control multiple devices
+
+Investigate a solution to the issue of the on-board LED on a Pico-W being connected to CywPin which
+does not support PWM (only digital In/Out) which means the LED examples will fail on the device (and
+probably the validation too).
 
 ## Later
 
