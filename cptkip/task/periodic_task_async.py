@@ -1,5 +1,5 @@
 import asyncio
-import time
+from time import monotonic_ns
 
 import cptkip.core.control as control
 import cptkip.core.environment as environment
@@ -40,21 +40,26 @@ def create(
     interval = 0
     if frequency > 0:
         interval = 1 / frequency
-    interval_ns: int = int(interval * control.NS_PER_SECOND)
 
+    interval_ns: int = int(interval * control.NS_PER_SECOND)
     sleep_interval = interval / control.PERIODIC_LOOP_WAIT_RATIO
     call_begin: bool = True
     call_end: bool = True
 
     async def handler() -> None:
         nonlocal call_begin, call_end
+
         if begin and call_begin:
             call_begin = False
             await begin()
 
-        next_callback_ns = time.monotonic_ns() + int(max(initial_delay, 0.0) * control.NS_PER_SECOND)
+        next_callback_ns = monotonic_ns() + int(
+            max(initial_delay, 0.0) * control.NS_PER_SECOND)
+
         while not continue_func or continue_func():
-            now = time.monotonic_ns()
+
+            now = monotonic_ns()
+
             if now >= next_callback_ns:
                 if frequency > 0:
                     while now >= next_callback_ns:

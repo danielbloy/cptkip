@@ -1,71 +1,80 @@
-import time
+import asyncio
+from time import monotonic
 
 import cptkip.core.environment as environment
+from cptkip.core.control import ASYNC_LOOP_SLEEP_INTERVAL
+from cptkip.core.logging import debug
 
 # collections.abc is not available in CircuitPython.
 if environment.is_running_on_desktop():
     from collections.abc import Callable, Awaitable
 
 
-def new_triggered_task(
-        triggerable,
-        duration: float,
-        start: Callable[[], Awaitable[None]] = None,
-        run: Callable[[], Awaitable[None]] = None,
-        stop: Callable[[], Awaitable[None]] = None,
-        cancel_func: Callable[[], bool] = never_terminate) -> Callable[[], Awaitable[None]]:
-    """
-    Returns an async task that will only invoke the functions start, stop and run if the
-    trigger has been activated. The start function will be called once when the trigger
-    is activated, run will be called as a normal loop task whilst the trigger is activated
-    and stop will be called once when the trigger is deactivated; which will occurs as the
-    specified number of seconds after the trigger has been activated.
+class Triggerable:
+    """Trivial implementation for a triggerable object."""
+    triggered: bool
 
-    At least one of start, stop and run must be provided, but they need not all be specified.
+
+def create(
+        triggerable: Triggerable,
+        duration: float | int,
+        begin: Callable[[], Awaitable[None]] | None = None,
+        func: Callable[[], Awaitable[None]] | None = None,
+        end: Callable[[], Awaitable[None]] | None = None,
+        continue_func: Callable[[], bool] | None = None) -> Callable[[], Awaitable[None]]:
+    """
+    Creates an asynchronous function that will monitor a triggerable object for as long as the
+    continue_func returns true. When triggered, and if func specified, func will be repeatedly
+    called for the specified duration.
+
+    There is also an optional begin function which will be called once when the trigger
+    is activated and an optional end function that  will be called once when the trigger is
+    deactivated; which will occurs as the specified number of seconds after the trigger has
+    been activated.
+
+    At least one of begin, func and end must be provided, but they need not all be specified.
 
     Once a trigger is activated, it will not be activated again until after it has expired
     and been deactivated. The triggerable object is used to activate the trigger via a
     "triggered" property.
 
-    The returned task can be added to a Runner so it is called when triggered. The returned
-    callback is itself wrapped in a loop_task so can be added to the Runner with add_task().
-
     :param triggerable: Object that has a triggered property which will activate.
     :param duration: The duration that trigger lasts (i.e. the time between start and stop calls).
-    :param start: This is called once when the trigger is activated
-    :param run: This is called once every cycle when triggered.
-    :param stop: This is called once when the trigger expires.
-    :param cancel_func: A function that returns whether to cancel the task or not.
+    :param begin: This is called once when the trigger is activated
+    :param func: This is called once every cycle when triggered.
+    :param end: This is called once when the trigger expires.
+    :param continue_func: A function that returns whether to cancel the task or not.
     """
 
-    if start is None and run is None and stop is None:
+    if begin is None and func is None and end is None:
         raise ValueError("at least one of start, run or stop must be specified")
 
-    running = False
-    stop_time = 0
-
     async def handler() -> None:
-        nonlocal running, stop_time
+        running = False
+        stop_time = 0
 
-        now = time.monotonic()
+        while not continue_func or continue_func():
+            await asyncio.sleep(ASYNC_LOOP_SLEEP_INTERVAL)
 
-        if triggerable.triggered and not running:
-            debug("Start running trigger event")
-            stop_time = now + duration
-            running = True
-            if start is not None:
-                await start()
+            now = monotonic()
 
-        triggerable.triggered = False
+            if triggerable.triggered and not running:
+                debug("Start running trigger event")
+                stop_time = now + duration
+                running = True
+                if begin:
+                    await begin()
 
-        if running and now >= stop_time:
-            debug("Stop running trigger event")
-            running = False
-            if stop is not None:
-                await stop()
+            triggerable.triggered = False
 
-        if running and run is not None:
-            debug("Sunning trigger event")
-            await run()
+            if running and now >= stop_time:
+                debug("Stop running trigger event")
+                running = False
+                if end:
+                    await end()
 
-    return new_loop_task(handler, cancel_func)
+            if running and func is not None:
+                debug("Sunning trigger event")
+                await func()
+
+    return handler

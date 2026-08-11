@@ -9,6 +9,9 @@ NS_PER_SECOND = 1_000_000_000
 # Larger numbers give a more accurate period but also require more CPU time.
 PERIODIC_LOOP_WAIT_RATIO = 8
 
+# This is expected the sleep interval for async loops.
+ASYNC_LOOP_SLEEP_INTERVAL = 0.001
+
 # These properties are used to control the default ports and timeouts used for
 # networking.
 SEND_MESSAGE_TIMEOUT = 2  # seconds

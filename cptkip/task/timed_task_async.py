@@ -1,3 +1,6 @@
+from time import monotonic
+
+
 class TriggerTimedEvents:
     """
     This class is used to trigger events that need to happen at specified times after the
@@ -36,7 +39,7 @@ class TriggerTimedEvents:
         if self.__running:
             return
 
-        self.__start_time = time.monotonic()
+        self.__start_time = monotonic()
         self.__running = True
         self.__events_remaining = self.events.copy()
 
@@ -82,7 +85,7 @@ class TriggerTimedEvents:
             return []
 
         # Get all items that need to be fired.
-        now = time.monotonic()
+        now = monotonic()
         diff = now - self.__start_time
         events_to_fire = [event for event in self.__events_remaining if diff >= event.trigger_time]
 

@@ -40,6 +40,7 @@ def create(
     interval = 0
     if frequency > 0:
         interval = 1 / frequency
+
     interval_ns: int = int(interval * control.NS_PER_SECOND)
     next_callback_ns: int = 0
     call_begin: bool = True
@@ -47,6 +48,7 @@ def create(
 
     def handler() -> bool:
         nonlocal call_begin, call_end, next_callback_ns
+        
         if call_begin:
             if begin:
                 begin()
