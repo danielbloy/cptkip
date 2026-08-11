@@ -1,8 +1,9 @@
 import pytest
 
-
 # TODO: implement
-@pytest.mark.skip(reason="not converted yet")
+pytest.skip("not converted yet", allow_module_level=True)
+
+
 class TestNewTriggeredTask:
 
     def test_task_never_called(self) -> None:
