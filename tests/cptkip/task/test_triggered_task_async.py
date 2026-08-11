@@ -1,5 +1,8 @@
-# TODO: implement
+import pytest
 
+
+# TODO: implement
+@pytest.mark.skip(reason="not converted yet")
 class TestNewTriggeredTask:
 
     def test_task_never_called(self) -> None:

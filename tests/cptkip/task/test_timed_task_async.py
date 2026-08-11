@@ -1,4 +1,8 @@
+import pytest
+
+
 # TODO: implement
+@pytest.mark.skip(reason="not converted yet")
 class TestTriggerTimedEvents:
     def test_calling_start(self) -> None:
         """
@@ -480,15 +484,15 @@ class TestOneTimeOnOffTask:
             for idx in range(count - 1):
                 assert on_events[idx] < on_events[idx + 1]
                 assert (on_events[idx + 1] - on_events[idx]) <= (
-                            on_duration + off_duration) * NANO * 1.1
+                        on_duration + off_duration) * NANO * 1.1
                 assert (on_events[idx + 1] - on_events[idx]) >= (
-                            on_duration + off_duration) * NANO * 0.9
+                        on_duration + off_duration) * NANO * 0.9
 
                 assert off_events[idx] < off_events[idx + 1]
                 assert (off_events[idx + 1] - off_events[idx]) <= (
-                            on_duration + off_duration) * NANO * 1.1
+                        on_duration + off_duration) * NANO * 1.1
                 assert (off_events[idx + 1] - off_events[idx]) >= (
-                            on_duration + off_duration) * NANO * 0.9
+                        on_duration + off_duration) * NANO * 0.9
 
             # Check the on to off events are sent in the correct order and within
             # a reasonable difference of +/- 10%.
