@@ -2,7 +2,7 @@
 
 ## 0.2.2 - Beta
 
-Added support for triggered and timed tasks (sync and async).
+Added support for triggered tasks (sync and async).
 
 ## 0.2.1 - Beta
 
