@@ -1,9 +1,5 @@
 # Changelog
 
-## 0.2.2 - Beta
-
-Added support for triggered tasks (sync and async).
-
 ## 0.2.1 - Beta
 
 Contains a minor change to the output of the details from the memory logging. No functional changes.
