@@ -16,11 +16,10 @@ def create(
         end: Callable[[], None] | None = None,
         initial_delay: float = 0.0) -> Callable[[], bool]:
     """
-    Creates a function that will execute the given function at the
-    specified frequency for as long as the continue_func returns true. The initial
-    invocation of func can be delayed by setting an initial_delay. If a frequency
-    of zero is provided then func will be executed as fast as possible. A frequency
-    of less than zero is ignored.
+    Creates a function that will execute the given function at the specified frequency
+    for as long as the continue_func returns true. The initial invocation of func can
+    be delayed by setting an initial_delay. If a frequency of zero is provided then
+    func will be executed as fast as possible. A frequency of less than zero is ignored.
 
     :param func: The function to call.
     :param frequency: The frequency to execute the function at. Zero indicates as
