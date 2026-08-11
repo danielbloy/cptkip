@@ -6,7 +6,8 @@ def execute():
         with requests.request("GET", "http://www.adafruit.com/api/quotes.php") as response:
             print(f"Status ..... : {response.status_code}")
             print(f"Reason ..... : {response.reason}")
-            print(f"Text ....... : {response.json()[0]['text']}")
+            if response.status_code == 200:
+                print(f"Text ....... : {response.json()[0]['text']}")
 
     utils.execute(task)
 
