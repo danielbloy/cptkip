@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.1 - Beta
+
+Contains a minor change to the output of the details from the memory logging. No functional changes.
+
 ## 0.2.0 - Beta, breaking change to for `cptkip/device/pwm_audio.py`
 
 Renamed `cptkip/device/pwm_audio.py` to `cptkip/device/audio.py` as it contains support for I2S

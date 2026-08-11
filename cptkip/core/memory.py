@@ -64,13 +64,13 @@ def report_memory_usage() -> None:
     sample_memory_usage()
     if __is_running_on_desktop:
         log.critical(
-            "Peak:", peak_used_heap, "MB, Used:", used_heap, "MB, Free:", free_heap, "MB, Total:",
-            total_heap, "MB")
+            "Heap details: Total:", total_heap, "MB, Peak:", peak_used_heap,
+            "MB, Used:", used_heap, "MB, Free:", free_heap, "MB, Total:")
     else:
         # noinspection PyUnresolvedReferences
-        log.critical("Peak:", peak_used_heap, "bytes, Used:", used_heap, "bytes, Free:", free_heap,
-                     "bytes, Total:",
-                     total_heap, "bytes")
+        log.critical(
+            "Heap details: Total:", total_heap, "bytes, Peak:", peak_used_heap,
+            "bytes, Used:", used_heap, "bytes, Free:", free_heap, "bytes")
 
 
 def report_memory_usage_and_free() -> None:

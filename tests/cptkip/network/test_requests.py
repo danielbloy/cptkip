@@ -14,6 +14,8 @@ class TestRequests:
             # We do not always get wonderful reliability in CI.
             if response.status_code == 504:
                 pytest.skip("there was a gateway timeout reaching the service")
+            if response.status_code == 503:
+                pytest.skip("there was a issue reaching the service")
 
             assert response.status_code == 200
             assert response.reason == "OK"
@@ -29,6 +31,8 @@ class TestRequests:
             # We do not always get wonderful reliability in CI.
             if response.status_code == 504:
                 pytest.skip("there was a gateway timeout reaching the service")
+            if response.status_code == 503:
+                pytest.skip("there was a issue reaching the service")
 
             assert response.status_code == 200
             assert response.reason == "OK"
@@ -43,6 +47,8 @@ class TestRequests:
             # We do not always get wonderful reliability in CI.
             if response.status_code == 504:
                 pytest.skip("there was a gateway timeout reaching the service")
+            if response.status_code == 503:
+                pytest.skip("there was a issue reaching the service")
 
             assert response.status_code == 200
             assert response.reason == "OK"
