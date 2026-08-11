@@ -1,7 +1,34 @@
+import asyncio
+from time import time
+
 import pytest
 
-# TODO: implement
-pytest.skip("not converted yet", allow_module_level=True)
+from cptkip.core.control import ASYNC_LOOP_SLEEP_INTERVAL
+from cptkip.task.triggered_task_async import Triggerable, create
+
+# This is the minimum number of updates per second we expect func to be called.
+MIN_UPDATES_PER_SECOND = 100
+
+
+class ContinueCount:
+    def __init__(self, count):
+        self.left = count
+
+    def __call__(self) -> bool:
+        self.left -= 1
+        return self.left >= 0
+
+
+class ContinueDuration:
+    def __init__(self, seconds):
+        self.seconds = seconds
+        self.__end = None
+
+    def __call__(self) -> bool:
+        if self.__end is None:
+            self.__end = time() + self.seconds
+
+        return time() < self.__end
 
 
 class TestNewTriggeredTask:
@@ -9,13 +36,8 @@ class TestNewTriggeredTask:
     def test_task_never_called(self) -> None:
         """
         Validates that the returned task terminates straight away
-        when the terminate_func always returns true.
+        when the continue_func always returns False.
         """
-
-        cancellable = Cancellable()
-        cancel_fn = terminate_on_cancel(cancellable)
-        cancellable.cancel = True
-
         called = False
 
         async def task():
@@ -23,8 +45,7 @@ class TestNewTriggeredTask:
             called = True
 
         triggerable = Triggerable()
-        trigger_task = new_triggered_task(triggerable, duration=1.0, run=task,
-                                          cancel_func=cancel_fn)
+        trigger_task = create(triggerable, duration=1.0, func=task, continue_func=lambda: False)
 
         # noinspection PyTypeChecker
         asyncio.run(trigger_task())
@@ -32,12 +53,10 @@ class TestNewTriggeredTask:
 
     def test_task_stops(self) -> None:
         """
-        Validates that the returned task terminates
-        when the terminate_func returns true.
+        Validates that the returned task terminates when the continue_func returns False.
         """
 
-        cancellable = CancellableCount(2)
-        cancel_fn = terminate_on_cancel(cancellable)
+        continue_fn = ContinueCount(2)
 
         called = 0
 
@@ -47,24 +66,19 @@ class TestNewTriggeredTask:
 
         triggerable = Triggerable()
         triggerable.triggered = True
-        trigger_task = new_triggered_task(triggerable, duration=1.0, run=task,
-                                          cancel_func=cancel_fn)
+        trigger_task = create(triggerable, duration=1.0, func=task, continue_func=continue_fn)
 
         # noinspection PyTypeChecker
         asyncio.run(trigger_task())
-        assert called == 1
-        assert cancellable.cancel
+        assert called == 2
 
     def test_task_called_multiple_times(self) -> None:
         """
         Validates that the returned task terminates after having been
-        called multiple times. Because of the way the loop works, the
-        number of times the callback is called will not be equal to the
-        number of times the task is invoked; especially on fast computes.
+        called multiple times.
         """
 
-        cancellable = CancellableCount(20)
-        cancel_fn = terminate_on_cancel(cancellable)
+        continue_fn = ContinueCount(20)
 
         called = 0
 
@@ -74,19 +88,16 @@ class TestNewTriggeredTask:
 
         triggerable = Triggerable()
         triggerable.triggered = True
-        trigger_task = new_triggered_task(triggerable, duration=1.0, run=task,
-                                          cancel_func=cancel_fn)
+        trigger_task = create(triggerable, duration=1.0, func=task, continue_func=continue_fn)
 
         # noinspection PyTypeChecker
         asyncio.run(trigger_task())
         assert called > 2
-        assert called <= 20
-        assert cancellable.cancel
+        assert called == 20
 
     def test_run_invokes_triggered_task_callback_with_sensible_frequency(self) -> None:
         """
-        Same as test_run_invokes_loop_task_callback_with_custom_frequency() but
-        for the run callback of a triggered_task.
+        Validates that func gets called at a reasonable frequency.
         """
         called_count: int = 0
         seconds_to_run: int = 2
@@ -96,36 +107,35 @@ class TestNewTriggeredTask:
             called_count += 1
             await asyncio.sleep(ASYNC_LOOP_SLEEP_INTERVAL)
 
-        cancellable = CancellableDuration(seconds_to_run)
-        cancel_fn = terminate_on_cancel(cancellable)
+        continue_fn = ContinueDuration(seconds_to_run)
 
         triggerable = Triggerable()
         triggerable.triggered = True
-        trigger_task = new_triggered_task(triggerable, duration=seconds_to_run, run=task,
-                                          cancel_func=cancel_fn)
+        trigger_task = create(triggerable, duration=seconds_to_run, func=task,
+                              continue_func=continue_fn)
 
-        start = time.time()
+        start = time()
         # noinspection PyTypeChecker
         asyncio.run(trigger_task())
-        end = time.time()
+        end = time()
 
         assert (end - start) < (seconds_to_run * 1.05)
         assert (end - start) > (seconds_to_run * 0.95)
-        assert called_count >= 50
+        assert called_count >= (seconds_to_run * MIN_UPDATES_PER_SECOND)
 
     def test_triggered_task_errors_with_no_callback(self) -> None:
         """
-        Validates an error is raised when new_triggered_task() is invoked
-        without a start, stop or run.
+        Validates an error is raised when create() is invoked
+        without a begin, func or end.
         """
         triggerable = Triggerable()
         with pytest.raises(ValueError):
             # noinspection PyTypeChecker
-            new_triggered_task(triggerable, duration=0.1)
+            create(triggerable, duration=0.1)
 
     def test_triggered_task_invokes_start_callback(self) -> None:
         """
-        Validates that the start callback is called when the task is triggered.
+        Validates that the begin callback is called when the task is triggered.
         """
         called_count: int = 0
         seconds_to_run: int = 2
@@ -135,13 +145,11 @@ class TestNewTriggeredTask:
             called_count += 1
             await asyncio.sleep(ASYNC_LOOP_SLEEP_INTERVAL)
 
-        cancellable = CancellableDuration(seconds_to_run)
-        cancel_fn = terminate_on_cancel(cancellable)
+        continue_fn = ContinueDuration(seconds_to_run)
 
         triggerable = Triggerable()
         triggerable.triggered = True
-        trigger_task = new_triggered_task(triggerable, duration=1.0, start=task,
-                                          cancel_func=cancel_fn)
+        trigger_task = create(triggerable, duration=1.0, begin=task, continue_func=continue_fn)
 
         # noinspection PyTypeChecker
         asyncio.run(trigger_task())
@@ -150,7 +158,7 @@ class TestNewTriggeredTask:
 
     def test_triggered_task_invokes_run_callback(self) -> None:
         """
-        Validates that the run callback is called repeatedly when the task is triggered.
+        Validates that the func callback is called repeatedly when the task is triggered.
         """
         called_count: int = 0
         seconds_to_run: int = 2
@@ -160,22 +168,20 @@ class TestNewTriggeredTask:
             called_count += 1
             await asyncio.sleep(ASYNC_LOOP_SLEEP_INTERVAL)
 
-        cancellable = CancellableDuration(seconds_to_run)
-        cancel_fn = terminate_on_cancel(cancellable)
+        continue_fn = ContinueDuration(seconds_to_run)
 
         triggerable = Triggerable()
         triggerable.triggered = True
-        trigger_task = new_triggered_task(triggerable, duration=1.0, run=task,
-                                          cancel_func=cancel_fn)
+        trigger_task = create(triggerable, duration=1.0, func=task, continue_func=continue_fn)
 
         # noinspection PyTypeChecker
         asyncio.run(trigger_task())
 
-        assert called_count >= SCHEDULER_DEFAULT_FREQUENCY
+        assert called_count >= (seconds_to_run * MIN_UPDATES_PER_SECOND)
 
     def test_triggered_task_invokes_stop_callback(self) -> None:
         """
-        Validates that the stop callback is called when the triggered task expires.
+        Validates that the end callback is called when the triggered task expires.
         """
         called_count: int = 0
         seconds_to_run: int = 2
@@ -185,13 +191,11 @@ class TestNewTriggeredTask:
             called_count += 1
             await asyncio.sleep(ASYNC_LOOP_SLEEP_INTERVAL)
 
-        cancellable = CancellableDuration(seconds_to_run)
-        cancel_fn = terminate_on_cancel(cancellable)
+        continue_fn = ContinueDuration(seconds_to_run)
 
         triggerable = Triggerable()
         triggerable.triggered = True
-        trigger_task = new_triggered_task(triggerable, duration=1.0, stop=task,
-                                          cancel_func=cancel_fn)
+        trigger_task = create(triggerable, duration=1.0, end=task, continue_func=continue_fn)
 
         # noinspection PyTypeChecker
         asyncio.run(trigger_task())
@@ -200,7 +204,7 @@ class TestNewTriggeredTask:
 
     def test_triggered_task_callbacks_invoked_in_correct_order(self) -> None:
         """
-        Validates that the start, run and stop callbacks are called in the correct
+        Validates that the begin, func and end callbacks are called in the correct
         order when the task is triggered.
         """
         seconds_to_run: int = 2
@@ -210,31 +214,29 @@ class TestNewTriggeredTask:
         run_start_time = -1
         run_stop_time = 0
 
-        async def start():
+        async def begin():
             nonlocal start_time
-            start_time = time.time()
+            start_time = time()
             await asyncio.sleep(ASYNC_LOOP_SLEEP_INTERVAL)
 
-        async def run():
+        async def func():
             nonlocal run_start_time, run_stop_time
             await asyncio.sleep(ASYNC_LOOP_SLEEP_INTERVAL)
             if run_start_time < 0:
-                run_start_time = time.time()
-            run_stop_time = time.time()
+                run_start_time = time()
+            run_stop_time = time()
 
-        async def stop():
+        async def end():
             nonlocal stop_time
-            stop_time = time.time()
+            stop_time = time()
             await asyncio.sleep(ASYNC_LOOP_SLEEP_INTERVAL)
 
-        cancellable = CancellableDuration(seconds_to_run)
-        cancel_fn = terminate_on_cancel(cancellable)
+        continue_fn = ContinueDuration(seconds_to_run)
 
         triggerable = Triggerable()
         triggerable.triggered = True
-        trigger_task = new_triggered_task(triggerable, duration=1.0, start=start, run=run,
-                                          stop=stop,
-                                          cancel_func=cancel_fn)
+        trigger_task = create(triggerable, duration=1.0, begin=begin, func=func, end=end,
+                              continue_func=continue_fn)
 
         # noinspection PyTypeChecker
         asyncio.run(trigger_task())
@@ -253,28 +255,26 @@ class TestNewTriggeredTask:
         start_count = 0
         stop_count = 0
 
-        async def start():
+        async def begin():
             nonlocal start_count
             start_count += 1
             await asyncio.sleep(ASYNC_LOOP_SLEEP_INTERVAL)
 
-        async def run():
+        async def func():
             triggerable.triggered = True
             await asyncio.sleep(ASYNC_LOOP_SLEEP_INTERVAL)
 
-        async def stop():
+        async def end():
             nonlocal stop_count
             stop_count += 1
             await asyncio.sleep(ASYNC_LOOP_SLEEP_INTERVAL)
 
-        cancellable = CancellableDuration(seconds_to_run)
-        cancel_fn = terminate_on_cancel(cancellable)
+        continue_fn = ContinueDuration(seconds_to_run)
 
         triggerable = Triggerable()
         triggerable.triggered = True
-        trigger_task = new_triggered_task(triggerable, duration=1.0, start=start, run=run,
-                                          stop=stop,
-                                          cancel_func=cancel_fn)
+        trigger_task = create(triggerable, duration=1.0, begin=begin, func=func, end=end,
+                              continue_func=continue_fn)
 
         # noinspection PyTypeChecker
         asyncio.run(trigger_task())
@@ -295,18 +295,16 @@ class TestNewTriggeredTask:
             await asyncio.sleep(1.2)
             triggerable.triggered = True
 
-        async def start():
+        async def begin():
             nonlocal start_count
             start_count += 1
             delayed_restart = asyncio.create_task(restart())
 
-        cancellable = CancellableDuration(seconds_to_run)
-        cancel_fn = terminate_on_cancel(cancellable)
+        continue_fn = ContinueDuration(seconds_to_run)
 
         triggerable = Triggerable()
         triggerable.triggered = True
-        trigger_task = new_triggered_task(triggerable, duration=1.0, start=start,
-                                          cancel_func=cancel_fn)
+        trigger_task = create(triggerable, duration=1.0, begin=begin, continue_func=continue_fn)
 
         # noinspection PyTypeChecker
         asyncio.run(trigger_task())
