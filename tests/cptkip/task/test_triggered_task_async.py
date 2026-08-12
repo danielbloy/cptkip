@@ -83,6 +83,39 @@ class TestTriggeredTask:
         asyncio.run(trigger_task())
         assert called == 2
 
+    def test_task_not_triggered(self) -> None:
+        """
+        Validates that the task is not called when not triggered.
+        """
+
+        continue_fn = ContinueCount(20)
+
+        begin_called = 0
+        func_called = 0
+        end_called = 0
+
+        async def begin():
+            nonlocal begin_called
+            begin_called += 1
+
+        async def func():
+            nonlocal func_called
+            func_called += 1
+
+        async def end():
+            nonlocal end_called
+            end_called += 1
+
+        trigger = Trigger(triggered=False)
+        trigger_task = create(trigger, duration=1.0, begin=begin, func=func, end=end,
+                              continue_func=continue_fn)
+
+        # noinspection PyTypeChecker
+        asyncio.run(trigger_task())
+        assert begin_called == 0
+        assert func_called == 0
+        assert end_called == 0
+
     def test_task_called_multiple_times(self) -> None:
         """
         Validates that the returned task terminates after having been
