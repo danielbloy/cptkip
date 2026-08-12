@@ -1,7 +1,7 @@
 from time import monotonic_ns
 
-import cptkip.core.control as control
 import cptkip.core.environment as environment
+from cptkip.core.control import NS_PER_SECOND
 from cptkip.core.memory import report_memory_usage
 from cptkip.core.memory import sample_memory_usage
 
@@ -25,10 +25,10 @@ def create(
         the func should continue to be called.
     """
 
-    sample_period = control.NS_PER_SECOND // max(sample_frequency, 1)
+    sample_period = NS_PER_SECOND // max(sample_frequency, 1)
     last_sample = 0
 
-    reporting_period = control.NS_PER_SECOND // max(report_frequency, 1)
+    reporting_period = NS_PER_SECOND // max(report_frequency, 1)
     last_report = 0
 
     def monitor() -> bool:

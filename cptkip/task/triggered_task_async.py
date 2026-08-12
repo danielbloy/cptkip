@@ -1,4 +1,4 @@
-import asyncio
+from asyncio import sleep
 from time import monotonic
 
 import cptkip.core.environment as environment
@@ -49,7 +49,7 @@ def create(
         stop_time = 0
 
         while not continue_func or continue_func():
-            await asyncio.sleep(ASYNC_LOOP_SLEEP_INTERVAL)
+            await sleep(ASYNC_LOOP_SLEEP_INTERVAL)
 
             now = monotonic()
 

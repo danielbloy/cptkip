@@ -1,9 +1,9 @@
 import asyncio
 from time import monotonic_ns
 
-import cptkip.core.control as control
 import cptkip.core.memory as memory
 import tests.cptkip.utilities as utils
+from cptkip.core.control import NS_PER_SECOND
 from cptkip.task.memory_monitor_task_async import create
 
 
@@ -103,9 +103,9 @@ class TestMemoryMonitorTask:
             # First call always samples, so reset and immediately call again.
             # We also work out when the next samples should be.
             if count == 1:
-                end_time = monotonic_ns() + control.NS_PER_SECOND + 1_000_000
-                first_sample = monotonic_ns() + (control.NS_PER_SECOND // 2) + 100_000
-                second_sample = monotonic_ns() + control.NS_PER_SECOND + 100_000
+                end_time = monotonic_ns() + NS_PER_SECOND + 1_000_000
+                first_sample = monotonic_ns() + (NS_PER_SECOND // 2) + 100_000
+                second_sample = monotonic_ns() + NS_PER_SECOND + 100_000
                 memory.reset_memory_usage()
             elif count == 2:
                 # Check we have not sampled
@@ -115,7 +115,7 @@ class TestMemoryMonitorTask:
                 assert memory.total_heap == 0
 
             if monotonic_ns() > first_sample:
-                first_sample += control.NS_PER_SECOND
+                first_sample += NS_PER_SECOND
                 assert memory.peak_used_heap != 0
                 assert memory.used_heap != 0
                 assert memory.free_heap != 0
@@ -123,7 +123,7 @@ class TestMemoryMonitorTask:
                 memory.reset_memory_usage()
 
             if monotonic_ns() > second_sample:
-                second_sample += control.NS_PER_SECOND
+                second_sample += NS_PER_SECOND
                 done = True
                 assert memory.peak_used_heap != 0
                 assert memory.used_heap != 0
@@ -161,12 +161,12 @@ class TestMemoryMonitorTask:
             # First call always samples, so reset and immediately call again.
             # We also work out when the next samples should be.
             if count == 1:
-                end_time = monotonic_ns() + control.NS_PER_SECOND + 1_000_000
-                first_sample = monotonic_ns() + control.NS_PER_SECOND + 100_000
+                end_time = monotonic_ns() + NS_PER_SECOND + 1_000_000
+                first_sample = monotonic_ns() + NS_PER_SECOND + 100_000
                 memory.reset_memory_usage()
 
             if monotonic_ns() > first_sample:
-                first_sample += control.NS_PER_SECOND
+                first_sample += NS_PER_SECOND
                 done = True
                 assert memory.peak_used_heap != 0
                 assert memory.used_heap != 0
