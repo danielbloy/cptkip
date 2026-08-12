@@ -57,7 +57,6 @@ def create(
     if begin is None and func is None and end is None:
         raise ValueError("at least one of start, run or stop must be specified")
 
-    triggered = False
     running = False
     stop_time = 0
 
