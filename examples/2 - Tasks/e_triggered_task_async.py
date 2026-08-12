@@ -32,17 +32,16 @@ async def delay() -> None:
     trigger = True
 
 
-async def led_on() -> None:
-    log.info(f"{time.monotonic()}: LED on")
-    led.on()
+async def led_pulse() -> None:
+    if led.value:
+        log.info(f"{time.monotonic()}: LED off")
+        led.off()
+    else:
+        log.info(f"{time.monotonic()}: LED on")
+        led.on()
 
 
-async def led_off() -> None:
-    log.info(f"{time.monotonic()}: LED off")
-    led.off()
-
-
-led_task = triggered_task.create(lambda: trigger, 1, begin=led_on, end=led_off,
+led_task = triggered_task.create(lambda: trigger, 0.5, begin=led_pulse,
                                  continue_func=should_continue)
 
 # Run the loop for 5 seconds
