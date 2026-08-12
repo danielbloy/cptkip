@@ -10,23 +10,15 @@ if environment.is_running_on_desktop():
     from collections.abc import Callable, Awaitable
 
 
-class Triggerable:
-    """Trivial implementation for a triggerable object."""
-    triggered: bool
-
-    def __init__(self, triggered: bool = False) -> None:
-        self.triggered = triggered
-
-
 def create(
-        triggerable: Triggerable,
+        trigger: Callable[[], bool],
         duration: float | int,
         begin: Callable[[], Awaitable[None]] | None = None,
         func: Callable[[], Awaitable[None]] | None = None,
         end: Callable[[], Awaitable[None]] | None = None,
         continue_func: Callable[[], bool] | None = None) -> Callable[[], Awaitable[None]]:
     """
-    Creates an asynchronous function that will monitor a triggerable object for as long as the
+    Creates an asynchronous function that will monitor a triggerable function for as long as the
     continue_func returns true. When triggered, and if func specified, func will be repeatedly
     called for the specified duration.
 
@@ -38,10 +30,10 @@ def create(
     At least one of begin, func and end must be provided, but they need not all be specified.
 
     Once a trigger is activated, it will not be activated again until after it has expired
-    and been deactivated. The triggerable object is used to activate the trigger via a
-    "triggered" property.
+    and been deactivated. The trigger function is used to activate the trigger by returning
+    True.
 
-    :param triggerable: Object that has a triggered property which will activate.
+    :param trigger: Function that triggers when it returns True.
     :param duration: The duration that trigger lasts (i.e. the time between start and stop calls).
     :param begin: This is called once when the trigger is activated
     :param func: This is called once every cycle when triggered.
@@ -61,14 +53,12 @@ def create(
 
             now = monotonic()
 
-            if triggerable.triggered and not running:
+            if trigger() and not running:
                 debug("Start running trigger event")
                 stop_time = now + duration
                 running = True
                 if begin:
                     await begin()
-
-            triggerable.triggered = False
 
             if running and now >= stop_time:
                 debug("Stop running trigger event")

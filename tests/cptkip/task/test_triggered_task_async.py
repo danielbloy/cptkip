@@ -4,7 +4,7 @@ from time import time
 import pytest
 
 from cptkip.core.control import ASYNC_LOOP_SLEEP_INTERVAL
-from cptkip.task.triggered_task_async import Triggerable, create
+from cptkip.task.triggered_task_async import create
 
 # This is the minimum number of updates per second we expect func to be called.
 MIN_UPDATES_PER_SECOND = 100
@@ -31,6 +31,18 @@ class ContinueDuration:
         return time() < self.__end
 
 
+class Trigger:
+    triggered: bool
+
+    def __init__(self, triggered: bool) -> None:
+        self.triggered = triggered
+
+    def __call__(self) -> bool:
+        result = self.triggered
+        self.triggered = False
+        return result
+
+
 class TestTriggeredTask:
 
     def test_task_never_called(self) -> None:
@@ -44,8 +56,8 @@ class TestTriggeredTask:
             nonlocal called
             called = True
 
-        triggerable = Triggerable()
-        trigger_task = create(triggerable, duration=1.0, func=task, continue_func=lambda: False)
+        trigger = Trigger(triggered=True)
+        trigger_task = create(trigger, duration=1.0, func=task, continue_func=lambda: False)
 
         # noinspection PyTypeChecker
         asyncio.run(trigger_task())
@@ -64,9 +76,8 @@ class TestTriggeredTask:
             nonlocal called
             called += 1
 
-        triggerable = Triggerable()
-        triggerable.triggered = True
-        trigger_task = create(triggerable, duration=1.0, func=task, continue_func=continue_fn)
+        trigger = Trigger(triggered=True)
+        trigger_task = create(trigger, duration=1.0, func=task, continue_func=continue_fn)
 
         # noinspection PyTypeChecker
         asyncio.run(trigger_task())
@@ -86,9 +97,8 @@ class TestTriggeredTask:
             nonlocal called
             called += 1
 
-        triggerable = Triggerable()
-        triggerable.triggered = True
-        trigger_task = create(triggerable, duration=1.0, func=task, continue_func=continue_fn)
+        trigger = Trigger(triggered=True)
+        trigger_task = create(trigger, duration=1.0, func=task, continue_func=continue_fn)
 
         # noinspection PyTypeChecker
         asyncio.run(trigger_task())
@@ -109,9 +119,8 @@ class TestTriggeredTask:
 
         continue_fn = ContinueDuration(seconds_to_run)
 
-        triggerable = Triggerable()
-        triggerable.triggered = True
-        trigger_task = create(triggerable, duration=seconds_to_run, func=task,
+        trigger = Trigger(triggered=True)
+        trigger_task = create(trigger, duration=seconds_to_run, func=task,
                               continue_func=continue_fn)
 
         begin = time()
@@ -128,10 +137,9 @@ class TestTriggeredTask:
         Validates an error is raised when create() is invoked
         without a begin, func or end.
         """
-        triggerable = Triggerable()
         with pytest.raises(ValueError):
             # noinspection PyTypeChecker
-            create(triggerable, duration=0.1)
+            create(lambda: True, duration=0.1)
 
     def test_triggered_task_invokes_start_callback(self) -> None:
         """
@@ -147,9 +155,8 @@ class TestTriggeredTask:
 
         continue_fn = ContinueDuration(seconds_to_run)
 
-        triggerable = Triggerable()
-        triggerable.triggered = True
-        trigger_task = create(triggerable, duration=1.0, begin=task, continue_func=continue_fn)
+        trigger = Trigger(triggered=True)
+        trigger_task = create(trigger, duration=1.0, begin=task, continue_func=continue_fn)
 
         # noinspection PyTypeChecker
         asyncio.run(trigger_task())
@@ -170,9 +177,8 @@ class TestTriggeredTask:
 
         continue_fn = ContinueDuration(seconds_to_run)
 
-        triggerable = Triggerable()
-        triggerable.triggered = True
-        trigger_task = create(triggerable, duration=1.0, func=task, continue_func=continue_fn)
+        trigger = Trigger(triggered=True)
+        trigger_task = create(trigger, duration=1.0, func=task, continue_func=continue_fn)
 
         # noinspection PyTypeChecker
         asyncio.run(trigger_task())
@@ -193,9 +199,8 @@ class TestTriggeredTask:
 
         continue_fn = ContinueDuration(seconds_to_run)
 
-        triggerable = Triggerable()
-        triggerable.triggered = True
-        trigger_task = create(triggerable, duration=1.0, end=task, continue_func=continue_fn)
+        trigger = Trigger(triggered=True)
+        trigger_task = create(trigger, duration=1.0, end=task, continue_func=continue_fn)
 
         # noinspection PyTypeChecker
         asyncio.run(trigger_task())
@@ -233,9 +238,8 @@ class TestTriggeredTask:
 
         continue_fn = ContinueDuration(seconds_to_run)
 
-        triggerable = Triggerable()
-        triggerable.triggered = True
-        trigger_task = create(triggerable, duration=1.0, begin=begin, func=func, end=end,
+        trigger = Trigger(triggered=True)
+        trigger_task = create(trigger, duration=1.0, begin=begin, func=func, end=end,
                               continue_func=continue_fn)
 
         # noinspection PyTypeChecker
@@ -261,7 +265,7 @@ class TestTriggeredTask:
             await asyncio.sleep(ASYNC_LOOP_SLEEP_INTERVAL)
 
         async def func():
-            triggerable.triggered = True
+            trigger.triggered = True
             await asyncio.sleep(ASYNC_LOOP_SLEEP_INTERVAL)
 
         async def end():
@@ -271,9 +275,8 @@ class TestTriggeredTask:
 
         continue_fn = ContinueDuration(seconds_to_run)
 
-        triggerable = Triggerable()
-        triggerable.triggered = True
-        trigger_task = create(triggerable, duration=1.0, begin=begin, func=func, end=end,
+        trigger = Trigger(triggered=True)
+        trigger_task = create(trigger, duration=1.0, begin=begin, func=func, end=end,
                               continue_func=continue_fn)
 
         # noinspection PyTypeChecker
@@ -293,7 +296,7 @@ class TestTriggeredTask:
 
         async def restart():
             await asyncio.sleep(1.2)
-            triggerable.triggered = True
+            trigger.triggered = True
 
         async def begin():
             nonlocal begin_count
@@ -302,9 +305,8 @@ class TestTriggeredTask:
 
         continue_fn = ContinueDuration(seconds_to_run)
 
-        triggerable = Triggerable()
-        triggerable.triggered = True
-        trigger_task = create(triggerable, duration=1.0, begin=begin, continue_func=continue_fn)
+        trigger = Trigger(triggered=True)
+        trigger_task = create(trigger, duration=1.0, begin=begin, continue_func=continue_fn)
 
         # noinspection PyTypeChecker
         asyncio.run(trigger_task())
