@@ -14,6 +14,9 @@ class Triggerable:
     """Trivial implementation for a triggerable object."""
     triggered: bool
 
+    def __init__(self, triggered: bool = False) -> None:
+        self.triggered = triggered
+
 
 def create(
         triggerable: Triggerable,
