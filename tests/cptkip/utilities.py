@@ -21,7 +21,7 @@ def count_limiter(total: int) -> Callable[[], bool]:
     return func
 
 
-def time_limiter(seconds: float) -> Callable[[], bool]:
+def duration_limiter(seconds: float) -> Callable[[], bool]:
     """
     Returns a function that returns true for the specified number of seconds
     after the first time it is called.

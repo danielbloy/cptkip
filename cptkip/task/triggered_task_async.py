@@ -10,6 +10,21 @@ if environment.is_running_on_desktop():
     from collections.abc import Callable, Awaitable
 
 
+class Trigger:
+    """
+    A simple trigger that automatically resets once read.
+    """
+    triggered: bool
+
+    def __init__(self, triggered: bool) -> None:
+        self.triggered = triggered
+
+    def __call__(self) -> bool:
+        result = self.triggered
+        self.triggered = False
+        return result
+
+
 def create(
         trigger: Callable[[], bool],
         duration: float | int,
@@ -67,7 +82,6 @@ def create(
                     await end()
 
             if running and func is not None:
-                debug("Sunning trigger event")
                 await func()
 
     return handler

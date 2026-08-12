@@ -3,44 +3,11 @@ from time import time
 
 import pytest
 
-from cptkip.core.control import ASYNC_LOOP_SLEEP_INTERVAL
-from cptkip.task.triggered_task_async import create
+from cptkip.task.triggered_task_async import create, Trigger
+from tests.cptkip.utilities import count_limiter, duration_limiter
 
 # This is the minimum number of updates per second we expect func to be called.
 MIN_UPDATES_PER_SECOND = 100
-
-
-class ContinueCount:
-    def __init__(self, count):
-        self.left = count
-
-    def __call__(self) -> bool:
-        self.left -= 1
-        return self.left >= 0
-
-
-class ContinueDuration:
-    def __init__(self, seconds):
-        self.seconds = seconds
-        self.__end = None
-
-    def __call__(self) -> bool:
-        if self.__end is None:
-            self.__end = time() + self.seconds
-
-        return time() < self.__end
-
-
-class Trigger:
-    triggered: bool
-
-    def __init__(self, triggered: bool) -> None:
-        self.triggered = triggered
-
-    def __call__(self) -> bool:
-        result = self.triggered
-        self.triggered = False
-        return result
 
 
 class TestTriggeredTask:
@@ -68,7 +35,7 @@ class TestTriggeredTask:
         Validates that the returned task terminates when the continue_func returns False.
         """
 
-        continue_fn = ContinueCount(2)
+        continue_fn = count_limiter(2)
 
         called = 0
 
@@ -88,7 +55,7 @@ class TestTriggeredTask:
         Validates that the task is not called when not triggered.
         """
 
-        continue_fn = ContinueCount(20)
+        continue_fn = count_limiter(20)
 
         begin_called = 0
         func_called = 0
@@ -122,7 +89,7 @@ class TestTriggeredTask:
         called multiple times.
         """
 
-        continue_fn = ContinueCount(20)
+        continue_fn = count_limiter(20)
 
         called = 0
 
@@ -148,9 +115,8 @@ class TestTriggeredTask:
         async def task():
             nonlocal called_count
             called_count += 1
-            await asyncio.sleep(ASYNC_LOOP_SLEEP_INTERVAL)
 
-        continue_fn = ContinueDuration(seconds_to_run)
+        continue_fn = duration_limiter(seconds_to_run)
 
         trigger = Trigger(triggered=True)
         trigger_task = create(trigger, duration=seconds_to_run, func=task,
@@ -184,9 +150,8 @@ class TestTriggeredTask:
         async def task():
             nonlocal called_count
             called_count += 1
-            await asyncio.sleep(ASYNC_LOOP_SLEEP_INTERVAL)
 
-        continue_fn = ContinueDuration(seconds_to_run)
+        continue_fn = duration_limiter(seconds_to_run)
 
         trigger = Trigger(triggered=True)
         trigger_task = create(trigger, duration=1.0, begin=task, continue_func=continue_fn)
@@ -206,9 +171,8 @@ class TestTriggeredTask:
         async def task():
             nonlocal called_count
             called_count += 1
-            await asyncio.sleep(ASYNC_LOOP_SLEEP_INTERVAL)
 
-        continue_fn = ContinueDuration(seconds_to_run)
+        continue_fn = duration_limiter(seconds_to_run)
 
         trigger = Trigger(triggered=True)
         trigger_task = create(trigger, duration=1.0, func=task, continue_func=continue_fn)
@@ -228,9 +192,8 @@ class TestTriggeredTask:
         async def task():
             nonlocal called_count
             called_count += 1
-            await asyncio.sleep(ASYNC_LOOP_SLEEP_INTERVAL)
 
-        continue_fn = ContinueDuration(seconds_to_run)
+        continue_fn = duration_limiter(seconds_to_run)
 
         trigger = Trigger(triggered=True)
         trigger_task = create(trigger, duration=1.0, end=task, continue_func=continue_fn)
@@ -255,11 +218,9 @@ class TestTriggeredTask:
         async def begin():
             nonlocal begin_time
             begin_time = time()
-            await asyncio.sleep(ASYNC_LOOP_SLEEP_INTERVAL)
 
         async def func():
             nonlocal run_begin_time, run_end_time
-            await asyncio.sleep(ASYNC_LOOP_SLEEP_INTERVAL)
             if run_begin_time < 0:
                 run_begin_time = time()
             run_end_time = time()
@@ -267,9 +228,8 @@ class TestTriggeredTask:
         async def end():
             nonlocal end_time
             end_time = time()
-            await asyncio.sleep(ASYNC_LOOP_SLEEP_INTERVAL)
 
-        continue_fn = ContinueDuration(seconds_to_run)
+        continue_fn = duration_limiter(seconds_to_run)
 
         trigger = Trigger(triggered=True)
         trigger_task = create(trigger, duration=1.0, begin=begin, func=func, end=end,
@@ -295,21 +255,18 @@ class TestTriggeredTask:
         async def begin():
             nonlocal begin_count
             begin_count += 1
-            await asyncio.sleep(ASYNC_LOOP_SLEEP_INTERVAL)
 
         async def func():
             trigger.triggered = True
-            await asyncio.sleep(ASYNC_LOOP_SLEEP_INTERVAL)
 
         async def end():
             nonlocal end_count
             end_count += 1
-            await asyncio.sleep(ASYNC_LOOP_SLEEP_INTERVAL)
 
-        continue_fn = ContinueDuration(seconds_to_run)
+        continue_fn = duration_limiter(seconds_to_run)
 
         trigger = Trigger(triggered=True)
-        trigger_task = create(trigger, duration=1.0, begin=begin, func=func, end=end,
+        trigger_task = create(trigger, duration=0.5, begin=begin, func=func, end=end,
                               continue_func=continue_fn)
 
         # noinspection PyTypeChecker
@@ -328,7 +285,11 @@ class TestTriggeredTask:
         begin_count = 0
 
         async def restart():
-            await asyncio.sleep(1.2)
+            await asyncio.sleep(0.7)
+            trigger.triggered = True
+            await asyncio.sleep(0.7)
+            trigger.triggered = True
+            await asyncio.sleep(0.7)
             trigger.triggered = True
 
         async def begin():
@@ -336,12 +297,12 @@ class TestTriggeredTask:
             begin_count += 1
             delayed_restart = asyncio.create_task(restart())
 
-        continue_fn = ContinueDuration(seconds_to_run)
+        continue_fn = duration_limiter(seconds_to_run)
 
         trigger = Trigger(triggered=True)
-        trigger_task = create(trigger, duration=1.0, begin=begin, continue_func=continue_fn)
+        trigger_task = create(trigger, duration=0.5, begin=begin, continue_func=continue_fn)
 
         # noinspection PyTypeChecker
         asyncio.run(trigger_task())
 
-        assert begin_count == 2
+        assert begin_count == 3
