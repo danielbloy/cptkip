@@ -8,8 +8,8 @@ import time
 import cptkip.config.configuration as config
 import cptkip.core.logging as log
 import cptkip.task.basic_runner as runner
-import cptkip.task.triggered_task as triggered_task
 from cptkip.pin.output_pin import OutputPin
+from cptkip.task.triggered_task import create
 
 log.set_log_level(log.INFO)
 
@@ -42,8 +42,7 @@ def led_pulse() -> None:
         led.on()
 
 
-led_task = triggered_task.create(lambda: trigger, 0.5, begin=led_pulse,
-                                 continue_func=should_continue)
+led_task = create(lambda: trigger, 0.5, begin=led_pulse, continue_func=should_continue)
 
 # Run the loop for 5 seconds
 finish = time.monotonic() + 5

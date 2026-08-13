@@ -4,7 +4,7 @@
 # works on the device, the full functionality testing is done as part of tests.
 def execute():
     import validate.utils as utils
-    import cptkip.task.periodic_task_async as periodic_task
+    from cptkip.task.periodic_task_async import create
 
     task_count: int = 0
     begin_count: int = 0
@@ -18,10 +18,10 @@ def execute():
         nonlocal begin_count
         begin_count += 1
 
-    periodic_task = periodic_task.create(
-        task, frequency=3, continue_func=utils.continue_func, begin=begin, initial_delay=1)
+    task = create(task, frequency=3, continue_func=utils.continue_func, begin=begin,
+                  initial_delay=1)
 
-    utils.execute_async(periodic_task)
+    utils.execute_async(task)
 
     assert begin_count == 1
     assert task_count > 1
