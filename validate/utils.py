@@ -147,21 +147,12 @@ def execute_async(
     :param sample_frequency - The number of memory samples per second.
     :param report_frequency - The number of times to report memory usage per second.
     """
-    import asyncio
     import cptkip.task.basic_runner_async as runner_async
     from cptkip.task import memory_monitor_task_async
 
-    cycles = 0
-
     async def update() -> None:
-        """
-        Executes the task under test. This also tracks the number of cycles executed.
-        """
-        nonlocal cycles
         while continue_func():
-            cycles += 1
             await task()
-            await asyncio.sleep(0)
 
     tasks = []
     if sample_frequency * report_frequency != 0:
@@ -177,4 +168,4 @@ def execute_async(
     finish = monotonic() + runtime + 0.05  # ake sure we get the start AND finish reports.
 
     runner_async.run(tasks)
-    print(f"Total number of cycles executed .. : {((cycles / runtime) // 100) / 10:,.1f} K/s")
+    print(f"Total number of cycles executed .. : n/a K/s")
