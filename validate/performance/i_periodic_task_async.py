@@ -1,4 +1,4 @@
-import cptkip.task.periodic_task_async as periodic_task
+from cptkip.task.periodic_task_async import create
 from validate.performance.task_runner_async import execute, continue_func
 
 
@@ -6,8 +6,7 @@ async def task() -> None:
     print('task')
 
 
-periodic_task = periodic_task.create(
-    task, frequency=3, continue_func=continue_func, initial_delay=1)
+periodic_task = create(task, frequency=3, continue_func=continue_func, initial_delay=1)
 
 execute(periodic_task, False)
 execute(periodic_task, True)

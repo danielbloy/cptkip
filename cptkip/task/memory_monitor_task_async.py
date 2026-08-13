@@ -1,8 +1,8 @@
-import asyncio
+from asyncio import sleep
 from time import monotonic_ns
 
-import cptkip.core.control as control
 import cptkip.core.environment as environment
+from cptkip.core.control import NS_PER_SECOND, ASYNC_LOOP_SLEEP_INTERVAL
 from cptkip.core.memory import report_memory_usage
 from cptkip.core.memory import sample_memory_usage
 
@@ -26,13 +26,11 @@ def create(
         the func should continue to be called.
     """
 
-    sample_period = control.NS_PER_SECOND // max(sample_frequency, 1)
+    sample_period = NS_PER_SECOND // max(sample_frequency, 1)
     last_sample = 0
 
-    reporting_period = control.NS_PER_SECOND // max(report_frequency, 1)
+    reporting_period = NS_PER_SECOND // max(report_frequency, 1)
     last_report = 0
-
-    sleep_interval = (min(sample_period, reporting_period) / control.PERIODIC_LOOP_WAIT_RATIO) / control.NS_PER_SECOND
 
     async def monitor() -> None:
         """
@@ -55,6 +53,6 @@ def create(
             if continue_func and not continue_func():
                 break
 
-            await asyncio.sleep(sleep_interval)
+            await sleep(ASYNC_LOOP_SLEEP_INTERVAL)
 
     return monitor

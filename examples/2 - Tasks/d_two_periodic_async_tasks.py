@@ -1,5 +1,5 @@
 #
-# This example runs two synchronous tasks, each of which output a piece
+# This example runs two asynchronous tasks, each of which output a piece
 # of text ('one' or 'two') at a defined interval of time (every 0.3
 # seconds or every 0.5 seconds). These tasks are wrapped as periodic
 # tasks to avoid drift.

@@ -106,15 +106,15 @@ CYCLES ..... : 13.1 K/s
 BEFORE GC .. : Used: 5200 bytes, Free: 174384 bytes
 AFTER GC ... : Used: 5072 bytes, Free: 174512 bytes
 START ...... : Used: 5136 bytes, Free: 174448 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 8288 bytes, Used: 8288 bytes, Free: 171296 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15248 bytes, Used: 15248 bytes, Free: 164336 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15440 bytes, Used: 14992 bytes, Free: 164592 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15568 bytes, Used: 15056 bytes, Free: 164528 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15568 bytes, Used: 15280 bytes, Free: 164304 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15568 bytes, Used: 14208 bytes, Free: 165376 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 8240 bytes, Used: 8240 bytes, Free: 171344 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 14624 bytes, Used: 9984 bytes, Free: 169600 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 14624 bytes, Used: 12480 bytes, Free: 167104 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 14784 bytes, Used: 14784 bytes, Free: 164800 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15360 bytes, Used: 9056 bytes, Free: 170528 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15360 bytes, Used: 8272 bytes, Free: 171312 bytes
 CYCLES ..... : 4.9 K/s
-BEFORE GC .. : Used: 14352 bytes, Free: 165232 bytes
-AFTER GC ... : Used: 8240 bytes, Free: 171344 bytes
+BEFORE GC .. : Used: 8416 bytes, Free: 171168 bytes
+AFTER GC ... : Used: 8160 bytes, Free: 171424 bytes
 
 Code done running.
 soft reboot
@@ -122,20 +122,19 @@ soft reboot
 Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
 /validate/performance/h_basic_runner_async.py output:
 Running on microcontroller. Pins are available.
-START ...... : Used: 12784 bytes, Free: 166160 bytes
-CYCLES ..... : 1.9 K/s
-BEFORE GC .. : Used: 20624 bytes, Free: 158320 bytes
-AFTER GC ... : Used: 14336 bytes, Free: 164608 bytes
-START ...... : Used: 14400 bytes, Free: 164544 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 18288 bytes, Used: 18288 bytes, Free: 160656 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30640 bytes, Used: 20224 bytes, Free: 158720 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30640 bytes, Used: 23296 bytes, Free: 155648 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30640 bytes, Used: 26176 bytes, Free: 152768 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30640 bytes, Used: 28096 bytes, Free: 150848 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30640 bytes, Used: 30384 bytes, Free: 148560 bytes
-CYCLES ..... : 1.7 K/s
-BEFORE GC .. : Used: 30528 bytes, Free: 148416 bytes
-AFTER GC ... : Used: 17584 bytes, Free: 161360 bytes
+START ...... : Used: 12896 bytes, Free: 166048 bytes
+CYCLES ..... : n/a K/s
+BEFORE GC .. : Used: 22032 bytes, Free: 156912 bytes
+AFTER GC ... : Used: 14448 bytes, Free: 164496 bytes
+CYCLES ..... : 5.8 K/s
+START ...... : Used: 14544 bytes, Free: 164400 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 18240 bytes, Used: 18240 bytes, Free: 160704 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 23072 bytes, Used: 23072 bytes, Free: 155872 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 23344 bytes, Used: 23344 bytes, Free: 155600 bytes
+CYCLES ..... : n/a K/s
+BEFORE GC .. : Used: 23488 bytes, Free: 155456 bytes
+AFTER GC ... : Used: 17552 bytes, Free: 161392 bytes
+CYCLES ..... : 5.6 K/s
 
 Code done running.
 soft reboot
@@ -143,7 +142,7 @@ soft reboot
 Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
 /validate/performance/i_periodic_task.py output:
 Running on microcontroller. Pins are available.
-START ...... : Used: 6288 bytes, Free: 173296 bytes
+START ...... : Used: 6272 bytes, Free: 173312 bytes
 task
 task
 task
@@ -154,31 +153,31 @@ task
 task
 task
 task
-CYCLES ..... : 5.6 K/s
-BEFORE GC .. : Used: 11360 bytes, Free: 168224 bytes
-AFTER GC ... : Used: 6368 bytes, Free: 173216 bytes
-START ...... : Used: 6432 bytes, Free: 173152 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 10416 bytes, Used: 10416 bytes, Free: 169168 bytes
+CYCLES ..... : 5.9 K/s
+BEFORE GC .. : Used: 9312 bytes, Free: 170272 bytes
+AFTER GC ... : Used: 6352 bytes, Free: 173232 bytes
+START ...... : Used: 6416 bytes, Free: 173168 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 10224 bytes, Used: 10224 bytes, Free: 169360 bytes
 task
 task
 task
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 14912 bytes, Used: 12320 bytes, Free: 167264 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 14688 bytes, Used: 11872 bytes, Free: 167712 bytes
 task
 task
 task
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15264 bytes, Used: 15264 bytes, Free: 164320 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15072 bytes, Used: 13536 bytes, Free: 166048 bytes
 task
 task
 task
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15424 bytes, Used: 12320 bytes, Free: 167264 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15712 bytes, Used: 15456 bytes, Free: 164128 bytes
 task
 task
 task
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15424 bytes, Used: 15264 bytes, Free: 164320 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15424 bytes, Used: 13872 bytes, Free: 165712 bytes
-CYCLES ..... : 3.4 K/s
-BEFORE GC .. : Used: 14016 bytes, Free: 165568 bytes
-AFTER GC ... : Used: 10336 bytes, Free: 169248 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15712 bytes, Used: 10848 bytes, Free: 168736 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15712 bytes, Used: 15312 bytes, Free: 164272 bytes
+CYCLES ..... : 3.5 K/s
+BEFORE GC .. : Used: 15456 bytes, Free: 164128 bytes
+AFTER GC ... : Used: 10144 bytes, Free: 169440 bytes
 
 Code done running.
 soft reboot
@@ -186,7 +185,7 @@ soft reboot
 Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
 /validate/performance/i_periodic_task_async.py output:
 Running on microcontroller. Pins are available.
-START ...... : Used: 14272 bytes, Free: 164672 bytes
+START ...... : Used: 14240 bytes, Free: 164704 bytes
 task
 task
 task
@@ -197,29 +196,138 @@ task
 task
 task
 task
-CYCLES ..... : 0.0 K/s
-BEFORE GC .. : Used: 23856 bytes, Free: 155088 bytes
-AFTER GC ... : Used: 15824 bytes, Free: 163120 bytes
-START ...... : Used: 15888 bytes, Free: 163056 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 19520 bytes, Used: 19520 bytes, Free: 159424 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30240 bytes, Used: 20016 bytes, Free: 158928 bytes
+CYCLES ..... : n/a K/s
+BEFORE GC .. : Used: 23936 bytes, Free: 155008 bytes
+AFTER GC ... : Used: 15808 bytes, Free: 163136 bytes
+START ...... : Used: 15856 bytes, Free: 163088 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 19328 bytes, Used: 19328 bytes, Free: 159616 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 30240 bytes, Used: 20192 bytes, Free: 158752 bytes
 task
 task
 task
-task
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30336 bytes, Used: 20704 bytes, Free: 158240 bytes
-task
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 30688 bytes, Used: 20640 bytes, Free: 158304 bytes
 task
 task
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30624 bytes, Used: 21248 bytes, Free: 157696 bytes
+task
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31328 bytes, Used: 21088 bytes, Free: 157856 bytes
 task
 task
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30912 bytes, Used: 21712 bytes, Free: 157232 bytes
 task
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30912 bytes, Used: 22384 bytes, Free: 156560 bytes
-CYCLES ..... : 0.0 K/s
-BEFORE GC .. : Used: 22528 bytes, Free: 156416 bytes
-AFTER GC ... : Used: 18784 bytes, Free: 160160 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31328 bytes, Used: 21536 bytes, Free: 157408 bytes
+task
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31328 bytes, Used: 29216 bytes, Free: 149728 bytes
+CYCLES ..... : n/a K/s
+BEFORE GC .. : Used: 29360 bytes, Free: 149584 bytes
+AFTER GC ... : Used: 18608 bytes, Free: 160336 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/j_triggered_task.py output:
+Running on microcontroller. Pins are available.
+START ...... : Used: 7568 bytes, Free: 172016 bytes
+begin
+end
+begin
+end
+begin
+end
+begin
+end
+begin
+end
+begin
+end
+begin
+end
+begin
+end
+begin
+CYCLES ..... : 7.2 K/s
+BEFORE GC .. : Used: 8288 bytes, Free: 171296 bytes
+AFTER GC ... : Used: 7616 bytes, Free: 171968 bytes
+START ...... : Used: 7680 bytes, Free: 171904 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 10864 bytes, Used: 10864 bytes, Free: 168720 bytes
+end
+begin
+end
+begin
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15376 bytes, Used: 13360 bytes, Free: 166224 bytes
+end
+begin
+end
+begin
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15376 bytes, Used: 14160 bytes, Free: 165424 bytes
+end
+begin
+end
+begin
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15568 bytes, Used: 14960 bytes, Free: 164624 bytes
+end
+begin
+end
+begin
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15568 bytes, Used: 10960 bytes, Free: 168624 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15568 bytes, Used: 11744 bytes, Free: 167840 bytes
+CYCLES ..... : 3.6 K/s
+BEFORE GC .. : Used: 11888 bytes, Free: 167696 bytes
+AFTER GC ... : Used: 10768 bytes, Free: 168816 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/j_triggered_task_async.py output:
+Running on microcontroller. Pins are available.
+START ...... : Used: 15488 bytes, Free: 163456 bytes
+begin
+end
+begin
+end
+begin
+end
+begin
+end
+begin
+end
+begin
+end
+begin
+end
+begin
+end
+begin
+CYCLES ..... : n/a K/s
+BEFORE GC .. : Used: 30544 bytes, Free: 148400 bytes
+AFTER GC ... : Used: 17072 bytes, Free: 161872 bytes
+START ...... : Used: 17120 bytes, Free: 161824 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 19536 bytes, Used: 19536 bytes, Free: 159408 bytes
+begin
+end
+begin
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 30416 bytes, Used: 30416 bytes, Free: 148528 bytes
+end
+begin
+end
+begin
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 30672 bytes, Used: 28976 bytes, Free: 149968 bytes
+end
+begin
+end
+begin
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31376 bytes, Used: 27536 bytes, Free: 151408 bytes
+end
+begin
+end
+begin
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31376 bytes, Used: 26096 bytes, Free: 152848 bytes
+end
+begin
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31376 bytes, Used: 20448 bytes, Free: 158496 bytes
+CYCLES ..... : n/a K/s
+BEFORE GC .. : Used: 20592 bytes, Free: 158352 bytes
+AFTER GC ... : Used: 18800 bytes, Free: 160144 bytes
 
 Code done running.
 soft reboot
@@ -236,14 +344,14 @@ CYCLES ..... : 6.2 K/s
 BEFORE GC .. : Used: 8256 bytes, Free: 171328 bytes
 AFTER GC ... : Used: 8128 bytes, Free: 171456 bytes
 START ...... : Used: 8192 bytes, Free: 171392 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 11248 bytes, Used: 11248 bytes, Free: 168336 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15728 bytes, Used: 14384 bytes, Free: 165200 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15728 bytes, Used: 12944 bytes, Free: 166640 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15728 bytes, Used: 11600 bytes, Free: 167984 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15728 bytes, Used: 15056 bytes, Free: 164528 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15728 bytes, Used: 13920 bytes, Free: 165664 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 11280 bytes, Used: 11280 bytes, Free: 168304 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 14960 bytes, Used: 14576 bytes, Free: 165008 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15632 bytes, Used: 13040 bytes, Free: 166544 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15632 bytes, Used: 11600 bytes, Free: 167984 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15632 bytes, Used: 14960 bytes, Free: 164624 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15632 bytes, Used: 13824 bytes, Free: 165760 bytes
 CYCLES ..... : 2.9 K/s
-BEFORE GC .. : Used: 14064 bytes, Free: 165520 bytes
+BEFORE GC .. : Used: 13968 bytes, Free: 165616 bytes
 AFTER GC ... : Used: 11184 bytes, Free: 168400 bytes
 
 Code done running.
@@ -261,15 +369,15 @@ CYCLES ..... : 8.6 K/s
 BEFORE GC .. : Used: 8688 bytes, Free: 170896 bytes
 AFTER GC ... : Used: 8560 bytes, Free: 171024 bytes
 START ...... : Used: 8624 bytes, Free: 170960 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 11680 bytes, Used: 11680 bytes, Free: 167904 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15648 bytes, Used: 13536 bytes, Free: 166048 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15648 bytes, Used: 11712 bytes, Free: 167872 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15648 bytes, Used: 13728 bytes, Free: 165856 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15744 bytes, Used: 11808 bytes, Free: 167776 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15744 bytes, Used: 14128 bytes, Free: 165456 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 11712 bytes, Used: 11712 bytes, Free: 167872 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 14688 bytes, Used: 12960 bytes, Free: 166624 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 14688 bytes, Used: 14624 bytes, Free: 164960 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15392 bytes, Used: 11840 bytes, Free: 167744 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15392 bytes, Used: 13728 bytes, Free: 165856 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15456 bytes, Used: 12016 bytes, Free: 167568 bytes
 CYCLES ..... : 3.4 K/s
-BEFORE GC .. : Used: 14272 bytes, Free: 165312 bytes
-AFTER GC ... : Used: 11584 bytes, Free: 168000 bytes
+BEFORE GC .. : Used: 12160 bytes, Free: 167424 bytes
+AFTER GC ... : Used: 11616 bytes, Free: 167968 bytes
 
 Code done running.
 soft reboot
@@ -286,15 +394,15 @@ CYCLES ..... : 4.0 K/s
 BEFORE GC .. : Used: 8560 bytes, Free: 171024 bytes
 AFTER GC ... : Used: 8432 bytes, Free: 171152 bytes
 START ...... : Used: 8496 bytes, Free: 171088 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 11568 bytes, Used: 11568 bytes, Free: 168016 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15376 bytes, Used: 13072 bytes, Free: 166512 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15664 bytes, Used: 14864 bytes, Free: 164720 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15664 bytes, Used: 12176 bytes, Free: 167408 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15664 bytes, Used: 14032 bytes, Free: 165552 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15664 bytes, Used: 14720 bytes, Free: 164864 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 11584 bytes, Used: 11584 bytes, Free: 168000 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15456 bytes, Used: 15456 bytes, Free: 164128 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15648 bytes, Used: 14976 bytes, Free: 164608 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15648 bytes, Used: 14592 bytes, Free: 164992 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15648 bytes, Used: 14208 bytes, Free: 165376 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15648 bytes, Used: 14896 bytes, Free: 164688 bytes
 CYCLES ..... : 2.0 K/s
-BEFORE GC .. : Used: 14864 bytes, Free: 164720 bytes
-AFTER GC ... : Used: 11504 bytes, Free: 168080 bytes
+BEFORE GC .. : Used: 15040 bytes, Free: 164544 bytes
+AFTER GC ... : Used: 11488 bytes, Free: 168096 bytes
 
 Code done running.
 soft reboot
@@ -307,19 +415,19 @@ Using GP27
 Config file loaded.
 Device file loaded.
 START ...... : Used: 8832 bytes, Free: 170752 bytes
-CYCLES ..... : 9.7 K/s
+CYCLES ..... : 9.6 K/s
 BEFORE GC .. : Used: 14784 bytes, Free: 164800 bytes
 AFTER GC ... : Used: 8880 bytes, Free: 170704 bytes
 START ...... : Used: 8976 bytes, Free: 170608 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 12064 bytes, Used: 12064 bytes, Free: 166880 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 23824 bytes, Used: 23792 bytes, Free: 155152 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30896 bytes, Used: 14832 bytes, Free: 164112 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30896 bytes, Used: 26448 bytes, Free: 152496 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30896 bytes, Used: 18224 bytes, Free: 160720 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30896 bytes, Used: 16128 bytes, Free: 162816 bytes
-CYCLES ..... : 4.1 K/s
-BEFORE GC .. : Used: 16272 bytes, Free: 162672 bytes
-AFTER GC ... : Used: 11984 bytes, Free: 166960 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 12064 bytes, Used: 12064 bytes, Free: 167520 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15584 bytes, Used: 14976 bytes, Free: 164608 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15584 bytes, Used: 14496 bytes, Free: 165088 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15584 bytes, Used: 14016 bytes, Free: 165568 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15584 bytes, Used: 13440 bytes, Free: 166144 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15584 bytes, Used: 15472 bytes, Free: 164112 bytes
+CYCLES ..... : 3.8 K/s
+BEFORE GC .. : Used: 15616 bytes, Free: 163968 bytes
+AFTER GC ... : Used: 11968 bytes, Free: 167616 bytes
 
 Code done running.
 soft reboot
@@ -336,15 +444,15 @@ CYCLES ..... : 1.2 K/s
 BEFORE GC .. : Used: 14912 bytes, Free: 164032 bytes
 AFTER GC ... : Used: 14784 bytes, Free: 164160 bytes
 START ...... : Used: 14848 bytes, Free: 164096 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 16928 bytes, Used: 16928 bytes, Free: 162016 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30112 bytes, Used: 21600 bytes, Free: 157344 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 31296 bytes, Used: 26400 bytes, Free: 152544 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 31296 bytes, Used: 31200 bytes, Free: 147744 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 31296 bytes, Used: 21216 bytes, Free: 157728 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 31296 bytes, Used: 25360 bytes, Free: 153584 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 16896 bytes, Used: 16896 bytes, Free: 162048 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 29984 bytes, Used: 21312 bytes, Free: 157632 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 30912 bytes, Used: 25824 bytes, Free: 153120 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 30912 bytes, Used: 30336 bytes, Free: 148608 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31104 bytes, Used: 20000 bytes, Free: 158944 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31104 bytes, Used: 23952 bytes, Free: 154992 bytes
 CYCLES ..... : 0.9 K/s
-BEFORE GC .. : Used: 25504 bytes, Free: 153440 bytes
-AFTER GC ... : Used: 16864 bytes, Free: 162080 bytes
+BEFORE GC .. : Used: 24096 bytes, Free: 154848 bytes
+AFTER GC ... : Used: 16800 bytes, Free: 162144 bytes
 
 Code done running.
 soft reboot
@@ -361,15 +469,15 @@ CYCLES ..... : 2.9 K/s
 BEFORE GC .. : Used: 11280 bytes, Free: 167664 bytes
 AFTER GC ... : Used: 11152 bytes, Free: 167792 bytes
 START ...... : Used: 11216 bytes, Free: 167728 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 13264 bytes, Used: 13264 bytes, Free: 165680 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30944 bytes, Used: 17984 bytes, Free: 160960 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30944 bytes, Used: 22880 bytes, Free: 156064 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30944 bytes, Used: 27872 bytes, Free: 151072 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30944 bytes, Used: 14336 bytes, Free: 164608 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30944 bytes, Used: 20976 bytes, Free: 157968 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 13216 bytes, Used: 13216 bytes, Free: 165728 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 30624 bytes, Used: 17280 bytes, Free: 161664 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 30624 bytes, Used: 21408 bytes, Free: 157536 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 30912 bytes, Used: 25440 bytes, Free: 153504 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 30912 bytes, Used: 29664 bytes, Free: 149280 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31392 bytes, Used: 17584 bytes, Free: 161360 bytes
 CYCLES ..... : 1.5 K/s
-BEFORE GC .. : Used: 21120 bytes, Free: 157824 bytes
-AFTER GC ... : Used: 13184 bytes, Free: 165760 bytes
+BEFORE GC .. : Used: 17728 bytes, Free: 161216 bytes
+AFTER GC ... : Used: 13120 bytes, Free: 165824 bytes
 
 Code done running.
 soft reboot
@@ -386,15 +494,15 @@ CYCLES ..... : 10.1 K/s
 BEFORE GC .. : Used: 12240 bytes, Free: 150960 bytes
 AFTER GC ... : Used: 10688 bytes, Free: 152512 bytes
 START ...... : Used: 10752 bytes, Free: 152448 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 12864 bytes, Used: 12864 bytes, Free: 166080 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 31040 bytes, Used: 15520 bytes, Free: 163424 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 31488 bytes, Used: 18784 bytes, Free: 160160 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 31488 bytes, Used: 21856 bytes, Free: 157088 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 31488 bytes, Used: 25568 bytes, Free: 153376 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 31488 bytes, Used: 25360 bytes, Free: 153584 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 12912 bytes, Used: 12912 bytes, Free: 166032 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 29264 bytes, Used: 16704 bytes, Free: 162240 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 29920 bytes, Used: 20672 bytes, Free: 158272 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 29920 bytes, Used: 24608 bytes, Free: 154336 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 29920 bytes, Used: 28480 bytes, Free: 150464 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 29920 bytes, Used: 28016 bytes, Free: 150928 bytes
 CYCLES ..... : 4.3 K/s
-BEFORE GC .. : Used: 25504 bytes, Free: 153440 bytes
-AFTER GC ... : Used: 12800 bytes, Free: 166144 bytes
+BEFORE GC .. : Used: 28160 bytes, Free: 150784 bytes
+AFTER GC ... : Used: 12832 bytes, Free: 166112 bytes
 
 Code done running.
 soft reboot
@@ -406,20 +514,20 @@ Using LED
 Using GP27
 Config file loaded.
 Device file loaded.
-START ...... : Used: 11328 bytes, Free: 151872 bytes
-CYCLES ..... : 5.4 K/s
-BEFORE GC .. : Used: 14112 bytes, Free: 149088 bytes
-AFTER GC ... : Used: 11440 bytes, Free: 151760 bytes
-START ...... : Used: 11504 bytes, Free: 151696 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 13248 bytes, Used: 13248 bytes, Free: 165696 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 29152 bytes, Used: 26752 bytes, Free: 152192 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30080 bytes, Used: 21472 bytes, Free: 157472 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30848 bytes, Used: 16352 bytes, Free: 162592 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30848 bytes, Used: 29568 bytes, Free: 149376 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30848 bytes, Used: 29232 bytes, Free: 149712 bytes
-CYCLES ..... : 3.1 K/s
-BEFORE GC .. : Used: 29376 bytes, Free: 149568 bytes
-AFTER GC ... : Used: 13216 bytes, Free: 165728 bytes
+START ...... : Used: 11328 bytes, Free: 167616 bytes
+CYCLES ..... : 5.1 K/s
+BEFORE GC .. : Used: 13472 bytes, Free: 165472 bytes
+AFTER GC ... : Used: 11440 bytes, Free: 167504 bytes
+START ...... : Used: 11504 bytes, Free: 167440 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 13184 bytes, Used: 13184 bytes, Free: 165760 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31104 bytes, Used: 17984 bytes, Free: 160960 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31104 bytes, Used: 23104 bytes, Free: 155840 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31104 bytes, Used: 27328 bytes, Free: 151616 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31424 bytes, Used: 13376 bytes, Free: 165568 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31424 bytes, Used: 29648 bytes, Free: 149296 bytes
+CYCLES ..... : 2.9 K/s
+BEFORE GC .. : Used: 29792 bytes, Free: 149152 bytes
+AFTER GC ... : Used: 13120 bytes, Free: 165824 bytes
 
 Code done running.
 soft reboot
@@ -433,18 +541,18 @@ Config file loaded.
 Device file loaded.
 START ...... : Used: 16496 bytes, Free: 165264 bytes
 CYCLES ..... : 3.3 K/s
-BEFORE GC .. : Used: 31344 bytes, Free: 150416 bytes
+BEFORE GC .. : Used: 32176 bytes, Free: 149584 bytes
 AFTER GC ... : Used: 16576 bytes, Free: 165184 bytes
 START ...... : Used: 16640 bytes, Free: 165120 bytes
-CRITICAL : Heap details: Total: 181760 bytes, Peak: 18400 bytes, Used: 18400 bytes, Free: 163360 bytes
-CRITICAL : Heap details: Total: 181760 bytes, Peak: 56896 bytes, Used: 29312 bytes, Free: 152448 bytes
-CRITICAL : Heap details: Total: 181760 bytes, Peak: 59840 bytes, Used: 40448 bytes, Free: 141312 bytes
-CRITICAL : Heap details: Total: 181760 bytes, Peak: 59840 bytes, Used: 51584 bytes, Free: 130176 bytes
-CRITICAL : Heap details: Total: 181760 bytes, Peak: 62784 bytes, Used: 62784 bytes, Free: 118976 bytes
-CRITICAL : Heap details: Total: 181760 bytes, Peak: 62784 bytes, Used: 28688 bytes, Free: 153072 bytes
-CYCLES ..... : 2.1 K/s
-BEFORE GC .. : Used: 28832 bytes, Free: 152928 bytes
-AFTER GC ... : Used: 18304 bytes, Free: 163456 bytes
+CRITICAL : Heap details: Total: 181760 bytes, Peak: 18336 bytes, Used: 18336 bytes, Free: 163424 bytes
+CRITICAL : Heap details: Total: 181760 bytes, Peak: 56800 bytes, Used: 29888 bytes, Free: 151872 bytes
+CRITICAL : Heap details: Total: 181760 bytes, Peak: 60736 bytes, Used: 41280 bytes, Free: 140480 bytes
+CRITICAL : Heap details: Total: 181760 bytes, Peak: 60736 bytes, Used: 52544 bytes, Free: 129216 bytes
+CRITICAL : Heap details: Total: 181760 bytes, Peak: 61344 bytes, Used: 18944 bytes, Free: 162816 bytes
+CRITICAL : Heap details: Total: 181760 bytes, Peak: 61344 bytes, Used: 30576 bytes, Free: 151184 bytes
+CYCLES ..... : 2.2 K/s
+BEFORE GC .. : Used: 30720 bytes, Free: 151040 bytes
+AFTER GC ... : Used: 18240 bytes, Free: 163520 bytes
 
 Code done running.
 soft reboot
@@ -461,15 +569,15 @@ CYCLES ..... : 2.3 K/s
 BEFORE GC .. : Used: 51424 bytes, Free: 130336 bytes
 AFTER GC ... : Used: 51104 bytes, Free: 130656 bytes
 START ...... : Used: 51168 bytes, Free: 130592 bytes
-CRITICAL : Heap details: Total: 181760 bytes, Peak: 53312 bytes, Used: 53312 bytes, Free: 128448 bytes
-CRITICAL : Heap details: Total: 181760 bytes, Peak: 62928 bytes, Used: 53456 bytes, Free: 128304 bytes
-CRITICAL : Heap details: Total: 181760 bytes, Peak: 62928 bytes, Used: 62000 bytes, Free: 119760 bytes
-CRITICAL : Heap details: Total: 181760 bytes, Peak: 62928 bytes, Used: 62288 bytes, Free: 119472 bytes
-CRITICAL : Heap details: Total: 181760 bytes, Peak: 62928 bytes, Used: 59984 bytes, Free: 121776 bytes
-CRITICAL : Heap details: Total: 181760 bytes, Peak: 62928 bytes, Used: 60672 bytes, Free: 121088 bytes
+CRITICAL : Heap details: Total: 181760 bytes, Peak: 53232 bytes, Used: 53232 bytes, Free: 128528 bytes
+CRITICAL : Heap details: Total: 181760 bytes, Peak: 62848 bytes, Used: 62288 bytes, Free: 119472 bytes
+CRITICAL : Heap details: Total: 181760 bytes, Peak: 62848 bytes, Used: 58736 bytes, Free: 123024 bytes
+CRITICAL : Heap details: Total: 181760 bytes, Peak: 62848 bytes, Used: 57296 bytes, Free: 124464 bytes
+CRITICAL : Heap details: Total: 181760 bytes, Peak: 62848 bytes, Used: 54224 bytes, Free: 127536 bytes
+CRITICAL : Heap details: Total: 181760 bytes, Peak: 62848 bytes, Used: 57312 bytes, Free: 124448 bytes
 CYCLES ..... : 0.9 K/s
-BEFORE GC .. : Used: 60816 bytes, Free: 120944 bytes
-AFTER GC ... : Used: 53232 bytes, Free: 128528 bytes
+BEFORE GC .. : Used: 57456 bytes, Free: 124304 bytes
+AFTER GC ... : Used: 53136 bytes, Free: 128624 bytes
 
 Code done running.
 soft reboot
@@ -486,15 +594,15 @@ CYCLES ..... : 2.1 K/s
 BEFORE GC .. : Used: 51712 bytes, Free: 130048 bytes
 AFTER GC ... : Used: 51392 bytes, Free: 130368 bytes
 START ...... : Used: 51456 bytes, Free: 130304 bytes
-CRITICAL : Heap details: Total: 181760 bytes, Peak: 53568 bytes, Used: 53568 bytes, Free: 128192 bytes
-CRITICAL : Heap details: Total: 181760 bytes, Peak: 62416 bytes, Used: 61936 bytes, Free: 119824 bytes
-CRITICAL : Heap details: Total: 181760 bytes, Peak: 62800 bytes, Used: 58576 bytes, Free: 123184 bytes
-CRITICAL : Heap details: Total: 181760 bytes, Peak: 62800 bytes, Used: 56848 bytes, Free: 124912 bytes
-CRITICAL : Heap details: Total: 181760 bytes, Peak: 62800 bytes, Used: 54640 bytes, Free: 127120 bytes
-CRITICAL : Heap details: Total: 181760 bytes, Peak: 62800 bytes, Used: 56960 bytes, Free: 124800 bytes
+CRITICAL : Heap details: Total: 181760 bytes, Peak: 53664 bytes, Used: 53664 bytes, Free: 128096 bytes
+CRITICAL : Heap details: Total: 181760 bytes, Peak: 62512 bytes, Used: 62240 bytes, Free: 119520 bytes
+CRITICAL : Heap details: Total: 181760 bytes, Peak: 62784 bytes, Used: 59232 bytes, Free: 122528 bytes
+CRITICAL : Heap details: Total: 181760 bytes, Peak: 62784 bytes, Used: 58016 bytes, Free: 123744 bytes
+CRITICAL : Heap details: Total: 181760 bytes, Peak: 62784 bytes, Used: 55104 bytes, Free: 126656 bytes
+CRITICAL : Heap details: Total: 181760 bytes, Peak: 62784 bytes, Used: 58096 bytes, Free: 123664 bytes
 CYCLES ..... : 0.8 K/s
-BEFORE GC .. : Used: 57104 bytes, Free: 124656 bytes
-AFTER GC ... : Used: 53456 bytes, Free: 128304 bytes
+BEFORE GC .. : Used: 58240 bytes, Free: 123520 bytes
+AFTER GC ... : Used: 53568 bytes, Free: 128192 bytes
 
 Code done running.
 soft reboot
@@ -508,18 +616,18 @@ Config file loaded.
 Device file loaded.
 START ...... : Used: 17488 bytes, Free: 161456 bytes
 CYCLES ..... : 4.2 K/s
-BEFORE GC .. : Used: 25616 bytes, Free: 153328 bytes
-AFTER GC ... : Used: 17536 bytes, Free: 161408 bytes
-START ...... : Used: 17600 bytes, Free: 161344 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 19648 bytes, Used: 19648 bytes, Free: 159296 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30240 bytes, Used: 19680 bytes, Free: 159264 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 31360 bytes, Used: 30912 bytes, Free: 148032 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 31360 bytes, Used: 30592 bytes, Free: 148352 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 31360 bytes, Used: 30112 bytes, Free: 148832 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 31360 bytes, Used: 23728 bytes, Free: 155216 bytes
+BEFORE GC .. : Used: 28128 bytes, Free: 150816 bytes
+AFTER GC ... : Used: 17552 bytes, Free: 161392 bytes
+START ...... : Used: 17616 bytes, Free: 161328 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 19696 bytes, Used: 19696 bytes, Free: 159248 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 30608 bytes, Used: 19888 bytes, Free: 159056 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 30608 bytes, Used: 20208 bytes, Free: 158736 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 30608 bytes, Used: 20208 bytes, Free: 158736 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31088 bytes, Used: 20208 bytes, Free: 158736 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31088 bytes, Used: 25536 bytes, Free: 153408 bytes
 CYCLES ..... : 2.4 K/s
-BEFORE GC .. : Used: 23872 bytes, Free: 155072 bytes
-AFTER GC ... : Used: 19584 bytes, Free: 159360 bytes
+BEFORE GC .. : Used: 25680 bytes, Free: 153264 bytes
+AFTER GC ... : Used: 19600 bytes, Free: 159344 bytes
 
 Code done running.
 soft reboot
@@ -533,18 +641,18 @@ Config file loaded.
 Device file loaded.
 START ...... : Used: 15696 bytes, Free: 163248 bytes
 CYCLES ..... : 4.4 K/s
-BEFORE GC .. : Used: 26080 bytes, Free: 152864 bytes
+BEFORE GC .. : Used: 26272 bytes, Free: 152672 bytes
 AFTER GC ... : Used: 15696 bytes, Free: 163248 bytes
 START ...... : Used: 15760 bytes, Free: 163184 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 17952 bytes, Used: 17952 bytes, Free: 160992 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30288 bytes, Used: 26736 bytes, Free: 152208 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30288 bytes, Used: 21456 bytes, Free: 157488 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30800 bytes, Used: 30800 bytes, Free: 148144 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30800 bytes, Used: 26000 bytes, Free: 152944 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30800 bytes, Used: 29984 bytes, Free: 148960 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 17936 bytes, Used: 17936 bytes, Free: 161008 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 30224 bytes, Used: 25488 bytes, Free: 153456 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 30224 bytes, Used: 19568 bytes, Free: 159376 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 30224 bytes, Used: 28208 bytes, Free: 150736 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 30224 bytes, Used: 21808 bytes, Free: 157136 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 30224 bytes, Used: 25856 bytes, Free: 153088 bytes
 CYCLES ..... : 2.5 K/s
-BEFORE GC .. : Used: 30128 bytes, Free: 148816 bytes
-AFTER GC ... : Used: 17872 bytes, Free: 161072 bytes
+BEFORE GC .. : Used: 26000 bytes, Free: 152944 bytes
+AFTER GC ... : Used: 17840 bytes, Free: 161104 bytes
 
 Code done running.
 soft reboot
@@ -552,73 +660,75 @@ soft reboot
 Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
 /validate/performance/s_client.py output:
 Running on microcontroller. Pins are available.
-START ...... : Used: 21776 bytes, Free: 140784 bytes
+START ...... : Used: 22000 bytes, Free: 140560 bytes
 Status ..... : 200
 Reason ..... : bytearray(b'OK')
-Text ....... : I would rather entertain and hope that people learned something than educate people and hope they were entertained
+Text ....... : Another belief of mine; that everyone else my age is an adult, whereas I am merely in disguise
 Status ..... : 200
 Reason ..... : bytearray(b'OK')
-Text ....... : Things do not happen. Things are made to happen
+Text ....... : Fight for the things that you care about, but do it in a way that will lead others to join you
 Status ..... : 200
 Reason ..... : bytearray(b'OK')
-Text ....... : There are no passengers on spaceship earth. We are all crew
+Text ....... : One never notices what has been done; one can only see what remains to be done
 Status ..... : 200
 Reason ..... : bytearray(b'OK')
-Text ....... : Injustice anywhere is a threat to justice everywhere
+Text ....... : Art is I; science is we
 Status ..... : 200
 Reason ..... : bytearray(b'OK')
-Text ....... : What I cannot create, I do not understand
+Text ....... : Plans are worthless, but planning is everything
 Status ..... : 200
 Reason ..... : bytearray(b'OK')
-Text ....... : Be quick, but don't hurry
-Status ..... : 200
-Reason ..... : bytearray(b'OK')
-Text ....... : If you have knowledge, let others light their candles at it
+Text ....... : One never notices what has been done; one can only see what remains to be done
 CYCLES ..... : 0.0 K/s
-BEFORE GC .. : Used: 60784 bytes, Free: 104592 bytes
-AFTER GC ... : Used: 49936 bytes, Free: 115440 bytes
-START ...... : Used: 50000 bytes, Free: 115376 bytes
-CRITICAL : Heap details: Total: 165376 bytes, Peak: 52112 bytes, Used: 52112 bytes, Free: 113264 bytes
+BEFORE GC .. : Used: 59536 bytes, Free: 105840 bytes
+AFTER GC ... : Used: 50176 bytes, Free: 115200 bytes
+START ...... : Used: 50240 bytes, Free: 115136 bytes
+CRITICAL : Heap details: Total: 165376 bytes, Peak: 54256 bytes, Used: 54256 bytes, Free: 111120 bytes
 Status ..... : 200
 Reason ..... : bytearray(b'OK')
-Text ....... : I would rather entertain and hope that people learned something than educate people and hope they were entertained
+Text ....... : A Certain Darkness Is Needed to See the Stars
+Status ..... : 200
+Reason ..... : bytearray(b'OK')
+Text ....... : Fight for the things that you care about, but do it in a way that will lead others to join you
+Status ..... : 200
+Reason ..... : bytearray(b'OK')
+Text ....... : I am one of the people who love the why of things
+CRITICAL : Heap details: Total: 165376 bytes, Peak: 61536 bytes, Used: 57216 bytes, Free: 108160 bytes
+Status ..... : 200
+Reason ..... : bytearray(b'OK')
+Text ....... : I long to accomplish a great and noble task, but it is my chief duty to accomplish humble tasks as though they were great and noble
+Status ..... : 200
+Reason ..... : bytearray(b'OK')
+Text ....... : People who are really serious about software should make their own hardware
+Status ..... : 200
+Reason ..... : bytearray(b'OK')
+Text ....... : Far and away the best prize that life has to offer is the chance to work hard at work worth doing
+CRITICAL : Heap details: Total: 165376 bytes, Peak: 62000 bytes, Used: 59152 bytes, Free: 106224 bytes
 Status ..... : 200
 Reason ..... : bytearray(b'OK')
 Text ....... : Do not train a child to learn by force or harshness; but direct them to it by what amuses their minds, so that you may be better able to discover with accuracy the peculiar bent of the genius of each
 Status ..... : 200
 Reason ..... : bytearray(b'OK')
-Text ....... : It is not down on any map; true places never are
-CRITICAL : Heap details: Total: 165376 bytes, Peak: 62560 bytes, Used: 55680 bytes, Free: 109696 bytes
+Text ....... : Collaborative production is simple: no one person can take credit for what gets created, and the project could not come into being without the participation of many
 Status ..... : 200
 Reason ..... : bytearray(b'OK')
-Text ....... : Flexibility is the key to stability
+Text ....... : What we call the beginning is often the end. And to make
+an end is to make a beginning. The end is where we start from
+CRITICAL : Heap details: Total: 165376 bytes, Peak: 62528 bytes, Used: 62528 bytes, Free: 102848 bytes
 Status ..... : 200
 Reason ..... : bytearray(b'OK')
-Text ....... : We are what we amplify
+Text ....... : Do what you can, with what you have, where you are
 Status ..... : 200
 Reason ..... : bytearray(b'OK')
-Text ....... : Artists are here to disturb the peace
-CRITICAL : Heap details: Total: 165376 bytes, Peak: 62560 bytes, Used: 59232 bytes, Free: 106144 bytes
+Text ....... : Seek freedom and become captive of your desires. Seek discipline and find your liberty
 Status ..... : 200
 Reason ..... : bytearray(b'OK')
-Text ....... : The first 90 percent of the code accounts for the first 90 percent of the development time. The remaining 10 percent of the code accounts for the other 90 percent of the development time
-Status ..... : 200
-Reason ..... : bytearray(b'OK')
-Text ....... : There are three things to remember when teaching: know your stuff; know whom you are stuffing; and then stuff them elegantly
-Status ..... : 200
-Reason ..... : bytearray(b'OK')
-Text ....... : Tomorrow belongs to those who can hear it coming
-CRITICAL : Heap details: Total: 165376 bytes, Peak: 62560 bytes, Used: 62560 bytes, Free: 102816 bytes
-Status ..... : 200
-Reason ..... : bytearray(b'OK')
-Text ....... : Elegance is not a dispensable luxury but a quality that decides between success and failure
-Status ..... : 200
-Reason ..... : bytearray(b'OK')
-Text ....... : Remember what the dormouse said: feed your head, feed your head
-CRITICAL : Heap details: Total: 165376 bytes, Peak: 62560 bytes, Used: 60608 bytes, Free: 104768 bytes
+Text ....... : The mind is not a vessel that needs filling, but wood that needs igniting
+CRITICAL : Heap details: Total: 165376 bytes, Peak: 62528 bytes, Used: 54992 bytes, Free: 110384 bytes
+CRITICAL : Heap details: Total: 165376 bytes, Peak: 62528 bytes, Used: 55104 bytes, Free: 110272 bytes
 CYCLES ..... : 0.0 K/s
-BEFORE GC .. : Used: 60752 bytes, Free: 104624 bytes
-AFTER GC ... : Used: 52032 bytes, Free: 113344 bytes
+BEFORE GC .. : Used: 55248 bytes, Free: 110128 bytes
+AFTER GC ... : Used: 54128 bytes, Free: 111248 bytes
 
 Code done running.
 soft reboot
@@ -631,20 +741,20 @@ Using GP27
 Config file loaded.
 Device file loaded.
 Starting mDNS at app.local (IP address 192.168.1.175)
-START ...... : Used: 15888 bytes, Free: 165872 bytes
+START ...... : Used: 16064 bytes, Free: 153920 bytes
 CYCLES ..... : 2.1 K/s
-BEFORE GC .. : Used: 40688 bytes, Free: 141072 bytes
-AFTER GC ... : Used: 15968 bytes, Free: 165792 bytes
-START ...... : Used: 16032 bytes, Free: 165728 bytes
-CRITICAL : Heap details: Total: 181760 bytes, Peak: 17904 bytes, Used: 17904 bytes, Free: 163856 bytes
-CRITICAL : Heap details: Total: 181760 bytes, Peak: 62528 bytes, Used: 39792 bytes, Free: 141968 bytes
-CRITICAL : Heap details: Total: 181760 bytes, Peak: 62528 bytes, Used: 20096 bytes, Free: 161664 bytes
-CRITICAL : Heap details: Total: 181760 bytes, Peak: 62528 bytes, Used: 46512 bytes, Free: 135248 bytes
-CRITICAL : Heap details: Total: 181760 bytes, Peak: 62528 bytes, Used: 27040 bytes, Free: 154720 bytes
-CRITICAL : Heap details: Total: 181760 bytes, Peak: 62528 bytes, Used: 41616 bytes, Free: 140144 bytes
-CYCLES ..... : 1.6 K/s
-BEFORE GC .. : Used: 41760 bytes, Free: 140000 bytes
-AFTER GC ... : Used: 17824 bytes, Free: 163936 bytes
+BEFORE GC .. : Used: 42144 bytes, Free: 127840 bytes
+AFTER GC ... : Used: 16192 bytes, Free: 153792 bytes
+START ...... : Used: 16256 bytes, Free: 153728 bytes
+CRITICAL : Heap details: Total: 169984 bytes, Peak: 18032 bytes, Used: 18032 bytes, Free: 151952 bytes
+CRITICAL : Heap details: Total: 169984 bytes, Peak: 62112 bytes, Used: 19248 bytes, Free: 150736 bytes
+CRITICAL : Heap details: Total: 169984 bytes, Peak: 62112 bytes, Used: 57520 bytes, Free: 112464 bytes
+CRITICAL : Heap details: Total: 169984 bytes, Peak: 62112 bytes, Used: 48432 bytes, Free: 121552 bytes
+CRITICAL : Heap details: Total: 169984 bytes, Peak: 63056 bytes, Used: 55952 bytes, Free: 114032 bytes
+CRITICAL : Heap details: Total: 169984 bytes, Peak: 63056 bytes, Used: 23280 bytes, Free: 146704 bytes
+CYCLES ..... : 1.5 K/s
+BEFORE GC .. : Used: 23424 bytes, Free: 146560 bytes
+AFTER GC ... : Used: 17936 bytes, Free: 152048 bytes
 
 Code done running.
 soft reboot

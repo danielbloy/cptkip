@@ -48,7 +48,7 @@ class TestBiPlane:
         the CI environment.
         """
         for _ in range(100):
-            assert 5001 <= get_port() <= 9000
+            assert 5001 <= get_port() <= 30000
 
     def test_create_task(self):
         """

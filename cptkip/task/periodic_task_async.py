@@ -1,8 +1,8 @@
-import asyncio
-import time
+from asyncio import sleep
+from time import monotonic_ns
 
-import cptkip.core.control as control
 import cptkip.core.environment as environment
+from cptkip.core.control import NS_PER_SECOND, ASYNC_LOOP_SLEEP_INTERVAL
 
 # collections.abc is not available in CircuitPython.
 if environment.is_running_on_desktop():
@@ -40,28 +40,32 @@ def create(
     interval = 0
     if frequency > 0:
         interval = 1 / frequency
-    interval_ns: int = int(interval * control.NS_PER_SECOND)
 
-    sleep_interval = interval / control.PERIODIC_LOOP_WAIT_RATIO
+    interval_ns: int = int(interval * NS_PER_SECOND)
     call_begin: bool = True
     call_end: bool = True
 
     async def handler() -> None:
         nonlocal call_begin, call_end
+
         if begin and call_begin:
             call_begin = False
             await begin()
 
-        next_callback_ns = time.monotonic_ns() + int(max(initial_delay, 0.0) * control.NS_PER_SECOND)
+        next_callback_ns = monotonic_ns() + int(
+            max(initial_delay, 0.0) * NS_PER_SECOND)
+
         while not continue_func or continue_func():
-            now = time.monotonic_ns()
+
+            now = monotonic_ns()
+
             if now >= next_callback_ns:
                 if frequency > 0:
                     while now >= next_callback_ns:
                         next_callback_ns += interval_ns
                 await func()
 
-            await asyncio.sleep(sleep_interval)
+            await sleep(ASYNC_LOOP_SLEEP_INTERVAL)
 
         if end and call_end:
             call_end = False

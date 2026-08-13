@@ -18,6 +18,8 @@ def execute_next_script(current_script: str | None = None):
         "/validate/performance/h_basic_runner_async.py",
         "/validate/performance/i_periodic_task.py",
         "/validate/performance/i_periodic_task_async.py",
+        "/validate/performance/j_triggered_task.py",
+        "/validate/performance/j_triggered_task_async.py",
         "/validate/performance/k_output_pin.py",
         "/validate/performance/k_input_pin.py",
         "/validate/performance/k_pwm_pin.py",

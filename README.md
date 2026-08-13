@@ -57,11 +57,9 @@ The packages and their dependencies are illustrated in the table below.
 This project has been implemented in a manner that is sensitive to memory usage to try and reduce
 the overhead of the framework as much as possible. Gathering accurate statistics on memory usage is
 tricky as it is not an exact science as each small change to the framework impacts its performance.
-Notwithstanding, there is a script called
-`validate/validate_performance.py`
-which is used to generate some useful data on both memory usage and general performance of the
-framework. From that script, we can see the following when run on a Raspberry Pi Pico (for more
-detailed information, see
+Notwithstanding, there is a script called`validate/validate_performance.py` which is used to
+generate some useful data on both memory usage and general performance of the framework. From that
+script, we can see the following when run on a Raspberry Pi Pico (for more detailed information, see
 `validate/performance/results/pico.txt`):
 
 * A basic script without using the framework requires 1 to 1.5Kb of RAM.
@@ -71,10 +69,10 @@ detailed information, see
 * The `cptkip.core.memory` module uses about 4Kb of RAM.
 * The `cptkip.core.cpu` module uses about 2Kb of RAM.
 * The `cptkip.config.configuration` module uses about 4Kb of RAM.
-* The `asyncio` library uses about 8Kb of RAM.
-* The sync examples are much faster than their async counterparts in non-blocking scenarios (3 to 8
-  times faster).
-* The sync examples much less RAM than their async counterparts (16Kb vs 32Kb).
+* The `asyncio` library uses about 8Kb of RAM. The sync examples use less RAM than async (16Kb vs
+  32Kb).
+* The async example `h_basic_runner_async.py` is slower than the sync version but in practical
+  examples it probably doesn't make a material difference - more testing would be required.
 * The `cptkip.task.memory_monitor_task` (sync and async) uses about 3Kb of RAM but is expensive in
   cycles.
 * The `cptkip.network.requests` module uses about 30Kb to 40Kb of RAM.

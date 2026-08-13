@@ -1,4 +1,3 @@
-import asyncio
 from time import monotonic
 
 import cptkip.task.basic_runner_async as runner_async
@@ -23,17 +22,9 @@ def execute(task: Callable[[], Awaitable[None]], monitor: bool = True):
 
     print("START ...... : Used:", gc.mem_alloc(), "bytes, Free:", gc.mem_free(), "bytes")
 
-    cycles = 0
-
     async def update() -> None:
-        """
-        Executes the task under test. This also tracks the number of cycles executed.
-        """
-        nonlocal cycles
         while continue_func():
-            cycles += 1
             await task()
-            await asyncio.sleep(0)
 
     tasks = []
     if monitor:
@@ -53,7 +44,7 @@ def execute(task: Callable[[], Awaitable[None]], monitor: bool = True):
         from cptkip.core.memory import report_memory_usage
         report_memory_usage()
 
-    print(f"CYCLES ..... : {((cycles / runtime) // 100) / 10:,.1f} K/s")
+    print(f"CYCLES ..... : n/a K/s")
     print("BEFORE GC .. : Used:", gc.mem_alloc(), "bytes, Free:", gc.mem_free(), "bytes")
     gc.collect()
     print("AFTER GC ... : Used:", gc.mem_alloc(), "bytes, Free:", gc.mem_free(), "bytes")

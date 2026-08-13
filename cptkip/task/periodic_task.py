@@ -1,7 +1,7 @@
 from time import monotonic_ns
 
-import cptkip.core.control as control
 import cptkip.core.environment as environment
+from cptkip.core.control import NS_PER_SECOND
 
 # collections.abc is not available in CircuitPython.
 if environment.is_running_on_desktop():
@@ -16,11 +16,10 @@ def create(
         end: Callable[[], None] | None = None,
         initial_delay: float = 0.0) -> Callable[[], bool]:
     """
-    Creates a function that will execute the given function at the
-    specified frequency for as long as the continue_func returns true. The initial
-    invocation of func can be delayed by setting an initial_delay. If a frequency
-    of zero is provided then func will be executed as fast as possible. A frequency
-    of less than zero is ignored.
+    Creates a function that will execute the given function at the specified frequency
+    for as long as the continue_func returns true. The initial invocation of func can
+    be delayed by setting an initial_delay. If a frequency of zero is provided then
+    func will be executed as fast as possible. A frequency of less than zero is ignored.
 
     :param func: The function to call.
     :param frequency: The frequency to execute the function at. Zero indicates as
@@ -41,18 +40,20 @@ def create(
     interval = 0
     if frequency > 0:
         interval = 1 / frequency
-    interval_ns: int = int(interval * control.NS_PER_SECOND)
+
+    interval_ns: int = int(interval * NS_PER_SECOND)
     next_callback_ns: int = 0
     call_begin: bool = True
     call_end: bool = True
 
     def handler() -> bool:
         nonlocal call_begin, call_end, next_callback_ns
+
         if call_begin:
             if begin:
                 begin()
             call_begin = False
-            next_callback_ns = monotonic_ns() + int(max(initial_delay, 0.0) * control.NS_PER_SECOND)
+            next_callback_ns = monotonic_ns() + int(max(initial_delay, 0.0) * NS_PER_SECOND)
             return True
 
         carry_on_looping = not continue_func or continue_func()
