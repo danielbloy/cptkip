@@ -1,5 +1,36 @@
 # Changelog
 
+## 0.3.0 - Beta, breaking change to for `cptkip/task/basic_runner.py` and
+`cptkip/task/basic_runner_async.py`
+
+Rather than accept a list of functions, the `run()` use *args. The migration is trivial, simply
+remove the square brackets from an invocation, so in the following example:
+
+```python
+import cptkip.task.basic_runner as runner
+
+
+def one() -> bool:
+    return True
+
+
+def two() -> bool:
+    return True
+
+
+runner.run([one, two])
+```
+
+```python
+runner.run([one, two])
+```
+
+Becomes:
+
+```python
+runner.run(one, two)
+```
+
 ## 0.2.3 - Beta
 
 Added support for with...resources statements for pins and devices.
