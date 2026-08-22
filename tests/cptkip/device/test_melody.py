@@ -101,10 +101,8 @@ class TestMelody:
 
     def test_deinit_can_be_called_multiple_times(self):
         """
-        Validates that deinit() can be called multiple times without issue
-        and that it sets the properties correctly.
+        Validates that deinit() can be called multiple times without issue.
         """
-        # Now make one with auto write on
         melody = Melody(MockBuzzerPin(), [])
         assert melody.playing
         assert not melody.paused
@@ -519,14 +517,12 @@ class TestMelodySequence:
 
     def test_deinit_can_be_called_multiple_times(self):
         """
-        Validates that deinit() can be called multiple times without issue
-        and that it sets the properties correctly.
+        Validates that deinit() can be called multiple times without issue.
         """
-        # Now make one with auto write on
         sequence = MelodySequence(Melody(MockBuzzerPin(), []))
         assert sequence.playing
         assert not sequence.paused
-        
+
         sequence.deinit()
         sequence.deinit()
         sequence.deinit()

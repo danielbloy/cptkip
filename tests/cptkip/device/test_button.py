@@ -16,6 +16,17 @@ class MockInputPin:
 
 # noinspection PyTypeChecker
 class TestButton:
+    def test_deinit_can_be_called_multiple_times(self):
+        """
+        Validates that deinit() can be called multiple times without issue.
+        """
+        btn = button.Button(MockInputPin())
+        assert btn.pin.value
+
+        btn.deinit()
+        btn.deinit()
+        btn.deinit()
+
     def test_with_resources(self):
         """
         Validates that a button can be used in a with statement.
