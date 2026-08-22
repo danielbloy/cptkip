@@ -34,7 +34,21 @@ class Button:
         self.long_click = long_click
         # If the pin does not have a value for pullup then we assume it is a pullup
         value_when_pressed = not pin.pullup if pin.pullup is not None else False
-        self.button = DebounceButton(pin, long_duration_ms=2000, value_when_pressed=value_when_pressed)
+        self.button = DebounceButton(pin, long_duration_ms=2000,
+                                     value_when_pressed=value_when_pressed)
+
+    def __enter__(self):
+        return self
+
+    # TODO: Test
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.deinit()
+
+    def deinit(self) -> None:
+        """
+        Releases the underlying pin.
+        """
+        self.pin.deinit()
 
     def update(self):
         """

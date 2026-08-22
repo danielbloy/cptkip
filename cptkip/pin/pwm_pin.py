@@ -31,6 +31,13 @@ class PwmPin:
         self.invert = invert
         self.value = value
 
+    def __enter__(self):
+        return self
+
+    # TODO: Test
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.deinit()
+        
     def deinit(self) -> None:
         if environment.are_pins_available():
             self._pwm.deinit()

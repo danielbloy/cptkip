@@ -9,11 +9,19 @@ if environment.are_pins_available():
 else:
 
     class Pixels:
-        def __init__(self, pin, num_pixels: int, brightness: float, auto_write: bool = True) -> None:
+        def __init__(self, pin, num_pixels: int, brightness: float,
+                     auto_write: bool = True) -> None:
             self.pin = pin
             self.num_pixels = num_pixels
             self.brightness = brightness
             self.auto_write = auto_write
+
+        def __enter__(self):
+            return self
+
+        # TODO: Test
+        def __exit__(self, exc_type, exc_val, exc_tb):
+            self.deinit()
 
         def deinit(self) -> None:
             pass
@@ -59,7 +67,8 @@ def create(pin, num_pixels: int, brightness: float = 1.0) -> Pixels:
     :param num_pixels: The number of pixels in the strand.
     :param brightness: The brightness of the pixels.
     """
-    pixels: Pixels = Pixels(pin, num_pixels, brightness=max(min(brightness, 1.0), 0.0), auto_write=False)
+    pixels: Pixels = Pixels(pin, num_pixels, brightness=max(min(brightness, 1.0), 0.0),
+                            auto_write=False)
     pixels.fill(OFF)
     pixels.write()
     # noinspection PyTypeChecker

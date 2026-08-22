@@ -27,6 +27,13 @@ class Audio:
             decoder = MP3Decoder(open("cptkip/mp3.mp3", "rb"))
             self.decoder = decoder
 
+    def __enter__(self):
+        return self
+
+    # TODO: Test
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.deinit()
+
     def deinit(self) -> None:
         """
         Releases the decoder and audio output. Safe to call multiple times.

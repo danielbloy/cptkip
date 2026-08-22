@@ -26,6 +26,13 @@ class BuzzerPin:
         self._frequency = 0
         self._playing = False
 
+    def __enter__(self):
+        return self
+
+    # TODO: Test
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.deinit()
+        
     def deinit(self) -> None:
         self._playing = False
         if self._buzzer:
