@@ -12,39 +12,38 @@ from cptkip.pin.output_pin import OutputPin
 
 log.set_log_level(log.INFO)
 
-led = OutputPin(config.LED_PIN, invert=config.LED_INVERT)
-
-# Run the loop for 5 seconds
-log.info("Using value to control the LED")
-finish = time.monotonic() + 5
-
-
-# Should we continue to run or not?
-def should_continue() -> bool:
-    return time.monotonic() < finish
+with OutputPin(config.LED_PIN, invert=config.LED_INVERT) as led:
+    # Run the loop for 5 seconds
+    log.info("Using value to control the LED")
+    finish = time.monotonic() + 5
 
 
-# The operation that we want to perform
-async def operation() -> None:
-    led.value = not led.value
-    log.info(f"{time.monotonic()}: {led.value}")
+    # Should we continue to run or not?
+    def should_continue() -> bool:
+        return time.monotonic() < finish
 
 
-# Executed once at the beginning and before any initial delay.
-async def begin() -> None:
-    log.info(f"{time.monotonic()}: BEGIN")
+    # The operation that we want to perform
+    async def operation() -> None:
+        led.value = not led.value
+        log.info(f"{time.monotonic()}: {led.value}")
 
 
-# Executed once at the end.
-async def end() -> None:
-    log.info(f"{time.monotonic()}: END")
-    led.off()
+    # Executed once at the beginning and before any initial delay.
+    async def begin() -> None:
+        log.info(f"{time.monotonic()}: BEGIN")
 
 
-# Wrap the operation in a rate limiter function
-blink = periodic_task.create(
-    operation, frequency=4, initial_delay=1.5,
-    continue_func=should_continue,
-    begin=begin, end=end)
+    # Executed once at the end.
+    async def end() -> None:
+        log.info(f"{time.monotonic()}: END")
+        led.off()
 
-runner.run([blink])
+
+    # Wrap the operation in a rate limiter function
+    blink = periodic_task.create(
+        operation, frequency=4, initial_delay=1.5,
+        continue_func=should_continue,
+        begin=begin, end=end)
+
+    runner.run([blink])

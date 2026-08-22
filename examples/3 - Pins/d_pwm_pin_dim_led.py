@@ -13,26 +13,23 @@ from cptkip.pin.pwm_pin import PwmPin
 
 log.set_log_level(log.INFO)
 
-led = PwmPin(config.LED_PIN, invert=config.LED_INVERT)
+with PwmPin(config.LED_PIN, invert=config.LED_INVERT) as led:
+    # Run the loop for 5 seconds
+    log.info("Using value for brightness")
+    finish = time.monotonic() + 5
 
-# Run the loop for 5 seconds
-log.info("Using value for brightness")
-finish = time.monotonic() + 5
+    while time.monotonic() < finish:
+        led.value = 0.8
+        time.sleep(0.25)
+        led.value = 0.2
+        time.sleep(0.25)
 
-while time.monotonic() < finish:
-    led.value = 0.8
-    time.sleep(0.25)
-    led.value = 0.2
-    time.sleep(0.25)
+    log.info("Using on()/off() for brightness")
+    # noinspection DuplicatedCode
+    finish = time.monotonic() + 5
 
-log.info("Using on()/off() for brightness")
-# noinspection DuplicatedCode
-finish = time.monotonic() + 5
-
-while time.monotonic() < finish:
-    led.on()
-    time.sleep(0.25)
-    led.off()
-    time.sleep(0.25)
-
-led.off()
+    while time.monotonic() < finish:
+        led.on()
+        time.sleep(0.25)
+        led.off()
+        time.sleep(0.25)
