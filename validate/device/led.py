@@ -22,8 +22,7 @@ def execute():
     animation.freeze()
     del animation
 
-    onboard_led.off()
-    led_pin.deinit()
+    onboard_led.deinit()
     del led_pin
 
 
