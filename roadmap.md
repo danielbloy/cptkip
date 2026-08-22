@@ -2,7 +2,7 @@
 
 ## Now
 
-The following functionality is a priority to implement in 0.2.x:
+The following functionality is a priority to implement in 0.3.x:
 
 * Package to `.mpy` and release process
 * Support for MEMS microphone
@@ -10,7 +10,7 @@ The following functionality is a priority to implement in 0.2.x:
 
 ## Next
 
-The following functionality is planned to be implemented in 0.2.x or later:
+The following functionality is planned to be implemented in 0.3.x or later:
 
 * Move `count_limiter`, `duration_limiter` and `value_flip` from `test.utilities` to task
 * Safe Runner - async and sync (inspired by `pico-interactive`)

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.3 - Beta
+
+Added support for with...resources statements for pins and devices.
+
 ## 0.2.2 - Beta
 
 Added support for triggered tasks (sync and async).
