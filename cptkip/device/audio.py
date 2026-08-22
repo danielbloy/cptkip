@@ -173,6 +173,21 @@ class Queue:
         self._audio = audio
         self._queue = []
 
+    def __enter__(self):
+        return self
+
+    # TODO: Test
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.deinit()
+
+    def deinit(self) -> None:
+        """
+        Clears the queue and deinits() the audio.
+        """
+        self._audio.stop()
+        self._queue.clear()
+        self._audio.deinit()
+
     def queue(self, filename: str) -> None:
         """
         Adds an MP3 file to the queue to be picked up and played.
@@ -227,11 +242,3 @@ class Queue:
         if not self._audio.playing and len(self._queue) > 0:
             song = self._queue.pop(0)
             self._audio.play(song)
-
-    def deinit(self) -> None:
-        """
-        Clears the queue and deinits() the audio.
-        """
-        self._audio.stop()
-        self._queue.clear()
-        self._audio.deinit()

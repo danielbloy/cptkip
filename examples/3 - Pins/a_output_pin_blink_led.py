@@ -12,7 +12,6 @@ from cptkip.pin.output_pin import OutputPin
 log.set_log_level(log.INFO)
 
 with OutputPin(config.LED_PIN, invert=config.LED_INVERT) as led:
-    # Run the loop for 5 seconds
     log.info("Using value to control the LED")
     finish = time.monotonic() + 5
 

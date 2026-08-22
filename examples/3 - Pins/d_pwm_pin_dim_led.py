@@ -14,7 +14,6 @@ from cptkip.pin.pwm_pin import PwmPin
 log.set_log_level(log.INFO)
 
 with PwmPin(config.LED_PIN, invert=config.LED_INVERT) as led:
-    # Run the loop for 5 seconds
     log.info("Using value for brightness")
     finish = time.monotonic() + 5
 

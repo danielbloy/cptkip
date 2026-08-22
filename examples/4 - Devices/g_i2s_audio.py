@@ -15,32 +15,31 @@ log.set_log_level(log.INFO)
 
 AUDIO_FILE = "examples/lion.mp3"
 
-audio = Audio(config.I2S_BIT_CLOCK, config.I2S_LEFT_RIGHT_CLOCK, config.I2S_DATA)
-queue = Queue(audio)
-
-
-def single_click_handler() -> None:
-    if queue.playing:
-        if queue.paused:
-            queue.resume()
-        else:
-            queue.pause()
-
-
-def multi_click_handler() -> None:
+with Queue(Audio(config.I2S_BIT_CLOCK, config.I2S_LEFT_RIGHT_CLOCK, config.I2S_DATA)) as queue:
     queue.queue(AUDIO_FILE)
 
 
-input_pin = InputPin(config.BUTTON_PIN, config.BUTTON_PULLUP)
-button = Button(input_pin, click=single_click_handler, multi_click=multi_click_handler)
+    def single_click_handler() -> None:
+        if queue.playing:
+            if queue.paused:
+                queue.resume()
+            else:
+                queue.pause()
 
-# Run the loop for 10 seconds
-log.info("Press the button to pause/unpause the audio.")
-log.info("Multi-press the button add a song to the queue.")
-finish = time.monotonic() + 10
 
-while time.monotonic() < finish:
-    button.update()
-    queue.update()
+    def multi_click_handler() -> None:
+        queue.queue(AUDIO_FILE)
 
-queue.deinit()
+
+    with Button(
+            InputPin(config.BUTTON_PIN, config.BUTTON_PULLUP),
+            click=single_click_handler,
+            multi_click=multi_click_handler) as button:
+
+        log.info("Press the button to pause/unpause the audio.")
+        log.info("Multi-press the button add a song to the queue.")
+        finish = time.monotonic() + 5
+
+        while time.monotonic() < finish:
+            button.update()
+            queue.update()

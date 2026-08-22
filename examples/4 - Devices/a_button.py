@@ -11,36 +11,30 @@ from cptkip.pin.output_pin import OutputPin
 
 log.set_log_level(log.INFO)
 
-led = OutputPin(config.LED_PIN, invert=config.LED_INVERT)
+with OutputPin(config.LED_PIN, invert=config.LED_INVERT) as led:
+    def single_click_handler() -> None:
+        log.info('Single click!')
+        led.value = not led.value
 
 
-def single_click_handler() -> None:
-    log.info('Single click!')
-    led.value = not led.value
+    def multi_click_handler() -> None:
+        log.info('Multi click!')
+        led.value = not led.value
+        time.sleep(0.25)
+        led.value = not led.value
 
 
-def multi_click_handler() -> None:
-    log.info('Multi click!')
-    led.value = not led.value
-    time.sleep(0.25)
-    led.value = not led.value
+    def long_press_handler() -> None:
+        log.info('Long press!')
 
 
-def long_press_handler() -> None:
-    log.info('Long press!')
+    with Button(
+            InputPin(config.BUTTON_PIN, config.BUTTON_PULLUP),
+            click=single_click_handler,
+            multi_click=multi_click_handler,
+            long_click=long_press_handler) as button:
+        log.info("Press the button to change the LED.")
+        finish = time.monotonic() + 5
 
-
-input_pin = InputPin(config.BUTTON_PIN, config.BUTTON_PULLUP)
-
-button = Button(
-    input_pin,
-    click=single_click_handler,
-    multi_click=multi_click_handler,
-    long_click=long_press_handler)
-
-# Run the loop for 10 seconds
-log.info("Press the button to change the LED.")
-finish = time.monotonic() + 10
-
-while time.monotonic() < finish:
-    button.update()
+        while time.monotonic() < finish:
+            button.update()

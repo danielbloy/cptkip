@@ -11,37 +11,35 @@ from cptkip.zero.run import update_for
 
 log.set_log_level(log.INFO)
 
-led = create_led()
+with create_led() as led:
+    def switch():
+        if led.brightness > 0:
+            led.brightness = 0
+        else:
+            led.brightness = 1
 
 
-def switch():
-    if led.brightness > 0:
-        led.brightness = 0
-    else:
-        led.brightness = 1
+    def single_click_handler() -> None:
+        log.info('Single click!')
+        switch()
 
 
-def single_click_handler() -> None:
-    log.info('Single click!')
-    switch()
+    def multi_click_handler() -> None:
+        log.info('Multi click!')
+        switch()
+        time.sleep(0.25)
+        switch()
 
 
-def multi_click_handler() -> None:
-    log.info('Multi click!')
-    switch()
-    time.sleep(0.25)
-    switch()
+    def long_press_handler() -> None:
+        log.info('Long press!')
 
 
-def long_press_handler() -> None:
-    log.info('Long press!')
+    with create_button(
+            click=single_click_handler,
+            multi_click=multi_click_handler,
+            long_click=long_press_handler) as button:
 
-
-button = create_button(
-    click=single_click_handler,
-    multi_click=multi_click_handler,
-    long_click=long_press_handler)
-
-# Run the loop for 10 seconds
-log.info("Press the button to change the LED.")
-update_for(10, button)
+        # Run the loop for 10 seconds
+        log.info("Press the button to change the LED.")
+        update_for(10, button)

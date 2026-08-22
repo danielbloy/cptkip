@@ -11,7 +11,6 @@ from cptkip.pin.input_pin import InputPin
 log.set_log_level(log.INFO)
 
 with InputPin(config.BUTTON_PIN, config.BUTTON_PULLUP) as input_pin:
-    # Run the loop for 10 seconds
     finish = time.monotonic() + 5
 
     while time.monotonic() < finish:
