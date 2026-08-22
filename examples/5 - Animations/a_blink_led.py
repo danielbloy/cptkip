@@ -11,9 +11,9 @@ from cptkip.zero.run import update_for
 
 log.set_log_level(log.INFO)
 
-led = create_led()
-animation = Blink(led, speed=0.5, color=JADE)
+with create_led() as led:
+    animation = Blink(led, speed=0.5, color=JADE)
 
-update_for(5, animation)
+    update_for(5, animation)
 
-stop_animation(animation)
+    stop_animation(animation)
