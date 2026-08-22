@@ -43,6 +43,25 @@ class TestBuzzer:
         buzzer = Buzzer(BuzzerPin(1))
         assert not buzzer.playing
 
+    def test_deinit_can_be_called_multiple_times(self):
+        """
+        Validates that deinit() can be called multiple times without issue.
+        """
+        buzzer = Buzzer(BuzzerPin(1))
+        assert not buzzer.playing
+
+        buzzer.deinit()
+        buzzer.deinit()
+        buzzer.deinit()
+
+    def test_with_resources(self):
+        """
+        Validates that a Buzzer can be used in a with statement.
+        """
+
+        with Buzzer(BuzzerPin(1)) as buzzer:
+            assert not buzzer.playing
+
     def test_volume(self):
         """
         Validates that a buzzer can have the volume set (on the pin).

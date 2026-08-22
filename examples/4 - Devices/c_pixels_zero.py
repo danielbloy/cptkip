@@ -12,8 +12,8 @@ from cptkip.zero.run import update_for
 
 log.set_log_level(log.INFO)
 
-pixels = create_pixels(brightness=0.5)
-animation = Rainbow(pixels, speed=0.1, period=2)
+with create_pixels(brightness=0.5) as pixels:
+    animation = Rainbow(pixels, speed=0.1, period=2)
 
-update_for(5, animation)
-stop_animation(animation)
+    update_for(5, animation)
+    stop_animation(animation)

@@ -28,6 +28,14 @@ class TestAudio:
         audio.deinit()
         audio.deinit()
 
+    def test_with_resources(self):
+        """
+        Validates that a Audio can be used in a with statement.
+        """
+
+        with Audio(None) as audio:
+            assert audio.playing == False
+
     def test_playing_can_be_called(self) -> None:
         """Validate that playing() can be called safely."""
         audio = Audio(None)
@@ -76,6 +84,14 @@ class TestPwmAudio:
         audio.play("another-file.mp3")
         assert not audio.paused
 
+    def test_with_resources(self):
+        """
+        Validates that a PwmAudio can be used in a with statement.
+        """
+
+        with PwmAudio(1) as audio:
+            assert audio.playing == False
+
 
 class TestI2sAudio:
     """
@@ -93,6 +109,14 @@ class TestI2sAudio:
         assert not audio.paused
         audio.play("another-file.mp3")
         assert not audio.paused
+
+    def test_with_resources(self):
+        """
+        Validates that a I2sAudio can be used in a with statement.
+        """
+
+        with I2sAudio(1, 2, 3) as audio:
+            assert audio.playing == False
 
 
 class MockAudio(Audio):
@@ -147,6 +171,12 @@ class MockAudio(Audio):
 
 
 class TestQueue:
+    def test_with_resources(self):
+        """
+        Validates that a Queue can be used in a with statement.
+        """
+        with Queue(MockAudio()) as queue:
+            assert not queue.playing
 
     def test_creating_with_none_audio_errors(self) -> None:
         """

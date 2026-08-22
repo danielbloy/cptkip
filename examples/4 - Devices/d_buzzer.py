@@ -12,28 +12,24 @@ from cptkip.pin.buzzer_pin import BuzzerPin
 
 log.set_log_level(log.INFO)
 
-pin = BuzzerPin(config.BUZZER_PIN)
-buzzer = Buzzer(pin)
+with Buzzer(BuzzerPin(config.BUZZER_PIN)) as buzzer:
+    buzzer.beeps(2)
+    finish = time.monotonic() + 1.0
+    while time.monotonic() < finish:
+        buzzer.update()
 
-buzzer.beeps(2)
-finish = time.monotonic() + 1.0
-while time.monotonic() < finish:
-    buzzer.update()
+    buzzer.volume = 0.5
 
-buzzer.volume = 0.5
+    buzzer.beeps(4)
+    finish = time.monotonic() + 2.5
+    while time.monotonic() < finish:
+        buzzer.update()
 
-buzzer.beeps(4)
-finish = time.monotonic() + 2.5
-while time.monotonic() < finish:
-    buzzer.update()
+    # Get quieter
+    buzzer.volume = 1.0
+    buzzer.play(500, 3)
+    finish = time.monotonic() + 2
 
-# Get quieter
-buzzer.volume = 1.0
-buzzer.play(500, 3)
-finish = time.monotonic() + 2
-
-while time.monotonic() < finish:
-    buzzer.volume -= 0.1
-    time.sleep(0.25)
-
-buzzer.off()
+    while time.monotonic() < finish:
+        buzzer.volume -= 0.1
+        time.sleep(0.25)

@@ -64,6 +64,19 @@ class Melody:
         self._index = 0  # The next note to play.
         self._next_update = time.monotonic_ns()  # The next note is due to play now.
 
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.deinit()
+
+    def deinit(self) -> None:
+        """
+        Releases the underlying pin.
+        """
+        self.reset()
+        self._buzzer.deinit()
+
     def update(self) -> None:
         """
         Call update() repeatedly to keep the melody playing. If paused, calling update() will
@@ -198,6 +211,18 @@ class MelodySequence:
         # Disable auto loop in the individual songs.
         for member in self._members:
             member.loop = False
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.deinit()
+
+    def deinit(self) -> None:
+        """
+        Releases the underlying pin.
+        """
+        self.pause()
 
     def activate(self, index):
         """
@@ -382,7 +407,8 @@ def standardise_note(note: str) -> str:
 
 
 # Maps a standardised note to it's n value representing a semi-tone from C.
-_NOTE_TO_N = {"C": 0, "C#": 1, "D": 2, "D#": 3, "E": 4, "F": 5, "F#": 6, "G": 7, "G#": 8, "A": 9, "A#": 10, "B": 11}
+_NOTE_TO_N = {"C": 0, "C#": 1, "D": 2, "D#": 3, "E": 4, "F": 5, "F#": 6, "G": 7, "G#": 8, "A": 9,
+              "A#": 10, "B": 11}
 
 
 def note_to_frequency(note: str, octave: int) -> int:

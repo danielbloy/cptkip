@@ -16,6 +16,25 @@ class MockInputPin:
 
 # noinspection PyTypeChecker
 class TestButton:
+    def test_deinit_can_be_called_multiple_times(self):
+        """
+        Validates that deinit() can be called multiple times without issue.
+        """
+        btn = button.Button(MockInputPin())
+        assert btn.pin.value
+
+        btn.deinit()
+        btn.deinit()
+        btn.deinit()
+
+    def test_with_resources(self):
+        """
+        Validates that a button can be used in a with statement.
+        """
+
+        with button.Button(MockInputPin()) as btn:
+            pass
+
     def test_no_callbacks(self):
         """
         Validates the most basic case with no callbacks.
@@ -53,7 +72,8 @@ class TestButton:
             async def update() -> None:
                 btn.update()
 
-            task = periodic_task.create(update, continue_func=utils.value_flip(1.0, pin, [0.1, 0.3]))
+            task = periodic_task.create(update,
+                                        continue_func=utils.value_flip(1.0, pin, [0.1, 0.3]))
             asyncio.run(task())
 
             assert single_click_count == 1
@@ -75,7 +95,9 @@ class TestButton:
             async def update() -> None:
                 btn.update()
 
-            task = periodic_task.create(update, continue_func=utils.value_flip(1, pin, [0.1, 0.3, 0.4, 0.6]))
+            task = periodic_task.create(update, continue_func=utils.value_flip(1, pin,
+                                                                               [0.1, 0.3, 0.4,
+                                                                                0.6]))
             asyncio.run(task())
 
             assert multi_click_count == 1
@@ -136,7 +158,8 @@ class TestButton:
                 assert long_click_count == 1
 
             pin = MockInputPin(value=pullup is None or pullup, pullup=pullup)
-            btn = button.Button(pin, click=single_click, multi_click=multi_click, long_click=long_click)
+            btn = button.Button(pin, click=single_click, multi_click=multi_click,
+                                long_click=long_click)
 
             async def update() -> None:
                 btn.update()
@@ -167,7 +190,9 @@ class TestButton:
             async def update() -> None:
                 btn.update()
 
-            task = periodic_task.create(update, continue_func=utils.value_flip(1.2, pin, [0.1, 0.3, 0.6, 0.8]))
+            task = periodic_task.create(update, continue_func=utils.value_flip(1.2, pin,
+                                                                               [0.1, 0.3, 0.6,
+                                                                                0.8]))
             asyncio.run(task())
 
             assert single_click_count == 2

@@ -52,3 +52,14 @@ class TestPixels:
         assert pix.num_pixels == 9
         assert pix.brightness == 1.0
         assert not pix.auto_write
+
+    def test_with_resources(self):
+        """
+        Validates that a Pixels object can be used in a with statement.
+        """
+
+        with pixels.Pixels(3, 8, 1.0) as pix:
+            assert pix.pin == 3
+            assert pix.num_pixels == 8
+            assert pix.brightness == 1.0
+            assert pix.auto_write

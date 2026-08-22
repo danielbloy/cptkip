@@ -30,6 +30,12 @@ class Led:
         self._brightness = -1.0  # Sets up the initial variable and forces a "change".
         self.brightness = brightness
 
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.deinit()
+
     def deinit(self) -> None:
         """
         Turns the LED off and releases the underlying pin.

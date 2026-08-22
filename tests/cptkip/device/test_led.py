@@ -116,6 +116,16 @@ class TestLed:
         assert pin.value_count == 4  # Validate it writes
         assert pin.value == 0.0
 
+    def test_with_resources(self):
+        """
+        Validates that a Led can be used in a with statement.
+        """
+
+        with Led(MockPwmPin()) as led:
+            assert led.auto_write
+            assert led.n == 1
+            assert len(led) == 1
+
     def test_brightness(self):
         """
         Validates that the brightness property correctly sets the brightness and

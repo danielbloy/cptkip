@@ -11,26 +11,22 @@ from cptkip.pin.output_pin import OutputPin
 
 log.set_log_level(log.INFO)
 
-led = OutputPin(config.LED_PIN, invert=config.LED_INVERT)
+with OutputPin(config.LED_PIN, invert=config.LED_INVERT) as led:
+    log.info("Using value to control the LED")
+    finish = time.monotonic() + 5
 
-# Run the loop for 5 seconds
-log.info("Using value to control the LED")
-finish = time.monotonic() + 5
+    while time.monotonic() < finish:
+        led.value = True
+        time.sleep(0.25)
+        led.value = False
+        time.sleep(0.25)
 
-while time.monotonic() < finish:
-    led.value = True
-    time.sleep(0.25)
-    led.value = False
-    time.sleep(0.25)
+    log.info("Using on()/off() to control the LED")
+    # noinspection DuplicatedCode
+    finish = time.monotonic() + 5
 
-log.info("Using on()/off() to control the LED")
-# noinspection DuplicatedCode
-finish = time.monotonic() + 5
-
-while time.monotonic() < finish:
-    led.on()
-    time.sleep(0.25)
-    led.off()
-    time.sleep(0.25)
-
-led.off()
+    while time.monotonic() < finish:
+        led.on()
+        time.sleep(0.25)
+        led.off()
+        time.sleep(0.25)

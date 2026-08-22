@@ -1,3 +1,4 @@
+Adafruit CircuitPython 10.2.1 on 2026-05-13; Raspberry Pi Pico W with rp2040
 >>> import validate.validate_performance
 Running on microcontroller. Pins are available.
 soft reboot
@@ -70,11 +71,16 @@ Using LED
 Using GP27
 Config file loaded.
 Device file loaded.
+LED pin board.GP5
+Button pin board.GP27_A1
+Buzzer pin board.GP3
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
 Test value ... : 123.456
 Test string .. : Hello world!
 Debug ........ : True
-BEFORE GC .. : Used: 5328 bytes, Free: 174256 bytes
-AFTER GC ... : Used: 5328 bytes, Free: 174256 bytes
+BEFORE GC .. : Used: 5392 bytes, Free: 174192 bytes
+AFTER GC ... : Used: 5392 bytes, Free: 174192 bytes
 
 Code done running.
 soft reboot
@@ -107,13 +113,13 @@ BEFORE GC .. : Used: 5200 bytes, Free: 174384 bytes
 AFTER GC ... : Used: 5072 bytes, Free: 174512 bytes
 START ...... : Used: 5136 bytes, Free: 174448 bytes
 CRITICAL : Heap details: Total: 179584 bytes, Peak: 8240 bytes, Used: 8240 bytes, Free: 171344 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 14624 bytes, Used: 9984 bytes, Free: 169600 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 14624 bytes, Used: 12480 bytes, Free: 167104 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 14784 bytes, Used: 14784 bytes, Free: 164800 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15360 bytes, Used: 9056 bytes, Free: 170528 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15360 bytes, Used: 8272 bytes, Free: 171312 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15008 bytes, Used: 10080 bytes, Free: 169504 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15008 bytes, Used: 12672 bytes, Free: 166912 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15360 bytes, Used: 14880 bytes, Free: 164704 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15360 bytes, Used: 9632 bytes, Free: 169952 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15360 bytes, Used: 8752 bytes, Free: 170832 bytes
 CYCLES ..... : 4.9 K/s
-BEFORE GC .. : Used: 8416 bytes, Free: 171168 bytes
+BEFORE GC .. : Used: 8896 bytes, Free: 170688 bytes
 AFTER GC ... : Used: 8160 bytes, Free: 171424 bytes
 
 Code done running.
@@ -124,16 +130,16 @@ Auto-reload is on. Simply save files over USB to run them or enter REPL to disab
 Running on microcontroller. Pins are available.
 START ...... : Used: 12896 bytes, Free: 166048 bytes
 CYCLES ..... : n/a K/s
-BEFORE GC .. : Used: 22032 bytes, Free: 156912 bytes
+BEFORE GC .. : Used: 22320 bytes, Free: 156624 bytes
 AFTER GC ... : Used: 14448 bytes, Free: 164496 bytes
 CYCLES ..... : 5.8 K/s
 START ...... : Used: 14544 bytes, Free: 164400 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 18240 bytes, Used: 18240 bytes, Free: 160704 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 23072 bytes, Used: 23072 bytes, Free: 155872 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 23344 bytes, Used: 23344 bytes, Free: 155600 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 18352 bytes, Used: 18352 bytes, Free: 160592 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 27504 bytes, Used: 27504 bytes, Free: 151440 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 27776 bytes, Used: 27776 bytes, Free: 151168 bytes
 CYCLES ..... : n/a K/s
-BEFORE GC .. : Used: 23488 bytes, Free: 155456 bytes
-AFTER GC ... : Used: 17552 bytes, Free: 161392 bytes
+BEFORE GC .. : Used: 27920 bytes, Free: 151024 bytes
+AFTER GC ... : Used: 17664 bytes, Free: 161280 bytes
 CYCLES ..... : 5.6 K/s
 
 Code done running.
@@ -154,30 +160,30 @@ task
 task
 task
 CYCLES ..... : 5.9 K/s
-BEFORE GC .. : Used: 9312 bytes, Free: 170272 bytes
+BEFORE GC .. : Used: 10272 bytes, Free: 169312 bytes
 AFTER GC ... : Used: 6352 bytes, Free: 173232 bytes
 START ...... : Used: 6416 bytes, Free: 173168 bytes
 CRITICAL : Heap details: Total: 179584 bytes, Peak: 10224 bytes, Used: 10224 bytes, Free: 169360 bytes
 task
 task
 task
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 14688 bytes, Used: 11872 bytes, Free: 167712 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15248 bytes, Used: 12080 bytes, Free: 167504 bytes
 task
 task
 task
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15072 bytes, Used: 13536 bytes, Free: 166048 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15248 bytes, Used: 13712 bytes, Free: 165872 bytes
 task
 task
 task
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15712 bytes, Used: 15456 bytes, Free: 164128 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15472 bytes, Used: 15472 bytes, Free: 164112 bytes
 task
 task
 task
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15712 bytes, Used: 10848 bytes, Free: 168736 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15712 bytes, Used: 15312 bytes, Free: 164272 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15536 bytes, Used: 11248 bytes, Free: 168336 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15616 bytes, Used: 15616 bytes, Free: 163968 bytes
 CYCLES ..... : 3.5 K/s
-BEFORE GC .. : Used: 15456 bytes, Free: 164128 bytes
-AFTER GC ... : Used: 10144 bytes, Free: 169440 bytes
+BEFORE GC .. : Used: 10208 bytes, Free: 169376 bytes
+AFTER GC ... : Used: 10160 bytes, Free: 169424 bytes
 
 Code done running.
 soft reboot
@@ -201,23 +207,23 @@ BEFORE GC .. : Used: 23936 bytes, Free: 155008 bytes
 AFTER GC ... : Used: 15808 bytes, Free: 163136 bytes
 START ...... : Used: 15856 bytes, Free: 163088 bytes
 CRITICAL : Heap details: Total: 178944 bytes, Peak: 19328 bytes, Used: 19328 bytes, Free: 159616 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30240 bytes, Used: 20192 bytes, Free: 158752 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 30240 bytes, Used: 20000 bytes, Free: 158944 bytes
 task
 task
 task
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30688 bytes, Used: 20640 bytes, Free: 158304 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31280 bytes, Used: 20448 bytes, Free: 158496 bytes
 task
 task
 task
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 31328 bytes, Used: 21088 bytes, Free: 157856 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31280 bytes, Used: 20896 bytes, Free: 158048 bytes
 task
 task
 task
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 31328 bytes, Used: 21536 bytes, Free: 157408 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31280 bytes, Used: 21536 bytes, Free: 157408 bytes
 task
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 31328 bytes, Used: 29216 bytes, Free: 149728 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31280 bytes, Used: 28896 bytes, Free: 150048 bytes
 CYCLES ..... : n/a K/s
-BEFORE GC .. : Used: 29360 bytes, Free: 149584 bytes
+BEFORE GC .. : Used: 29040 bytes, Free: 149904 bytes
 AFTER GC ... : Used: 18608 bytes, Free: 160336 bytes
 
 Code done running.
@@ -253,25 +259,25 @@ end
 begin
 end
 begin
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15376 bytes, Used: 13360 bytes, Free: 166224 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15568 bytes, Used: 11376 bytes, Free: 168208 bytes
 end
 begin
 end
 begin
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15376 bytes, Used: 14160 bytes, Free: 165424 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15568 bytes, Used: 12368 bytes, Free: 167216 bytes
 end
 begin
 end
 begin
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15568 bytes, Used: 14960 bytes, Free: 164624 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15568 bytes, Used: 13264 bytes, Free: 166320 bytes
 end
 begin
 end
 begin
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15568 bytes, Used: 10960 bytes, Free: 168624 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15568 bytes, Used: 11744 bytes, Free: 167840 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15632 bytes, Used: 14064 bytes, Free: 165520 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15696 bytes, Used: 15136 bytes, Free: 164448 bytes
 CYCLES ..... : 3.6 K/s
-BEFORE GC .. : Used: 11888 bytes, Free: 167696 bytes
+BEFORE GC .. : Used: 15280 bytes, Free: 164304 bytes
 AFTER GC ... : Used: 10768 bytes, Free: 168816 bytes
 
 Code done running.
@@ -280,7 +286,7 @@ soft reboot
 Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
 /validate/performance/j_triggered_task_async.py output:
 Running on microcontroller. Pins are available.
-START ...... : Used: 15488 bytes, Free: 163456 bytes
+START ...... : Used: 15456 bytes, Free: 163488 bytes
 begin
 end
 begin
@@ -299,35 +305,35 @@ begin
 end
 begin
 CYCLES ..... : n/a K/s
-BEFORE GC .. : Used: 30544 bytes, Free: 148400 bytes
-AFTER GC ... : Used: 17072 bytes, Free: 161872 bytes
-START ...... : Used: 17120 bytes, Free: 161824 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 19536 bytes, Used: 19536 bytes, Free: 159408 bytes
+BEFORE GC .. : Used: 29392 bytes, Free: 149552 bytes
+AFTER GC ... : Used: 17008 bytes, Free: 161936 bytes
+START ...... : Used: 17056 bytes, Free: 161888 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 19616 bytes, Used: 19616 bytes, Free: 159328 bytes
 begin
 end
 begin
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30416 bytes, Used: 30416 bytes, Free: 148528 bytes
-end
-begin
-end
-begin
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30672 bytes, Used: 28976 bytes, Free: 149968 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31424 bytes, Used: 31424 bytes, Free: 147520 bytes
 end
 begin
 end
 begin
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 31376 bytes, Used: 27536 bytes, Free: 151408 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31424 bytes, Used: 31072 bytes, Free: 147872 bytes
 end
 begin
 end
 begin
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 31376 bytes, Used: 26096 bytes, Free: 152848 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31424 bytes, Used: 30784 bytes, Free: 148160 bytes
 end
 begin
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 31376 bytes, Used: 20448 bytes, Free: 158496 bytes
+end
+begin
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31424 bytes, Used: 30720 bytes, Free: 148224 bytes
+end
+begin
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31424 bytes, Used: 25264 bytes, Free: 153680 bytes
 CYCLES ..... : n/a K/s
-BEFORE GC .. : Used: 20592 bytes, Free: 158352 bytes
-AFTER GC ... : Used: 18800 bytes, Free: 160144 bytes
+BEFORE GC .. : Used: 25408 bytes, Free: 153536 bytes
+AFTER GC ... : Used: 18880 bytes, Free: 160064 bytes
 
 Code done running.
 soft reboot
@@ -339,20 +345,25 @@ Using LED
 Using GP27
 Config file loaded.
 Device file loaded.
-START ...... : Used: 8080 bytes, Free: 171504 bytes
-CYCLES ..... : 6.2 K/s
-BEFORE GC .. : Used: 8256 bytes, Free: 171328 bytes
-AFTER GC ... : Used: 8128 bytes, Free: 171456 bytes
-START ...... : Used: 8192 bytes, Free: 171392 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 11280 bytes, Used: 11280 bytes, Free: 168304 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 14960 bytes, Used: 14576 bytes, Free: 165008 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15632 bytes, Used: 13040 bytes, Free: 166544 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15632 bytes, Used: 11600 bytes, Free: 167984 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15632 bytes, Used: 14960 bytes, Free: 164624 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15632 bytes, Used: 13824 bytes, Free: 165760 bytes
-CYCLES ..... : 2.9 K/s
-BEFORE GC .. : Used: 13968 bytes, Free: 165616 bytes
-AFTER GC ... : Used: 11184 bytes, Free: 168400 bytes
+LED pin board.GP5
+Button pin board.GP27_A1
+Buzzer pin board.GP3
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
+START ...... : Used: 9504 bytes, Free: 170080 bytes
+CYCLES ..... : 6.1 K/s
+BEFORE GC .. : Used: 9680 bytes, Free: 169904 bytes
+AFTER GC ... : Used: 9552 bytes, Free: 170032 bytes
+START ...... : Used: 9616 bytes, Free: 169968 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 11760 bytes, Used: 11760 bytes, Free: 167824 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15248 bytes, Used: 12368 bytes, Free: 167216 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15632 bytes, Used: 13328 bytes, Free: 166256 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15632 bytes, Used: 14480 bytes, Free: 165104 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15632 bytes, Used: 15344 bytes, Free: 164240 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15632 bytes, Used: 11808 bytes, Free: 167776 bytes
+CYCLES ..... : 2.8 K/s
+BEFORE GC .. : Used: 11952 bytes, Free: 167632 bytes
+AFTER GC ... : Used: 11664 bytes, Free: 167920 bytes
 
 Code done running.
 soft reboot
@@ -364,20 +375,25 @@ Using LED
 Using GP27
 Config file loaded.
 Device file loaded.
-START ...... : Used: 8512 bytes, Free: 171072 bytes
-CYCLES ..... : 8.6 K/s
-BEFORE GC .. : Used: 8688 bytes, Free: 170896 bytes
-AFTER GC ... : Used: 8560 bytes, Free: 171024 bytes
-START ...... : Used: 8624 bytes, Free: 170960 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 11712 bytes, Used: 11712 bytes, Free: 167872 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 14688 bytes, Used: 12960 bytes, Free: 166624 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 14688 bytes, Used: 14624 bytes, Free: 164960 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15392 bytes, Used: 11840 bytes, Free: 167744 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15392 bytes, Used: 13728 bytes, Free: 165856 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15456 bytes, Used: 12016 bytes, Free: 167568 bytes
+LED pin board.GP5
+Button pin board.GP27_A1
+Buzzer pin board.GP3
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
+START ...... : Used: 9088 bytes, Free: 170496 bytes
+CYCLES ..... : 8.5 K/s
+BEFORE GC .. : Used: 9264 bytes, Free: 170320 bytes
+AFTER GC ... : Used: 9136 bytes, Free: 170448 bytes
+START ...... : Used: 9200 bytes, Free: 170384 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 11376 bytes, Used: 11376 bytes, Free: 168208 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 14320 bytes, Used: 12400 bytes, Free: 167184 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15152 bytes, Used: 13936 bytes, Free: 165648 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15568 bytes, Used: 15568 bytes, Free: 164016 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15568 bytes, Used: 12272 bytes, Free: 167312 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15568 bytes, Used: 14144 bytes, Free: 165440 bytes
 CYCLES ..... : 3.4 K/s
-BEFORE GC .. : Used: 12160 bytes, Free: 167424 bytes
-AFTER GC ... : Used: 11616 bytes, Free: 167968 bytes
+BEFORE GC .. : Used: 14288 bytes, Free: 165296 bytes
+AFTER GC ... : Used: 11312 bytes, Free: 168272 bytes
 
 Code done running.
 soft reboot
@@ -389,20 +405,25 @@ Using LED
 Using GP27
 Config file loaded.
 Device file loaded.
-START ...... : Used: 8384 bytes, Free: 171200 bytes
-CYCLES ..... : 4.0 K/s
-BEFORE GC .. : Used: 8560 bytes, Free: 171024 bytes
-AFTER GC ... : Used: 8432 bytes, Free: 171152 bytes
-START ...... : Used: 8496 bytes, Free: 171088 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 11584 bytes, Used: 11584 bytes, Free: 168000 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15456 bytes, Used: 15456 bytes, Free: 164128 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15648 bytes, Used: 14976 bytes, Free: 164608 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15648 bytes, Used: 14592 bytes, Free: 164992 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15648 bytes, Used: 14208 bytes, Free: 165376 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15648 bytes, Used: 14896 bytes, Free: 164688 bytes
-CYCLES ..... : 2.0 K/s
-BEFORE GC .. : Used: 15040 bytes, Free: 164544 bytes
-AFTER GC ... : Used: 11488 bytes, Free: 168096 bytes
+LED pin board.GP5
+Button pin board.GP27_A1
+Buzzer pin board.GP3
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
+START ...... : Used: 9200 bytes, Free: 170384 bytes
+CYCLES ..... : 4.1 K/s
+BEFORE GC .. : Used: 9376 bytes, Free: 170208 bytes
+AFTER GC ... : Used: 9248 bytes, Free: 170336 bytes
+START ...... : Used: 9312 bytes, Free: 170272 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 11440 bytes, Used: 11440 bytes, Free: 168144 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15680 bytes, Used: 14624 bytes, Free: 164960 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15680 bytes, Used: 13568 bytes, Free: 166016 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15680 bytes, Used: 12704 bytes, Free: 166880 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15680 bytes, Used: 11744 bytes, Free: 167840 bytes
+CRITICAL : Heap details: Total: 179584 bytes, Peak: 15680 bytes, Used: 12816 bytes, Free: 166768 bytes
+CYCLES ..... : 2.2 K/s
+BEFORE GC .. : Used: 12960 bytes, Free: 166624 bytes
+AFTER GC ... : Used: 11360 bytes, Free: 168224 bytes
 
 Code done running.
 soft reboot
@@ -414,20 +435,25 @@ Using LED
 Using GP27
 Config file loaded.
 Device file loaded.
-START ...... : Used: 8832 bytes, Free: 170752 bytes
+LED pin board.GP5
+Button pin board.GP27_A1
+Buzzer pin board.GP3
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
+START ...... : Used: 9968 bytes, Free: 169616 bytes
 CYCLES ..... : 9.6 K/s
-BEFORE GC .. : Used: 14784 bytes, Free: 164800 bytes
-AFTER GC ... : Used: 8880 bytes, Free: 170704 bytes
-START ...... : Used: 8976 bytes, Free: 170608 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 12064 bytes, Used: 12064 bytes, Free: 167520 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15584 bytes, Used: 14976 bytes, Free: 164608 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15584 bytes, Used: 14496 bytes, Free: 165088 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15584 bytes, Used: 14016 bytes, Free: 165568 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15584 bytes, Used: 13440 bytes, Free: 166144 bytes
-CRITICAL : Heap details: Total: 179584 bytes, Peak: 15584 bytes, Used: 15472 bytes, Free: 164112 bytes
-CYCLES ..... : 3.8 K/s
-BEFORE GC .. : Used: 15616 bytes, Free: 163968 bytes
-AFTER GC ... : Used: 11968 bytes, Free: 167616 bytes
+BEFORE GC .. : Used: 11792 bytes, Free: 167792 bytes
+AFTER GC ... : Used: 10016 bytes, Free: 169568 bytes
+START ...... : Used: 10112 bytes, Free: 169472 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 12112 bytes, Used: 12112 bytes, Free: 166832 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31088 bytes, Used: 20592 bytes, Free: 158352 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31088 bytes, Used: 29232 bytes, Free: 149712 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31472 bytes, Used: 17552 bytes, Free: 161392 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31472 bytes, Used: 26064 bytes, Free: 152880 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31472 bytes, Used: 24224 bytes, Free: 154720 bytes
+CYCLES ..... : 4.1 K/s
+BEFORE GC .. : Used: 24368 bytes, Free: 154576 bytes
+AFTER GC ... : Used: 12016 bytes, Free: 166928 bytes
 
 Code done running.
 soft reboot
@@ -439,20 +465,25 @@ Using LED
 Using GP27
 Config file loaded.
 Device file loaded.
-START ...... : Used: 14736 bytes, Free: 164208 bytes
-CYCLES ..... : 1.2 K/s
-BEFORE GC .. : Used: 14912 bytes, Free: 164032 bytes
-AFTER GC ... : Used: 14784 bytes, Free: 164160 bytes
-START ...... : Used: 14848 bytes, Free: 164096 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 16896 bytes, Used: 16896 bytes, Free: 162048 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 29984 bytes, Used: 21312 bytes, Free: 157632 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30912 bytes, Used: 25824 bytes, Free: 153120 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30912 bytes, Used: 30336 bytes, Free: 148608 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 31104 bytes, Used: 20000 bytes, Free: 158944 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 31104 bytes, Used: 23952 bytes, Free: 154992 bytes
+LED pin board.GP5
+Button pin board.GP27_A1
+Buzzer pin board.GP3
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
+START ...... : Used: 14336 bytes, Free: 164608 bytes
+CYCLES ..... : 1.3 K/s
+BEFORE GC .. : Used: 14512 bytes, Free: 164432 bytes
+AFTER GC ... : Used: 14384 bytes, Free: 164560 bytes
+START ...... : Used: 14448 bytes, Free: 164496 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 16512 bytes, Used: 16512 bytes, Free: 162432 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31008 bytes, Used: 19104 bytes, Free: 159840 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31008 bytes, Used: 21888 bytes, Free: 157056 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31008 bytes, Used: 24576 bytes, Free: 154368 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31008 bytes, Used: 27264 bytes, Free: 151680 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31008 bytes, Used: 16432 bytes, Free: 162512 bytes
 CYCLES ..... : 0.9 K/s
-BEFORE GC .. : Used: 24096 bytes, Free: 154848 bytes
-AFTER GC ... : Used: 16800 bytes, Free: 162144 bytes
+BEFORE GC .. : Used: 16576 bytes, Free: 162368 bytes
+AFTER GC ... : Used: 16416 bytes, Free: 162528 bytes
 
 Code done running.
 soft reboot
@@ -464,20 +495,25 @@ Using LED
 Using GP27
 Config file loaded.
 Device file loaded.
-START ...... : Used: 11104 bytes, Free: 167840 bytes
-CYCLES ..... : 2.9 K/s
-BEFORE GC .. : Used: 11280 bytes, Free: 167664 bytes
-AFTER GC ... : Used: 11152 bytes, Free: 167792 bytes
-START ...... : Used: 11216 bytes, Free: 167728 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 13216 bytes, Used: 13216 bytes, Free: 165728 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30624 bytes, Used: 17280 bytes, Free: 161664 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30624 bytes, Used: 21408 bytes, Free: 157536 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30912 bytes, Used: 25440 bytes, Free: 153504 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30912 bytes, Used: 29664 bytes, Free: 149280 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 31392 bytes, Used: 17584 bytes, Free: 161360 bytes
+LED pin board.GP5
+Button pin board.GP27_A1
+Buzzer pin board.GP3
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
+START ...... : Used: 11408 bytes, Free: 167536 bytes
+CYCLES ..... : 2.8 K/s
+BEFORE GC .. : Used: 11584 bytes, Free: 167360 bytes
+AFTER GC ... : Used: 11456 bytes, Free: 167488 bytes
+START ...... : Used: 11520 bytes, Free: 167424 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 13616 bytes, Used: 13616 bytes, Free: 165328 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31280 bytes, Used: 18896 bytes, Free: 160048 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31280 bytes, Used: 24176 bytes, Free: 154768 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31280 bytes, Used: 29456 bytes, Free: 149488 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31280 bytes, Used: 16528 bytes, Free: 162416 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31280 bytes, Used: 23168 bytes, Free: 155776 bytes
 CYCLES ..... : 1.5 K/s
-BEFORE GC .. : Used: 17728 bytes, Free: 161216 bytes
-AFTER GC ... : Used: 13120 bytes, Free: 165824 bytes
+BEFORE GC .. : Used: 23312 bytes, Free: 155632 bytes
+AFTER GC ... : Used: 13520 bytes, Free: 165424 bytes
 
 Code done running.
 soft reboot
@@ -489,20 +525,25 @@ Using LED
 Using GP27
 Config file loaded.
 Device file loaded.
-START ...... : Used: 10640 bytes, Free: 152560 bytes
+LED pin board.GP5
+Button pin board.GP27_A1
+Buzzer pin board.GP3
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
+START ...... : Used: 11168 bytes, Free: 152032 bytes
 CYCLES ..... : 10.1 K/s
-BEFORE GC .. : Used: 12240 bytes, Free: 150960 bytes
-AFTER GC ... : Used: 10688 bytes, Free: 152512 bytes
-START ...... : Used: 10752 bytes, Free: 152448 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 12912 bytes, Used: 12912 bytes, Free: 166032 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 29264 bytes, Used: 16704 bytes, Free: 162240 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 29920 bytes, Used: 20672 bytes, Free: 158272 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 29920 bytes, Used: 24608 bytes, Free: 154336 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 29920 bytes, Used: 28480 bytes, Free: 150464 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 29920 bytes, Used: 28016 bytes, Free: 150928 bytes
+BEFORE GC .. : Used: 13280 bytes, Free: 149920 bytes
+AFTER GC ... : Used: 11216 bytes, Free: 151984 bytes
+START ...... : Used: 11280 bytes, Free: 151920 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 13328 bytes, Used: 13328 bytes, Free: 165616 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 30128 bytes, Used: 26448 bytes, Free: 152496 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 30128 bytes, Used: 21392 bytes, Free: 157552 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 30448 bytes, Used: 16368 bytes, Free: 162576 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 30928 bytes, Used: 29680 bytes, Free: 149264 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 30928 bytes, Used: 30432 bytes, Free: 148512 bytes
 CYCLES ..... : 4.3 K/s
-BEFORE GC .. : Used: 28160 bytes, Free: 150784 bytes
-AFTER GC ... : Used: 12832 bytes, Free: 166112 bytes
+BEFORE GC .. : Used: 30576 bytes, Free: 148368 bytes
+AFTER GC ... : Used: 13264 bytes, Free: 165680 bytes
 
 Code done running.
 soft reboot
@@ -514,20 +555,25 @@ Using LED
 Using GP27
 Config file loaded.
 Device file loaded.
-START ...... : Used: 11328 bytes, Free: 167616 bytes
-CYCLES ..... : 5.1 K/s
-BEFORE GC .. : Used: 13472 bytes, Free: 165472 bytes
-AFTER GC ... : Used: 11440 bytes, Free: 167504 bytes
-START ...... : Used: 11504 bytes, Free: 167440 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 13184 bytes, Used: 13184 bytes, Free: 165760 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 31104 bytes, Used: 17984 bytes, Free: 160960 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 31104 bytes, Used: 23104 bytes, Free: 155840 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 31104 bytes, Used: 27328 bytes, Free: 151616 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 31424 bytes, Used: 13376 bytes, Free: 165568 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 31424 bytes, Used: 29648 bytes, Free: 149296 bytes
-CYCLES ..... : 2.9 K/s
-BEFORE GC .. : Used: 29792 bytes, Free: 149152 bytes
-AFTER GC ... : Used: 13120 bytes, Free: 165824 bytes
+LED pin board.GP5
+Button pin board.GP27_A1
+Buzzer pin board.GP3
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
+START ...... : Used: 11664 bytes, Free: 167280 bytes
+CYCLES ..... : 5.6 K/s
+BEFORE GC .. : Used: 22144 bytes, Free: 156800 bytes
+AFTER GC ... : Used: 11792 bytes, Free: 167152 bytes
+START ...... : Used: 11856 bytes, Free: 167088 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 13680 bytes, Used: 13680 bytes, Free: 165264 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 29904 bytes, Used: 18192 bytes, Free: 160752 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 30704 bytes, Used: 22256 bytes, Free: 156688 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31152 bytes, Used: 26544 bytes, Free: 152400 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31152 bytes, Used: 30768 bytes, Free: 148176 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31152 bytes, Used: 30368 bytes, Free: 148576 bytes
+CYCLES ..... : 3.1 K/s
+BEFORE GC .. : Used: 30512 bytes, Free: 148432 bytes
+AFTER GC ... : Used: 13616 bytes, Free: 165328 bytes
 
 Code done running.
 soft reboot
@@ -539,20 +585,25 @@ Using LED
 Using GP27
 Config file loaded.
 Device file loaded.
-START ...... : Used: 16496 bytes, Free: 165264 bytes
+LED pin board.GP5
+Button pin board.GP27_A1
+Buzzer pin board.GP3
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
+START ...... : Used: 16800 bytes, Free: 164960 bytes
 CYCLES ..... : 3.3 K/s
-BEFORE GC .. : Used: 32176 bytes, Free: 149584 bytes
-AFTER GC ... : Used: 16576 bytes, Free: 165184 bytes
-START ...... : Used: 16640 bytes, Free: 165120 bytes
-CRITICAL : Heap details: Total: 181760 bytes, Peak: 18336 bytes, Used: 18336 bytes, Free: 163424 bytes
-CRITICAL : Heap details: Total: 181760 bytes, Peak: 56800 bytes, Used: 29888 bytes, Free: 151872 bytes
-CRITICAL : Heap details: Total: 181760 bytes, Peak: 60736 bytes, Used: 41280 bytes, Free: 140480 bytes
-CRITICAL : Heap details: Total: 181760 bytes, Peak: 60736 bytes, Used: 52544 bytes, Free: 129216 bytes
-CRITICAL : Heap details: Total: 181760 bytes, Peak: 61344 bytes, Used: 18944 bytes, Free: 162816 bytes
-CRITICAL : Heap details: Total: 181760 bytes, Peak: 61344 bytes, Used: 30576 bytes, Free: 151184 bytes
+BEFORE GC .. : Used: 35296 bytes, Free: 146464 bytes
+AFTER GC ... : Used: 16880 bytes, Free: 164880 bytes
+START ...... : Used: 16944 bytes, Free: 164816 bytes
+CRITICAL : Heap details: Total: 181760 bytes, Peak: 18608 bytes, Used: 18608 bytes, Free: 163152 bytes
+CRITICAL : Heap details: Total: 181760 bytes, Peak: 57296 bytes, Used: 31280 bytes, Free: 150480 bytes
+CRITICAL : Heap details: Total: 181760 bytes, Peak: 62960 bytes, Used: 44016 bytes, Free: 137744 bytes
+CRITICAL : Heap details: Total: 181760 bytes, Peak: 62960 bytes, Used: 56880 bytes, Free: 124880 bytes
+CRITICAL : Heap details: Total: 181760 bytes, Peak: 62960 bytes, Used: 24752 bytes, Free: 157008 bytes
+CRITICAL : Heap details: Total: 181760 bytes, Peak: 62960 bytes, Used: 36672 bytes, Free: 145088 bytes
 CYCLES ..... : 2.2 K/s
-BEFORE GC .. : Used: 30720 bytes, Free: 151040 bytes
-AFTER GC ... : Used: 18240 bytes, Free: 163520 bytes
+BEFORE GC .. : Used: 36816 bytes, Free: 144944 bytes
+AFTER GC ... : Used: 18512 bytes, Free: 163248 bytes
 
 Code done running.
 soft reboot
@@ -564,20 +615,25 @@ Using LED
 Using GP27
 Config file loaded.
 Device file loaded.
-START ...... : Used: 46432 bytes, Free: 135328 bytes
+LED pin board.GP5
+Button pin board.GP27_A1
+Buzzer pin board.GP3
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
+START ...... : Used: 46608 bytes, Free: 135152 bytes
 CYCLES ..... : 2.3 K/s
-BEFORE GC .. : Used: 51424 bytes, Free: 130336 bytes
-AFTER GC ... : Used: 51104 bytes, Free: 130656 bytes
-START ...... : Used: 51168 bytes, Free: 130592 bytes
-CRITICAL : Heap details: Total: 181760 bytes, Peak: 53232 bytes, Used: 53232 bytes, Free: 128528 bytes
-CRITICAL : Heap details: Total: 181760 bytes, Peak: 62848 bytes, Used: 62288 bytes, Free: 119472 bytes
-CRITICAL : Heap details: Total: 181760 bytes, Peak: 62848 bytes, Used: 58736 bytes, Free: 123024 bytes
-CRITICAL : Heap details: Total: 181760 bytes, Peak: 62848 bytes, Used: 57296 bytes, Free: 124464 bytes
-CRITICAL : Heap details: Total: 181760 bytes, Peak: 62848 bytes, Used: 54224 bytes, Free: 127536 bytes
-CRITICAL : Heap details: Total: 181760 bytes, Peak: 62848 bytes, Used: 57312 bytes, Free: 124448 bytes
-CYCLES ..... : 0.9 K/s
-BEFORE GC .. : Used: 57456 bytes, Free: 124304 bytes
-AFTER GC ... : Used: 53136 bytes, Free: 128624 bytes
+BEFORE GC .. : Used: 51600 bytes, Free: 130160 bytes
+AFTER GC ... : Used: 51280 bytes, Free: 130480 bytes
+START ...... : Used: 51344 bytes, Free: 130416 bytes
+CRITICAL : Heap details: Total: 181760 bytes, Peak: 53504 bytes, Used: 53504 bytes, Free: 128256 bytes
+CRITICAL : Heap details: Total: 181760 bytes, Peak: 62928 bytes, Used: 53920 bytes, Free: 127840 bytes
+CRITICAL : Heap details: Total: 181760 bytes, Peak: 62928 bytes, Used: 53632 bytes, Free: 128128 bytes
+CRITICAL : Heap details: Total: 181760 bytes, Peak: 62928 bytes, Used: 54112 bytes, Free: 127648 bytes
+CRITICAL : Heap details: Total: 181760 bytes, Peak: 62928 bytes, Used: 53920 bytes, Free: 127840 bytes
+CRITICAL : Heap details: Total: 181760 bytes, Peak: 62928 bytes, Used: 56144 bytes, Free: 125616 bytes
+CYCLES ..... : 0.8 K/s
+BEFORE GC .. : Used: 56288 bytes, Free: 125472 bytes
+AFTER GC ... : Used: 53408 bytes, Free: 128352 bytes
 
 Code done running.
 soft reboot
@@ -589,20 +645,25 @@ Using LED
 Using GP27
 Config file loaded.
 Device file loaded.
-START ...... : Used: 46720 bytes, Free: 135040 bytes
+LED pin board.GP5
+Button pin board.GP27_A1
+Buzzer pin board.GP3
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
+START ...... : Used: 47344 bytes, Free: 134416 bytes
 CYCLES ..... : 2.1 K/s
-BEFORE GC .. : Used: 51712 bytes, Free: 130048 bytes
-AFTER GC ... : Used: 51392 bytes, Free: 130368 bytes
-START ...... : Used: 51456 bytes, Free: 130304 bytes
-CRITICAL : Heap details: Total: 181760 bytes, Peak: 53664 bytes, Used: 53664 bytes, Free: 128096 bytes
-CRITICAL : Heap details: Total: 181760 bytes, Peak: 62512 bytes, Used: 62240 bytes, Free: 119520 bytes
-CRITICAL : Heap details: Total: 181760 bytes, Peak: 62784 bytes, Used: 59232 bytes, Free: 122528 bytes
-CRITICAL : Heap details: Total: 181760 bytes, Peak: 62784 bytes, Used: 58016 bytes, Free: 123744 bytes
-CRITICAL : Heap details: Total: 181760 bytes, Peak: 62784 bytes, Used: 55104 bytes, Free: 126656 bytes
-CRITICAL : Heap details: Total: 181760 bytes, Peak: 62784 bytes, Used: 58096 bytes, Free: 123664 bytes
+BEFORE GC .. : Used: 52336 bytes, Free: 129424 bytes
+AFTER GC ... : Used: 52016 bytes, Free: 129744 bytes
+START ...... : Used: 52080 bytes, Free: 129680 bytes
+CRITICAL : Heap details: Total: 181760 bytes, Peak: 54160 bytes, Used: 54160 bytes, Free: 127600 bytes
+CRITICAL : Heap details: Total: 181760 bytes, Peak: 57168 bytes, Used: 57168 bytes, Free: 124592 bytes
+CRITICAL : Heap details: Total: 181760 bytes, Peak: 59760 bytes, Used: 59760 bytes, Free: 122000 bytes
+CRITICAL : Heap details: Total: 181760 bytes, Peak: 62928 bytes, Used: 62544 bytes, Free: 119216 bytes
+CRITICAL : Heap details: Total: 181760 bytes, Peak: 62928 bytes, Used: 55344 bytes, Free: 126416 bytes
+CRITICAL : Heap details: Total: 181760 bytes, Peak: 62928 bytes, Used: 56704 bytes, Free: 125056 bytes
 CYCLES ..... : 0.8 K/s
-BEFORE GC .. : Used: 58240 bytes, Free: 123520 bytes
-AFTER GC ... : Used: 53568 bytes, Free: 128192 bytes
+BEFORE GC .. : Used: 56848 bytes, Free: 124912 bytes
+AFTER GC ... : Used: 54032 bytes, Free: 127728 bytes
 
 Code done running.
 soft reboot
@@ -614,20 +675,25 @@ Using LED
 Using GP27
 Config file loaded.
 Device file loaded.
-START ...... : Used: 17488 bytes, Free: 161456 bytes
+LED pin board.GP5
+Button pin board.GP27_A1
+Buzzer pin board.GP3
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
+START ...... : Used: 17456 bytes, Free: 161488 bytes
 CYCLES ..... : 4.2 K/s
-BEFORE GC .. : Used: 28128 bytes, Free: 150816 bytes
-AFTER GC ... : Used: 17552 bytes, Free: 161392 bytes
-START ...... : Used: 17616 bytes, Free: 161328 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 19696 bytes, Used: 19696 bytes, Free: 159248 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30608 bytes, Used: 19888 bytes, Free: 159056 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30608 bytes, Used: 20208 bytes, Free: 158736 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30608 bytes, Used: 20208 bytes, Free: 158736 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 31088 bytes, Used: 20208 bytes, Free: 158736 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 31088 bytes, Used: 25536 bytes, Free: 153408 bytes
+BEFORE GC .. : Used: 21248 bytes, Free: 157696 bytes
+AFTER GC ... : Used: 17520 bytes, Free: 161424 bytes
+START ...... : Used: 17584 bytes, Free: 161360 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 19664 bytes, Used: 19664 bytes, Free: 159280 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31344 bytes, Used: 21136 bytes, Free: 157808 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31344 bytes, Used: 23216 bytes, Free: 155728 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31344 bytes, Used: 25456 bytes, Free: 153488 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31344 bytes, Used: 27216 bytes, Free: 151728 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31344 bytes, Used: 20192 bytes, Free: 158752 bytes
 CYCLES ..... : 2.4 K/s
-BEFORE GC .. : Used: 25680 bytes, Free: 153264 bytes
-AFTER GC ... : Used: 19600 bytes, Free: 159344 bytes
+BEFORE GC .. : Used: 20336 bytes, Free: 158608 bytes
+AFTER GC ... : Used: 19568 bytes, Free: 159376 bytes
 
 Code done running.
 soft reboot
@@ -639,20 +705,25 @@ Using LED
 Using GP27
 Config file loaded.
 Device file loaded.
-START ...... : Used: 15696 bytes, Free: 163248 bytes
-CYCLES ..... : 4.4 K/s
-BEFORE GC .. : Used: 26272 bytes, Free: 152672 bytes
-AFTER GC ... : Used: 15696 bytes, Free: 163248 bytes
-START ...... : Used: 15760 bytes, Free: 163184 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 17936 bytes, Used: 17936 bytes, Free: 161008 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30224 bytes, Used: 25488 bytes, Free: 153456 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30224 bytes, Used: 19568 bytes, Free: 159376 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30224 bytes, Used: 28208 bytes, Free: 150736 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30224 bytes, Used: 21808 bytes, Free: 157136 bytes
-CRITICAL : Heap details: Total: 178944 bytes, Peak: 30224 bytes, Used: 25856 bytes, Free: 153088 bytes
-CYCLES ..... : 2.5 K/s
-BEFORE GC .. : Used: 26000 bytes, Free: 152944 bytes
-AFTER GC ... : Used: 17840 bytes, Free: 161104 bytes
+LED pin board.GP5
+Button pin board.GP27_A1
+Buzzer pin board.GP3
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
+START ...... : Used: 16320 bytes, Free: 162624 bytes
+CYCLES ..... : 3.9 K/s
+BEFORE GC .. : Used: 18032 bytes, Free: 160912 bytes
+AFTER GC ... : Used: 16320 bytes, Free: 162624 bytes
+START ...... : Used: 16384 bytes, Free: 162560 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 18496 bytes, Used: 18496 bytes, Free: 160448 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 30656 bytes, Used: 28064 bytes, Free: 150880 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31456 bytes, Used: 23904 bytes, Free: 155040 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31456 bytes, Used: 19744 bytes, Free: 159200 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31456 bytes, Used: 29696 bytes, Free: 149248 bytes
+CRITICAL : Heap details: Total: 178944 bytes, Peak: 31456 bytes, Used: 19312 bytes, Free: 159632 bytes
+CYCLES ..... : 2.3 K/s
+BEFORE GC .. : Used: 19456 bytes, Free: 159488 bytes
+AFTER GC ... : Used: 18400 bytes, Free: 160544 bytes
 
 Code done running.
 soft reboot
@@ -660,75 +731,71 @@ soft reboot
 Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
 /validate/performance/s_client.py output:
 Running on microcontroller. Pins are available.
-START ...... : Used: 22000 bytes, Free: 140560 bytes
+START ...... : Used: 21728 bytes, Free: 140832 bytes
 Status ..... : 200
 Reason ..... : bytearray(b'OK')
-Text ....... : Another belief of mine; that everyone else my age is an adult, whereas I am merely in disguise
+Text ....... : Mistakes are always forgivable, if one has the courage to admit them
 Status ..... : 200
 Reason ..... : bytearray(b'OK')
-Text ....... : Fight for the things that you care about, but do it in a way that will lead others to join you
+Text ....... : I am driven by two main philosophies, know more today about the world than I knew yesterday. And lessen the suffering of others. You'd be surprised how far that gets you
 Status ..... : 200
 Reason ..... : bytearray(b'OK')
-Text ....... : One never notices what has been done; one can only see what remains to be done
+Text ....... : I do not think there is any thrill that can go through the human heart like that felt by the inventor as he sees some creation of the brain unfolding to success
 Status ..... : 200
 Reason ..... : bytearray(b'OK')
-Text ....... : Art is I; science is we
+Text ....... : Invention, it must be humbly admitted, does not consist in creating out of void, but out of chaos
 Status ..... : 200
 Reason ..... : bytearray(b'OK')
-Text ....... : Plans are worthless, but planning is everything
+Text ....... : The most worth-while thing is to try to put happiness into the lives of others
 Status ..... : 200
 Reason ..... : bytearray(b'OK')
-Text ....... : One never notices what has been done; one can only see what remains to be done
+Text ....... : We are what we amplify
 CYCLES ..... : 0.0 K/s
-BEFORE GC .. : Used: 59536 bytes, Free: 105840 bytes
-AFTER GC ... : Used: 50176 bytes, Free: 115200 bytes
-START ...... : Used: 50240 bytes, Free: 115136 bytes
-CRITICAL : Heap details: Total: 165376 bytes, Peak: 54256 bytes, Used: 54256 bytes, Free: 111120 bytes
+BEFORE GC .. : Used: 59040 bytes, Free: 106336 bytes
+AFTER GC ... : Used: 49856 bytes, Free: 115520 bytes
+START ...... : Used: 49920 bytes, Free: 115456 bytes
+CRITICAL : Heap details: Total: 165376 bytes, Peak: 53936 bytes, Used: 53936 bytes, Free: 111440 bytes
 Status ..... : 200
 Reason ..... : bytearray(b'OK')
-Text ....... : A Certain Darkness Is Needed to See the Stars
+Text ....... : There’s nothing like watching the sunrise to the beats of the Robot Heart
 Status ..... : 200
 Reason ..... : bytearray(b'OK')
-Text ....... : Fight for the things that you care about, but do it in a way that will lead others to join you
+Text ....... : ...the idea is to try to give all of the information to help others to judge the value of your contribution; not just the information that leads to judgment in one particular direction or another.
 Status ..... : 200
 Reason ..... : bytearray(b'OK')
-Text ....... : I am one of the people who love the why of things
-CRITICAL : Heap details: Total: 165376 bytes, Peak: 61536 bytes, Used: 57216 bytes, Free: 108160 bytes
+Text ....... : Every person is born with a creative mind. Everyone has the ability
+CRITICAL : Heap details: Total: 165376 bytes, Peak: 61008 bytes, Used: 56608 bytes, Free: 108768 bytes
 Status ..... : 200
 Reason ..... : bytearray(b'OK')
-Text ....... : I long to accomplish a great and noble task, but it is my chief duty to accomplish humble tasks as though they were great and noble
+Text ....... : You're never too old, and if you want to, as my mother said, you can do anything you want to, but you have to work at it
+Status ..... : 200
+Reason ..... : bytearray(b'OK')
+Text ....... : If you want to build a ship, don't drum up people to collect wood and don't assign them tasks and work, but rather teach them to long for the endless immensity of the sea
+Status ..... : 200
+Reason ..... : bytearray(b'OK')
+Text ....... : The first 90 percent of the code accounts for the first 90 percent of the development time. The remaining 10 percent of the code accounts for the other 90 percent of the development time
+CRITICAL : Heap details: Total: 165376 bytes, Peak: 61632 bytes, Used: 58720 bytes, Free: 106656 bytes
+Status ..... : 200
+Reason ..... : bytearray(b'OK')
+Text ....... : the future is not what it used to be
+Status ..... : 200
+Reason ..... : bytearray(b'OK')
+Text ....... : By always thinking unto them. I keep the subject constantly before me and wait till the first dawnings open little by little into the full light
+CRITICAL : Heap details: Total: 165376 bytes, Peak: 61632 bytes, Used: 54464 bytes, Free: 110912 bytes
+Status ..... : 200
+Reason ..... : bytearray(b'OK')
+Text ....... : In the beginner’s mind there are many possibilities, in the expert’s mind there are few
 Status ..... : 200
 Reason ..... : bytearray(b'OK')
 Text ....... : People who are really serious about software should make their own hardware
 Status ..... : 200
 Reason ..... : bytearray(b'OK')
-Text ....... : Far and away the best prize that life has to offer is the chance to work hard at work worth doing
-CRITICAL : Heap details: Total: 165376 bytes, Peak: 62000 bytes, Used: 59152 bytes, Free: 106224 bytes
-Status ..... : 200
-Reason ..... : bytearray(b'OK')
-Text ....... : Do not train a child to learn by force or harshness; but direct them to it by what amuses their minds, so that you may be better able to discover with accuracy the peculiar bent of the genius of each
-Status ..... : 200
-Reason ..... : bytearray(b'OK')
-Text ....... : Collaborative production is simple: no one person can take credit for what gets created, and the project could not come into being without the participation of many
-Status ..... : 200
-Reason ..... : bytearray(b'OK')
-Text ....... : What we call the beginning is often the end. And to make
-an end is to make a beginning. The end is where we start from
-CRITICAL : Heap details: Total: 165376 bytes, Peak: 62528 bytes, Used: 62528 bytes, Free: 102848 bytes
-Status ..... : 200
-Reason ..... : bytearray(b'OK')
-Text ....... : Do what you can, with what you have, where you are
-Status ..... : 200
-Reason ..... : bytearray(b'OK')
-Text ....... : Seek freedom and become captive of your desires. Seek discipline and find your liberty
-Status ..... : 200
-Reason ..... : bytearray(b'OK')
-Text ....... : The mind is not a vessel that needs filling, but wood that needs igniting
-CRITICAL : Heap details: Total: 165376 bytes, Peak: 62528 bytes, Used: 54992 bytes, Free: 110384 bytes
-CRITICAL : Heap details: Total: 165376 bytes, Peak: 62528 bytes, Used: 55104 bytes, Free: 110272 bytes
+Text ....... : I would rather entertain and hope that people learned something than educate people and hope they were entertained
+CRITICAL : Heap details: Total: 165376 bytes, Peak: 61632 bytes, Used: 56656 bytes, Free: 108720 bytes
+CRITICAL : Heap details: Total: 165376 bytes, Peak: 61632 bytes, Used: 56768 bytes, Free: 108608 bytes
 CYCLES ..... : 0.0 K/s
-BEFORE GC .. : Used: 55248 bytes, Free: 110128 bytes
-AFTER GC ... : Used: 54128 bytes, Free: 111248 bytes
+BEFORE GC .. : Used: 56912 bytes, Free: 108464 bytes
+AFTER GC ... : Used: 53904 bytes, Free: 111472 bytes
 
 Code done running.
 soft reboot
@@ -740,21 +807,26 @@ Using LED
 Using GP27
 Config file loaded.
 Device file loaded.
+LED pin board.GP5
+Button pin board.GP27_A1
+Buzzer pin board.GP3
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
 Starting mDNS at app.local (IP address 192.168.1.175)
-START ...... : Used: 16064 bytes, Free: 153920 bytes
+START ...... : Used: 16080 bytes, Free: 153904 bytes
 CYCLES ..... : 2.1 K/s
-BEFORE GC .. : Used: 42144 bytes, Free: 127840 bytes
-AFTER GC ... : Used: 16192 bytes, Free: 153792 bytes
-START ...... : Used: 16256 bytes, Free: 153728 bytes
-CRITICAL : Heap details: Total: 169984 bytes, Peak: 18032 bytes, Used: 18032 bytes, Free: 151952 bytes
-CRITICAL : Heap details: Total: 169984 bytes, Peak: 62112 bytes, Used: 19248 bytes, Free: 150736 bytes
-CRITICAL : Heap details: Total: 169984 bytes, Peak: 62112 bytes, Used: 57520 bytes, Free: 112464 bytes
-CRITICAL : Heap details: Total: 169984 bytes, Peak: 62112 bytes, Used: 48432 bytes, Free: 121552 bytes
-CRITICAL : Heap details: Total: 169984 bytes, Peak: 63056 bytes, Used: 55952 bytes, Free: 114032 bytes
-CRITICAL : Heap details: Total: 169984 bytes, Peak: 63056 bytes, Used: 23280 bytes, Free: 146704 bytes
-CYCLES ..... : 1.5 K/s
-BEFORE GC .. : Used: 23424 bytes, Free: 146560 bytes
-AFTER GC ... : Used: 17936 bytes, Free: 152048 bytes
+BEFORE GC .. : Used: 36048 bytes, Free: 133936 bytes
+AFTER GC ... : Used: 16144 bytes, Free: 153840 bytes
+START ...... : Used: 16208 bytes, Free: 153776 bytes
+CRITICAL : Heap details: Total: 169984 bytes, Peak: 18048 bytes, Used: 18048 bytes, Free: 151936 bytes
+CRITICAL : Heap details: Total: 169984 bytes, Peak: 62800 bytes, Used: 40272 bytes, Free: 129712 bytes
+CRITICAL : Heap details: Total: 169984 bytes, Peak: 62800 bytes, Used: 18288 bytes, Free: 151696 bytes
+CRITICAL : Heap details: Total: 169984 bytes, Peak: 62800 bytes, Used: 41584 bytes, Free: 128400 bytes
+CRITICAL : Heap details: Total: 169984 bytes, Peak: 62800 bytes, Used: 18352 bytes, Free: 151632 bytes
+CRITICAL : Heap details: Total: 169984 bytes, Peak: 62800 bytes, Used: 31776 bytes, Free: 138208 bytes
+CYCLES ..... : 1.6 K/s
+BEFORE GC .. : Used: 31920 bytes, Free: 138064 bytes
+AFTER GC ... : Used: 17952 bytes, Free: 152032 bytes
 
 Code done running.
 soft reboot

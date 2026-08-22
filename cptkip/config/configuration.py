@@ -32,6 +32,37 @@ try:
 except ImportError:
     print("No device file found.")
 
+if 'LED_PIN' in locals() and LED_PIN:
+    # noinspection string-conversion-without-dunder-method
+    print("LED pin", LED_PIN)
+else:
+    print('LED not configured')
+
+if 'BUTTON_PIN' in locals() and BUTTON_PIN:
+    # noinspection string-conversion-without-dunder-method
+    print("Button pin", BUTTON_PIN)
+else:
+    print('Button not configured')
+
+if 'BUZZER_PIN' in locals() and BUZZER_PIN:
+    # noinspection string-conversion-without-dunder-method
+    print("Buzzer pin", BUZZER_PIN)
+else:
+    print('Buzzer not configured')
+
+if 'PIXELS_PIN' in locals() and PIXELS_PIN:
+    # noinspection string-conversion-without-dunder-method
+    print("Pixels pin", PIXELS_PIN)
+else:
+    print('Pixels not configured')
+
+if ('I2S_BIT_CLOCK' in locals() and 'I2S_LEFT_RIGHT_CLOCK' in locals() and 'I2S_DATA' in locals()
+        and I2S_BIT_CLOCK and I2S_LEFT_RIGHT_CLOCK and I2S_DATA):
+    # noinspection string-conversion-without-dunder-method
+    print('I2S audio pins', I2S_BIT_CLOCK, I2S_LEFT_RIGHT_CLOCK, I2S_DATA)
+else:
+    print('I2S audio not configured')
+
 # Apply logging level after both config.py and device.py have had a chance to
 # override LOG_LEVEL.
 log.set_log_level(LOG_LEVEL)

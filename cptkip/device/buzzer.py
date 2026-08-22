@@ -23,6 +23,19 @@ class Buzzer:
         self._stop_time_ns = 0
         self._beeps = 0
 
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.deinit()
+
+    def deinit(self) -> None:
+        """
+        Releases the underlying pin.
+        """
+        self._off()
+        self._buzzer.deinit()
+
     @property
     def volume(self):
         """The volume of the buzzer"""

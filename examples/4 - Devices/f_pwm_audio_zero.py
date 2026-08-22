@@ -14,26 +14,24 @@ log.set_log_level(log.INFO)
 
 AUDIO_FILE = "examples/lion.mp3"
 
-queue = create_pwm_queue()
-
-
-def single_click_handler() -> None:
-    if queue.playing:
-        if queue.paused:
-            queue.resume()
-        else:
-            queue.pause()
-
-
-def multi_click_handler() -> None:
+with create_pwm_queue() as queue:
     queue.queue(AUDIO_FILE)
 
 
-button = create_button(click=single_click_handler, multi_click=multi_click_handler)
+    def single_click_handler() -> None:
+        if queue.playing:
+            if queue.paused:
+                queue.resume()
+            else:
+                queue.pause()
 
-# Run the loop for 10 seconds
-log.info("Press the button to pause/unpause the audio.")
-log.info("Multi-press the button add a song to the queue.")
 
-update_for(10, button, queue)
-queue.deinit()
+    def multi_click_handler() -> None:
+        queue.queue(AUDIO_FILE)
+
+
+    with create_button(click=single_click_handler, multi_click=multi_click_handler) as button:
+        log.info("Press the button to pause/unpause the audio.")
+        log.info("Multi-press the button add a song to the queue.")
+
+        update_for(5, button, queue)

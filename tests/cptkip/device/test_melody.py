@@ -3,7 +3,8 @@ import time
 import pytest
 
 from cptkip.core.control import NS_PER_SECOND
-from cptkip.device.melody import Melody, note_to_frequency, standardise_note, decode_melody, MelodySequence
+from cptkip.device.melody import Melody, note_to_frequency, standardise_note, decode_melody, \
+    MelodySequence
 from cptkip.pin.buzzer_pin import BuzzerPin
 
 
@@ -97,6 +98,33 @@ class TestMelody:
         assert melody.tempo == 30
         assert not melody.loop
         assert melody.name == "my-song-name"
+
+    def test_deinit_can_be_called_multiple_times(self):
+        """
+        Validates that deinit() can be called multiple times without issue.
+        """
+        melody = Melody(MockBuzzerPin(), [])
+        assert melody.playing
+        assert not melody.paused
+        assert melody.tempo == 120
+        assert melody.loop
+        assert melody.name is None
+
+        melody.deinit()
+        melody.deinit()
+        melody.deinit()
+
+    def test_with_resources(self):
+        """
+        Validates that a Melody can be used in a with statement.
+        """
+
+        with Melody(MockBuzzerPin(), []) as melody:
+            assert melody.playing
+            assert not melody.paused
+            assert melody.tempo == 120
+            assert melody.loop
+            assert melody.name is None
 
     def test_update_with_non_looping_song(self) -> None:
         """
@@ -206,7 +234,8 @@ class TestMelody:
             melody.update()
 
         duration = time.monotonic_ns() - start
-        expected_duration = nanoseconds_per_beat * (3 - 1)  # we stop as soon as the 3rd note is played
+        expected_duration = nanoseconds_per_beat * (
+                3 - 1)  # we stop as soon as the 3rd note is played
         assert_duration_within_tolerance(duration, expected_duration)
 
         assert pin.frequency == 100
@@ -222,7 +251,8 @@ class TestMelody:
             melody.update()
 
         duration = time.monotonic_ns() - start
-        expected_duration = nanoseconds_per_beat * (6 - 1)  # we stop as soon as the 6th note is played
+        expected_duration = nanoseconds_per_beat * (
+                6 - 1)  # we stop as soon as the 6th note is played
         assert_duration_within_tolerance(duration, expected_duration)
 
         assert pin.frequency == 200
@@ -238,7 +268,8 @@ class TestMelody:
             melody.update()
 
         duration = time.monotonic_ns() - start
-        expected_duration = nanoseconds_per_beat * (6 - 1)  # we stop as soon as the 6th note is played
+        expected_duration = nanoseconds_per_beat * (
+                6 - 1)  # we stop as soon as the 6th note is played
         assert_duration_within_tolerance(duration, expected_duration)
 
         assert pin.frequency == 300
@@ -264,7 +295,8 @@ class TestMelody:
         melody.update()
 
         duration = time.monotonic_ns() - start
-        expected_duration = nanoseconds_per_beat * (2 - 1)  # we stop as soon as the 2nd note is played
+        expected_duration = nanoseconds_per_beat * (
+                2 - 1)  # we stop as soon as the 2nd note is played
         assert_duration_within_tolerance(duration, expected_duration)
         assert_duration_within_tolerance(melody._time_left_at_pause, nanoseconds_per_beat)
 
@@ -299,21 +331,24 @@ class TestMelody:
         while melody.playing and len(pin.frequencies) < 2:  # Stop as soon as the 2nd note is played
             melody.update()
 
-        assert_duration_within_tolerance(melody._next_update, time.monotonic_ns() + nanoseconds_per_beat)
+        assert_duration_within_tolerance(melody._next_update,
+                                         time.monotonic_ns() + nanoseconds_per_beat)
         assert melody._index == 2
         assert pin.frequency == 200
         assert pin.frequencies == [100, 200]
 
         # Reset and allow to play for a few more notes, we should get
         melody.reset()
-        assert_duration_within_tolerance(melody._next_update, time.monotonic_ns() + nanoseconds_per_beat)
+        assert_duration_within_tolerance(melody._next_update,
+                                         time.monotonic_ns() + nanoseconds_per_beat)
         assert melody._index == 0
 
         while melody.playing and len(pin.frequencies) < 4:  # Stop as soon as the 4th note is played
             melody.update()
 
         duration = time.monotonic_ns() - start
-        expected_duration = nanoseconds_per_beat * (4 - 1)  # we stop as soon as the 4th note is played
+        expected_duration = nanoseconds_per_beat * (
+                4 - 1)  # we stop as soon as the 4th note is played
         assert_duration_within_tolerance(duration, expected_duration)
 
         assert pin.frequency == 200
@@ -334,7 +369,8 @@ class TestMelody:
         while melody.playing and len(pin.frequencies) < 2:  # Stop as soon as the 2nd note is played
             melody.update()
 
-        assert_duration_within_tolerance(melody._next_update, time.monotonic_ns() + nanoseconds_per_beat)
+        assert_duration_within_tolerance(melody._next_update,
+                                         time.monotonic_ns() + nanoseconds_per_beat)
         assert melody._index == 2
         assert pin.frequencies == [100, 200]
 
@@ -410,7 +446,8 @@ class TestMelody:
             melody.update()
 
         duration = time.monotonic_ns() - start
-        expected_duration = nanoseconds_per_beat * (3 - 1)  # we stop as soon as the 3rd note is played
+        expected_duration = nanoseconds_per_beat * (
+                3 - 1)  # we stop as soon as the 3rd note is played
         assert_duration_within_tolerance(duration, expected_duration)
 
         assert pin.frequency == 300
@@ -477,6 +514,26 @@ class TestMelodySequence:
         MelodySequence(melody_1)
         MelodySequence(melody_2, melody_3, loop=False)
         MelodySequence(melody_1, empty_melody, melody_2, melody_3, loop=False)
+
+    def test_deinit_can_be_called_multiple_times(self):
+        """
+        Validates that deinit() can be called multiple times without issue.
+        """
+        sequence = MelodySequence(Melody(MockBuzzerPin(), []))
+        assert sequence.playing
+        assert not sequence.paused
+
+        sequence.deinit()
+        sequence.deinit()
+        sequence.deinit()
+
+    def test_with_resources(self):
+        """
+        Validates that a Melody can be used in a with statement.
+        """
+        with MelodySequence(Melody(MockBuzzerPin(), [])) as sequence:
+            assert sequence.playing
+            assert not sequence.paused
 
     def test_update_with_non_looping_sequence(self) -> None:
         """
@@ -596,7 +653,8 @@ class TestMelodySequence:
             sequence.update()
 
         assert sequence.playing
-        assert pin.frequencies == [1, 2, 3, 4, 5, 6, 7, 11, 12, 13, 21, 22, 23, 24, 1, 2, 3, 4, 5, 6, 7, 11]
+        assert pin.frequencies == [1, 2, 3, 4, 5, 6, 7, 11, 12, 13, 21, 22, 23, 24, 1, 2, 3, 4, 5,
+                                   6, 7, 11]
         assert pin.play_count == 22
 
         # Try non-looping
@@ -605,7 +663,8 @@ class TestMelodySequence:
             sequence.update()
 
         assert sequence.playing
-        assert pin.frequencies == [1, 2, 3, 4, 5, 6, 7, 11, 12, 13, 21, 22, 23, 24, 1, 2, 3, 4, 5, 6, 7, 11]
+        assert pin.frequencies == [1, 2, 3, 4, 5, 6, 7, 11, 12, 13, 21, 22, 23, 24, 1, 2, 3, 4, 5,
+                                   6, 7, 11]
         assert pin.play_count == 22
 
     def test_activate_invalid_values(self) -> None:

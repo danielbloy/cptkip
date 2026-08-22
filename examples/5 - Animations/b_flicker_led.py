@@ -11,9 +11,9 @@ from cptkip.zero.run import update_for
 
 log.set_log_level(log.INFO)
 
-led = create_led()
-animation = animations.Flicker(led, speed=0.5, color=JADE, base=100, flame=155)
+with create_led() as led:
+    animation = animations.Flicker(led, speed=0.5, color=JADE, base=100, flame=155)
 
-update_for(5, animation)
+    update_for(5, animation)
 
-stop_animation(animation)
+    stop_animation(animation)
