@@ -7,23 +7,15 @@ def execute():
     import cptkip.pin.pwm_pin as pwm_pin
     import validate.utils as utils
 
-    # Add in validation for LED.
-    led_pin = pwm_pin.PwmPin(config.LED_PIN, invert=config.LED_INVERT)
-    onboard_led = led.Led(led_pin)
-    onboard_led.off()
-    animation = Pulse(onboard_led, speed=1 / 30, color=WHITE)
+    with led.Led(pwm_pin.PwmPin(config.LED_PIN, invert=config.LED_INVERT)) as onboard_led:
+        onboard_led.off()
+        animation = Pulse(onboard_led, speed=1 / 30, color=WHITE)
 
-    def task():
-        animation.animate()
+        def task():
+            animation.animate()
 
-    print("LED will pulse")
-    utils.execute(task)
-
-    animation.freeze()
-    del animation
-
-    onboard_led.deinit()
-    del led_pin
+        print("LED will pulse")
+        utils.execute(task)
 
 
 if __name__ == '__main__':

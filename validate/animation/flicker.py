@@ -6,21 +6,14 @@ def execute():
     import cptkip.device.pixels as pixel
     import validate.utils as utils
 
-    pixels = pixel.create(config.PIXELS_PIN, 8, brightness=0.5)
-    flicker = animation.Flicker(pixels, speed=1 / 20, color=AMBER, spacing=2)
+    with pixel.create(config.PIXELS_PIN, 8, brightness=0.5) as pixels:
+        flicker = animation.Flicker(pixels, speed=1 / 20, color=AMBER, spacing=2)
 
-    def task():
-        flicker.animate()
+        def task():
+            flicker.animate()
 
-    print("Pixels will display a flicker animation")
-    utils.execute(task)
-
-    flicker.freeze()
-    pixels.fill(pixel.OFF)
-    pixels.write()
-
-    pixels.deinit()
-    del pixels
+        print("Pixels will display a flicker animation")
+        utils.execute(task)
 
 
 if __name__ == '__main__':

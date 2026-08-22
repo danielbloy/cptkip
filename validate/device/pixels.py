@@ -5,25 +5,15 @@ def execute():
     import cptkip.device.pixels as pixel
     import validate.utils as utils
 
-    # Use the PIXELS pin
-    pixels = pixel.create(config.PIXELS_PIN, 8, brightness=0.5)
-    animation = Rainbow(pixels, speed=0.1, period=2)
-    animation.animate()
-
-    def task():
+    with pixel.create(config.PIXELS_PIN, 8, brightness=0.5) as pixels:
+        animation = Rainbow(pixels, speed=0.1, period=2)
         animation.animate()
 
-    print("Pixels will display a rainbow animation")
-    utils.execute(task)
+        def task():
+            animation.animate()
 
-    animation.freeze()
-    del animation
-
-    pixels.fill(pixel.OFF)
-    pixels.write()
-
-    pixels.deinit()
-    del pixels
+        print("Pixels will display a rainbow animation")
+        utils.execute(task)
 
 
 if __name__ == '__main__':

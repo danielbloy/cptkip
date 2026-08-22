@@ -13,24 +13,16 @@ def execute():
     def long_press_handler() -> None:
         print("Long-press event")
 
-    pin = input_pin.InputPin(config.BUTTON_PIN, config.BUTTON_PULLUP)
+    with Button(
+            input_pin.InputPin(config.BUTTON_PIN, config.BUTTON_PULLUP),
+            click=single_click_handler,
+            multi_click=multi_click_handler,
+            long_click=long_press_handler) as button:
+        def task():
+            button.update()
 
-    button = Button(
-        pin,
-        click=single_click_handler,
-        multi_click=multi_click_handler,
-        long_click=long_press_handler)
-
-    def task():
-        button.update()
-
-    print("Press the button to validate")
-    utils.execute(task)
-
-    pin.deinit()
-    del pin
-
-    del button
+        print("Press the button to validate")
+        utils.execute(task)
 
 
 if __name__ == '__main__':
