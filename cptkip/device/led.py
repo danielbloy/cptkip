@@ -33,7 +33,6 @@ class Led:
     def __enter__(self):
         return self
 
-    # TODO: Test
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.deinit()
 

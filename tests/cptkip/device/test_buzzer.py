@@ -43,6 +43,14 @@ class TestBuzzer:
         buzzer = Buzzer(BuzzerPin(1))
         assert not buzzer.playing
 
+    def test_with_resources(self):
+        """
+        Validates that a Buzzer can be used in a with statement.
+        """
+
+        with Buzzer(BuzzerPin(1)) as buzzer:
+            assert not buzzer.playing
+
     def test_volume(self):
         """
         Validates that a buzzer can have the volume set (on the pin).
