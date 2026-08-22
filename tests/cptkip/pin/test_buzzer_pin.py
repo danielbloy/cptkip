@@ -51,6 +51,17 @@ class TestBuzzerPin:
         pin.deinit()
         assert pin.playing is False
 
+    def test_with_resources(self):
+        """
+        Validates that a pin can be used in a with statement.
+        """
+
+        with BuzzerPin(4) as pin:
+            assert pin.pin == 4
+            assert pin.volume == 1.0
+            assert pin.playing is False
+            assert pin.frequency == 0
+
     def test_on_off(self):
         """
         Call on() and off() multiple times, ensuring it does not change volume or frequency.

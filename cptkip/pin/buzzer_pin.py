@@ -29,10 +29,9 @@ class BuzzerPin:
     def __enter__(self):
         return self
 
-    # TODO: Test
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.deinit()
-        
+
     def deinit(self) -> None:
         self._playing = False
         if self._buzzer:

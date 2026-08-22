@@ -32,6 +32,15 @@ class TestInputPin:
         pin.deinit()
         pin.deinit()
 
+    def test_with_resources(self):
+        """
+        Validates that a pin can be used in a with statement.
+        """
+
+        with InputPin(3) as pin:
+            assert pin.pin == 3
+            assert pin.pullup
+
     def test_value(self):
         """
         Call value multiple times, ensuring it sets the correct value.
