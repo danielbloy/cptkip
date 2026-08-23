@@ -46,5 +46,5 @@ led_task = create(lambda: trigger, 0.5, begin=led_pulse, continue_func=should_co
 # Run the loop for 5 seconds
 finish = time.monotonic() + 5
 
-runner.run([delay, led_task])
+runner.run(delay, led_task)
 led.off()

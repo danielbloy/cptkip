@@ -30,13 +30,13 @@ class TestMemoryMonitorTask:
             return left > 0
 
         task = create(1, 1, continue_func=count_down)
-        run([task])
+        run(task)
         assert left == 0
         assert count == 5
 
         left = 20
         count = 0
-        run([task])
+        run(task)
         assert left == 0
         assert count == 20
 

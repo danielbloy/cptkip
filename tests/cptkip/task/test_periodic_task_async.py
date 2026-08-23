@@ -208,7 +208,8 @@ class TestPeriodicTaskAsync:
 
         begin_time = None
         func_time = None
-        task = create(func, continue_func=continue_until_called, begin=begin_func, initial_delay=0.1)
+        task = create(func, continue_func=continue_until_called, begin=begin_func,
+                      initial_delay=0.1)
         asyncio.run(task())
 
         duration = (func_time - begin_time) / NS_PER_SECOND
@@ -217,7 +218,8 @@ class TestPeriodicTaskAsync:
 
         begin_time = None
         func_time = None
-        task = create(func, continue_func=continue_until_called, begin=begin_func, initial_delay=0.3)
+        task = create(func, continue_func=continue_until_called, begin=begin_func,
+                      initial_delay=0.3)
         asyncio.run(task())
 
         duration = (func_time - begin_time) / NS_PER_SECOND
@@ -226,7 +228,8 @@ class TestPeriodicTaskAsync:
 
         begin_time = None
         func_time = None
-        task = create(func, continue_func=continue_until_called, begin=begin_func, initial_delay=0.6)
+        task = create(func, continue_func=continue_until_called, begin=begin_func,
+                      initial_delay=0.6)
         asyncio.run(task())
 
         duration = (func_time - begin_time) / NS_PER_SECOND
@@ -261,6 +264,6 @@ class TestPeriodicTaskAsync:
         task_two = create(two, continue_func=lambda: two_count < 3)
         task_three = create(three, continue_func=lambda: three_count < 1)
 
-        run([task_one, task_two, task_three])
+        run(task_one, task_two, task_three)
 
         assert call_order == ["one", "two", "three", "one", "two", "two"]

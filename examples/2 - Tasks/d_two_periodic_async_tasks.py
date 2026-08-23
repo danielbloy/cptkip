@@ -42,4 +42,4 @@ async def two() -> None:
 task_one = periodic_task.create(one, frequency=3, continue_func=should_continue)
 task_two = periodic_task.create(two, frequency=2, continue_func=should_continue)
 
-runner.run([task_one, task_two])
+runner.run(task_one, task_two)

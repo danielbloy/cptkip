@@ -9,9 +9,9 @@ class TestBasicRunnerAsync:
 
     def test_run_with_no_tasks(self):
         """
-        Calls run() but passes an empty list of functions. run() should return gracefully.
+        Calls run() but passes no functions. run() should return gracefully.
         """
-        run([])
+        run()
 
     def test_run_with_one_task(self):
         """
@@ -23,7 +23,7 @@ class TestBasicRunnerAsync:
             nonlocal one_count
             one_count += 1
 
-        run([one])
+        run(one)
 
         assert one_count == 1
 
@@ -42,7 +42,7 @@ class TestBasicRunnerAsync:
             nonlocal two_count
             two_count += 1
 
-        run([one, two])
+        run(one, two)
 
         assert one_count == 1
         assert two_count == 1
@@ -73,7 +73,7 @@ class TestBasicRunnerAsync:
                 three_count += 1
                 await asyncio.sleep(0)
 
-        run([three, one, two])
+        run(three, one, two)
 
         assert one_count == 11
         assert two_count == 22
@@ -109,7 +109,7 @@ class TestBasicRunnerAsync:
                 call_order.append("three")
                 await asyncio.sleep(0)
 
-        run([one, two, three])
+        run(one, two, three)
 
         assert call_order == ["one", "two", "three", "one", "two", "two"]
 
@@ -140,7 +140,7 @@ class TestBasicRunnerAsync:
                 three_count += 1
                 call_order.append("three")
 
-        run([one, two, three])
+        run(one, two, three)
 
         assert call_order == ["one", "one", "two", "two", "two", "three"]
 
@@ -154,4 +154,4 @@ class TestBasicRunnerAsync:
             raise Exception
 
         with pytest.raises(Exception):
-            run([raise_exception])
+            run(raise_exception)

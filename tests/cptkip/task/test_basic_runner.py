@@ -7,9 +7,9 @@ class TestBasicRunner:
 
     def test_run_with_no_tasks(self):
         """
-        Calls run() but passes an empty list of functions. run() should return gracefully.
+        Calls run() but passes no functions. run() should return gracefully.
         """
-        run([])
+        run()
 
     def test_run_with_one_task(self):
         """
@@ -22,7 +22,7 @@ class TestBasicRunner:
             one_count += 1
             return False
 
-        run([one])
+        run(one)
 
         assert one_count == 1
 
@@ -43,7 +43,7 @@ class TestBasicRunner:
             two_count += 1
             return False
 
-        run([one, two])
+        run(one, two)
 
         assert one_count == 1
         assert two_count == 1
@@ -71,7 +71,7 @@ class TestBasicRunner:
             three_count += 1
             return three_count < 33
 
-        run([three, one, two])
+        run(three, one, two)
 
         assert one_count == 11
         assert two_count == 22
@@ -104,7 +104,7 @@ class TestBasicRunner:
             call_order.append("three")
             return three_count < 1
 
-        run([one, two, three])
+        run(one, two, three)
 
         assert call_order == ["one", "two", "three", "one", "two", "two"]
 
@@ -118,4 +118,4 @@ class TestBasicRunner:
             raise Exception
 
         with pytest.raises(Exception):
-            run([raise_exception])
+            run(raise_exception)

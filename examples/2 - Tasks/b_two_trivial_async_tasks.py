@@ -3,8 +3,8 @@
 # of text ('one' or 'two') at a defined interval of time (every 0.3
 # seconds or every 0.5 seconds).
 #
-# An advantage of trivial tasks over periodic tasks tasks is that it uses
-# less RAM. The disadvantage is the presence of drift.
+# An advantage of trivial tasks over periodic tasks is that it uses less
+# RAM. The disadvantage is the presence of drift.
 #
 # A disadvantage of asynchronous tasks over synchronous tasks is that
 # it uses significantly more RAM due to the async library (approximately
@@ -40,4 +40,4 @@ async def two() -> None:
         await asyncio.sleep(0.5)
 
 
-runner.run([one, two])
+runner.run(one, two)

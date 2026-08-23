@@ -23,20 +23,20 @@ class TestPeriodicTask:
         # using a continue function that always returns false will result in fun() never being called.
         task = create(func, continue_func=utils.stop)
 
-        run([task])
+        run(task)
         assert count == 0
 
         # Check that a single call occurs.
         task = create(func, continue_func=utils.count_limiter(1))
 
-        run([task])
+        run(task)
         assert count == 1
 
         # Check that it gets called 10 times.
         count = 0
         task = create(func, continue_func=utils.count_limiter(10))
 
-        run([task])
+        run(task)
         assert count == 10
 
     def test_frequency(self):
@@ -70,7 +70,7 @@ class TestPeriodicTask:
         # 1 second (with a small error margin). There are 11 invocations not 10 because the first
         # invocation is when the "timer" starts.
         task = create(func, frequency=10, continue_func=count_invocations)
-        run([task])
+        run(task)
 
         duration = (last - first) / NS_PER_SECOND
 
@@ -108,12 +108,12 @@ class TestPeriodicTask:
 
         task = create(func, continue_func=utils.count_limiter(10), begin=begin_func)
 
-        run([task])
+        run(task)
         assert count == 10
         assert begin_count == 1
 
         # Run the task again and nothing should execute
-        run([task])
+        run(task)
         assert count == 10
         assert begin_count == 1
 
@@ -137,12 +137,12 @@ class TestPeriodicTask:
 
         task = create(func, continue_func=utils.count_limiter(10), end=end_func)
 
-        run([task])
+        run(task)
         assert count == 10
         assert end_count == 1
 
         # Run the task again and nothing should execute
-        run([task])
+        run(task)
         assert count == 10
         assert end_count == 1
 
@@ -177,13 +177,13 @@ class TestPeriodicTask:
 
         task = create(func, continue_func=utils.count_limiter(10), begin=begin_func, end=end_func)
 
-        run([task])
+        run(task)
         assert count == 10
         assert begin_count == 1
         assert end_count == 1
 
         # Run the task again and nothing should execute
-        run([task])
+        run(task)
         assert count == 10
         assert begin_count == 1
         assert end_count == 1
@@ -207,8 +207,9 @@ class TestPeriodicTask:
 
         begin_time = None
         func_time = None
-        task = create(func, continue_func=continue_until_called, begin=begin_func, initial_delay=0.1)
-        run([task])
+        task = create(func, continue_func=continue_until_called, begin=begin_func,
+                      initial_delay=0.1)
+        run(task)
 
         duration = (func_time - begin_time) / NS_PER_SECOND
         assert duration > (0.1 * 0.9)  # within 10%
@@ -216,8 +217,9 @@ class TestPeriodicTask:
 
         begin_time = None
         func_time = None
-        task = create(func, continue_func=continue_until_called, begin=begin_func, initial_delay=0.3)
-        run([task])
+        task = create(func, continue_func=continue_until_called, begin=begin_func,
+                      initial_delay=0.3)
+        run(task)
 
         duration = (func_time - begin_time) / NS_PER_SECOND
         assert duration > (0.3 * 0.9)  # within 10%
@@ -225,8 +227,9 @@ class TestPeriodicTask:
 
         begin_time = None
         func_time = None
-        task = create(func, continue_func=continue_until_called, begin=begin_func, initial_delay=0.6)
-        run([task])
+        task = create(func, continue_func=continue_until_called, begin=begin_func,
+                      initial_delay=0.6)
+        run(task)
 
         duration = (func_time - begin_time) / NS_PER_SECOND
         assert duration > (0.6 * 0.9)  # within 10%
@@ -260,6 +263,6 @@ class TestPeriodicTask:
         task_two = create(two, continue_func=lambda: two_count < 3)
         task_three = create(three, continue_func=lambda: three_count < 1)
 
-        run([task_one, task_two, task_three])
+        run(task_one, task_two, task_three)
 
         assert call_order == ["one", "two", "three", "one", "two", "two"]

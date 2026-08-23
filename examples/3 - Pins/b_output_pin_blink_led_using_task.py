@@ -45,4 +45,4 @@ with OutputPin(config.LED_PIN, invert=config.LED_INVERT) as led:
         continue_func=should_continue,
         begin=begin, end=end)
 
-    runner.run([blink])
+    runner.run(blink)
