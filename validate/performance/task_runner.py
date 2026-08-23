@@ -46,7 +46,7 @@ def execute(task: Callable[[], None] | Callable[[], bool], monitor: bool = True)
 
     finish = monotonic() + runtime + 0.05  # ake sure we get the start AND finish reports.
 
-    runner.run(tasks)
+    runner.run(*tasks)
 
     if monitor:
         from cptkip.core.memory import report_memory_usage

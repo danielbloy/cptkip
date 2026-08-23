@@ -27,7 +27,7 @@ class TestTriggeredTask:
         trigger_task = create(trigger, duration=1.0, func=task, continue_func=lambda: False)
 
         # noinspection PyTypeChecker
-        run([trigger_task])
+        run(trigger_task)
         assert not called
 
     def test_task_stops(self) -> None:
@@ -47,7 +47,7 @@ class TestTriggeredTask:
         trigger_task = create(trigger, duration=1.0, func=task, continue_func=continue_fn)
 
         # noinspection PyTypeChecker
-        run([trigger_task])
+        run(trigger_task)
         assert called == 2
 
     def test_task_not_triggered(self) -> None:
@@ -78,7 +78,7 @@ class TestTriggeredTask:
                               continue_func=continue_fn)
 
         # noinspection PyTypeChecker
-        run([trigger_task])
+        run(trigger_task)
         assert begin_called == 0
         assert func_called == 0
         assert end_called == 0
@@ -101,7 +101,7 @@ class TestTriggeredTask:
         trigger_task = create(trigger, duration=1.0, func=task, continue_func=continue_fn)
 
         # noinspection PyTypeChecker
-        run([trigger_task])
+        run(trigger_task)
         assert called > 2
         assert called == 20
 
@@ -124,7 +124,7 @@ class TestTriggeredTask:
 
         begin = time()
         # noinspection PyTypeChecker
-        run([trigger_task])
+        run(trigger_task)
         end = time()
 
         assert (end - begin) < (seconds_to_run * 1.05)
@@ -157,7 +157,7 @@ class TestTriggeredTask:
         trigger_task = create(trigger, duration=1.0, begin=task, continue_func=continue_fn)
 
         # noinspection PyTypeChecker
-        run([trigger_task])
+        run(trigger_task)
 
         assert called_count == 1
 
@@ -178,7 +178,7 @@ class TestTriggeredTask:
         trigger_task = create(trigger, duration=1.0, func=task, continue_func=continue_fn)
 
         # noinspection PyTypeChecker
-        run([trigger_task])
+        run(trigger_task)
 
         assert called_count >= (seconds_to_run * MIN_UPDATES_PER_SECOND)
 
@@ -199,7 +199,7 @@ class TestTriggeredTask:
         trigger_task = create(trigger, duration=1.0, end=task, continue_func=continue_fn)
 
         # noinspection PyTypeChecker
-        run([trigger_task])
+        run(trigger_task)
 
         assert called_count == 1
 
@@ -236,7 +236,7 @@ class TestTriggeredTask:
                               continue_func=continue_fn)
 
         # noinspection PyTypeChecker
-        run([trigger_task])
+        run(trigger_task)
 
         assert begin_time < run_begin_time
         assert run_begin_time < run_end_time
@@ -270,7 +270,7 @@ class TestTriggeredTask:
                               continue_func=continue_fn)
 
         # noinspection PyTypeChecker
-        run([trigger_task])
+        run(trigger_task)
 
         assert begin_count == 1
         assert end_count == 1
@@ -305,6 +305,6 @@ class TestTriggeredTask:
 
         # noinspection PyTypeChecker
         restart_time = monotonic() + 0.7
-        run([trigger_task, restart])
+        run(trigger_task, restart)
 
         assert begin_count == 3

@@ -129,7 +129,7 @@ def execute(
     global finish
     finish = monotonic() + runtime + 0.05  # ake sure we get the start AND finish reports.
 
-    runner.run(tasks)
+    runner.run(*tasks)
     print(f"Total number of cycles executed .. : {((cycles / runtime) // 100) / 10:,.1f} K/s")
 
 
@@ -167,5 +167,5 @@ def execute_async(
     global finish
     finish = monotonic() + runtime + 0.05  # ake sure we get the start AND finish reports.
 
-    runner_async.run(tasks)
+    runner_async.run(*tasks)
     print(f"Total number of cycles executed .. : n/a K/s")

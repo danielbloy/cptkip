@@ -47,4 +47,4 @@ def two() -> bool:
     return time.monotonic() < finish
 
 
-runner.run([one, two])
+runner.run(one, two)

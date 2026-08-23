@@ -7,7 +7,7 @@ if environment.is_running_on_desktop():
     from collections.abc import Callable, Awaitable
 
 
-def run(funcs: list[Callable[[], Awaitable[None]]]) -> None:
+def run(*funcs: Callable[[], Awaitable[None]]) -> None:
     """
     Simply runs a list of functions and waits for them to finish.
     No error handling is performed. Tasks should play nicely and ensure they
