@@ -60,7 +60,9 @@ tricky as it is not an exact science as each small change to the framework impac
 Notwithstanding, there is a script called`validate/validate_performance.py` which is used to
 generate some useful data on both memory usage and general performance of the framework. From that
 script, we can see the following when run on a Raspberry Pi Pico (for more detailed information, see
-`devices/performance_results/pico.txt`):
+`devices/performance_results/pico.txt`). The performance tests were executed using the "compiled"
+version of the library. Please note that all performance results should be considered indicative
+only and not conclusive evidence of the actual performance you will get in your projects:
 
 * A basic script without using the framework requires 1 to 1.5Kb of RAM.
 * The `cptkip.core.environment` module uses about 1.5Kb of RAM.
