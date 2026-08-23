@@ -4,10 +4,12 @@
 #   python package.py --mpy-cross <path-to-mpy-cross> [--source cptkip] [--output <dir>]
 #
 # Every .py file found recursively under the source directory is compiled with
-# mpy-cross. The directory structure is mirrored under the output directory, which
-# defaults to a "package" directory alongside the source directory, so by default
+# mpy-cross; any other file (data files such as .mp3) is copied across verbatim.
+# The directory structure is mirrored under the output directory, which defaults
+# to a "package" directory alongside the source directory, so by default
 # cptkip/foo/bar.py compiles to package/cptkip/foo/bar.mpy.
 import argparse
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -29,21 +31,26 @@ def main() -> int:
     output = Path(args.output).resolve() if args.output else source.parent / "package"
     output = output / source.name
 
-    files = sorted(source.rglob("*.py"))
+    files = sorted(path for path in source.rglob("*") if path.is_file())
     if not files:
-        print(f"No .py files found under {source}")
+        print(f"No files found under {source}")
         return 1
 
     failures = 0
     for file in files:
-        destination = output / file.relative_to(source).with_suffix(".mpy")
+        destination = output / file.relative_to(source)
         destination.parent.mkdir(parents=True, exist_ok=True)
-        print(f"{file.relative_to(source.parent)} -> {destination}")
-        result = subprocess.run([args.mpy_cross, str(file), "-o", str(destination)])
-        if result.returncode != 0:
-            failures += 1
+        if file.suffix == ".py":
+            destination = destination.with_suffix(".mpy")
+            print(f"{file.relative_to(source.parent)} -> {destination}")
+            result = subprocess.run([args.mpy_cross, str(file), "-o", str(destination)])
+            if result.returncode != 0:
+                failures += 1
+        else:
+            print(f"{file.relative_to(source.parent)} -> {destination} (copied)")
+            shutil.copy2(file, destination)
 
-    print(f"Compiled {len(files) - failures} of {len(files)} files.")
+    print(f"Processed {len(files) - failures} of {len(files)} files.")
     return 1 if failures else 0
 
 

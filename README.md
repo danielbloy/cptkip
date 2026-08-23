@@ -98,6 +98,25 @@ In PyCharm, the following "Project Structure" is used:
 For information on current development priorities, see [roadmap](./roadmap.md). For details of
 releases, see [changelog](./changelog.md).
 
+## Packaging
+
+To package `cptkip` using `mpy-cross` for CircuitPython, first make sure you have a suitable version
+of `mpy-cross` available on your computer. You can download it from:
+
+* https://adafruit-circuit-python.s3.amazonaws.com/index.html?prefix=bin/mpy-cross/.
+
+The file `package.py` will run `mpy-cross` over the entire `cptkip` directory, compiling it down for
+you into the `package` directory. It will also copy across any required data files (specifically the
+`cptkip/mp3.mp3` file). An example command-line execution on Windows is:
+
+`PS C:\Workspace\repos\cptkip> python package.py --mpy-cross ..\mpy-cross-windows-10.2.1-1-g2bf4d29adc.static.exe`
+
+You can find more information about using this at:
+
+* https://learn.adafruit.com/creating-and-sharing-a-circuitpython-library
+
+Each release is made available in the `releases` directory as a zip file.
+
 ## License
 
 Copyright 2026 Daniel Bloy

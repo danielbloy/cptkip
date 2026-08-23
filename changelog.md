@@ -2,7 +2,8 @@
 
 ## 0.3.1 - Beta
 
-Following the guide here, created a published package:
+Following the guide here, created a way to cross-compile using mpy-cross which reduces the size of
+the `cptkip` directory from over 100Kb down to 30Kb:
 
 * https://learn.adafruit.com/creating-and-sharing-a-circuitpython-library
 
