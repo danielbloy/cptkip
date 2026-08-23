@@ -1,6 +1,14 @@
 # Changelog
 
+## 0.3.1 - Beta
+
+Following the guide here, created a way to cross-compile using mpy-cross which reduces the size of
+the `cptkip` directory from over 100Kb down to 30Kb:
+
+* https://learn.adafruit.com/creating-and-sharing-a-circuitpython-library
+
 ## 0.3.0 - Beta, breaking change to for `cptkip/task/basic_runner.py` and
+
 `cptkip/task/basic_runner_async.py`
 
 Rather than accept a list of functions, the `run()` use *args. The migration is trivial, simply

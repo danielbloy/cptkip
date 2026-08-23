@@ -1,0 +1,724 @@
+Adafruit CircuitPython 10.2.1 on 2026-05-13; Raspberry Pi Pico with rp2040
+>>> import validate.validate_performance
+Running on microcontroller. Pins are available.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/a_start.py output:
+START ...... : Used: 1120 bytes, Free: 154272 bytes
+Running on: circuitpython v10.2.1 Raspberry Pi Pico with rp2040
+BEFORE GC .. : Used: 1408 bytes, Free: 153984 bytes
+AFTER GC ... : Used: 1184 bytes, Free: 154208 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/b_environment.py output:
+START ...... : Used: 1568 bytes, Free: 162016 bytes
+Running on microcontroller. Pins are available.
+Is running in CI ................. :  False
+Is running under test ............ :  False
+Is running on a microcontroller .. :  True
+Is running on a desktop .......... :  False
+Are pins available ............... :  True
+BEFORE GC .. : Used: 3216 bytes, Free: 160368 bytes
+AFTER GC ... : Used: 3216 bytes, Free: 160368 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/c_logging_adafruit.py output:
+START ...... : Used: 1008 bytes, Free: 154384 bytes
+BEFORE GC .. : Used: 8736 bytes, Free: 154592 bytes
+AFTER GC ... : Used: 8736 bytes, Free: 154592 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/c_logging_cptkip.py output:
+START ...... : Used: 1472 bytes, Free: 153920 bytes
+Running on microcontroller. Pins are available.
+CRITICAL : This critical text will appear with log level info
+ERROR    : This error text will appear with log level info
+WARN     : This warning text will appear with log level info
+BEFORE GC .. : Used: 4800 bytes, Free: 150592 bytes
+AFTER GC ... : Used: 4640 bytes, Free: 150752 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/d_memory.py output:
+START ...... : Used: 1024 bytes, Free: 154368 bytes
+Running on microcontroller. Pins are available.
+CRITICAL : Heap details: Total: 155392 bytes, Peak: 5344 bytes, Used: 5344 bytes, Free: 150048 bytes
+CRITICAL : Heap details: Total: 155392 bytes, Peak: 5440 bytes, Used: 5440 bytes, Free: 149952 bytes
+CRITICAL : Heap details: Total: 155392 bytes, Peak: 5440 bytes, Used: 5344 bytes, Free: 150048 bytes
+BEFORE GC .. : Used: 5440 bytes, Free: 149952 bytes
+AFTER GC ... : Used: 5344 bytes, Free: 150048 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/e_configuration.py output:
+START ...... : Used: 1200 bytes, Free: 154192 bytes
+Running on microcontroller. Pins are available.
+Config file loaded.
+Device file loaded.
+LED pin board.LED
+Button pin board.GP27_A1
+Buzzer pin board.GP2
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
+Test value ... : 123.456
+Test string .. : Hello world!
+Debug ........ : True
+BEFORE GC .. : Used: 6352 bytes, Free: 149040 bytes
+AFTER GC ... : Used: 6352 bytes, Free: 149040 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/f_cpu.py output:
+START ...... : Used: 1024 bytes, Free: 154368 bytes
+Running on microcontroller. Pins are available.
+BEFORE GC .. : Used: 3392 bytes, Free: 152000 bytes
+AFTER GC ... : Used: 3344 bytes, Free: 152048 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/g_adafruit_asyncio.py output:
+START ...... : Used: 992 bytes, Free: 154400 bytes
+BEFORE GC .. : Used: 8336 bytes, Free: 154992 bytes
+AFTER GC ... : Used: 8336 bytes, Free: 154992 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/h_basic_runner.py output:
+Running on microcontroller. Pins are available.
+START ...... : Used: 5328 bytes, Free: 150064 bytes
+CYCLES ..... : 15.6 K/s
+BEFORE GC .. : Used: 5520 bytes, Free: 149872 bytes
+AFTER GC ... : Used: 5376 bytes, Free: 150016 bytes
+START ...... : Used: 5440 bytes, Free: 149952 bytes
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 8640 bytes, Used: 8640 bytes, Free: 154688 bytes
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 15872 bytes, Used: 9056 bytes, Free: 154272 bytes
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 15872 bytes, Used: 10016 bytes, Free: 153312 bytes
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 15872 bytes, Used: 10880 bytes, Free: 152448 bytes
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 15872 bytes, Used: 11744 bytes, Free: 151584 bytes
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 15872 bytes, Used: 8688 bytes, Free: 154640 bytes
+CYCLES ..... : 6.0 K/s
+BEFORE GC .. : Used: 8832 bytes, Free: 154496 bytes
+AFTER GC ... : Used: 8528 bytes, Free: 154800 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/h_basic_runner_async.py output:
+Running on microcontroller. Pins are available.
+START ...... : Used: 13200 bytes, Free: 150128 bytes
+CYCLES ..... : n/a K/s
+BEFORE GC .. : Used: 19632 bytes, Free: 143184 bytes
+AFTER GC ... : Used: 14768 bytes, Free: 148560 bytes
+CYCLES ..... : 6.2 K/s
+START ...... : Used: 14864 bytes, Free: 148464 bytes
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 18752 bytes, Used: 18752 bytes, Free: 144064 bytes
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 31312 bytes, Used: 31312 bytes, Free: 131504 bytes
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 31584 bytes, Used: 31584 bytes, Free: 131232 bytes
+CYCLES ..... : n/a K/s
+BEFORE GC .. : Used: 31728 bytes, Free: 131088 bytes
+AFTER GC ... : Used: 18000 bytes, Free: 144816 bytes
+CYCLES ..... : 6.0 K/s
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/i_periodic_task.py output:
+Running on microcontroller. Pins are available.
+START ...... : Used: 6576 bytes, Free: 156752 bytes
+task
+task
+task
+task
+task
+task
+task
+task
+task
+task
+CYCLES ..... : 6.0 K/s
+BEFORE GC .. : Used: 15328 bytes, Free: 148000 bytes
+AFTER GC ... : Used: 6656 bytes, Free: 156672 bytes
+START ...... : Used: 6720 bytes, Free: 156608 bytes
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 9600 bytes, Used: 9600 bytes, Free: 153728 bytes
+task
+task
+task
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 15840 bytes, Used: 9824 bytes, Free: 153504 bytes
+task
+task
+task
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 15840 bytes, Used: 10848 bytes, Free: 152480 bytes
+task
+task
+task
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 15840 bytes, Used: 12128 bytes, Free: 151200 bytes
+task
+task
+task
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 15840 bytes, Used: 13280 bytes, Free: 150048 bytes
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 15840 bytes, Used: 11760 bytes, Free: 151568 bytes
+CYCLES ..... : 4.0 K/s
+BEFORE GC .. : Used: 11904 bytes, Free: 151424 bytes
+AFTER GC ... : Used: 9488 bytes, Free: 153840 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/i_periodic_task_async.py output:
+Running on microcontroller. Pins are available.
+START ...... : Used: 14480 bytes, Free: 148336 bytes
+task
+task
+task
+task
+task
+task
+task
+task
+task
+task
+CYCLES ..... : n/a K/s
+BEFORE GC .. : Used: 26800 bytes, Free: 136016 bytes
+AFTER GC ... : Used: 16096 bytes, Free: 146720 bytes
+START ...... : Used: 16144 bytes, Free: 146672 bytes
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 19648 bytes, Used: 19648 bytes, Free: 143168 bytes
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 31184 bytes, Used: 30224 bytes, Free: 132592 bytes
+task
+task
+task
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 31184 bytes, Used: 28176 bytes, Free: 134640 bytes
+task
+task
+task
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 31728 bytes, Used: 26256 bytes, Free: 136560 bytes
+task
+task
+task
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 31728 bytes, Used: 24400 bytes, Free: 138416 bytes
+task
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 31728 bytes, Used: 30608 bytes, Free: 132208 bytes
+CYCLES ..... : n/a K/s
+BEFORE GC .. : Used: 30752 bytes, Free: 132064 bytes
+AFTER GC ... : Used: 18896 bytes, Free: 143920 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/j_triggered_task.py output:
+Running on microcontroller. Pins are available.
+START ...... : Used: 7744 bytes, Free: 155584 bytes
+begin
+end
+begin
+end
+begin
+end
+begin
+end
+begin
+end
+begin
+end
+begin
+end
+begin
+end
+begin
+CYCLES ..... : 7.1 K/s
+BEFORE GC .. : Used: 8480 bytes, Free: 154848 bytes
+AFTER GC ... : Used: 7792 bytes, Free: 155536 bytes
+START ...... : Used: 7856 bytes, Free: 155472 bytes
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 10032 bytes, Used: 10032 bytes, Free: 153296 bytes
+end
+begin
+end
+begin
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 15792 bytes, Used: 11600 bytes, Free: 151728 bytes
+end
+begin
+end
+begin
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 15792 bytes, Used: 14032 bytes, Free: 149296 bytes
+end
+begin
+end
+begin
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 15792 bytes, Used: 10128 bytes, Free: 153200 bytes
+end
+begin
+end
+begin
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 15792 bytes, Used: 12464 bytes, Free: 150864 bytes
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 15792 bytes, Used: 12864 bytes, Free: 150464 bytes
+CYCLES ..... : 4.0 K/s
+BEFORE GC .. : Used: 13008 bytes, Free: 150320 bytes
+AFTER GC ... : Used: 9920 bytes, Free: 153408 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/j_triggered_task_async.py output:
+Running on microcontroller. Pins are available.
+START ...... : Used: 15888 bytes, Free: 146928 bytes
+begin
+end
+begin
+end
+begin
+end
+begin
+end
+begin
+end
+begin
+end
+begin
+end
+begin
+end
+begin
+CYCLES ..... : n/a K/s
+BEFORE GC .. : Used: 19600 bytes, Free: 143216 bytes
+AFTER GC ... : Used: 17440 bytes, Free: 145376 bytes
+START ...... : Used: 17488 bytes, Free: 145328 bytes
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 20000 bytes, Used: 20000 bytes, Free: 142816 bytes
+begin
+end
+begin
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 26208 bytes, Used: 26176 bytes, Free: 136640 bytes
+end
+begin
+end
+begin
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 31136 bytes, Used: 20544 bytes, Free: 142272 bytes
+end
+begin
+end
+begin
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 31136 bytes, Used: 26976 bytes, Free: 135840 bytes
+end
+begin
+end
+begin
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 31264 bytes, Used: 21344 bytes, Free: 141472 bytes
+end
+begin
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 31264 bytes, Used: 26640 bytes, Free: 136176 bytes
+CYCLES ..... : n/a K/s
+BEFORE GC .. : Used: 26784 bytes, Free: 136032 bytes
+AFTER GC ... : Used: 19248 bytes, Free: 143568 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/k_output_pin.py output:
+Running on microcontroller. Pins are available.
+Config file loaded.
+Device file loaded.
+LED pin board.LED
+Button pin board.GP27_A1
+Buzzer pin board.GP2
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
+START ...... : Used: 10400 bytes, Free: 152928 bytes
+CYCLES ..... : 5.7 K/s
+BEFORE GC .. : Used: 10592 bytes, Free: 152736 bytes
+AFTER GC ... : Used: 10448 bytes, Free: 152880 bytes
+START ...... : Used: 10512 bytes, Free: 152816 bytes
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 12720 bytes, Used: 12720 bytes, Free: 150608 bytes
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 15792 bytes, Used: 12720 bytes, Free: 150608 bytes
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 15792 bytes, Used: 12816 bytes, Free: 150512 bytes
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 15792 bytes, Used: 12816 bytes, Free: 150512 bytes
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 15792 bytes, Used: 13104 bytes, Free: 150224 bytes
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 15792 bytes, Used: 13024 bytes, Free: 150304 bytes
+CYCLES ..... : 2.9 K/s
+BEFORE GC .. : Used: 13168 bytes, Free: 150160 bytes
+AFTER GC ... : Used: 12608 bytes, Free: 150720 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/k_input_pin.py output:
+Running on microcontroller. Pins are available.
+Config file loaded.
+Device file loaded.
+LED pin board.LED
+Button pin board.GP27_A1
+Buzzer pin board.GP2
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
+START ...... : Used: 9296 bytes, Free: 154032 bytes
+CYCLES ..... : 8.3 K/s
+BEFORE GC .. : Used: 9488 bytes, Free: 153840 bytes
+AFTER GC ... : Used: 9344 bytes, Free: 153984 bytes
+START ...... : Used: 9408 bytes, Free: 153920 bytes
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 12608 bytes, Used: 12608 bytes, Free: 150720 bytes
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 15520 bytes, Used: 15104 bytes, Free: 148224 bytes
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 15584 bytes, Used: 14464 bytes, Free: 148864 bytes
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 15584 bytes, Used: 13760 bytes, Free: 149568 bytes
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 15584 bytes, Used: 13312 bytes, Free: 150016 bytes
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 15584 bytes, Used: 13200 bytes, Free: 150128 bytes
+CYCLES ..... : 3.6 K/s
+BEFORE GC .. : Used: 13344 bytes, Free: 149984 bytes
+AFTER GC ... : Used: 12496 bytes, Free: 150832 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/k_pwm_pin.py output:
+Running on microcontroller. Pins are available.
+Config file loaded.
+Device file loaded.
+LED pin board.LED
+Button pin board.GP27_A1
+Buzzer pin board.GP2
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
+START ...... : Used: 10448 bytes, Free: 152880 bytes
+CYCLES ..... : 4.7 K/s
+BEFORE GC .. : Used: 10640 bytes, Free: 152688 bytes
+AFTER GC ... : Used: 10496 bytes, Free: 152832 bytes
+START ...... : Used: 10560 bytes, Free: 152768 bytes
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 12752 bytes, Used: 12752 bytes, Free: 150576 bytes
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 15760 bytes, Used: 14416 bytes, Free: 148912 bytes
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 15856 bytes, Used: 12880 bytes, Free: 150448 bytes
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 15856 bytes, Used: 14704 bytes, Free: 148624 bytes
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 15856 bytes, Used: 12976 bytes, Free: 150352 bytes
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 15856 bytes, Used: 13952 bytes, Free: 149376 bytes
+CYCLES ..... : 2.4 K/s
+BEFORE GC .. : Used: 14096 bytes, Free: 149232 bytes
+AFTER GC ... : Used: 12640 bytes, Free: 150688 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/k_buzzer_pin.py output:
+Running on microcontroller. Pins are available.
+Config file loaded.
+Device file loaded.
+LED pin board.LED
+Button pin board.GP27_A1
+Buzzer pin board.GP2
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
+START ...... : Used: 10752 bytes, Free: 152576 bytes
+CYCLES ..... : 11.3 K/s
+BEFORE GC .. : Used: 13584 bytes, Free: 149744 bytes
+AFTER GC ... : Used: 10800 bytes, Free: 152528 bytes
+START ...... : Used: 10896 bytes, Free: 152432 bytes
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 13056 bytes, Used: 13056 bytes, Free: 150272 bytes
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 15680 bytes, Used: 14592 bytes, Free: 148736 bytes
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 15680 bytes, Used: 13632 bytes, Free: 149696 bytes
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 15680 bytes, Used: 13184 bytes, Free: 150144 bytes
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 15872 bytes, Used: 15872 bytes, Free: 147456 bytes
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 15872 bytes, Used: 13904 bytes, Free: 149424 bytes
+CYCLES ..... : 4.2 K/s
+BEFORE GC .. : Used: 14048 bytes, Free: 149280 bytes
+AFTER GC ... : Used: 12944 bytes, Free: 150384 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/l_button.py output:
+Running on microcontroller. Pins are available.
+Config file loaded.
+Device file loaded.
+LED pin board.LED
+Button pin board.GP27_A1
+Buzzer pin board.GP2
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
+START ...... : Used: 15536 bytes, Free: 147280 bytes
+CYCLES ..... : 1.3 K/s
+BEFORE GC .. : Used: 15728 bytes, Free: 147088 bytes
+AFTER GC ... : Used: 15584 bytes, Free: 147232 bytes
+START ...... : Used: 15648 bytes, Free: 147168 bytes
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 17792 bytes, Used: 17792 bytes, Free: 145024 bytes
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 30976 bytes, Used: 17920 bytes, Free: 144896 bytes
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 31648 bytes, Used: 18112 bytes, Free: 144704 bytes
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 31648 bytes, Used: 18304 bytes, Free: 144512 bytes
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 31648 bytes, Used: 18592 bytes, Free: 144224 bytes
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 31648 bytes, Used: 23024 bytes, Free: 139792 bytes
+CYCLES ..... : 1.0 K/s
+BEFORE GC .. : Used: 23168 bytes, Free: 139648 bytes
+AFTER GC ... : Used: 17680 bytes, Free: 145136 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/m_led.py output:
+Running on microcontroller. Pins are available.
+Config file loaded.
+Device file loaded.
+LED pin board.LED
+Button pin board.GP27_A1
+Buzzer pin board.GP2
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
+START ...... : Used: 12416 bytes, Free: 150912 bytes
+CYCLES ..... : 3.5 K/s
+BEFORE GC .. : Used: 12608 bytes, Free: 150720 bytes
+AFTER GC ... : Used: 12464 bytes, Free: 150864 bytes
+START ...... : Used: 12528 bytes, Free: 150800 bytes
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 14672 bytes, Used: 14672 bytes, Free: 148656 bytes
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 15856 bytes, Used: 14800 bytes, Free: 148528 bytes
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 15856 bytes, Used: 14992 bytes, Free: 148336 bytes
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 15856 bytes, Used: 15280 bytes, Free: 148048 bytes
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 15856 bytes, Used: 15568 bytes, Free: 147760 bytes
+CRITICAL : Heap details: Total: 163328 bytes, Peak: 15856 bytes, Used: 15008 bytes, Free: 148320 bytes
+CYCLES ..... : 1.5 K/s
+BEFORE GC .. : Used: 15152 bytes, Free: 148176 bytes
+AFTER GC ... : Used: 14560 bytes, Free: 148768 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/m_pixels.py output:
+Running on microcontroller. Pins are available.
+Config file loaded.
+Device file loaded.
+LED pin board.LED
+Button pin board.GP27_A1
+Buzzer pin board.GP2
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
+START ...... : Used: 11728 bytes, Free: 135216 bytes
+CYCLES ..... : 12.5 K/s
+BEFORE GC .. : Used: 14240 bytes, Free: 132704 bytes
+AFTER GC ... : Used: 11776 bytes, Free: 135168 bytes
+START ...... : Used: 11840 bytes, Free: 135104 bytes
+CRITICAL : Heap details: Total: 146944 bytes, Peak: 14080 bytes, Used: 14080 bytes, Free: 132864 bytes
+CRITICAL : Heap details: Total: 146944 bytes, Peak: 15840 bytes, Used: 15360 bytes, Free: 131584 bytes
+CRITICAL : Heap details: Total: 146944 bytes, Peak: 15840 bytes, Used: 15456 bytes, Free: 131488 bytes
+CRITICAL : Heap details: Total: 146944 bytes, Peak: 15840 bytes, Used: 15456 bytes, Free: 131488 bytes
+CRITICAL : Heap details: Total: 146944 bytes, Peak: 15840 bytes, Used: 15552 bytes, Free: 131392 bytes
+CRITICAL : Heap details: Total: 146944 bytes, Peak: 15840 bytes, Used: 15280 bytes, Free: 131664 bytes
+CYCLES ..... : 4.0 K/s
+BEFORE GC .. : Used: 15424 bytes, Free: 131520 bytes
+AFTER GC ... : Used: 13968 bytes, Free: 132976 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/n_buzzer.py output:
+Running on microcontroller. Pins are available.
+Config file loaded.
+Device file loaded.
+LED pin board.LED
+Button pin board.GP27_A1
+Buzzer pin board.GP2
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
+START ...... : Used: 13056 bytes, Free: 149760 bytes
+CYCLES ..... : 6.3 K/s
+BEFORE GC .. : Used: 17488 bytes, Free: 145328 bytes
+AFTER GC ... : Used: 13168 bytes, Free: 149648 bytes
+START ...... : Used: 13232 bytes, Free: 149584 bytes
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 14960 bytes, Used: 14960 bytes, Free: 147856 bytes
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 30704 bytes, Used: 20784 bytes, Free: 142032 bytes
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 30704 bytes, Used: 26064 bytes, Free: 136752 bytes
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 31536 bytes, Used: 31536 bytes, Free: 131280 bytes
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 31536 bytes, Used: 19184 bytes, Free: 143632 bytes
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 31536 bytes, Used: 22848 bytes, Free: 139968 bytes
+CYCLES ..... : 3.6 K/s
+BEFORE GC .. : Used: 22992 bytes, Free: 139824 bytes
+AFTER GC ... : Used: 14880 bytes, Free: 147936 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/n_melody.py output:
+Running on microcontroller. Pins are available.
+Config file loaded.
+Device file loaded.
+LED pin board.LED
+Button pin board.GP27_A1
+Buzzer pin board.GP2
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
+START ...... : Used: 18048 bytes, Free: 144768 bytes
+CYCLES ..... : 3.6 K/s
+BEFORE GC .. : Used: 27072 bytes, Free: 135744 bytes
+AFTER GC ... : Used: 18128 bytes, Free: 144688 bytes
+START ...... : Used: 18192 bytes, Free: 144624 bytes
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 19952 bytes, Used: 19952 bytes, Free: 142864 bytes
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 31344 bytes, Used: 26352 bytes, Free: 136464 bytes
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 31344 bytes, Used: 20208 bytes, Free: 142608 bytes
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 31344 bytes, Used: 26640 bytes, Free: 136176 bytes
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 31344 bytes, Used: 21104 bytes, Free: 141712 bytes
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 31344 bytes, Used: 23456 bytes, Free: 139360 bytes
+CYCLES ..... : 2.4 K/s
+BEFORE GC .. : Used: 23600 bytes, Free: 139216 bytes
+AFTER GC ... : Used: 19840 bytes, Free: 142976 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/n_pwm_audio.py output:
+Running on microcontroller. Pins are available.
+Config file loaded.
+Device file loaded.
+LED pin board.LED
+Button pin board.GP27_A1
+Buzzer pin board.GP2
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
+START ...... : Used: 47888 bytes, Free: 113904 bytes
+CYCLES ..... : 5.4 K/s
+BEFORE GC .. : Used: 52880 bytes, Free: 108912 bytes
+AFTER GC ... : Used: 52544 bytes, Free: 109248 bytes
+START ...... : Used: 52608 bytes, Free: 109184 bytes
+CRITICAL : Heap details: Total: 161792 bytes, Peak: 54736 bytes, Used: 54736 bytes, Free: 107056 bytes
+CRITICAL : Heap details: Total: 161792 bytes, Peak: 62608 bytes, Used: 55024 bytes, Free: 106768 bytes
+CRITICAL : Heap details: Total: 161792 bytes, Peak: 62608 bytes, Used: 61360 bytes, Free: 100432 bytes
+CRITICAL : Heap details: Total: 161792 bytes, Peak: 62608 bytes, Used: 59088 bytes, Free: 102704 bytes
+CRITICAL : Heap details: Total: 161792 bytes, Peak: 62608 bytes, Used: 59152 bytes, Free: 102640 bytes
+CRITICAL : Heap details: Total: 161792 bytes, Peak: 62608 bytes, Used: 60736 bytes, Free: 101056 bytes
+CYCLES ..... : 2.2 K/s
+BEFORE GC .. : Used: 60880 bytes, Free: 100912 bytes
+AFTER GC ... : Used: 54624 bytes, Free: 107168 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/n_i2s_audio.py output:
+Running on microcontroller. Pins are available.
+Config file loaded.
+Device file loaded.
+LED pin board.LED
+Button pin board.GP27_A1
+Buzzer pin board.GP2
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
+START ...... : Used: 48256 bytes, Free: 113536 bytes
+CYCLES ..... : 4.8 K/s
+BEFORE GC .. : Used: 53248 bytes, Free: 108544 bytes
+AFTER GC ... : Used: 52912 bytes, Free: 108880 bytes
+START ...... : Used: 52976 bytes, Free: 108816 bytes
+CRITICAL : Heap details: Total: 161792 bytes, Peak: 55104 bytes, Used: 55104 bytes, Free: 106688 bytes
+CRITICAL : Heap details: Total: 161792 bytes, Peak: 61936 bytes, Used: 57712 bytes, Free: 104080 bytes
+CRITICAL : Heap details: Total: 161792 bytes, Peak: 61936 bytes, Used: 56016 bytes, Free: 105776 bytes
+CRITICAL : Heap details: Total: 161792 bytes, Peak: 61936 bytes, Used: 56176 bytes, Free: 105616 bytes
+CRITICAL : Heap details: Total: 161792 bytes, Peak: 63472 bytes, Used: 58896 bytes, Free: 102896 bytes
+CRITICAL : Heap details: Total: 161792 bytes, Peak: 63472 bytes, Used: 59808 bytes, Free: 101984 bytes
+CYCLES ..... : 2.1 K/s
+BEFORE GC .. : Used: 59952 bytes, Free: 101840 bytes
+AFTER GC ... : Used: 54976 bytes, Free: 106816 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/o_blink.py output:
+Running on microcontroller. Pins are available.
+Config file loaded.
+Device file loaded.
+LED pin board.LED
+Button pin board.GP27_A1
+Buzzer pin board.GP2
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
+START ...... : Used: 18688 bytes, Free: 144128 bytes
+CYCLES ..... : 5.2 K/s
+BEFORE GC .. : Used: 29248 bytes, Free: 133568 bytes
+AFTER GC ... : Used: 18784 bytes, Free: 144032 bytes
+START ...... : Used: 18848 bytes, Free: 143968 bytes
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 21040 bytes, Used: 21040 bytes, Free: 141776 bytes
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 31472 bytes, Used: 27632 bytes, Free: 135184 bytes
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 31472 bytes, Used: 22512 bytes, Free: 140304 bytes
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 31632 bytes, Used: 29072 bytes, Free: 133744 bytes
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 31632 bytes, Used: 23312 bytes, Free: 139504 bytes
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 31632 bytes, Used: 24032 bytes, Free: 138784 bytes
+CYCLES ..... : 3.0 K/s
+BEFORE GC .. : Used: 24176 bytes, Free: 138640 bytes
+AFTER GC ... : Used: 20928 bytes, Free: 141888 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/o_flicker.py output:
+Running on microcontroller. Pins are available.
+Config file loaded.
+Device file loaded.
+LED pin board.LED
+Button pin board.GP27_A1
+Buzzer pin board.GP2
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
+START ...... : Used: 17232 bytes, Free: 145584 bytes
+CYCLES ..... : 5.4 K/s
+BEFORE GC .. : Used: 17520 bytes, Free: 145296 bytes
+AFTER GC ... : Used: 17296 bytes, Free: 145520 bytes
+START ...... : Used: 17360 bytes, Free: 145456 bytes
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 19584 bytes, Used: 19584 bytes, Free: 143232 bytes
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 30144 bytes, Used: 19904 bytes, Free: 142912 bytes
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 31104 bytes, Used: 20864 bytes, Free: 141952 bytes
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 31424 bytes, Used: 21824 bytes, Free: 140992 bytes
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 31424 bytes, Used: 22624 bytes, Free: 140192 bytes
+CRITICAL : Heap details: Total: 162816 bytes, Peak: 31424 bytes, Used: 19664 bytes, Free: 143152 bytes
+CYCLES ..... : 3.1 K/s
+BEFORE GC .. : Used: 19808 bytes, Free: 143008 bytes
+AFTER GC ... : Used: 19472 bytes, Free: 143344 bytes
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/s_client.py output:
+WiFi not available, skipping script
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/s_server.py output:
+WiFi not available, skipping script
+
+Code done running.
+soft reboot
+
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+/validate/performance/z_finish.py output:
+FINISHED
+
+Code done running.
+
+Press any key to enter the REPL. Use CTRL-D to reload.
+

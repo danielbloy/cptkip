@@ -4,7 +4,6 @@
 
 The following functionality is a priority to implement in 0.3.x:
 
-* Package to `.mpy` and release process
 * Support for MEMS microphone
 * Support for Ultrasonic sensors
 
@@ -33,12 +32,6 @@ The following functionality is being considered for implementation in 0.3.x or l
   audiopwmio: https://learn.adafruit.com/circuitpython-essentials/circuitpython-audio-out
 
 ## Issues
-
-### Issues to consider when reworking configuration
-
-1. `cptkip/config/configuration.py:10-18` — `except ImportError` around config loading also swallows
-   `ImportError`s raised from inside a real `config.py`, misreporting genuine failures as "no config
-   file found."
 
 ## Test gaps
 
