@@ -13,9 +13,7 @@ log.set_log_level(log.INFO)
 with create_led() as led:
     # Loop, turning the pin on and off.
     def blink():
-        led.on()
-        time.sleep(0.25)
-        led.off()
+        led.toggle()
         time.sleep(0.25)
 
 

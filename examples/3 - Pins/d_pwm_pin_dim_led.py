@@ -3,7 +3,8 @@
 # boards LED. There are two loops, the first one uses the
 # `value` property to set the relative brightness. The second
 # loop uses the `on()` and `off()` methods to either turn off
-# the pin or set it to maximum.
+# the pin or set it to maximum. The `toggle()` method is also
+# used.
 #
 import time
 
@@ -31,4 +32,12 @@ with PwmPin(config.LED_PIN, invert=config.LED_INVERT) as led:
         led.on()
         time.sleep(0.25)
         led.off()
+        time.sleep(0.25)
+
+    log.info("Using toggle() to control the LED")
+    # noinspection DuplicatedCode
+    finish = time.monotonic() + 5
+
+    while time.monotonic() < finish:
+        led.toggle()
         time.sleep(0.25)

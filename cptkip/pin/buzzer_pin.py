@@ -1,5 +1,8 @@
 import cptkip.core.environment as environment
 
+# TODO: Add tests
+# TODO: Add validation
+
 if environment.are_pins_available():
     import pwmio
 
@@ -114,3 +117,5 @@ class BuzzerPin:
         Plays the buzzer at previous frequency and volume.
         """
         self.play(self.frequency)
+
+    # TODO: Toggle

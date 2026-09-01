@@ -1,7 +1,8 @@
 #
 # This example uses the configured LED to demonstrate using an OutputPin.
 # The first lop uses the `value` property to change the state of the LED
-# and the second loop uses the `on()` and `off()` methods to do the same.
+# and the second loop uses the `on()` and `off()` methods to do the same
+# as well as the `toggle()` method.
 #
 import time
 
@@ -29,4 +30,12 @@ with OutputPin(config.LED_PIN, invert=config.LED_INVERT) as led:
         led.on()
         time.sleep(0.25)
         led.off()
+        time.sleep(0.25)
+
+    log.info("Using toggle() to control the LED")
+    # noinspection DuplicatedCode
+    finish = time.monotonic() + 5
+
+    while time.monotonic() < finish:
+        led.toggle()
         time.sleep(0.25)

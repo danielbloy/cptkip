@@ -14,7 +14,5 @@ with Led(PwmPin(config.LED_PIN, invert=config.LED_INVERT)) as led:
     # Loop, turning the pin on and off.
     finish = time.monotonic() + 5
     while time.monotonic() < finish:
-        led.on()
-        time.sleep(0.25)
-        led.off()
+        led.toggle()
         time.sleep(0.25)

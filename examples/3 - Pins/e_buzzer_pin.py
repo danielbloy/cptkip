@@ -2,6 +2,7 @@
 # This example demonstrates how to use the `volume` and `frequency`
 # properties of a BuzzerPin to make sounds. It also uses the `on()`
 # and `off()` methods.
+# TODO: notes
 #
 import time
 
@@ -43,3 +44,5 @@ with BuzzerPin(config.BUZZER_PIN) as pin:
     while time.monotonic() < finish:
         pin.volume -= 0.1
         time.sleep(0.25)
+
+# TODO: Toggle

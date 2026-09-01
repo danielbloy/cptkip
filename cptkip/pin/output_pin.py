@@ -1,5 +1,9 @@
 import cptkip.core.environment as environment
 
+# TODO: Add tests
+# TODO: Add validation
+
+
 if environment.are_pins_available():
     import digitalio
 
@@ -53,6 +57,17 @@ class OutputPin:
         Turns the pin fully off.
         """
         self.value = False
+
+    def toggle(self) -> bool:
+        """
+        Toggles the pin between on and off depending on current state.
+        If currently on, the pin is turned on. If currently off, the pin
+        is turned on.
+
+        Returns the new state of the pin.
+        """
+        self.value = not self.value
+        return self.value
 
     @property
     def value(self) -> bool:
