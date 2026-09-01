@@ -1,6 +1,5 @@
 from cptkip.pin.pwm_pin import PwmPin
 
-# TODO: Add tests
 # TODO: Add validation
 
 

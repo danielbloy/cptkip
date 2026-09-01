@@ -74,6 +74,26 @@ class TestOutputPin:
             pin.off()
             assert not pin.value
 
+    def test_toggle(self):
+        """
+        Call toggle multiple times, ensuring it sets the correct value.
+        """
+        for pin in [OutputPin(3), OutputPin(4, invert=True)]:
+            pin.on()
+            assert pin.value
+
+            pin.toggle()
+            assert not pin.value
+
+            pin.toggle()
+            assert pin.value
+
+            pin.toggle()
+            assert not pin.value
+
+            pin.toggle()
+            assert pin.value
+
     def test_value(self):
         """
         Call value multiple times, ensuring it sets the correct value.

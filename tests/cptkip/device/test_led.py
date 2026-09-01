@@ -234,6 +234,42 @@ class TestLed:
         assert pin.value_count == 0
         assert pin.value == 0.0
 
+    def test_toggle(self):
+        """
+        Call toggle multiple times, ensuring it sets the correct value.
+        """
+        pin = MockPwmPin()
+        led = Led(pin)
+
+        # Try with 1.0 and 0.0 values.
+        led.on()
+        assert led.brightness == 1.0
+        assert pin.value == 1.0
+
+        led.toggle()
+        assert led.brightness == 0.0
+        assert pin.value == 0.0
+
+        led.toggle()
+        assert led.brightness == 1.0
+        assert pin.value == 1.0
+
+        # Now try with smaller values
+        led.brightness = 0.45
+        led.toggle()
+        assert led.brightness == 1.0
+        assert pin.value == 1.0
+
+        led.brightness = 0.55
+        led.toggle()
+        assert led.brightness == 0.0
+        assert pin.value == 0.0
+
+        led.brightness = 0.5
+        led.toggle()
+        assert led.brightness == 0.0
+        assert pin.value == 0.0
+
     def test_show(self):
         """
         Validates that show write to the pin regardless of auto_write.

@@ -1,6 +1,5 @@
 import cptkip.core.environment as environment
 
-# TODO: Add tests
 # TODO: Add validation
 
 
