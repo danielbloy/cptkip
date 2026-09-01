@@ -2,12 +2,9 @@
 # single route to display "Hello, world!".
 #
 
-import cptkip.core.logging as log
 from cptkip.core.environment import is_running_under_test
 from cptkip.network.biplane import Server, Response
 from cptkip.zero.run import run_for
-
-log.set_log_level(log.INFO)
 
 server = Server()
 
@@ -19,4 +16,4 @@ def main(query_parameters, headers, body):
 
 listen = server.create_task(lambda: True)
 
-run_for(10 if is_running_under_test() else 60, listen)
+run_for(5 if is_running_under_test() else 60, listen)

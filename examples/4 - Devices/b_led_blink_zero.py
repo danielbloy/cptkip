@@ -4,19 +4,13 @@
 #
 import time
 
-import cptkip.core.logging as log
 from cptkip.zero.led import create_led
 from cptkip.zero.run import run_for
 
-log.set_log_level(log.INFO)
-
 with create_led() as led:
-    # Loop, turning the pin on and off.
     def blink():
-        led.on()
-        time.sleep(0.25)
-        led.off()
+        led.toggle()
         time.sleep(0.25)
 
 
-    run_for(5, blink)
+    run_for(3, blink)

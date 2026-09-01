@@ -72,6 +72,21 @@ class Led:
         """
         self.brightness = 0.0
 
+    def toggle(self) -> float:
+        """
+        Toggles the LED between on and off depending on current state.
+        If currently on, the LED is turned off. If currently off, the LED
+        is turned on. On is considered to be a brightness >= 0.5.
+
+        Returns the new state of the LED.
+        """
+        if self.brightness < 0.5:
+            self.brightness = 1.0
+        else:
+            self.brightness = 0.0
+
+        return self.brightness
+
     @property
     def n(self) -> int:
         """

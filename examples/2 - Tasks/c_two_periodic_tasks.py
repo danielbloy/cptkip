@@ -20,10 +20,7 @@ import cptkip.core.logging as log
 import cptkip.task.basic_runner as runner
 import cptkip.task.periodic_task as periodic_task
 
-log.set_log_level(log.INFO)
-
-# Run the loop for 5 seconds
-finish = time.monotonic() + 5
+finish = time.monotonic() + 3
 
 
 def should_continue() -> bool:

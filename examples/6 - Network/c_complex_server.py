@@ -7,7 +7,6 @@
 from adafruit_led_animation.animation.blink import Blink
 from adafruit_led_animation.animation.pulse import Pulse
 
-import cptkip.core.logging as log
 from cptkip.core.environment import is_running_under_test
 from cptkip.network.biplane import Server, Response
 from cptkip.task import memory_monitor_task
@@ -15,8 +14,6 @@ from cptkip.zero.audio import create_pwm_queue
 from cptkip.zero.led import create_led, stop_animation as stop_led_animation
 from cptkip.zero.pixels import create_pixels, stop_animation as stop_pixels_animation
 from cptkip.zero.run import run_for
-
-log.set_log_level(log.INFO)
 
 AUDIO_FILE = "examples/lion.mp3"
 
@@ -48,7 +45,7 @@ def run():
     pixels_animation.animate()
 
 
-run_for(10 if is_running_under_test() else 60, run)
+run_for(5 if is_running_under_test() else 60, run)
 
 stop_led_animation(led_animation)
 stop_pixels_animation(pixels_animation)

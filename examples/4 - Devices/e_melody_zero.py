@@ -12,8 +12,6 @@ from cptkip.zero.button import create_button
 from cptkip.zero.buzzer import create_buzzer_pin
 from cptkip.zero.run import update_for
 
-log.set_log_level(log.INFO)
-
 with create_buzzer_pin() as pin:
     pin.volume = 0.1
 
@@ -51,4 +49,4 @@ with create_buzzer_pin() as pin:
             log.info("Press the button to pause/unpause the sound.")
             log.info("Multi-press the button to reset the melody.")
 
-            update_for(5, button, melody_sequence)
+            update_for(3, button, melody_sequence)

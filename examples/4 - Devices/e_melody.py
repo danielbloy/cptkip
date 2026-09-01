@@ -11,8 +11,6 @@ from cptkip.device.button import Button
 from cptkip.pin.buzzer_pin import BuzzerPin
 from cptkip.pin.input_pin import InputPin
 
-log.set_log_level(log.INFO)
-
 with BuzzerPin(config.BUZZER_PIN) as pin:
     pin.volume = 0.1
 
@@ -52,7 +50,7 @@ with BuzzerPin(config.BUZZER_PIN) as pin:
 
             log.info("Press the button to pause/unpause the sound.")
             log.info("Multi-press the button to reset the melody.")
-            finish = time.monotonic() + 5
+            finish = time.monotonic() + 3
 
             while time.monotonic() < finish:
                 button.update()

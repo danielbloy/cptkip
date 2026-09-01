@@ -11,8 +11,6 @@ from cptkip.device.audio import I2sAudio as Audio, Queue
 from cptkip.device.button import Button
 from cptkip.pin.input_pin import InputPin
 
-log.set_log_level(log.INFO)
-
 AUDIO_FILE = "examples/lion.mp3"
 
 with Queue(Audio(config.I2S_BIT_CLOCK, config.I2S_LEFT_RIGHT_CLOCK, config.I2S_DATA)) as queue:
@@ -38,7 +36,7 @@ with Queue(Audio(config.I2S_BIT_CLOCK, config.I2S_LEFT_RIGHT_CLOCK, config.I2S_D
 
         log.info("Press the button to pause/unpause the audio.")
         log.info("Multi-press the button add a song to the queue.")
-        finish = time.monotonic() + 5
+        finish = time.monotonic() + 3
 
         while time.monotonic() < finish:
             button.update()

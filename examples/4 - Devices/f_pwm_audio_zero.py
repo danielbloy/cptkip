@@ -10,8 +10,6 @@ from cptkip.zero.audio import create_pwm_queue
 from cptkip.zero.button import create_button
 from cptkip.zero.run import update_for
 
-log.set_log_level(log.INFO)
-
 AUDIO_FILE = "examples/lion.mp3"
 
 with create_pwm_queue() as queue:
@@ -34,4 +32,4 @@ with create_pwm_queue() as queue:
         log.info("Press the button to pause/unpause the audio.")
         log.info("Multi-press the button add a song to the queue.")
 
-        update_for(5, button, queue)
+        update_for(3, button, queue)

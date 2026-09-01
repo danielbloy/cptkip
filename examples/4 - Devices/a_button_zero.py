@@ -9,8 +9,6 @@ from cptkip.zero.button import create_button
 from cptkip.zero.led import create_led
 from cptkip.zero.run import update_for
 
-log.set_log_level(log.INFO)
-
 with create_led() as led:
     def switch():
         if led.brightness > 0:
@@ -40,6 +38,5 @@ with create_led() as led:
             multi_click=multi_click_handler,
             long_click=long_press_handler) as button:
 
-        # Run the loop for 10 seconds
         log.info("Press the button to change the LED.")
-        update_for(10, button)
+        update_for(3, button)

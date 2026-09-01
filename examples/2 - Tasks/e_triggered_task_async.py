@@ -12,8 +12,6 @@ import cptkip.task.basic_runner_async as runner
 from cptkip.pin.output_pin import OutputPin
 from cptkip.task.triggered_task_async import create
 
-log.set_log_level(log.INFO)
-
 led = OutputPin(config.LED_PIN, invert=config.LED_INVERT)
 
 
@@ -33,18 +31,12 @@ async def delay() -> None:
 
 
 async def led_pulse() -> None:
-    if led.value:
-        log.info(f"{time.monotonic()}: LED off")
-        led.off()
-    else:
-        log.info(f"{time.monotonic()}: LED on")
-        led.on()
+    log.info(f"{time.monotonic()}: LED {"on" if led.toggle() else "off"}")
 
 
 led_task = create(lambda: trigger, 0.5, begin=led_pulse, continue_func=should_continue)
 
-# Run the loop for 5 seconds
-finish = time.monotonic() + 5
+finish = time.monotonic() + 3
 
 runner.run(delay, led_task)
 led.off()

@@ -96,6 +96,36 @@ class TestBuzzerPin:
         assert pin.frequency == 4321
         assert pin.playing is False
 
+    def test_toggle(self):
+        """
+        Call toggle multiple times, ensuring it sets the correct value.
+        """
+        pin = BuzzerPin(3)
+
+        # Validate that it wont toggle if previously not played.
+        pin.off()
+        assert not pin.playing
+        assert not pin.toggle()
+        assert not pin.playing
+        assert not pin.toggle()
+        assert not pin.playing
+
+        # Now play a sound and it will toggle.
+        pin.play(1234)
+        assert pin.playing
+
+        assert not pin.toggle()
+        assert not pin.playing
+
+        assert pin.toggle()
+        assert pin.playing
+
+        assert not pin.toggle()
+        assert not pin.playing
+
+        assert pin.toggle()
+        assert pin.playing
+
     def test_volume(self):
         """
         Call volume multiple times, ensuring it sets the correct value.
