@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.2 - Beta
+
+Added the `toggle()` method to `OutputPin`, `BuzzerPin` and `Led` to make it easier to alternate
+states. Also reduced the runtime of the examples to save CI build time.
+
 ## 0.3.1 - Beta
 
 Following the guide here, created a way to cross-compile using mpy-cross which reduces the size of
