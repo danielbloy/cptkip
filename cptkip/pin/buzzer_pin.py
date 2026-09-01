@@ -118,11 +118,12 @@ class BuzzerPin:
         """
         self.play(self.frequency)
 
-    def toggle(self) -> float:
+    def toggle(self) -> bool:
         """
         Toggles the buzzer between on and off depending on current state.
         If currently on, the buzzer is turned off. If currently off, the
-        buzzer is turned on.
+        buzzer is turned on. This only works if the buzzer has been playing
+        a tone because if the frequency is zero then it won't play.
 
         Returns whether the buzzer is playing or not.
         """
