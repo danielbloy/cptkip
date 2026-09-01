@@ -1,8 +1,5 @@
 import cptkip.core.environment as environment
 
-# TODO: Add tests
-# TODO: Add validation
-
 if environment.are_pins_available():
     import pwmio
 

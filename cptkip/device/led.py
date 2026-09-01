@@ -1,8 +1,5 @@
 from cptkip.pin.pwm_pin import PwmPin
 
-# TODO: Add validation
-
-
 try:
     # noinspection PyUnresolvedReferences
     from typing import Sequence

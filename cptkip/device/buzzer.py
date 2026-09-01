@@ -88,7 +88,7 @@ class Buzzer:
 
     def off(self) -> None:
         """
-        Turns off the buzzer; cancelling and additional beeps.
+        Turns off the buzzer; cancelling any additional beeps.
         """
         self._beeps = 0
         self._off()
