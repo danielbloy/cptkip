@@ -8,10 +8,8 @@ import cptkip.config.configuration as config
 import cptkip.core.logging as log
 from cptkip.pin.input_pin import InputPin
 
-log.set_log_level(log.INFO)
-
 with InputPin(config.BUTTON_PIN, config.BUTTON_PULLUP) as input_pin:
-    finish = time.monotonic() + 5
+    finish = time.monotonic() + 3
 
     while time.monotonic() < finish:
         log.info(f"Input value: {input_pin.value}")

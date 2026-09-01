@@ -246,27 +246,27 @@ class TestLed:
         assert led.brightness == 1.0
         assert pin.value == 1.0
 
-        led.toggle()
+        assert not led.toggle()
         assert led.brightness == 0.0
         assert pin.value == 0.0
 
-        led.toggle()
+        assert led.toggle()
         assert led.brightness == 1.0
         assert pin.value == 1.0
 
         # Now try with smaller values
         led.brightness = 0.45
-        led.toggle()
+        assert led.toggle()
         assert led.brightness == 1.0
         assert pin.value == 1.0
 
         led.brightness = 0.55
-        led.toggle()
+        assert not led.toggle()
         assert led.brightness == 0.0
         assert pin.value == 0.0
 
         led.brightness = 0.5
-        led.toggle()
+        assert not led.toggle()
         assert led.brightness == 0.0
         assert pin.value == 0.0
 

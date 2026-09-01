@@ -5,11 +5,8 @@
 #
 import time
 
-import cptkip.core.logging as log
 from cptkip.zero.buzzer import create_buzzer
 from cptkip.zero.run import run_for
-
-log.set_log_level(log.INFO)
 
 with create_buzzer() as buzzer:
     buzzer.beeps(2)

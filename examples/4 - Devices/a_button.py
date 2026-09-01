@@ -9,8 +9,6 @@ from cptkip.device.button import Button
 from cptkip.pin.input_pin import InputPin
 from cptkip.pin.output_pin import OutputPin
 
-log.set_log_level(log.INFO)
-
 with OutputPin(config.LED_PIN, invert=config.LED_INVERT) as led:
     def single_click_handler() -> None:
         log.info('Single click!')
@@ -34,7 +32,7 @@ with OutputPin(config.LED_PIN, invert=config.LED_INVERT) as led:
             multi_click=multi_click_handler,
             long_click=long_press_handler) as button:
         log.info("Press the button to change the LED.")
-        finish = time.monotonic() + 5
+        finish = time.monotonic() + 3
 
         while time.monotonic() < finish:
             button.update()

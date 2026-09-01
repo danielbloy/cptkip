@@ -18,13 +18,10 @@ from adafruit_led_animation.sequence import AnimationSequence
 import cptkip.core.logging as log
 from cptkip.animation.flicker import Flicker
 from cptkip.zero.button import create_button
-from cptkip.zero.pixels import create_pixels, stop_animation
+from cptkip.zero.pixels import create_pixels
 from cptkip.zero.run import update_for
 
-log.set_log_level(log.INFO)
-
 with create_pixels(brightness=0.5) as pixels:
-
     animations = [
         Flicker(pixels, speed=0.1, color=AMBER, spacing=2),
         Blink(pixels, speed=0.5, color=JADE),
@@ -55,10 +52,8 @@ with create_pixels(brightness=0.5) as pixels:
 
 
     with create_button(
-        click=single_click_handler,
-        multi_click=multi_click_handler,
-        long_click=long_press_handler) as button:
-
+            click=single_click_handler,
+            multi_click=multi_click_handler,
+            long_click=long_press_handler) as button:
         log.info("Press the button to change the animation.")
-        update_for(5, button, animation)
-
+        update_for(3, button, animation)

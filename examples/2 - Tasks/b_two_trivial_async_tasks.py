@@ -22,10 +22,7 @@ import time
 import cptkip.core.logging as log
 import cptkip.task.basic_runner_async as runner
 
-log.set_log_level(log.INFO)
-
-# Run the loop for 5 seconds
-finish = time.monotonic() + 5
+finish = time.monotonic() + 3
 
 
 async def one() -> None:

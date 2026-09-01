@@ -264,6 +264,28 @@ class TestBuzzer:
         assert pin.play_count == 2
         assert pin.off_count == 4
 
+    def test_toggle(self):
+        """
+        Call toggle multiple times, ensuring it sets the correct value.
+        """
+        pin = MockBuzzerPin()
+        buzzer = Buzzer(pin)
+
+        buzzer.off()
+        assert pin.value
+
+        assert not pin.toggle()
+        assert not pin.value
+
+        assert pin.toggle()
+        assert pin.value
+
+        assert not pin.toggle()
+        assert not pin.value
+
+        assert pin.toggle()
+        assert pin.value
+
     def test_beep_once(self):
         """
         Validates that beep() plays a beep.

@@ -16,7 +16,7 @@ log.set_log_level(log.INFO)
 
 with PwmPin(config.LED_PIN, invert=config.LED_INVERT) as led:
     log.info("Using value for brightness")
-    finish = time.monotonic() + 5
+    finish = time.monotonic() + 2
 
     while time.monotonic() < finish:
         led.value = 0.8
@@ -26,18 +26,10 @@ with PwmPin(config.LED_PIN, invert=config.LED_INVERT) as led:
 
     log.info("Using on()/off() for brightness")
     # noinspection DuplicatedCode
-    finish = time.monotonic() + 5
+    finish = time.monotonic() + 2
 
     while time.monotonic() < finish:
         led.on()
         time.sleep(0.25)
         led.off()
-        time.sleep(0.25)
-
-    log.info("Using toggle() to control the LED")
-    # noinspection DuplicatedCode
-    finish = time.monotonic() + 5
-
-    while time.monotonic() < finish:
-        led.toggle()
         time.sleep(0.25)

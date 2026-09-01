@@ -1,16 +1,12 @@
 #
 # This example demonstrates how to use the `volume` and `frequency`
 # properties of a BuzzerPin to make sounds. It also uses the `on()`
-# and `off()` methods.
-# TODO: notes
+# and `off()` methods as well as the `toggle()` method.
 #
 import time
 
 import cptkip.config.configuration as config
-import cptkip.core.logging as log
 from cptkip.pin.buzzer_pin import BuzzerPin
-
-log.set_log_level(log.INFO)
 
 # Create the pin, set the frequency and volume.
 with BuzzerPin(config.BUZZER_PIN) as pin:
@@ -45,4 +41,9 @@ with BuzzerPin(config.BUZZER_PIN) as pin:
         pin.volume -= 0.1
         time.sleep(0.25)
 
-# TODO: Toggle
+    # Use toggle to switch the pin on and off
+    finish = time.monotonic() + 2
+
+    while time.monotonic() < finish:
+        pin.toggle()
+        time.sleep(0.25)

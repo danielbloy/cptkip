@@ -82,16 +82,16 @@ class TestOutputPin:
             pin.on()
             assert pin.value
 
-            pin.toggle()
+            assert not pin.toggle()
             assert not pin.value
 
-            pin.toggle()
+            assert pin.toggle()
             assert pin.value
 
-            pin.toggle()
+            assert not pin.toggle()
             assert not pin.value
 
-            pin.toggle()
+            assert pin.toggle()
             assert pin.value
 
     def test_value(self):

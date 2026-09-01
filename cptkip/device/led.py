@@ -78,7 +78,7 @@ class Led:
     def toggle(self) -> float:
         """
         Toggles the LED between on and off depending on current state.
-        If currently on, the LED is turned on. If currently off, the LED
+        If currently on, the LED is turned off. If currently off, the LED
         is turned on. On is considered to be a brightness >= 0.5.
 
         Returns the new state of the LED.

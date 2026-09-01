@@ -6,11 +6,8 @@
 import time
 
 import cptkip.config.configuration as config
-import cptkip.core.logging as log
 from cptkip.device.buzzer import Buzzer
 from cptkip.pin.buzzer_pin import BuzzerPin
-
-log.set_log_level(log.INFO)
 
 with Buzzer(BuzzerPin(config.BUZZER_PIN)) as buzzer:
     buzzer.beeps(2)
