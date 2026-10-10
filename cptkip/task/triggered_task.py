@@ -37,10 +37,10 @@ def create(
 
     There is also an optional begin function which will be called once when the trigger
     is activated and an optional end function that  will be called once when the trigger is
-    deactivated; which will occurs as the specified number of seconds after the trigger has
+    deactivated; which will occurs at the specified number of seconds after the trigger has
     been activated.
 
-    At least one of begin, func and end must be provided, but they need not all be specified.
+    At least one of begin, func or end must be provided, but they need not all be specified.
 
     Once a trigger is activated, it will not be activated again until after it has expired
     and been deactivated. The trigger function is used to activate the trigger by returning
