@@ -4,6 +4,7 @@
 
 The following functionality is a priority to implement in 0.3.x:
 
+* Timed Events Task - async sync (inspired by `pico-interactive`)
 * Support for MEMS microphone
 * Support for Ultrasonic sensors
 
@@ -14,7 +15,6 @@ The following functionality is planned to be implemented in 0.3.x or later:
 * Move `count_limiter`, `duration_limiter` and `value_flip` from `test.utilities` to task
 * Safe Runner - async and sync (inspired by `pico-interactive`)
 * One time on/off task - async and sync (inspired by `pico-interactive`)
-* Timed Events Task - async sync (inspired by `pico-interactive`)
 
 Investigate a solution to the issue of the on-board LED on a Pico-W being connected to CywPin which
 does not support PWM (only digital In/Out) which means the LED examples will fail on the device (and
