@@ -31,13 +31,13 @@ def create(
         end: Callable[[], None] | None = None,
         continue_func: Callable[[], bool] | None = None) -> Callable[[], bool]:
     """
-    Creates an asynchronous function that will monitor a triggerable function for as long as the
-    continue_func returns true. When triggered, and if func specified, func will be repeatedly
-    called for the specified duration.
+    Creates a function that will monitor a triggerable function for as long as the
+    continue_func returns true. When triggered, and if func specified, func will be
+    repeatedly called for the specified duration.
 
     There is also an optional begin function which will be called once when the trigger
-    is activated and an optional end function that  will be called once when the trigger is
-    deactivated; which will occurs at the specified number of seconds after the trigger has
+    is activated and an optional end function that will be called once when the trigger is
+    deactivated; which will occur at the specified number of seconds after the trigger has
     been activated.
 
     At least one of begin, func or end must be provided, but they need not all be specified.
