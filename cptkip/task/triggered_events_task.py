@@ -28,7 +28,8 @@ class Trigger:
 
 def create(
         trigger: Callable[[], bool],
-        events: list[Tuple[float, Any, Callable[[Any], None] | None]],
+        events: list[
+            Tuple[float] | Tuple[float, Any] | Tuple[float, Any, Callable[[Any], None] | None]],
         begin: Callable[[], None] | None = None,
         func: Callable[[Any], None] | None = None,
         end: Callable[[], None] | None = None,
@@ -47,43 +48,50 @@ def create(
         if not carry_on:
             return False
 
-        now = monotonic()
-
         if trigger() and not running:
             debug("Start running trigger events")
 
             remaining = events.copy()
-            # TODO: Sort events based on time.
 
             start_time = monotonic()
             running = True
             if begin:
                 begin()
 
-        if running and not events:
+        if running and not remaining:
             debug("Stop running trigger events")
             running = False
             if end:
                 end()
 
-        if running and func is not None:
+        if running:
             now = monotonic()
             diff = now - start_time
+            # We are tolerant of the number of values in an event but the first
+            # value must be a time.
             events_to_fire = [event for event in remaining if diff >= event[0]]
 
-            # TODO: Sort events based on time.
+            for event in events_to_fire:
 
-            for time, event, callback in events_to_fire:
+                obj = None
+                callback = None
+
+                if len(event) > 1:
+                    obj = event[1]
+
+                if len(event) > 2:
+                    callback = event[2]
+
                 if not callback:
                     callback = func
 
-                # TODO: Check for none.
-                callback(event)
+                if not callback:
+                    raise ValueError("No callback provided")
+
+                callback(obj)
 
             for event in events_to_fire:
                 remaining.remove(event)
-
-            func()
 
         return True
 
