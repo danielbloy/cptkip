@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.3 - Beta
+
+Added the `triggered_events` task which allows for a trigger to instantiate timed events.
+
 ## 0.3.2 - Beta
 
 Added the `toggle()` method to `OutputPin`, `BuzzerPin` and `Led` to make it easier to alternate
