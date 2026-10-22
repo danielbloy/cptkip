@@ -77,6 +77,10 @@ def create(
         if not isinstance(event, tuple) or len(event) > 3:
             raise ValueError("All events must be tuples with one to three elements")
 
+        # First parameter must be a number
+        if not isinstance(event[0], (int, float)):
+            raise ValueError("First parameter of event must be a number")
+
         if len(event) < 3:
             if not callback:
                 raise ValueError(
