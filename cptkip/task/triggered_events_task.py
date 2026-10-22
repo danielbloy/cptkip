@@ -24,18 +24,66 @@ class Trigger:
         return result
 
 
-# TODO: Should this have a reset?
-
 def create(
         trigger: Callable[[], bool],
         events: list[
-            Tuple[float] | Tuple[float, Any] | Tuple[float, Any, Callable[[Any], None] | None]],
+            Tuple[float] |
+            Tuple[float, Any] |
+            Tuple[float, Any, Callable[[Any], None]]],
         begin: Callable[[], None] | None = None,
-        func: Callable[[Any], None] | None = None,
+        callback: Callable[[Any], None] | None = None,
         end: Callable[[], None] | None = None,
         continue_func: Callable[[], bool] | None = None) -> Callable[[], bool]:
-    # TODO: Validate parameters
-    #
+    """
+    Creates a function that will monitor a triggerable function for as long as the
+    continue_func returns true. When triggered, the events will start executing at
+    the specified interval after the trigger is activated.
+
+    Each event must specif at least one value and can specify up to three values:
+    * The first value is the interval at which the event will be triggered.
+    * The second value is the argument that will be passed to the event callback.
+    * The third value is the event callback function.
+
+    If any event does not specify an event callback function, then the generic callback
+    parameter is used. If no argument is specified for the event, None is passed to the
+    callback. If all events have an event callback specified, then callback is optional.
+    Otherwise, callback is mandatory.
+
+    There is also an optional begin function which will be called once when the trigger
+    is activated and an optional end function that will be called once when the trigger is
+    deactivated; which will occur at the specified number of seconds after the trigger has
+    been activated.
+
+    Once a trigger is activated, it will not be activated again until after it has expired
+    and been deactivated. The trigger function is used to activate the trigger by returning
+    True.
+
+    :param trigger: Function that triggers when it returns True.
+    :param events: The events to execute when the trigger is activated. Each event is a
+        tuple with at least one value and up to three values. The first value is the
+        interval, the second value is the value to provide to the event callback and the
+        third value is the event callback function.
+    :param begin: This is called once when the trigger is activated
+    :param callback: If all events have a callback function specified, then callback is
+        optional. Otherwise, it is mandatory and used for events with no event callback.
+    :param end: This is called once when the trigger ends.
+    :param continue_func: A function that returns whether to cancel the task or not.
+    """
+
+    # Loop through all events and if one of them does not have a function,
+    # then error if func is not specific. This also validates that each event
+    # contains a tuple.
+    for event in events:
+        if not isinstance(event, tuple) or len(event) > 3:
+            raise ValueError("All events must be tuples with one to three elements")
+
+        if len(event) < 3:
+            if not callback:
+                raise ValueError(
+                    "Callback must be provided if any event does not provide a callback")
+        else:
+            if not callable(event[2]):
+                raise ValueError("Event callbacks must be callable functions")
 
     running = False
     remaining = []
@@ -74,21 +122,18 @@ def create(
             for event in events_to_fire:
 
                 obj = None
-                callback = None
+                func = None
 
                 if len(event) > 1:
                     obj = event[1]
 
                 if len(event) > 2:
-                    callback = event[2]
+                    func = event[2]
 
-                if not callback:
-                    callback = func
+                if not func:
+                    func = callback
 
-                if not callback:
-                    raise ValueError("No callback provided")
-
-                callback(obj)
+                func(obj)
 
             for event in events_to_fire:
                 remaining.remove(event)
