@@ -1,3 +1,5 @@
+from math import trunc
+from time import monotonic
 from typing import Any
 
 import pytest
@@ -148,13 +150,7 @@ class TestTriggeredEventsTask:
 
         # noinspection PyTypeChecker
         run(trigger_task)
-        assert len(values) == 2
         assert values == ["A", "STOP"]
-
-    # TODO: Make sure each event is called exactly once.
-    # TODO: Make sure the correct value is passed back to the callback.
-    # TODO: Make sure the correct callback is called.
-    # TODO: Make sure the events are called in the correct order (even when specified out of order).
 
     def test_invokes_begin_callback(self) -> None:
         """
@@ -243,3 +239,203 @@ class TestTriggeredEventsTask:
         run(trigger_task)
 
         assert called_count == 1
+
+    def test_callbacks_invoked_in_correct_order(self) -> None:
+        """
+        Validates that the begin, event and end callbacks are called in the correct
+        order when the task is triggered. This also validates that the correct
+        value is passed to the callback.
+        """
+        seconds_to_run: int = 2
+
+        values = []
+
+        def begin():
+            values.append("begin")
+
+        def callback(value: str):
+            values.append(value)
+
+        def end():
+            values.append("end")
+
+        continue_fn = duration_limiter(seconds_to_run)
+
+        trigger = Trigger(triggered=True)
+        trigger_task = create(
+            trigger,
+            # Some of these events are specified in the wrong order
+            events=[(0.0, "a"), (1.1, "d"), (0.2, "b"), (0.8, "c"), (1.2, "e")],
+            begin=begin,
+            end=end,
+            callback=callback,
+            continue_func=continue_fn)
+
+        # noinspection PyTypeChecker
+        run(trigger_task)
+
+        assert values == ["begin", "a", "b", "c", "d", "e", "end"]
+
+    def test_callbacks_at_correct_interval(self) -> None:
+        """
+        Validates that the event callbacks are called at the correct time
+        interval.
+        """
+        seconds_to_run: int = 2
+
+        values = []
+        times = []
+
+        def callback(value: str):
+            now = monotonic()
+            times.append(now - start)
+            values.append(value)
+
+        continue_fn = duration_limiter(seconds_to_run)
+
+        trigger = Trigger(triggered=True)
+        trigger_task = create(
+            trigger,
+            # Some of these events are specified in the wrong order
+            events=[(0.0, "a"), (0.23, "b"), (0.801, "c"), (1.1, "d"), (1.2, "e")],
+            callback=callback,
+            continue_func=continue_fn)
+
+        start = monotonic()
+        # noinspection PyTypeChecker
+        run(trigger_task)
+
+        assert values == ["a", "b", "c", "d", "e"]
+
+        # Validate that times are correct to within 3 decimal places
+        times = [trunc(time * 1000) for time in times]
+        times = [time / 1000 for time in times]
+        assert times == [0.0, 0.23, 0.801, 1.1, 1.2]
+
+    def test_correct_callback_is_called(self) -> None:
+        """
+        Validates that the correct event callback is called.
+        """
+        seconds_to_run: int = 2
+
+        values = []
+
+        def callback(value: str):
+            values.append(f"callback: {value}")
+
+        def a_callback(value: str):
+            values.append(f"a_callback: {value}")
+
+        def c_callback(value: str):
+            values.append(f"c_callback: {value}")
+
+        def d_callback(value: str):
+            values.append(f"d_callback: {value}")
+
+        continue_fn = duration_limiter(seconds_to_run)
+
+        trigger = Trigger(triggered=True)
+        trigger_task = create(
+            trigger,
+            # Some of these events are specified in the wrong order
+            events=[
+                (0.0, "a", a_callback),
+                (0.23, "b"),
+                (0.801, "c", c_callback),
+                (1.1, "d", d_callback),
+                (1.2, "e")
+            ],
+            callback=callback,
+            continue_func=continue_fn)
+
+        start = monotonic()
+        # noinspection PyTypeChecker
+        run(trigger_task)
+
+        assert values == [
+            "a_callback: a",
+            "callback: b",
+            "c_callback: c",
+            "d_callback: d",
+            "callback: e"
+        ]
+
+    def test_tasks_do_not_overlap(self) -> None:
+        """
+        Validates that a second triggered task does not get invoked when it has
+        already been triggered and is still running.
+        """
+        seconds_to_run: int = 2
+
+        begin_count = 0
+        end_count = 0
+
+        def begin():
+            nonlocal begin_count
+            begin_count += 1
+
+        def callback(_: Any):
+            trigger.triggered = True
+
+        def end():
+            nonlocal end_count
+            end_count += 1
+
+        continue_fn = duration_limiter(seconds_to_run)
+
+        trigger = Trigger(triggered=True)
+        trigger_task = create(
+            trigger,
+            events=[(0.0,), (0.1,), (0.2,), (0.3,), (0.4,), (0.5,), (1.0,)],
+            begin=begin,
+            end=end,
+            callback=callback,
+            continue_func=continue_fn)
+
+        # noinspection PyTypeChecker
+        run(trigger_task)
+
+        assert begin_count == 1
+        assert end_count == 1
+
+    def test_task_can_be_retriggered(self) -> None:
+        """
+        Validates the task can be triggered a second time once the first trigger
+        has completed.
+        """
+        seconds_to_run: int = 2
+
+        begin_count = 0
+
+        def restart():
+            nonlocal restart_time
+
+            now = monotonic()
+            if now >= restart_time:
+                trigger.triggered = True
+                restart_time = now + 0.7
+
+            return continue_fn()
+
+        def begin():
+            nonlocal begin_count
+            begin_count += 1
+
+        def callback(_: Any):
+            pass
+
+        continue_fn = duration_limiter(seconds_to_run)
+
+        trigger = Trigger(triggered=True)
+        trigger_task = create(
+            trigger,
+            events=[(0.0,), (0.1,), (0.2,), (0.3,), (0.4,), (0.5,)],
+            begin=begin,
+            callback=callback,
+            continue_func=continue_fn)
+
+        # noinspection PyTypeChecker
+        restart_time = monotonic() + 0.7
+        run(trigger_task, restart)
+
+        assert begin_count == 3
