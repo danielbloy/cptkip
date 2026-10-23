@@ -4,6 +4,7 @@ import pytest
 
 from cptkip.task.basic_runner import run
 from cptkip.task.triggered_events_task import create, Trigger
+from cptkip.utilities import count_limiter, duration_limiter
 
 
 class TestTriggeredEventsTask:
@@ -102,4 +103,113 @@ class TestTriggeredEventsTask:
         run(trigger_task)
         assert not called
 
-# TODO: Finish tests
+    def test_task_stops(self) -> None:
+        """
+        Validates that the returned task terminates when the continue_func returns False.
+        """
+
+        # First we limit ourselves to just the first element based on the number of
+        # times we call continue_fn
+        continue_fn = count_limiter(4)
+
+        values = []
+
+        def callback(value: str) -> None:
+            nonlocal values
+            values.append(value)
+
+        trigger = Trigger(triggered=True)
+        trigger_task = create(
+            trigger,
+            events=[(0.0, "A"), (1.0, "B"), (2.0, "C")],
+            callback=callback,
+            continue_func=continue_fn)
+
+        # noinspection PyTypeChecker
+        run(trigger_task)
+        assert len(values) == 1
+        assert values == ["A"]
+
+        # Now we limit ourselves based on the "STOP" value
+        keep_going = True
+        values = []
+
+        def callback(value: str) -> None:
+            nonlocal values, keep_going
+            values.append(value)
+            keep_going = value != "STOP"
+
+        trigger = Trigger(triggered=True)
+        trigger_task = create(
+            trigger,
+            events=[(0.0, "A"), (0.1, "STOP"), (0.2, "C")],
+            callback=callback,
+            continue_func=lambda: keep_going)
+
+        # noinspection PyTypeChecker
+        run(trigger_task)
+        assert len(values) == 2
+        assert values == ["A", "STOP"]
+
+    # TODO: Make sure each event is called exactly once.
+    # TODO: Make sure the correct value is passed back to the callback.
+    # TODO: Make sure the correct callback is called.
+    # TODO: Make sure the events are called in the correct order (even when specified out of order).
+
+    def test_invokes_begin_callback(self) -> None:
+        """
+        Validates that the begin callback is called when the task is triggered.
+        """
+        called_count: int = 0
+        seconds_to_run: int = 1
+
+        def begin():
+            nonlocal called_count
+            called_count += 1
+
+        def callback(_: str) -> None:
+            pass
+
+        continue_fn = duration_limiter(seconds_to_run)
+
+        trigger = Trigger(triggered=True)
+        trigger_task = create(
+            trigger,
+            events=[(0.0,), (0.1,), (1.2,)],
+            begin=begin,
+            callback=callback,
+            continue_func=continue_fn)
+
+        # noinspection PyTypeChecker
+        run(trigger_task)
+
+        assert called_count == 1
+
+    def test_invokes_end_callback(self) -> None:
+        """
+        Validates that the end callback is called when the triggered task expires.
+        """
+        called_count: int = 0
+        seconds_to_run: int = 1
+
+        def end():
+            nonlocal called_count
+            called_count += 1
+
+        def callback(_: str) -> None:
+            pass
+
+        continue_fn = duration_limiter(seconds_to_run)
+
+        trigger = Trigger(triggered=True)
+        trigger_task = create(
+            trigger,
+            events=[(0.0,), (0.1,), (0.2,)],
+            end=end,
+            callback=callback,
+            continue_func=continue_fn)
+
+        # noinspection PyTypeChecker
+        run(trigger_task)
+
+        assert called_count == 1

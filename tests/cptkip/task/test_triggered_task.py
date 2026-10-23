@@ -140,7 +140,7 @@ class TestTriggeredTask:
             # noinspection PyTypeChecker
             create(lambda: True, duration=0.1)
 
-    def test_triggered_task_invokes_start_callback(self) -> None:
+    def test_triggered_task_invokes_begin_callback(self) -> None:
         """
         Validates that the begin callback is called when the task is triggered.
         """
@@ -182,7 +182,7 @@ class TestTriggeredTask:
 
         assert called_count >= (seconds_to_run * MIN_UPDATES_PER_SECOND)
 
-    def test_triggered_task_invokes_stop_callback(self) -> None:
+    def test_triggered_task_invokes_end_callback(self) -> None:
         """
         Validates that the end callback is called when the triggered task expires.
         """
@@ -202,6 +202,8 @@ class TestTriggeredTask:
         run(trigger_task)
 
         assert called_count == 1
+
+    # TODO: Test that end is called when terminates early (duration ==2.0
 
     def test_triggered_task_callbacks_invoked_in_correct_order(self) -> None:
         """
