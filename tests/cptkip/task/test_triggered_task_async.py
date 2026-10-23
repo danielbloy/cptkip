@@ -203,6 +203,28 @@ class TestTriggeredTask:
 
         assert called_count == 1
 
+    def test_triggered_task_invokes_end_callback_with_early_exit(self) -> None:
+        """
+        Validates that the end callback is called when the task is cancelled
+        early and the trigger has not expired.
+        """
+        called_count: int = 0
+        seconds_to_run: int = 1
+
+        async def task():
+            nonlocal called_count
+            called_count += 1
+
+        continue_fn = duration_limiter(seconds_to_run)
+
+        trigger = Trigger(triggered=True)
+        trigger_task = create(trigger, duration=2.0, end=task, continue_func=continue_fn)
+
+        # noinspection PyTypeChecker
+        asyncio.run(trigger_task())
+
+        assert called_count == 1
+
     def test_triggered_task_callbacks_invoked_in_correct_order(self) -> None:
         """
         Validates that the begin, func and end callbacks are called in the correct

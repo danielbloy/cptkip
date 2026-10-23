@@ -50,7 +50,7 @@ def create(
     :param duration: The duration that trigger lasts (i.e. the time between start and stop calls).
     :param begin: This is called once when the trigger is activated
     :param func: This is called once every cycle when triggered.
-    :param end: This is called once when the trigger expires.
+    :param end: This is called once when the trigger expires (or if it finishes early).
     :param continue_func: A function that returns whether to cancel the task or not.
     """
 
@@ -65,6 +65,8 @@ def create(
 
         carry_on = not continue_func or continue_func()
         if not carry_on:
+            if end and running:
+                end()
             return False
 
         now = monotonic()

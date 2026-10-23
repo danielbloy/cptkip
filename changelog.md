@@ -2,7 +2,9 @@
 
 ## 0.3.3 - Beta
 
-Added the `triggered_events` task which allows for a trigger to instantiate timed events.
+Added the `triggered_events_task.py` task which allows for a trigger to instantiate timed events.
+This also includes a slight behaviour change to `triggered_task.py` and `triggered_task_async.py`
+where the `end` callback is called now if there is an early exit.
 
 ## 0.3.2 - Beta
 

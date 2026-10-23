@@ -66,7 +66,7 @@ def create(
     :param begin: This is called once when the trigger is activated
     :param callback: If all events have a callback function specified, then callback is
         optional. Otherwise, it is mandatory and used for events with no event callback.
-    :param end: This is called once when the trigger ends.
+    :param end: This is called once when the trigger ends (or if it finishes early).
     :param continue_func: A function that returns whether to cancel the task or not.
     """
 
@@ -98,6 +98,8 @@ def create(
 
         carry_on = not continue_func or continue_func()
         if not carry_on:
+            if end and running:
+                end()
             return False
 
         if trigger() and not running:

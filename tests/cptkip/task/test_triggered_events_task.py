@@ -4,7 +4,7 @@ import pytest
 
 from cptkip.task.basic_runner import run
 from cptkip.task.triggered_events_task import create, Trigger
-from cptkip.utilities import count_limiter, duration_limiter
+from tests.cptkip.utilities import count_limiter, duration_limiter
 
 
 class TestTriggeredEventsTask:
@@ -205,6 +205,36 @@ class TestTriggeredEventsTask:
         trigger_task = create(
             trigger,
             events=[(0.0,), (0.1,), (0.2,)],
+            end=end,
+            callback=callback,
+            continue_func=continue_fn)
+
+        # noinspection PyTypeChecker
+        run(trigger_task)
+
+        assert called_count == 1
+
+    def test_invokes_end_callback_with_early_exit(self) -> None:
+        """
+        Validates that the end callback is called when the task is cancelled
+        early and the trigger has not expired.
+        """
+        called_count: int = 0
+        seconds_to_run: int = 1
+
+        def end():
+            nonlocal called_count
+            called_count += 1
+
+        def callback(_: str) -> None:
+            pass
+
+        continue_fn = duration_limiter(seconds_to_run)
+
+        trigger = Trigger(triggered=True)
+        trigger_task = create(
+            trigger,
+            events=[(0.0,), (0.1,), (1.2,)],
             end=end,
             callback=callback,
             continue_func=continue_fn)
