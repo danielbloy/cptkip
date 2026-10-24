@@ -38,6 +38,7 @@ class TestTriggeredEventsTaskAsync:
         create(lambda: False, events=[(0.0, None, callback), (0.0,), (0.0, None, callback)],
                callback=callback)
 
+    # noinspection bad-argument-type
     def test_event_contains_tuples(self) -> None:
         """
         Validates that events must contain tuples with 1, 2 or 3 elements.
@@ -378,7 +379,6 @@ class TestTriggeredEventsTaskAsync:
             callback=callback,
             continue_func=continue_fn)
 
-        start = monotonic()
         # noinspection PyTypeChecker
         asyncio.run(trigger_task())
 
@@ -448,7 +448,7 @@ class TestTriggeredEventsTaskAsync:
         async def begin():
             nonlocal begin_count
             begin_count += 1
-            delayed_restart = asyncio.create_task(restart())
+            asyncio.create_task(restart())
 
         async def callback(_: Any):
             pass
@@ -465,6 +465,5 @@ class TestTriggeredEventsTaskAsync:
 
         # noinspection PyTypeChecker
         asyncio.run(trigger_task())
-        # TODO: Validate
 
         assert begin_count == 3

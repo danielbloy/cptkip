@@ -317,7 +317,7 @@ class TestTriggeredTaskAsync:
         async def begin():
             nonlocal begin_count
             begin_count += 1
-            delayed_restart = asyncio.create_task(restart())
+            asyncio.create_task(restart())
 
         continue_fn = duration_limiter(seconds_to_run)
 

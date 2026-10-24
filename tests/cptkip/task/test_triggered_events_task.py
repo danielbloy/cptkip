@@ -35,6 +35,7 @@ class TestTriggeredEventsTask:
         create(lambda: False, events=[(0.0, None, callback), (0.0,), (0.0, None, callback)],
                callback=callback)
 
+    # noinspection bad-argument-type
     def test_event_contains_tuples(self) -> None:
         """
         Validates that events must contain tuples with 1, 2 or 3 elements.
@@ -381,7 +382,6 @@ class TestTriggeredEventsTask:
             callback=callback,
             continue_func=continue_fn)
 
-        start = monotonic()
         # noinspection PyTypeChecker
         run(trigger_task)
 
