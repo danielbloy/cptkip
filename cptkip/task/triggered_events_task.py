@@ -106,7 +106,6 @@ def create(
             debug("Start running trigger events")
 
             remaining = events.copy()
-
             start_time = monotonic()
             running = True
             if begin:
@@ -114,6 +113,7 @@ def create(
 
         if running and not remaining:
             debug("Stop running trigger events")
+
             running = False
             if end:
                 end()

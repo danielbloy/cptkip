@@ -70,6 +70,7 @@ def create(
 
             if trigger() and not running:
                 debug("Start running trigger event")
+
                 stop_time = now + duration
                 running = True
                 if begin:
@@ -77,6 +78,7 @@ def create(
 
             if running and now >= stop_time:
                 debug("Stop running trigger event")
+                
                 running = False
                 if end:
                     await end()
