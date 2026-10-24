@@ -1,10 +1,12 @@
 import asyncio
+from math import trunc
+from time import monotonic
 from typing import Any
 
 import pytest
 
 from cptkip.task.triggered_events_task_async import create, Trigger
-from tests.cptkip.utilities import count_limiter
+from tests.cptkip.utilities import count_limiter, duration_limiter
 
 # This is the minimum number of updates per second we expect func to be called.
 MIN_UPDATES_PER_SECOND = 100
@@ -179,3 +181,290 @@ class TestTriggeredEventsTaskAsync:
         assert begin_called == 0
         assert func_called == 0
         assert end_called == 0
+
+    def test_invokes_begin_callback(self) -> None:
+        """
+        Validates that the begin callback is called when the task is triggered.
+        """
+        called_count: int = 0
+        seconds_to_run: int = 1
+
+        async def begin():
+            nonlocal called_count
+            called_count += 1
+
+        async def callback(_: str) -> None:
+            pass
+
+        continue_fn = duration_limiter(seconds_to_run)
+
+        trigger = Trigger(triggered=True)
+        trigger_task = create(
+            trigger,
+            events=[(0.0,), (0.1,), (1.2,)],
+            begin=begin,
+            callback=callback,
+            continue_func=continue_fn)
+
+        # noinspection PyTypeChecker
+        asyncio.run(trigger_task())
+
+        assert called_count == 1
+
+    def test_invokes_end_callback(self) -> None:
+        """
+        Validates that the end callback is called when the triggered task expires.
+        """
+        called_count: int = 0
+        seconds_to_run: int = 1
+
+        async def end():
+            nonlocal called_count
+            called_count += 1
+
+        async def callback(_: str) -> None:
+            pass
+
+        continue_fn = duration_limiter(seconds_to_run)
+
+        trigger = Trigger(triggered=True)
+        trigger_task = create(
+            trigger,
+            events=[(0.0,), (0.1,), (0.2,)],
+            end=end,
+            callback=callback,
+            continue_func=continue_fn)
+
+        # noinspection PyTypeChecker
+        asyncio.run(trigger_task())
+
+        assert called_count == 1
+
+    def test_invokes_end_callback_with_early_exit(self) -> None:
+        """
+        Validates that the end callback is called when the task is cancelled
+        early and the trigger has not expired.
+        """
+        called_count: int = 0
+        seconds_to_run: int = 1
+
+        async def end():
+            nonlocal called_count
+            called_count += 1
+
+        async def callback(_: str) -> None:
+            pass
+
+        continue_fn = duration_limiter(seconds_to_run)
+
+        trigger = Trigger(triggered=True)
+        trigger_task = create(
+            trigger,
+            events=[(0.0,), (0.1,), (1.2,)],
+            end=end,
+            callback=callback,
+            continue_func=continue_fn)
+
+        # noinspection PyTypeChecker
+        asyncio.run(trigger_task())
+
+        assert called_count == 1
+
+    def test_callbacks_invoked_in_correct_order(self) -> None:
+        """
+        Validates that the begin, event and end callbacks are called in the correct
+        order when the task is triggered. This also validates that the correct
+        value is passed to the callback.
+        """
+        seconds_to_run: int = 2
+
+        values = []
+
+        async def begin():
+            values.append("begin")
+
+        async def callback(value: str):
+            values.append(value)
+
+        async def end():
+            values.append("end")
+
+        continue_fn = duration_limiter(seconds_to_run)
+
+        trigger = Trigger(triggered=True)
+        trigger_task = create(
+            trigger,
+            # Some of these events are specified in the wrong order
+            events=[(0.0, "a"), (1.1, "d"), (0.2, "b"), (0.8, "c"), (1.2, "e")],
+            begin=begin,
+            end=end,
+            callback=callback,
+            continue_func=continue_fn)
+
+        # noinspection PyTypeChecker
+        asyncio.run(trigger_task())
+
+        assert values == ["begin", "a", "b", "c", "d", "e", "end"]
+
+    def test_callbacks_at_correct_interval(self) -> None:
+        """
+        Validates that the event callbacks are called at the correct time
+        interval.
+        """
+        seconds_to_run: int = 2
+
+        values = []
+        times = []
+
+        async def callback(value: str):
+            now = monotonic()
+            times.append(now - start)
+            values.append(value)
+
+        continue_fn = duration_limiter(seconds_to_run)
+
+        trigger = Trigger(triggered=True)
+        trigger_task = create(
+            trigger,
+            # Some of these events are specified in the wrong order
+            events=[(0.0, "a"), (0.23, "b"), (0.801, "c"), (1.1, "d"), (1.2, "e")],
+            callback=callback,
+            continue_func=continue_fn)
+
+        start = monotonic()
+        # noinspection PyTypeChecker
+        asyncio.run(trigger_task())
+
+        assert values == ["a", "b", "c", "d", "e"]
+
+        # Validate that times are correct to within 3 decimal places
+        times = [trunc(time * 1000) for time in times]
+        times = [time / 1000 for time in times]
+        assert times == [0.0, 0.23, 0.801, 1.1, 1.2]
+
+    def test_correct_callback_is_called(self) -> None:
+        """
+        Validates that the correct event callback is called.
+        """
+        seconds_to_run: int = 2
+
+        values = []
+
+        async def callback(value: str):
+            values.append(f"callback: {value}")
+
+        async def a_callback(value: str):
+            values.append(f"a_callback: {value}")
+
+        async def c_callback(value: str):
+            values.append(f"c_callback: {value}")
+
+        async def d_callback(value: str):
+            values.append(f"d_callback: {value}")
+
+        continue_fn = duration_limiter(seconds_to_run)
+
+        trigger = Trigger(triggered=True)
+        trigger_task = create(
+            trigger,
+            # Some of these events are specified in the wrong order
+            events=[
+                (0.0, "a", a_callback),
+                (0.23, "b"),
+                (0.801, "c", c_callback),
+                (1.1, "d", d_callback),
+                (1.2, "e")
+            ],
+            callback=callback,
+            continue_func=continue_fn)
+
+        start = monotonic()
+        # noinspection PyTypeChecker
+        asyncio.run(trigger_task())
+
+        assert values == [
+            "a_callback: a",
+            "callback: b",
+            "c_callback: c",
+            "d_callback: d",
+            "callback: e"
+        ]
+
+    def test_tasks_do_not_overlap(self) -> None:
+        """
+        Validates that a second triggered task does not get invoked when it has
+        already been triggered and is still running.
+        """
+        seconds_to_run: int = 2
+
+        begin_count = 0
+        end_count = 0
+
+        async def begin():
+            nonlocal begin_count
+            begin_count += 1
+
+        async def callback(_: Any):
+            trigger.triggered = True
+
+        async def end():
+            nonlocal end_count
+            end_count += 1
+
+        continue_fn = duration_limiter(seconds_to_run)
+
+        trigger = Trigger(triggered=True)
+        trigger_task = create(
+            trigger,
+            events=[(0.0,), (0.1,), (0.2,), (0.3,), (0.4,), (0.5,), (1.0,)],
+            begin=begin,
+            end=end,
+            callback=callback,
+            continue_func=continue_fn)
+
+        # noinspection PyTypeChecker
+        asyncio.run(trigger_task())
+
+        assert begin_count == 1
+        assert end_count == 1
+
+    def test_task_can_be_retriggered(self) -> None:
+        """
+        Validates the task can be triggered a second time once the first trigger
+        has completed.
+        """
+        seconds_to_run: int = 2
+
+        begin_count = 0
+
+        async def restart():
+            await asyncio.sleep(0.7)
+            trigger.triggered = True
+            await asyncio.sleep(0.7)
+            trigger.triggered = True
+            await asyncio.sleep(0.7)
+            trigger.triggered = True
+
+        async def begin():
+            nonlocal begin_count
+            begin_count += 1
+            delayed_restart = asyncio.create_task(restart())
+
+        async def callback(_: Any):
+            pass
+
+        continue_fn = duration_limiter(seconds_to_run)
+
+        trigger = Trigger(triggered=True)
+        trigger_task = create(
+            trigger,
+            events=[(0.0,), (0.1,), (0.2,), (0.3,), (0.4,), (0.5,)],
+            begin=begin,
+            callback=callback,
+            continue_func=continue_fn)
+
+        # noinspection PyTypeChecker
+        asyncio.run(trigger_task())
+        # TODO: Validate
+
+        assert begin_count == 3
