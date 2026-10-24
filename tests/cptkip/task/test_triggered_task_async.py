@@ -10,7 +10,7 @@ from tests.cptkip.utilities import count_limiter, duration_limiter
 MIN_UPDATES_PER_SECOND = 100
 
 
-class TestTriggeredTask:
+class TestTriggeredTaskAsync:
 
     def test_task_never_called(self) -> None:
         """
