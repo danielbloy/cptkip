@@ -31,13 +31,13 @@ def create(
         end: Callable[[], None] | None = None,
         continue_func: Callable[[], bool] | None = None) -> Callable[[], bool]:
     """
-    Creates an asynchronous function that will monitor a triggerable function for as long as the
-    continue_func returns true. When triggered, and if func specified, func will be repeatedly
-    called for the specified duration.
+    Creates a function that will monitor a triggerable function for as long as the
+    continue_func returns true. When triggered, and if func specified, func will be
+    repeatedly called for the specified duration.
 
     There is also an optional begin function which will be called once when the trigger
-    is activated and an optional end function that  will be called once when the trigger is
-    deactivated; which will occurs at the specified number of seconds after the trigger has
+    is activated and an optional end function that will be called once when the trigger is
+    deactivated; which will occur at the specified number of seconds after the trigger has
     been activated.
 
     At least one of begin, func or end must be provided, but they need not all be specified.
@@ -50,7 +50,7 @@ def create(
     :param duration: The duration that trigger lasts (i.e. the time between start and stop calls).
     :param begin: This is called once when the trigger is activated
     :param func: This is called once every cycle when triggered.
-    :param end: This is called once when the trigger expires.
+    :param end: This is called once when the trigger expires (or if it finishes early).
     :param continue_func: A function that returns whether to cancel the task or not.
     """
 
@@ -65,12 +65,15 @@ def create(
 
         carry_on = not continue_func or continue_func()
         if not carry_on:
+            if end and running:
+                end()
             return False
 
         now = monotonic()
 
         if trigger() and not running:
             debug("Start running trigger event")
+
             stop_time = now + duration
             running = True
             if begin:
@@ -78,6 +81,7 @@ def create(
 
         if running and now >= stop_time:
             debug("Stop running trigger event")
+            
             running = False
             if end:
                 end()

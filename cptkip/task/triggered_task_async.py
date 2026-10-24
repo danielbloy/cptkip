@@ -52,7 +52,7 @@ def create(
     :param duration: The duration that trigger lasts (i.e. the time between start and stop calls).
     :param begin: This is called once when the trigger is activated
     :param func: This is called once every cycle when triggered.
-    :param end: This is called once when the trigger expires.
+    :param end: This is called once when the trigger expires (or if it finishes early).
     :param continue_func: A function that returns whether to cancel the task or not.
     """
 
@@ -70,6 +70,7 @@ def create(
 
             if trigger() and not running:
                 debug("Start running trigger event")
+
                 stop_time = now + duration
                 running = True
                 if begin:
@@ -77,11 +78,15 @@ def create(
 
             if running and now >= stop_time:
                 debug("Stop running trigger event")
+                
                 running = False
                 if end:
                     await end()
 
             if running and func is not None:
                 await func()
+
+        if end and running:
+            await end()
 
     return handler

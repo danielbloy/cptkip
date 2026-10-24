@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.3 - Stable
+
+Added the `triggered_events_task.py` task which allows for a trigger to instantiate timed events.
+This also includes a slight behaviour change to `triggered_task.py` and `triggered_task_async.py`
+where the `end` callback is called now if there is an early exit.
+
 ## 0.3.2 - Beta
 
 Added the `toggle()` method to `OutputPin`, `BuzzerPin` and `Led` to make it easier to alternate
@@ -12,8 +18,7 @@ the `cptkip` directory from over 100Kb down to 30Kb:
 
 * https://learn.adafruit.com/creating-and-sharing-a-circuitpython-library
 
-## 0.3.0 - Beta, breaking change to for `cptkip/task/basic_runner.py` and
-
+## 0.3.0 - Beta, breaking change to `cptkip/task/basic_runner.py` and
 `cptkip/task/basic_runner_async.py`
 
 Rather than accept a list of functions, the `run()` use *args. The migration is trivial, simply

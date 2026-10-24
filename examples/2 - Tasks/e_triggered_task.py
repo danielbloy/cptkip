@@ -35,10 +35,10 @@ def led_pulse() -> None:
     log.info(f"{time.monotonic()}: LED {"on" if led.toggle() else "off"}")
 
 
-led_task = create(lambda: trigger, 0.5, begin=led_pulse, continue_func=should_continue)
+task = create(lambda: trigger, 0.5, begin=led_pulse, continue_func=should_continue)
 
 finish = time.monotonic() + 3
 trigger_time = time.monotonic() + 1
 
-runner.run(delay, led_task)
+runner.run(delay, task)
 led.off()

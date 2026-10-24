@@ -7,7 +7,7 @@ from cptkip.core.control import NS_PER_SECOND
 from cptkip.task.memory_monitor_task_async import create
 
 
-class TestMemoryMonitorTask:
+class TestMemoryMonitorTaskAsync:
     """
     The memory monitor task is not easy to test as it is designed to be
     a basic reporting tool, wrapping the existing memory functions. We

@@ -4,7 +4,6 @@
 
 The following functionality is a priority to implement in 0.3.x:
 
-* Timed Events Task - async sync (inspired by `pico-interactive`)
 * Support for MEMS microphone
 * Support for Ultrasonic sensors
 
