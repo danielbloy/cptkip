@@ -1,7 +1,8 @@
 #
 # This example runs two synchronous tasks, the first task contains a delay
 # which triggers the second task which triggers some timed events that are
-# used to control the state of the LED.
+# used to control the state of the LED. In this example, the trigger task
+# ends as soon as the self-resetting trigger is fired.
 
 import time
 
@@ -18,17 +19,16 @@ def should_continue() -> bool:
     return time.monotonic() < finish
 
 
-triggered = False
 trigger = Trigger(False)
 
 
 def delay() -> bool:
-    global trigger, triggered, trigger_time
+    global trigger_time
 
-    if not triggered and time.monotonic() >= trigger_time:
+    if not trigger.triggered and time.monotonic() >= trigger_time:
         log.info(f"{time.monotonic()}: trigger")
         trigger.triggered = True
-        triggered = True
+        return False
 
     return should_continue()
 
@@ -57,18 +57,20 @@ def custom(value: str) -> None:
     log.info(f"{time.monotonic()}: Custom handler, Value: {value}")
 
 
+# Note: the events are deliberately out of order with respect to time.
 events = [
+    (1.5, "Last event"),
     (0.1,),
     (0.5, 1),
     (1.2, "A", custom),
     (1.0, 0),
 ]
 
-led_task = create(trigger, events, begin=begin, callback=fallback, end=end,
-                  continue_func=should_continue)
+task = create(trigger, events, begin=begin, callback=fallback, end=end,
+              continue_func=should_continue)
 
 finish = time.monotonic() + 3
 trigger_time = time.monotonic() + 1
 
-runner.run(delay, led_task)
+runner.run(delay, task)
 led.off()
