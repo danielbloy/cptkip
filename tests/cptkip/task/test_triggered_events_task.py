@@ -152,6 +152,39 @@ class TestTriggeredEventsTask:
         run(trigger_task)
         assert values == ["A", "STOP"]
 
+    def test_task_not_triggered(self) -> None:
+        """
+        Validates that the task is not called when not triggered.
+        """
+
+        continue_fn = count_limiter(20)
+
+        begin_called = 0
+        func_called = 0
+        end_called = 0
+
+        def begin():
+            nonlocal begin_called
+            begin_called += 1
+
+        def callback(_: Any):
+            nonlocal func_called
+            func_called += 1
+
+        def end():
+            nonlocal end_called
+            end_called += 1
+
+        trigger = Trigger(triggered=False)
+        trigger_task = create(trigger, events=[(0.0,), (1.0,), (2.0,)], begin=begin,
+                              callback=callback, end=end, continue_func=continue_fn)
+
+        # noinspection PyTypeChecker
+        run(trigger_task)
+        assert begin_called == 0
+        assert func_called == 0
+        assert end_called == 0
+
     def test_invokes_begin_callback(self) -> None:
         """
         Validates that the begin callback is called when the task is triggered.

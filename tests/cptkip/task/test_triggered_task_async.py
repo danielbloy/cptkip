@@ -131,7 +131,7 @@ class TestTriggeredTaskAsync:
         assert (end - begin) > (seconds_to_run * 0.95)
         assert called_count >= (seconds_to_run * MIN_UPDATES_PER_SECOND)
 
-    def test_triggered_task_errors_with_no_callback(self) -> None:
+    def test_errors_with_no_callback(self) -> None:
         """
         Validates an error is raised when create() is invoked
         without a begin, func or end.
@@ -140,7 +140,7 @@ class TestTriggeredTaskAsync:
             # noinspection PyTypeChecker
             create(lambda: True, duration=0.1)
 
-    def test_triggered_task_invokes_start_callback(self) -> None:
+    def test_invokes_start_callback(self) -> None:
         """
         Validates that the begin callback is called when the task is triggered.
         """
@@ -161,7 +161,7 @@ class TestTriggeredTaskAsync:
 
         assert called_count == 1
 
-    def test_triggered_task_invokes_run_callback(self) -> None:
+    def test_invokes_run_callback(self) -> None:
         """
         Validates that the func callback is called repeatedly when the task is triggered.
         """
@@ -182,7 +182,7 @@ class TestTriggeredTaskAsync:
 
         assert called_count >= (seconds_to_run * MIN_UPDATES_PER_SECOND)
 
-    def test_triggered_task_invokes_stop_callback(self) -> None:
+    def test_invokes_stop_callback(self) -> None:
         """
         Validates that the end callback is called when the triggered task expires.
         """
@@ -203,7 +203,7 @@ class TestTriggeredTaskAsync:
 
         assert called_count == 1
 
-    def test_triggered_task_invokes_end_callback_with_early_exit(self) -> None:
+    def test_invokes_end_callback_with_early_exit(self) -> None:
         """
         Validates that the end callback is called when the task is cancelled
         early and the trigger has not expired.
@@ -225,7 +225,7 @@ class TestTriggeredTaskAsync:
 
         assert called_count == 1
 
-    def test_triggered_task_callbacks_invoked_in_correct_order(self) -> None:
+    def test_callbacks_invoked_in_correct_order(self) -> None:
         """
         Validates that the begin, func and end callbacks are called in the correct
         order when the task is triggered.
@@ -297,7 +297,7 @@ class TestTriggeredTaskAsync:
         assert begin_count == 1
         assert end_count == 1
 
-    def test_triggered_task_can_be_retriggered(self) -> None:
+    def test_can_be_retriggered(self) -> None:
         """
         Validates the task can be triggered a second time once the first trigger
         has completed.
