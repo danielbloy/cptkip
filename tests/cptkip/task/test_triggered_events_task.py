@@ -5,9 +5,8 @@ from typing import Any
 import pytest
 
 from cptkip.task.basic_runner import run
-from cptkip.task.limiters import count_limiter
+from cptkip.task.limiters import count_limiter, duration_limiter
 from cptkip.task.triggered_events_task import create, Trigger
-from tests.cptkip.utilities import duration_limiter
 
 
 class TestTriggeredEventsTask:
