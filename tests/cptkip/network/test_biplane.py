@@ -1,5 +1,5 @@
-from collections.abc import Callable
 from threading import Thread
+from typing import Callable
 
 # noinspection protected-member
 from cptkip.network.biplane import get_host as get_host, get_port as get_port, Server, Response

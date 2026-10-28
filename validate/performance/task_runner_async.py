@@ -3,9 +3,8 @@ from time import monotonic
 import cptkip.task.basic_runner_async as runner_async
 from cptkip.core.environment import is_running_on_desktop
 
-# These are not available in CircuitPython.
 if is_running_on_desktop():
-    from collections.abc import Callable, Awaitable
+    from typing import Callable, Awaitable
 
 finish = 0
 continue_func = lambda: monotonic() < finish

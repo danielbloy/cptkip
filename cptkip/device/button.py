@@ -3,9 +3,8 @@ from adafruit_debouncer import Button as DebounceButton
 import cptkip.core.environment as environment
 from cptkip.pin.input_pin import InputPin
 
-# collections.abc is not available in CircuitPython.
 if environment.is_running_on_desktop():
-    from collections.abc import Callable
+    from typing import Callable
 
 
 class Button:

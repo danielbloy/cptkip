@@ -12,9 +12,8 @@ from cptkip.core.environment import is_running_on_desktop
 from cptkip.core.memory import report_memory_usage_and_free
 from cptkip.core.memory import reset_memory_usage
 
-# These are not available in CircuitPython.
 if is_running_on_desktop():
-    from collections.abc import Callable, Awaitable
+    from typing import Callable, Awaitable
 
 RUNTIME = 4
 SAMPLE_FREQUENCY = 10

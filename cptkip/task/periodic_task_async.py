@@ -4,9 +4,8 @@ from time import monotonic_ns
 import cptkip.core.environment as environment
 from cptkip.core.control import NS_PER_SECOND, ASYNC_LOOP_SLEEP_INTERVAL
 
-# collections.abc is not available in CircuitPython.
 if environment.is_running_on_desktop():
-    from collections.abc import Callable, Awaitable
+    from typing import Callable, Awaitable
 
 
 def create(

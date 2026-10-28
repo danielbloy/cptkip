@@ -5,6 +5,7 @@ import time
 import tests.cptkip.utilities as utils
 from cptkip.core.control import NS_PER_SECOND
 from cptkip.task.basic_runner_async import run
+from cptkip.task.limiters import count_limiter
 from cptkip.task.periodic_task_async import create
 
 
@@ -28,14 +29,14 @@ class TestPeriodicTaskAsync:
         assert count == 0
 
         # Check that a single call occurs.
-        task = create(func, continue_func=utils.count_limiter(1))
+        task = create(func, continue_func=count_limiter(1))
 
         asyncio.run(task())
         assert count == 1
 
         # Check that it gets called 10 times.
         count = 0
-        task = create(func, continue_func=utils.count_limiter(10))
+        task = create(func, continue_func=count_limiter(10))
 
         asyncio.run(task())
         assert count == 10
@@ -107,7 +108,7 @@ class TestPeriodicTaskAsync:
             nonlocal begin_count
             begin_count += 1
 
-        task = create(func, continue_func=utils.count_limiter(10), begin=begin_func)
+        task = create(func, continue_func=count_limiter(10), begin=begin_func)
 
         asyncio.run(task())
         assert count == 10
@@ -136,7 +137,7 @@ class TestPeriodicTaskAsync:
             nonlocal end_count
             end_count += 1
 
-        task = create(func, continue_func=utils.count_limiter(10), end=end_func)
+        task = create(func, continue_func=count_limiter(10), end=end_func)
 
         asyncio.run(task())
         assert count == 10
@@ -176,7 +177,8 @@ class TestPeriodicTaskAsync:
             nonlocal end_count
             end_count += 1
 
-        task = create(func, continue_func=utils.count_limiter(10), begin=begin_func, end=end_func)
+        task = create(func, continue_func=count_limiter(10), begin=begin_func,
+                      end=end_func)
 
         asyncio.run(task())
         assert count == 10

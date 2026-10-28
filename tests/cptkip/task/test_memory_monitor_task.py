@@ -3,6 +3,7 @@ import time
 import cptkip.core.memory as memory
 import tests.cptkip.utilities as utils
 from cptkip.task.basic_runner import run
+from cptkip.task.limiters import count_limiter
 from cptkip.task.memory_monitor_task import create
 
 
@@ -67,11 +68,11 @@ class TestMemoryMonitorTask:
         """
         Validates that memory monitor correct uses the continue_func.
         """
-        task = create(1, 1, continue_func=utils.count_limiter(1))
+        task = create(1, 1, continue_func=count_limiter(1))
         assert task()
         assert not task()
 
-        task = create(1, 1, continue_func=utils.count_limiter(3))
+        task = create(1, 1, continue_func=count_limiter(3))
         assert task()
         assert task()
         assert task()

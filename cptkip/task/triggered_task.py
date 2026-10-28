@@ -3,9 +3,8 @@ from time import monotonic
 import cptkip.core.environment as environment
 from cptkip.core.logging import debug
 
-# collections.abc is not available in CircuitPython.
 if environment.is_running_on_desktop():
-    from collections.abc import Callable
+    from typing import Callable
 
 
 class Trigger:
@@ -81,7 +80,7 @@ def create(
 
         if running and now >= stop_time:
             debug("Stop running trigger event")
-            
+
             running = False
             if end:
                 end()

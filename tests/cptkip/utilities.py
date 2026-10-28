@@ -1,24 +1,9 @@
 import time
-from collections.abc import Callable
+from typing import Callable
 
 
 def stop() -> bool:
     return False
-
-
-def count_limiter(total: int) -> Callable[[], bool]:
-    """
-    Returns a function that returns true for the specified number of times
-    it is called.
-    """
-    count: int = 0
-
-    def func() -> bool:
-        nonlocal count
-        count += 1
-        return count <= total
-
-    return func
 
 
 def duration_limiter(seconds: float) -> Callable[[], bool]:

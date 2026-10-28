@@ -3,6 +3,7 @@ import asyncio
 import cptkip.device.button as button
 import cptkip.task.periodic_task_async as periodic_task
 import tests.cptkip.utilities as utils
+from cptkip.task.limiters import count_limiter
 
 
 class MockInputPin:
@@ -48,10 +49,10 @@ class TestButton:
             task = periodic_task.create(update, continue_func=utils.stop)
             asyncio.run(task())
 
-            task = periodic_task.create(update, continue_func=utils.count_limiter(1))
+            task = periodic_task.create(update, continue_func=count_limiter(1))
             asyncio.run(task())
 
-            task = periodic_task.create(update, continue_func=utils.count_limiter(10))
+            task = periodic_task.create(update, continue_func=count_limiter(10))
             asyncio.run(task())
 
     def test_click(self):

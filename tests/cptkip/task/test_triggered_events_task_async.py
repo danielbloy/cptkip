@@ -5,8 +5,9 @@ from typing import Any
 
 import pytest
 
+from cptkip.task.limiters import count_limiter
 from cptkip.task.triggered_events_task_async import create, Trigger
-from tests.cptkip.utilities import count_limiter, duration_limiter
+from tests.cptkip.utilities import duration_limiter
 
 # This is the minimum number of updates per second we expect func to be called.
 MIN_UPDATES_PER_SECOND = 100

@@ -1,8 +1,7 @@
 import cptkip.core.environment as environment
 
-# collections.abc is not available in CircuitPython.
 if environment.is_running_on_desktop():
-    from collections.abc import Callable
+    from typing import Callable
 
 
 def run(*funcs: Callable[[], bool]) -> None:

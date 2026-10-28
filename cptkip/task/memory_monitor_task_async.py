@@ -6,9 +6,8 @@ from cptkip.core.control import NS_PER_SECOND, ASYNC_LOOP_SLEEP_INTERVAL
 from cptkip.core.memory import report_memory_usage
 from cptkip.core.memory import sample_memory_usage
 
-# collections.abc is not available in CircuitPython.
 if environment.is_running_on_desktop():
-    from collections.abc import Callable, Awaitable
+    from typing import Callable, Awaitable
 
 
 def create(

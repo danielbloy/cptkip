@@ -4,6 +4,7 @@ from time import monotonic_ns
 import cptkip.core.memory as memory
 import tests.cptkip.utilities as utils
 from cptkip.core.control import NS_PER_SECOND
+from cptkip.task.limiters import count_limiter
 from cptkip.task.memory_monitor_task_async import create
 
 
@@ -63,12 +64,12 @@ class TestMemoryMonitorTaskAsync:
         """
         Validates that memory monitor correct uses the continue_func.
         """
-        continue_func = utils.count_limiter(1)
+        continue_func = count_limiter(1)
         task = create(1, 1, continue_func=continue_func)
         asyncio.run(task())
         assert not continue_func()
 
-        continue_func = utils.count_limiter(3)
+        continue_func = count_limiter(3)
         task = create(1, 1, continue_func=continue_func)
         asyncio.run(task())
         assert not continue_func()
