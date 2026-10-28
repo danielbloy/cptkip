@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.4 - Stable
+
+Moved `count_limiter` and `duration_limiter` from `test.utilities` into `cptkip.task.limiters` to
+make them more widely available.
+
 ## 0.3.3 - Stable
 
 Added the `triggered_events_task.py` task which allows for a trigger to instantiate timed events.
@@ -19,6 +24,7 @@ the `cptkip` directory from over 100Kb down to 30Kb:
 * https://learn.adafruit.com/creating-and-sharing-a-circuitpython-library
 
 ## 0.3.0 - Beta, breaking change to `cptkip/task/basic_runner.py` and
+
 `cptkip/task/basic_runner_async.py`
 
 Rather than accept a list of functions, the `run()` use *args. The migration is trivial, simply
