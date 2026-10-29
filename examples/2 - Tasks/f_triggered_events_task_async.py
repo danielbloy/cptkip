@@ -68,5 +68,6 @@ task = create(trigger, events, begin=begin, callback=fallback, end=end,
 
 finish = time.monotonic() + 3
 
+log.set_log_level(log.INFO)
 runner.run(delay, task)
 led.off()

@@ -1,5 +1,3 @@
-# TODO: Tests
-# TODO: Examples
 # TODO: Validate
 # TODO: Validate-performance
 # TODO: Changelog
@@ -46,6 +44,7 @@ def run(*funcs: Callable[[], bool],
 
                 if restart_on_exception:
                     warn('Rerunning task', i)
+                    success = True
 
                 elif terminate_on_exception:
                     return
