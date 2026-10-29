@@ -1,9 +1,10 @@
-import cptkip.core.environment as environment
+from cptkip.core.environment import is_running_on_desktop
 
-if environment.is_running_on_desktop():
+if is_running_on_desktop():
     from typing import Callable
 
 
+# TODO: Add optional keep going function: continue_func: Callable[[], bool] | None = None
 def run(*funcs: Callable[[], bool]) -> None:
     """
     Simply runs a list of functions and waits for them to finish (by

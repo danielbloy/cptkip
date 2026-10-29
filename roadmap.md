@@ -12,7 +12,6 @@ The following functionality is a priority to implement in 0.3.x:
 The following functionality is planned to be implemented in 0.3.x or later:
 
 * Move `value_flip` from `test.utilities` to task
-* Safe Runner - async and sync (inspired by `pico-interactive`)
 * One time on/off task - async and sync (inspired by `pico-interactive`)
 
 Investigate a solution to the issue of the on-board LED on a Pico-W being connected to CywPin which
