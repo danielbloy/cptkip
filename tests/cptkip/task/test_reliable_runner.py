@@ -110,11 +110,75 @@ class TestReliableRunner:
         """
         Calls run() with a task that throws an exception.
         """
+        call_count: int = 0
 
         def raise_exception() -> bool:
+            nonlocal call_count
+            call_count += 1
+            # Put a hard stop in here to avoid running forever
+            if call_count >= 30:
+                return False
+
             raise Exception
 
         # Runner will catch the exception and terminate.
         run(raise_exception)
+        assert call_count == 30
 
-# TODO: Tests using configuration options.
+    def test_run_with_some_tasks_that_throw_exceptions(self):
+        """
+        Calls run() with multiple tasks, some of which throw an exception. The runner should
+        continue executing the other tasks. Depending on the configuration of restart_on_exception,
+        will determine if the exception raising tasks get removed from execution.
+        """
+        call_count_1: int = 0
+        call_count_2: int = 0
+        call_count_3: int = 0
+        call_count_4: int = 0
+
+        def one() -> bool:
+            nonlocal call_count_1
+            call_count_1 += 1
+            return call_count_1 < 10
+
+        def two() -> bool:
+            nonlocal call_count_2
+            call_count_2 += 1
+            return call_count_2 < 20
+
+        # This raises an exception every time.
+        def three() -> bool:
+            nonlocal call_count_3
+            call_count_3 += 1
+            # Put a hard stop in here to avoid running forever
+            if call_count_3 >= 30:
+                return False
+
+            raise Exception("three")
+
+        # This raises an exception twice
+        def four() -> bool:
+            nonlocal call_count_4
+            call_count_4 += 1
+            if call_count_4 in (3, 6):
+                raise Exception("four")
+
+            return call_count_4 < 15
+
+        # Runner will catch the exception and terminate.
+        run(one, two, three, four)
+        assert call_count_1 == 10
+        assert call_count_2 == 20
+        assert call_count_3 == 30
+        assert call_count_4 == 15  # Stops at first exception
+
+        # Now repeat the test with restart disabled.
+        call_count_1: int = 0
+        call_count_2: int = 0
+        call_count_3: int = 0
+        call_count_4: int = 0
+        run(one, two, three, four, restart_on_exception=False)
+        assert call_count_1 == 10
+        assert call_count_2 == 20
+        assert call_count_3 == 1
+        assert call_count_4 == 3  # Stops at first exception

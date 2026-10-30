@@ -114,8 +114,14 @@ class TestBasicRunner:
         basic runner has no error handling.
         """
 
+        call_count: int = 0
+
         def raise_exception() -> bool:
+            nonlocal call_count
+            call_count += 1
             raise Exception
 
         with pytest.raises(Exception):
             run(raise_exception)
+
+        assert call_count == 1

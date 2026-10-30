@@ -20,7 +20,7 @@ def one() -> bool:
     if time.monotonic() >= next_one:
         log.info(f"{time.monotonic()}: one")
         next_one = time.monotonic() + 0.3
-        raise Exception()
+        raise Exception("Manually raising exception")
     return time.monotonic() < finish
 
 
