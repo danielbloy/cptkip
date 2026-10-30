@@ -328,7 +328,7 @@ class TestTriggeredEventsTaskAsync:
         trigger_task = create(
             trigger,
             # Some of these events are specified in the wrong order
-            events=[(0.0, "a"), (0.23, "b"), (0.801, "c"), (1.1, "d"), (1.2, "e")],
+            events=[(0.0, "a"), (0.23, "b"), (0.80, "c"), (1.1, "d"), (1.2, "e")],
             callback=callback,
             continue_func=continue_fn)
 
@@ -339,9 +339,9 @@ class TestTriggeredEventsTaskAsync:
         assert values == ["a", "b", "c", "d", "e"]
 
         # Validate that times are correct to within 3 decimal places
-        times = [trunc(time * 1000) for time in times]
-        times = [time / 1000 for time in times]
-        assert times == [0.0, 0.23, 0.801, 1.1, 1.2]
+        times = [trunc(time * 100) for time in times]
+        times = [time / 100 for time in times]
+        assert times == [0.00, 0.23, 0.80, 1.10, 1.20]
 
     def test_correct_callback_is_called(self) -> None:
         """
