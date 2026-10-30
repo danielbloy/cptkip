@@ -9,15 +9,21 @@ if is_running_on_desktop():
 
 
 def run(*funcs: Callable[[], bool],
-        restart_on_exception: bool = True) -> None:  # TODO: Add keep going function.
+        restart_on_exception: bool = True,
+        continue_func: Callable[[], bool] | None = None) -> None:
     """
     Runs a list of functions and waits for them to finish, providing a configurable
-    amount of error handling based on the passed in properties.
+    amount of error handling based on the passed in properties. The runner will
+    execute for as long as continue_func returns True.
 
     By default, where a task errors with an exception, the runner will consider the
     function to have not completed and keep it in the list of functions to execute.
     If restart_on_exception is False, the runner will remove the function from the
     list of functions to execute.
+
+    :param restart_on_exception: If True, the runner will restart the task if it
+      raises an exception.
+    :param continue_func: A function that returns whether to cancel the task or not.
     """
     # Filter in place on a private copy instead of rebuilding a new list every
     # pass: the old list comprehension allocated a fresh list on every single
@@ -26,8 +32,10 @@ def run(*funcs: Callable[[], bool],
     # runs when a function actually completes.
     active = list(funcs)
     while active:
+        if continue_func and not continue_func():
+            return
+
         i = 0
-        success = False
         while i < len(active):
 
             try:

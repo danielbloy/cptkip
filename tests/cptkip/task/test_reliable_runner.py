@@ -1,3 +1,4 @@
+from cptkip.task.limiters import count_limiter
 from cptkip.task.reliable_runner import run
 
 
@@ -182,3 +183,53 @@ class TestReliableRunner:
         assert call_count_2 == 20
         assert call_count_3 == 1
         assert call_count_4 == 3  # Stops at first exception
+
+    def test_funcs_never_called(self) -> None:
+        """
+        Validates that the runner terminates straight away
+        when the continue_func always returns False.
+        """
+        called = False
+
+        def task():
+            nonlocal called
+            called = True
+
+        run(task, continue_func=lambda: False)
+
+        assert not called
+
+    def test_runner_stops(self):
+        """
+        Validates that the runner terminates when the continue_func returns False.
+        """
+        call_count_1: int = 0
+        call_count_2: int = 0
+        call_count_3: int = 0
+
+        def runaway() -> bool:
+            nonlocal call_count_1
+            call_count_1 += 1
+            return True  # runaway
+
+        def two() -> bool:
+            nonlocal call_count_2
+            call_count_2 += 1
+            return call_count_2 < 20
+
+        # This raises an exception every time.
+        def three() -> bool:
+            nonlocal call_count_3
+            call_count_3 += 1
+            # Put a hard stop in here to avoid running forever
+            if call_count_3 >= 30:
+                return False
+
+            raise Exception("three")
+
+        continue_fn = count_limiter(40)
+
+        run(runaway, two, three, continue_func=continue_fn)
+        assert call_count_1 == 40
+        assert call_count_2 == 20
+        assert call_count_3 == 30
