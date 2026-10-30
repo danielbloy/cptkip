@@ -4,11 +4,14 @@ if is_running_on_desktop():
     from typing import Callable
 
 
-# TODO: Add optional keep going function: continue_func: Callable[[], bool] | None = None
-def run(*funcs: Callable[[], bool]) -> None:
+def run(*funcs: Callable[[], bool],
+        continue_func: Callable[[], bool] | None = None) -> None:
     """
     Simply runs a list of functions and waits for them to finish (by
-    returning False). No error handling is performed.
+    returning False). No error handling is performed. The runner will
+    execute for as long as continue_func returns True.
+
+    :param continue_func: A function that returns whether to cancel the task or not.
     """
 
     # Filter in place on a private copy instead of rebuilding a new list every
@@ -18,6 +21,9 @@ def run(*funcs: Callable[[], bool]) -> None:
     # runs when a function actually completes.
     active = list(funcs)
     while active:
+        if continue_func and not continue_func():
+            return
+
         i = 0
         while i < len(active):
             if active[i]():
