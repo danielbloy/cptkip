@@ -8,8 +8,7 @@ make them more widely available.
 Added new runners (`reliable_runner` and `reliable_runner_async`) into `cptkip.task` to provide
 handling and restarting of tasks when exceptions are raised.
 
-The new runners support `continue_func` and this support has also been added to both `basic_runner`
-and `basic_runner_async` in a backwardly compatible way.
+Added support for `continue_func` to `basic_runner` in a backwardly compatible way.
 
 ## 0.3.3 - Stable
 

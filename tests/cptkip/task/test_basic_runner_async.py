@@ -83,27 +83,24 @@ class TestBasicRunnerAsync:
         """
         Runs three tasks and validates they run in a round-robin fashion.
         """
-        one_count: int = 0
-        two_count: int = 0
-        three_count: int = 0
         call_order = []
 
         async def one() -> None:
-            nonlocal one_count
+            one_count: int = 0
             while one_count < 2:
                 one_count += 1
                 call_order.append("one")
                 await asyncio.sleep(0)
 
         async def two() -> None:
-            nonlocal two_count
+            two_count: int = 0
             while two_count < 3:
                 two_count += 1
                 call_order.append("two")
                 await asyncio.sleep(0)
 
         async def three() -> None:
-            nonlocal three_count
+            three_count: int = 0
             while three_count < 1:
                 three_count += 1
                 call_order.append("three")
@@ -117,25 +114,22 @@ class TestBasicRunnerAsync:
         """
         Runs three tasks and none have an await so they will not run in a round-robin fashion
         """
-        one_count: int = 0
-        two_count: int = 0
-        three_count: int = 0
         call_order = []
 
         async def one() -> None:
-            nonlocal one_count
+            one_count: int = 0
             while one_count < 2:
                 one_count += 1
                 call_order.append("one")
 
         async def two() -> None:
-            nonlocal two_count
+            two_count: int = 0
             while two_count < 3:
                 two_count += 1
                 call_order.append("two")
 
         async def three() -> None:
-            nonlocal three_count
+            three_count: int = 0
             while three_count < 1:
                 three_count += 1
                 call_order.append("three")

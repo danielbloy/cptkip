@@ -191,9 +191,10 @@ class TestReliableRunner:
         """
         called = False
 
-        def task():
+        def task() -> bool:
             nonlocal called
             called = True
+            return True
 
         run(task, continue_func=lambda: False)
 
