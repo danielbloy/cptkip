@@ -4,6 +4,7 @@ if is_running_on_desktop():
     from typing import Callable
 
 
+# TODO: Add test that runner finishes when all tasks have finished even if cancellation_func has been provided
 def run(*funcs: Callable[[], bool],
         continue_func: Callable[[], bool] | None = None) -> None:
     """

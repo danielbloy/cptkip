@@ -1,4 +1,5 @@
 # TODO: Validate-performance
+# TODO: Add test that runner finishes when all tasks have finished even if cancellation_func has been provided
 
 from cptkip.core.environment import is_running_on_desktop
 from cptkip.core.logging import warn, stacktrace
