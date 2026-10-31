@@ -118,7 +118,7 @@ def execute(
         nonlocal cycles
         cycles += 1
         task()
-        return continue_func()
+        return True
 
     tasks = []
     if sample_frequency * report_frequency != 0:
@@ -133,7 +133,7 @@ def execute(
     global finish
     finish = monotonic() + runtime + 0.05  # ake sure we get the start AND finish reports.
 
-    runner.run(*tasks)
+    runner.run(*tasks, continue_func=continue_func)
     print(f"Total number of cycles executed .. : {((cycles / runtime) // 100) / 10:,.1f} K/s")
 
 
@@ -160,10 +160,6 @@ def execute_async(
 
     from cptkip.task import memory_monitor_task_async
 
-    async def update() -> None:
-        while continue_func():
-            await task()
-
     tasks = []
     if sample_frequency * report_frequency != 0:
         tasks.append(
@@ -172,10 +168,10 @@ def execute_async(
                 report_frequency,
                 continue_func))
 
-    tasks.append(update)  # We add the update function last so memory monitor is always first.
+    tasks.append(task)  # We add the update function last so memory monitor is always first.
 
     global finish
     finish = monotonic() + runtime + 0.05  # ake sure we get the start AND finish reports.
 
-    runner_async.run(*tasks)
+    runner_async.run(*tasks, continue_func=continue_func)
     print(f"Total number of cycles executed .. : n/a K/s")

@@ -19,7 +19,6 @@ probably the validation too).
 
 The following functionality is being considered for implementation in 0.3.x or later:
 
-* Consider adding `continue_func` to `basic_runner_async` for consistency with the other runners.
 * Lightweight object hierarchy to control multiple devices (inspired by `pmpge`)
 * Add support for communications between Picos using UART and possible 1-wire support.
 * Add time of day support.

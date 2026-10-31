@@ -1,11 +1,10 @@
 def execute():
     import validate.utils as utils
 
+    # Tests the successful restarting of failed tasks.
     async def task():
-        pass
+        raise Exception("Manually raising exception")
 
-    # There is nothing much to do because utils.execute_async() uses reliable_runner_async
-    # to execute the task when use_reliable_runner is set to True.
     utils.execute_async(task, use_reliable_runner=True)
 
 
