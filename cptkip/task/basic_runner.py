@@ -9,7 +9,8 @@ def run(*funcs: Callable[[], bool],
     """
     Simply runs a list of functions and waits for them to finish (by
     returning False). No error handling is performed. The runner will
-    execute for as long as continue_func returns True.
+    execute for as long as continue_func returns True and there are
+    functions running.
 
     :param continue_func: A function that returns whether to cancel the task or not.
     """

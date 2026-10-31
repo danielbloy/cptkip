@@ -3,6 +3,7 @@ import asyncio
 import pytest
 
 from cptkip.task.basic_runner_async import run
+from cptkip.task.limiters import count_limiter
 
 
 class TestBasicRunnerAsync:
@@ -149,3 +150,35 @@ class TestBasicRunnerAsync:
 
         with pytest.raises(Exception):
             run(raise_exception)
+
+    def test_funcs_never_called(self) -> None:
+        """
+        Validates that the runner terminates straight away
+        when the continue_func always returns False.
+        """
+        called = False
+
+        async def task() -> None:
+            nonlocal called
+            called = True
+
+        run(task, continue_func=lambda: False)
+
+        assert not called
+
+    def test_runner_stops(self):
+        """
+        Validates that the runner terminates when the continue_func returns False.
+        """
+        call_count_1: int = 0
+
+        async def runaway() -> None:
+            nonlocal call_count_1
+            while True:
+                call_count_1 += 1
+                await asyncio.sleep(0)
+
+        continue_fn = count_limiter(40)
+
+        run(runaway, continue_func=continue_fn)
+        assert call_count_1 == 40

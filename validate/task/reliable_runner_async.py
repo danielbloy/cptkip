@@ -1,7 +1,8 @@
 def execute():
     import validate.utils as utils
 
-    # Tests the successful restarting of failed tasks.
+    # Tests the successful restarting of failed tasks. This will run forever
+    # if the cancellation does not work.
     async def task():
         raise Exception("Manually raising exception")
 

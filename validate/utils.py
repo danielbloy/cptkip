@@ -117,7 +117,10 @@ def execute(
         """
         nonlocal cycles
         cycles += 1
-        task()
+        result = task()
+        if result is not None:
+            return result
+
         return True
 
     tasks = []

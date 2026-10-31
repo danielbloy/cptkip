@@ -13,7 +13,7 @@ def run(*funcs: Callable[[], bool],
     """
     Runs a list of functions and waits for them to finish, providing a configurable
     amount of error handling based on the passed in properties. The runner will
-    execute for as long as continue_func returns True.
+    execute for as long as continue_func returns True and there are functions running.
 
     By default, where a task errors with an exception, the runner will consider the
     function to have not completed and keep it in the list of functions to execute.
