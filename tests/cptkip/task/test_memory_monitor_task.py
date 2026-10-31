@@ -1,7 +1,6 @@
 import time
 
 import cptkip.core.memory as memory
-import tests.cptkip.utilities as utils
 from cptkip.task.basic_runner import run
 from cptkip.task.limiters import count_limiter
 from cptkip.task.memory_monitor_task import create
@@ -56,7 +55,7 @@ class TestMemoryMonitorTask:
         """
         memory.reset_memory_usage()
 
-        task = create(1, 1, continue_func=utils.stop)
+        task = create(1, 1, continue_func=lambda: False)
         assert not task()
 
         assert memory.peak_used_heap != 0
@@ -86,7 +85,7 @@ class TestMemoryMonitorTask:
         memory.reset_memory_usage()
 
         # First call always samples, so reset and immediately call again. This should not sample.
-        task = create(4, 1, continue_func=utils.stop)
+        task = create(4, 1, continue_func=lambda: False)
         task()
         memory.reset_memory_usage()
         task()
@@ -117,14 +116,14 @@ class TestMemoryMonitorTask:
         Validates that using invalid values for sample and reporting get defaulted to 1.
         """
         # First validate that we do not get errors.
-        task = create(0, 0, continue_func=utils.stop)
+        task = create(0, 0, continue_func=lambda: False)
         task()
 
-        task = create(-1, -1, continue_func=utils.stop)
+        task = create(-1, -1, continue_func=lambda: False)
         task()
 
         # Now validate the timing
-        task = create(-1, -1, continue_func=utils.stop)
+        task = create(-1, -1, continue_func=lambda: False)
         task()
         memory.reset_memory_usage()
         task()
