@@ -1,4 +1,3 @@
-# TODO: Validate
 # TODO: Validate-performance
 
 from cptkip.core.environment import is_running_on_desktop

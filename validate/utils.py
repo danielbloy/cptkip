@@ -89,7 +89,8 @@ def execute(
         task: Callable[[], None] | Callable[[], bool],
         runtime: int = RUNTIME,
         sample_frequency: int = SAMPLE_FREQUENCY,
-        report_frequency: int = REPORT_FREQUENCY):
+        report_frequency: int = REPORT_FREQUENCY,
+        use_reliable_runner: bool = False):
     """
     Executes a single task with basic instrumentation of RAM usage and number of
     execution cycles achieved. This is a utility function to make it easier to
@@ -100,8 +101,12 @@ def execute(
     :param runtime - The number of seconds to execute for
     :param sample_frequency - The number of memory samples per second.
     :param report_frequency - The number of times to report memory usage per second.
+    :param use_reliable_runner - Use reliable_runner instead of basic_runner.
     """
-    import cptkip.task.basic_runner as runner
+    if use_reliable_runner:
+        import cptkip.task.reliable_runner as runner
+    else:
+        import cptkip.task.basic_runner as runner
     from cptkip.task import memory_monitor_task
 
     cycles = 0
@@ -136,7 +141,8 @@ def execute_async(
         task: Callable[[], Awaitable[None]],
         runtime: int = RUNTIME,
         sample_frequency: int = SAMPLE_FREQUENCY,
-        report_frequency: int = REPORT_FREQUENCY):
+        report_frequency: int = REPORT_FREQUENCY,
+        use_reliable_runner: bool = False):
     """
     This is an async version of execute(). It provides the same functionality but is adapted
     to use async/await syntax and the different style of tasks that are used by the async runner.
@@ -145,8 +151,13 @@ def execute_async(
     :param runtime - The number of seconds to execute for
     :param sample_frequency - The number of memory samples per second.
     :param report_frequency - The number of times to report memory usage per second.
+    :param use_reliable_runner - Use reliable_runner instead of basic_runner.
     """
-    import cptkip.task.basic_runner_async as runner_async
+    if use_reliable_runner:
+        import cptkip.task.reliable_runner_async as runner_async
+    else:
+        import cptkip.task.basic_runner_async as runner_async
+
     from cptkip.task import memory_monitor_task_async
 
     async def update() -> None:

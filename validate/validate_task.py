@@ -1,5 +1,7 @@
 import validate.task.basic_runner as basic_runner
+import validate.task.basic_runner as reliable_runner
 import validate.task.basic_runner_async as basic_runner_async
+import validate.task.basic_runner_async as reliable_runner_async
 import validate.task.memory_monitor as memory_monitor
 import validate.task.memory_monitor_async as memory_monitor_async
 import validate.task.periodic_task as periodic_task
@@ -10,8 +12,11 @@ import validate.task.triggered_task as triggered_task
 import validate.task.triggered_task_async as triggered_task_async
 import validate.utils as utils
 
-modules = [basic_runner, basic_runner_async, memory_monitor, memory_monitor_async,
-           periodic_task, periodic_task_async, triggered_task, triggered_task_async,
+modules = [basic_runner, basic_runner_async,
+           reliable_runner, reliable_runner_async,
+           memory_monitor, memory_monitor_async,
+           periodic_task, periodic_task_async,
+           triggered_task, triggered_task_async,
            triggered_events_task, triggered_events_task_async]
 
 if __name__ == '__main__':

@@ -3,7 +3,6 @@ import asyncio
 from cptkip.core.environment import is_running_on_desktop
 from cptkip.core.logging import error, warn, info, stacktrace
 
-# TODO: Validate
 # TODO: Validate-performance
 
 if is_running_on_desktop():
