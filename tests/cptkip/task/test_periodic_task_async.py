@@ -2,7 +2,6 @@ import asyncio
 import statistics
 import time
 
-import tests.cptkip.utilities as utils
 from cptkip.core.control import NS_PER_SECOND
 from cptkip.task.basic_runner_async import run
 from cptkip.task.limiters import count_limiter
@@ -23,7 +22,7 @@ class TestPeriodicTaskAsync:
             count += 1
 
         # using a continue function that always returns false will result in fun() never being called.
-        task = create(func, continue_func=utils.stop)
+        task = create(func, continue_func=lambda: False)
 
         asyncio.run(task())
         assert count == 0

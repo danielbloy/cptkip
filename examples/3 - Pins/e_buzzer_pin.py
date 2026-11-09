@@ -9,6 +9,8 @@ import cptkip.config.configuration as config
 import cptkip.core.logging as log
 from cptkip.pin.buzzer_pin import BuzzerPin
 
+log.set_log_level(log.INFO)
+
 # Create the pin, set the frequency and volume.
 with BuzzerPin(config.BUZZER_PIN) as pin:
     log.info("Play for 1 second")

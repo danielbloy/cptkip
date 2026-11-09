@@ -3,6 +3,7 @@ import asyncio
 import pytest
 
 from cptkip.task.basic_runner_async import run
+from cptkip.task.limiters import count_limiter
 
 
 class TestBasicRunnerAsync:
@@ -83,27 +84,24 @@ class TestBasicRunnerAsync:
         """
         Runs three tasks and validates they run in a round-robin fashion.
         """
-        one_count: int = 0
-        two_count: int = 0
-        three_count: int = 0
         call_order = []
 
         async def one() -> None:
-            nonlocal one_count
+            one_count: int = 0
             while one_count < 2:
                 one_count += 1
                 call_order.append("one")
                 await asyncio.sleep(0)
 
         async def two() -> None:
-            nonlocal two_count
+            two_count: int = 0
             while two_count < 3:
                 two_count += 1
                 call_order.append("two")
                 await asyncio.sleep(0)
 
         async def three() -> None:
-            nonlocal three_count
+            three_count: int = 0
             while three_count < 1:
                 three_count += 1
                 call_order.append("three")
@@ -117,25 +115,22 @@ class TestBasicRunnerAsync:
         """
         Runs three tasks and none have an await so they will not run in a round-robin fashion
         """
-        one_count: int = 0
-        two_count: int = 0
-        three_count: int = 0
         call_order = []
 
         async def one() -> None:
-            nonlocal one_count
+            one_count: int = 0
             while one_count < 2:
                 one_count += 1
                 call_order.append("one")
 
         async def two() -> None:
-            nonlocal two_count
+            two_count: int = 0
             while two_count < 3:
                 two_count += 1
                 call_order.append("two")
 
         async def three() -> None:
-            nonlocal three_count
+            three_count: int = 0
             while three_count < 1:
                 three_count += 1
                 call_order.append("three")
@@ -155,3 +150,35 @@ class TestBasicRunnerAsync:
 
         with pytest.raises(Exception):
             run(raise_exception)
+
+    def test_funcs_never_called(self) -> None:
+        """
+        Validates that the runner terminates straight away
+        when the continue_func always returns False.
+        """
+        called = False
+
+        async def task() -> None:
+            nonlocal called
+            called = True
+
+        run(task, continue_func=lambda: False)
+
+        assert not called
+
+    def test_runner_stops(self):
+        """
+        Validates that the runner terminates when the continue_func returns False.
+        """
+        call_count_1: int = 0
+
+        async def runaway() -> None:
+            nonlocal call_count_1
+            while True:
+                call_count_1 += 1
+                await asyncio.sleep(0)
+
+        continue_fn = count_limiter(40)
+
+        run(runaway, continue_func=continue_fn)
+        assert call_count_1 == 40

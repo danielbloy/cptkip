@@ -2,10 +2,6 @@ import time
 from typing import Callable
 
 
-def stop() -> bool:
-    return False
-
-
 def value_flip(seconds: float, obj, changes: list[float]) -> Callable[[], bool]:
     """
     Similar to time limiter except at each of the given time points specified

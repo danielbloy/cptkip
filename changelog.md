@@ -5,6 +5,12 @@
 Moved `count_limiter` and `duration_limiter` from `test.utilities` into `cptkip.task.limiters` to
 make them more widely available.
 
+Added new runners (`reliable_runner` and `reliable_runner_async`) into `cptkip.task` to provide
+handling and restarting of tasks when exceptions are raised.
+
+Added support for `continue_func` to `basic_runner` and `basic_runner_async` in a backwardly
+compatible way.
+
 ## 0.3.3 - Stable
 
 Added the `triggered_events_task.py` task which allows for a trigger to instantiate timed events.

@@ -38,5 +38,6 @@ task = create(lambda: trigger, 0.5, begin=led_pulse, continue_func=should_contin
 
 finish = time.monotonic() + 3
 
+log.set_log_level(log.INFO)
 runner.run(delay, task)
 led.off()

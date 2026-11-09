@@ -46,7 +46,7 @@ class TestButton:
             async def update() -> None:
                 btn.update()
 
-            task = periodic_task.create(update, continue_func=utils.stop)
+            task = periodic_task.create(update, continue_func=lambda: False)
             asyncio.run(task())
 
             task = periodic_task.create(update, continue_func=count_limiter(1))
