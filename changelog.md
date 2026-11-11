@@ -11,6 +11,9 @@ handling and restarting of tasks when exceptions are raised.
 Added support for `continue_func` to `basic_runner` and `basic_runner_async` in a backwardly
 compatible way.
 
+Both `basic_runner_async` and `reliable_runner_async` now complete when all tasks are finished
+when a `continue_func` is used.
+
 ## 0.3.3 - Stable
 
 Added the `triggered_events_task.py` task which allows for a trigger to instantiate timed events.

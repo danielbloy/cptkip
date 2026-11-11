@@ -42,30 +42,32 @@ def run(*funcs: Callable[[], Awaitable[None]],
 
         async def handler():
 
-            while running:
-                try:
-                    # This sleep ensures the cancellation handler is the first to execute.
-                    await asyncio.sleep(0)
-                    await task()
-                    return
+            try:
 
-                except asyncio.CancelledError:
-                    error('Caught CancelledError exception for task -', task)
-                    return
-
-                except Exception as e:
-                    warn('Exception raised by task', task, "-", e)
-                    stacktrace(e)
-
-                    if restart_on_exception:
-                        warn('Rerunning task', task)
-
-                    else:
+                while running:
+                    try:
+                        # This sleep ensures the cancellation handler is the first to execute.
+                        await asyncio.sleep(0)
+                        await task()
                         return
 
-                finally:
-                    nonlocal running_tasks
-                    running_tasks -= 1
+                    except asyncio.CancelledError:
+                        error('Caught CancelledError exception for task -', task)
+                        return
+
+                    except Exception as e:
+                        warn('Exception raised by task', task, "-", e)
+                        stacktrace(e)
+
+                        if restart_on_exception:
+                            warn('Rerunning task', task)
+
+                        else:
+                            return
+
+            finally:
+                nonlocal running_tasks
+                running_tasks -= 1
 
         return handler
 
