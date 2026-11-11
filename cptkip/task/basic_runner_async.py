@@ -7,7 +7,6 @@ if is_running_on_desktop():
     from typing import Callable, Awaitable
 
 
-# TODO: Add test that runner finishes when all tasks have finished even if cancellation_func has been provided
 def run(*funcs: Callable[[], Awaitable[None]],
         continue_func: Callable[[], bool] | None = None) -> None:
     """
@@ -19,8 +18,9 @@ def run(*funcs: Callable[[], Awaitable[None]],
     Functions should play nicely and ensure they regularly sleep with at least:
         await asyncio.sleep(0)
 
-    :param continue_func: A function that returns whether to cancel the task or not.
+    :param continue_func: A function that returns whether to continue executing not.
     """
+    running_tasks: int = len(funcs)
 
     def new_handler(task: Callable[[], Awaitable[None]]) -> Callable[[], Awaitable[None]]:
         """
@@ -38,6 +38,10 @@ def run(*funcs: Callable[[], Awaitable[None]],
                 error('Caught CancelledError exception for task -', task)
                 return
 
+            finally:
+                nonlocal running_tasks
+                running_tasks -= 1
+
         return handler
 
     async def cancellation_handler(tasks: list[asyncio.Task]) -> None:
@@ -48,7 +52,7 @@ def run(*funcs: Callable[[], Awaitable[None]],
         if not continue_func:
             return
 
-        while continue_func():
+        while running_tasks and continue_func():
             await asyncio.sleep(0)
 
         # Cancel all remaining tasks.

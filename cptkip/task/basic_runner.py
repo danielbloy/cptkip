@@ -4,7 +4,6 @@ if is_running_on_desktop():
     from typing import Callable
 
 
-# TODO: Add test that runner finishes when all tasks have finished even if cancellation_func has been provided
 def run(*funcs: Callable[[], bool],
         continue_func: Callable[[], bool] | None = None) -> None:
     """
@@ -13,7 +12,7 @@ def run(*funcs: Callable[[], bool],
     execute for as long as continue_func returns True and there are
     functions running.
 
-    :param continue_func: A function that returns whether to cancel the task or not.
+    :param continue_func: A function that returns whether to continue executing or not.
     """
 
     # Filter in place on a private copy instead of rebuilding a new list every

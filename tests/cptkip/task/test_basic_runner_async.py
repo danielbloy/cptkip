@@ -80,6 +80,17 @@ class TestBasicRunnerAsync:
         assert two_count == 22
         assert three_count == 33
 
+        # Now try with a continue function provided, this should end when all real tasks complete.
+        one_count: int = 0
+        two_count: int = 0
+        three_count: int = 0
+
+        run(three, one, two, continue_func=lambda: True)
+
+        assert one_count == 11
+        assert two_count == 22
+        assert three_count == 33
+
     def test_run_with_three_tasks_round_robin(self):
         """
         Runs three tasks and validates they run in a round-robin fashion.

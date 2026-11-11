@@ -1,5 +1,4 @@
 # TODO: Validate-performance
-# TODO: Add test that runner finishes when all tasks have finished even if cancellation_func has been provided
 
 from cptkip.core.environment import is_running_on_desktop
 from cptkip.core.logging import warn, stacktrace
@@ -23,7 +22,7 @@ def run(*funcs: Callable[[], bool],
 
     :param restart_on_exception: If True, the runner will restart the task if it
       raises an exception.
-    :param continue_func: A function that returns whether to cancel the task or not.
+    :param continue_func: A function that returns whether to continue executing or not.
     """
     # Filter in place on a private copy instead of rebuilding a new list every
     # pass: the old list comprehension allocated a fresh list on every single

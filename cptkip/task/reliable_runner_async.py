@@ -4,7 +4,6 @@ from cptkip.core.environment import is_running_on_desktop
 from cptkip.core.logging import error, warn, info, stacktrace
 
 # TODO: Validate-performance
-# TODO: Add test that runner finishes when all tasks have finished even if cancellation_func has been provided
 
 if is_running_on_desktop():
     from typing import Callable, Awaitable
@@ -28,8 +27,9 @@ def run(*funcs: Callable[[], Awaitable[None]],
 
     :param restart_on_exception: If True, the runner will restart the task if it
       raises an exception.
-    :param continue_func: A function that returns whether to cancel the task or not.
+    :param continue_func: A function that returns whether to continue executing not.
     """
+    running_tasks: int = len(funcs)
     running = True
 
     def new_handler(task: Callable[[], Awaitable[None]]) -> Callable[[], Awaitable[None]]:
@@ -63,6 +63,10 @@ def run(*funcs: Callable[[], Awaitable[None]],
                     else:
                         return
 
+                finally:
+                    nonlocal running_tasks
+                    running_tasks -= 1
+
         return handler
 
     async def cancellation_handler(tasks: list[asyncio.Task]) -> None:
@@ -74,7 +78,7 @@ def run(*funcs: Callable[[], Awaitable[None]],
             return
 
         nonlocal running
-        while continue_func():
+        while running_tasks and continue_func():
             await asyncio.sleep(0)
 
         # This stops the restarts
