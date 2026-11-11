@@ -4,6 +4,9 @@
 
 The following functionality is planned to be implemented in 0.3.x or later:
 
+* Upgrade the CircuitPython version used in on device testing.
+* Add Pico 2 and Pico 2w to performance testing
+* Add ESP-32 S3 and ESP-32 C3 to performance testing.
 * Include a version/build number in the library and add it in automatically.
 * Support for MEMS microphone device
 * Support for Ultrasonic sensor device
