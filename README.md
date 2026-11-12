@@ -120,6 +120,13 @@ You can find more information about using this at:
 
 Each release is made available in the `releases` directory as a zip file.
 
+### Version information
+
+The `package.py` file updates the `__version__` property in the file `cptkip.__init__.py` after it
+has copied it across to the `package` directory. To ensure the file is easy to read, it is not run
+through `mpy-cross` so it stays as text. The version information is taken from the `pyproject.toml`
+file.
+
 ## License
 
 Copyright 2026 Daniel Bloy
