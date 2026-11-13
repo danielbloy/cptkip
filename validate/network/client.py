@@ -3,11 +3,11 @@ def execute():
     import validate.utils as utils
 
     def task():
-        with requests.request("GET", "http://www.adafruit.com/api/quotes.php") as response:
+        with requests.request("GET", "https://httpbin.org/get") as response:
             print(f"Status ..... : {response.status_code}")
             print(f"Reason ..... : {response.reason}")
             if response.status_code == 200:
-                print(f"Text ....... : {response.json()[0]['text']}")
+                print(f"Text ....... : {response.json()}")
 
     utils.execute(task)
 
