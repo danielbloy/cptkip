@@ -119,7 +119,7 @@ def PwmAudio(pin) -> Audio:
                 # noinspection PyUnresolvedReferences
                 from audiopwmio import PWMAudioOut as AudioOut
             except ImportError:
-                # TODO: This does not work on ESP32-S3 boards
+                # TODO: This does not work on ESP32-S3 boards. If there is a code change, rebuild the package.
                 pass  # not always supported by every board!
 
         audio_out = AudioOut(pin)
