@@ -127,6 +127,14 @@ has copied it across to the `package` directory. To ensure the file is easy to r
 through `mpy-cross` so it stays as text. The version information is taken from the `pyproject.toml`
 file.
 
+## Officially supported microcontrollers
+
+The `cptkip` should work on most supported CircuitPython microcontroller boards. There are however
+differences between these boards so support for all functionality cannot be guaranteed. As part
+of the release process I do run and validate against a set of microcontrollers that I use. These can
+be considered "officially supported". Using a board that is a variation of one of the vanilla boards
+should also be fine in almost all circumstances.
+
 ## License
 
 Copyright 2026 Daniel Bloy

@@ -4,9 +4,8 @@
 
 The following functionality is planned to be implemented in 0.3.x or later:
 
-* Upgrade the CircuitPython version used to 10.3.1 in on device testing.
-* Add Pico 2 and Pico 2w to performance testing
-* Add ESP-32 S3 and ESP-32 C3 to performance testing.
+* Update config.py so that it works with ESP-32 S3 and ESP-32 C3 boards and remove device overrides
+* Complete support for ESP-32 based board - specifically a solution to pwmaudio.
 * Support for MEMS microphone device
 * Support for Ultrasonic sensor device
 * Support for servo devices

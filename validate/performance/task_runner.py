@@ -1,6 +1,5 @@
 from time import monotonic
 
-import cptkip.task.basic_runner as runner
 from cptkip.core.environment import is_running_on_desktop
 
 if is_running_on_desktop():
@@ -10,13 +9,22 @@ finish = 0
 continue_func = lambda: monotonic() < finish
 
 
-def execute(task: Callable[[], None] | Callable[[], bool], monitor: bool = True):
+def execute(task: Callable[[], None] | Callable[[], bool], monitor: bool = True,
+            use_reliable_runner: bool = False):
     """
     Executes a single task with basic instrumentation of RAM usage and number of
     execution cycles achieved. If a task returns a boolean, it is ignored.
+
+    :param task - Called to execute the test
+    :param monitor - Whether to add a memory monitor or not.
+    :param use_reliable_runner - Use reliable_runner instead of basic_runner.
     """
     global finish
     import gc
+    if use_reliable_runner:
+        import cptkip.task.reliable_runner as runner
+    else:
+        import cptkip.task.basic_runner as runner
     from validate.performance.task_settings import sample_frequency, report_frequency, runtime
 
     print("START ...... : Used:", gc.mem_alloc(), "bytes, Free:", gc.mem_free(), "bytes")

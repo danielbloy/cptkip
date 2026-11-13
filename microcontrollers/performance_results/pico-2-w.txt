@@ -1,0 +1,1069 @@
+
+Adafruit CircuitPython 10.3.2 on 2026-11-11; Raspberry Pi Pico 2 W with rp2350a
+>>> import validate.validate_performance
+Running on microcontroller. Pins are available.
+soft reboot
+/validate/performance/a_start.py output:
+START ...... : Used: 1120 bytes, Free: 400032 bytes
+Running on: circuitpython v10.3.2 Raspberry Pi Pico 2 W with rp2350a
+BEFORE GC .. : Used: 1408 bytes, Free: 399744 bytes
+AFTER GC ... : Used: 1216 bytes, Free: 399936 bytes
+
+Code done running.
+soft reboot
+/validate/performance/b_environment.py output:
+START ...... : Used: 1568 bytes, Free: 407776 bytes
+Running on microcontroller. Pins are available.
+Is running in CI ................. :  False
+Is running under test ............ :  False
+Is running on a microcontroller .. :  True
+Is running on a desktop .......... :  False
+Are pins available ............... :  True
+BEFORE GC .. : Used: 3392 bytes, Free: 405952 bytes
+AFTER GC ... : Used: 3392 bytes, Free: 405952 bytes
+
+Code done running.
+soft reboot
+/validate/performance/c_logging_adafruit.py output:
+START ...... : Used: 1024 bytes, Free: 400128 bytes
+BEFORE GC .. : Used: 8688 bytes, Free: 400400 bytes
+AFTER GC ... : Used: 8688 bytes, Free: 400400 bytes
+
+Code done running.
+soft reboot
+/validate/performance/c_logging_cptkip.py output:
+START ...... : Used: 1472 bytes, Free: 399680 bytes
+Running on microcontroller. Pins are available.
+CRITICAL : This critical text will appear with log level info
+ERROR    : This error text will appear with log level info
+WARN     : This warning text will appear with log level info
+BEFORE GC .. : Used: 5392 bytes, Free: 395760 bytes
+AFTER GC ... : Used: 5232 bytes, Free: 395920 bytes
+
+Code done running.
+soft reboot
+/validate/performance/d_memory.py output:
+START ...... : Used: 1040 bytes, Free: 400112 bytes
+Running on microcontroller. Pins are available.
+CRITICAL : Heap details: Total: 401152 bytes, Peak: 5440 bytes, Used: 5440 bytes, Free: 395712 bytes
+CRITICAL : Heap details: Total: 401152 bytes, Peak: 5536 bytes, Used: 5536 bytes, Free: 395616 bytes
+CRITICAL : Heap details: Total: 401152 bytes, Peak: 5536 bytes, Used: 5440 bytes, Free: 395712 bytes
+BEFORE GC .. : Used: 5536 bytes, Free: 395616 bytes
+AFTER GC ... : Used: 5440 bytes, Free: 395712 bytes
+
+Code done running.
+soft reboot
+/validate/performance/e_configuration.py output:
+START ...... : Used: 1200 bytes, Free: 399952 bytes
+Running on microcontroller. Pins are available.
+Config file loaded.
+Device file loaded.
+LED pin board.GP5
+Button pin board.GP27_A1
+Buzzer pin board.GP3
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
+Test value ... : 123.456
+Test string .. : Hello world!
+Debug ........ : True
+BEFORE GC .. : Used: 6416 bytes, Free: 394736 bytes
+AFTER GC ... : Used: 6416 bytes, Free: 394736 bytes
+
+Code done running.
+soft reboot
+/validate/performance/f_cpu.py output:
+START ...... : Used: 1040 bytes, Free: 400112 bytes
+Running on microcontroller. Pins are available.
+BEFORE GC .. : Used: 3520 bytes, Free: 397632 bytes
+AFTER GC ... : Used: 3472 bytes, Free: 397680 bytes
+
+Code done running.
+soft reboot
+/validate/performance/g_adafruit_asyncio.py output:
+START ...... : Used: 1008 bytes, Free: 400144 bytes
+BEFORE GC .. : Used: 8464 bytes, Free: 400624 bytes
+AFTER GC ... : Used: 8464 bytes, Free: 400624 bytes
+
+Code done running.
+soft reboot
+/validate/performance/h_basic_runner.py output:
+Running on microcontroller. Pins are available.
+START ...... : Used: 5520 bytes, Free: 395632 bytes
+CYCLES ..... : 32.1 K/s
+BEFORE GC .. : Used: 5712 bytes, Free: 395440 bytes
+AFTER GC ... : Used: 5568 bytes, Free: 395584 bytes
+START ...... : Used: 5632 bytes, Free: 395520 bytes
+CRITICAL : Heap details: Total: 409088 bytes, Peak: 8816 bytes, Used: 8816 bytes, Free: 400272 bytes
+CRITICAL : Heap details: Total: 409088 bytes, Peak: 14704 bytes, Used: 14704 bytes, Free: 394384 bytes
+CRITICAL : Heap details: Total: 409088 bytes, Peak: 15856 bytes, Used: 13168 bytes, Free: 395920 bytes
+CRITICAL : Heap details: Total: 409088 bytes, Peak: 15856 bytes, Used: 11440 bytes, Free: 397648 bytes
+CRITICAL : Heap details: Total: 409088 bytes, Peak: 15856 bytes, Used: 10096 bytes, Free: 398992 bytes
+CRITICAL : Heap details: Total: 409088 bytes, Peak: 15856 bytes, Used: 13088 bytes, Free: 396000 bytes
+CYCLES ..... : 9.9 K/s
+BEFORE GC .. : Used: 13232 bytes, Free: 395856 bytes
+AFTER GC ... : Used: 8704 bytes, Free: 400384 bytes
+
+Code done running.
+soft reboot
+/validate/performance/h_basic_runner_async.py output:
+Running on microcontroller. Pins are available.
+START ...... : Used: 15232 bytes, Free: 393344 bytes
+CYCLES ..... : n/a K/s
+BEFORE GC .. : Used: 26896 bytes, Free: 381680 bytes
+AFTER GC ... : Used: 16656 bytes, Free: 391920 bytes
+CYCLES ..... : 10.9 K/s
+START ...... : Used: 16752 bytes, Free: 391824 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 20288 bytes, Used: 20288 bytes, Free: 388288 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 24576 bytes, Used: 24576 bytes, Free: 384000 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 24848 bytes, Used: 24848 bytes, Free: 383728 bytes
+CYCLES ..... : n/a K/s
+BEFORE GC .. : Used: 24992 bytes, Free: 383584 bytes
+AFTER GC ... : Used: 18816 bytes, Free: 389760 bytes
+CYCLES ..... : 10.5 K/s
+
+Code done running.
+soft reboot
+/validate/performance/h_reliable_runner.py output:
+Running on microcontroller. Pins are available.
+START ...... : Used: 6704 bytes, Free: 394448 bytes
+CYCLES ..... : 30.7 K/s
+BEFORE GC .. : Used: 6896 bytes, Free: 394256 bytes
+AFTER GC ... : Used: 6752 bytes, Free: 394400 bytes
+START ...... : Used: 6816 bytes, Free: 394336 bytes
+CRITICAL : Heap details: Total: 409088 bytes, Peak: 9040 bytes, Used: 9040 bytes, Free: 400048 bytes
+CRITICAL : Heap details: Total: 409088 bytes, Peak: 15280 bytes, Used: 11632 bytes, Free: 397456 bytes
+CRITICAL : Heap details: Total: 409088 bytes, Peak: 15280 bytes, Used: 14640 bytes, Free: 394448 bytes
+CRITICAL : Heap details: Total: 409088 bytes, Peak: 15504 bytes, Used: 10032 bytes, Free: 399056 bytes
+CRITICAL : Heap details: Total: 409088 bytes, Peak: 15760 bytes, Used: 12784 bytes, Free: 396304 bytes
+CRITICAL : Heap details: Total: 409088 bytes, Peak: 15760 bytes, Used: 9088 bytes, Free: 400000 bytes
+CYCLES ..... : 9.6 K/s
+BEFORE GC .. : Used: 9232 bytes, Free: 399856 bytes
+AFTER GC ... : Used: 8928 bytes, Free: 400160 bytes
+
+Code done running.
+soft reboot
+/validate/performance/h_reliable_runner_async.py output:
+Running on microcontroller. Pins are available.
+START ...... : Used: 15600 bytes, Free: 392976 bytes
+CYCLES ..... : n/a K/s
+BEFORE GC .. : Used: 18384 bytes, Free: 390192 bytes
+AFTER GC ... : Used: 17040 bytes, Free: 391536 bytes
+CYCLES ..... : 10.9 K/s
+START ...... : Used: 17136 bytes, Free: 391440 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 20768 bytes, Used: 20768 bytes, Free: 387808 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 26544 bytes, Used: 26544 bytes, Free: 382032 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 26816 bytes, Used: 26816 bytes, Free: 381760 bytes
+CYCLES ..... : n/a K/s
+BEFORE GC .. : Used: 26960 bytes, Free: 381616 bytes
+AFTER GC ... : Used: 19184 bytes, Free: 389392 bytes
+CYCLES ..... : 10.4 K/s
+
+Code done running.
+soft reboot
+/validate/performance/i_periodic_task.py output:
+Running on microcontroller. Pins are available.
+START ...... : Used: 6832 bytes, Free: 402256 bytes
+task
+task
+task
+task
+task
+task
+task
+task
+task
+task
+CYCLES ..... : 9.4 K/s
+BEFORE GC .. : Used: 15712 bytes, Free: 393376 bytes
+AFTER GC ... : Used: 6912 bytes, Free: 402176 bytes
+START ...... : Used: 6976 bytes, Free: 402112 bytes
+CRITICAL : Heap details: Total: 409088 bytes, Peak: 10960 bytes, Used: 10960 bytes, Free: 398128 bytes
+task
+task
+task
+CRITICAL : Heap details: Total: 409088 bytes, Peak: 15088 bytes, Used: 14448 bytes, Free: 394640 bytes
+task
+task
+task
+CRITICAL : Heap details: Total: 409088 bytes, Peak: 15536 bytes, Used: 14640 bytes, Free: 394448 bytes
+task
+task
+task
+CRITICAL : Heap details: Total: 409088 bytes, Peak: 15632 bytes, Used: 14704 bytes, Free: 394384 bytes
+task
+task
+task
+CRITICAL : Heap details: Total: 409088 bytes, Peak: 15728 bytes, Used: 14384 bytes, Free: 394704 bytes
+CRITICAL : Heap details: Total: 409088 bytes, Peak: 15728 bytes, Used: 15360 bytes, Free: 393728 bytes
+CYCLES ..... : 5.9 K/s
+BEFORE GC .. : Used: 15504 bytes, Free: 393584 bytes
+AFTER GC ... : Used: 10848 bytes, Free: 398240 bytes
+
+Code done running.
+soft reboot
+/validate/performance/i_periodic_task_async.py output:
+Running on microcontroller. Pins are available.
+START ...... : Used: 16320 bytes, Free: 392256 bytes
+task
+task
+task
+task
+task
+task
+task
+task
+task
+task
+CYCLES ..... : n/a K/s
+BEFORE GC .. : Used: 28160 bytes, Free: 380416 bytes
+AFTER GC ... : Used: 17888 bytes, Free: 390688 bytes
+START ...... : Used: 17936 bytes, Free: 390640 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 21152 bytes, Used: 21152 bytes, Free: 387424 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 29936 bytes, Used: 27632 bytes, Free: 380944 bytes
+task
+task
+task
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 30320 bytes, Used: 22640 bytes, Free: 385936 bytes
+task
+task
+task
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 31728 bytes, Used: 28592 bytes, Free: 379984 bytes
+task
+task
+task
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 31728 bytes, Used: 23408 bytes, Free: 385168 bytes
+task
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 31728 bytes, Used: 28672 bytes, Free: 379904 bytes
+CYCLES ..... : n/a K/s
+BEFORE GC .. : Used: 28816 bytes, Free: 379760 bytes
+AFTER GC ... : Used: 19712 bytes, Free: 388864 bytes
+
+Code done running.
+soft reboot
+/validate/performance/j_triggered_events_task.py output:
+Running on microcontroller. Pins are available.
+START ...... : Used: 8800 bytes, Free: 400288 bytes
+begin
+callback 1
+callback 2
+callback 3
+callback 4
+callback 5
+end
+begin
+callback 1
+callback 2
+callback 3
+callback 4
+callback 5
+end
+begin
+callback 1
+callback 2
+callback 3
+callback 4
+callback 5
+end
+begin
+callback 1
+callback 2
+callback 3
+callback 4
+callback 5
+end
+begin
+callback 1
+callback 2
+callback 3
+callback 4
+callback 5
+end
+begin
+callback 1
+callback 2
+callback 3
+callback 4
+callback 5
+end
+begin
+callback 1
+callback 2
+callback 3
+callback 4
+callback 5
+end
+begin
+callback 1
+callback 2
+callback 3
+callback 4
+callback 5
+end
+begin
+end
+CYCLES ..... : 7.0 K/s
+BEFORE GC .. : Used: 14496 bytes, Free: 394592 bytes
+AFTER GC ... : Used: 8864 bytes, Free: 400224 bytes
+START ...... : Used: 8928 bytes, Free: 400160 bytes
+CRITICAL : Heap details: Total: 409088 bytes, Peak: 12096 bytes, Used: 12096 bytes, Free: 396992 bytes
+callback 1
+callback 2
+callback 3
+callback 4
+callback 5
+end
+begin
+callback 1
+callback 2
+callback 3
+callback 4
+callback 5
+end
+begin
+CRITICAL : Heap details: Total: 409088 bytes, Peak: 15744 bytes, Used: 15056 bytes, Free: 394032 bytes
+callback 1
+callback 2
+callback 3
+callback 4
+callback 5
+end
+begin
+callback 1
+callback 2
+callback 3
+callback 4
+callback 5
+end
+begin
+CRITICAL : Heap details: Total: 409088 bytes, Peak: 15760 bytes, Used: 15408 bytes, Free: 393680 bytes
+callback 1
+callback 2
+callback 3
+callback 4
+callback 5
+end
+begin
+callback 1
+callback 2
+callback 3
+callback 4
+callback 5
+end
+begin
+CRITICAL : Heap details: Total: 409088 bytes, Peak: 15760 bytes, Used: 15056 bytes, Free: 394032 bytes
+callback 1
+callback 2
+callback 3
+callback 4
+callback 5
+end
+begin
+callback 1
+callback 2
+callback 3
+callback 4
+callback 5
+end
+begin
+CRITICAL : Heap details: Total: 409088 bytes, Peak: 15760 bytes, Used: 15408 bytes, Free: 393680 bytes
+callback 1
+end
+CRITICAL : Heap details: Total: 409088 bytes, Peak: 15760 bytes, Used: 12544 bytes, Free: 396544 bytes
+CYCLES ..... : 4.3 K/s
+BEFORE GC .. : Used: 12688 bytes, Free: 396400 bytes
+AFTER GC ... : Used: 11984 bytes, Free: 397104 bytes
+
+Code done running.
+soft reboot
+/validate/performance/j_triggered_events_task_async.py output:
+Running on microcontroller. Pins are available.
+START ...... : Used: 17456 bytes, Free: 391120 bytes
+begin
+callback 1
+callback 2
+callback 3
+callback 4
+callback 5
+end
+begin
+callback 1
+callback 2
+callback 3
+callback 4
+callback 5
+end
+begin
+callback 1
+callback 2
+callback 3
+callback 4
+callback 5
+end
+begin
+callback 1
+callback 2
+callback 3
+callback 4
+callback 5
+end
+begin
+callback 1
+callback 2
+callback 3
+callback 4
+callback 5
+end
+begin
+callback 1
+callback 2
+callback 3
+callback 4
+callback 5
+end
+begin
+callback 1
+callback 2
+callback 3
+callback 4
+callback 5
+end
+begin
+callback 1
+callback 2
+callback 3
+callback 4
+callback 5
+end
+begin
+end
+CYCLES ..... : n/a K/s
+BEFORE GC .. : Used: 30672 bytes, Free: 377904 bytes
+AFTER GC ... : Used: 19008 bytes, Free: 389568 bytes
+START ...... : Used: 19056 bytes, Free: 389520 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 22288 bytes, Used: 22288 bytes, Free: 386288 bytes
+begin
+callback 1
+callback 2
+callback 3
+callback 4
+callback 5
+end
+begin
+callback 1
+callback 2
+callback 3
+callback 4
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 31664 bytes, Used: 26384 bytes, Free: 382192 bytes
+callback 5
+end
+begin
+callback 1
+callback 2
+callback 3
+callback 4
+callback 5
+end
+begin
+callback 1
+callback 2
+callback 3
+callback 4
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 31680 bytes, Used: 30480 bytes, Free: 378096 bytes
+callback 5
+end
+begin
+callback 1
+callback 2
+callback 3
+callback 4
+callback 5
+end
+begin
+callback 1
+callback 2
+callback 3
+callback 4
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 31680 bytes, Used: 24432 bytes, Free: 384144 bytes
+callback 5
+end
+begin
+callback 1
+callback 2
+callback 3
+callback 4
+callback 5
+end
+begin
+callback 1
+callback 2
+callback 3
+callback 4
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 31680 bytes, Used: 28752 bytes, Free: 379824 bytes
+callback 5
+end
+begin
+end
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 31680 bytes, Used: 25568 bytes, Free: 383008 bytes
+CYCLES ..... : n/a K/s
+BEFORE GC .. : Used: 25712 bytes, Free: 382864 bytes
+AFTER GC ... : Used: 20848 bytes, Free: 387728 bytes
+
+Code done running.
+soft reboot
+/validate/performance/j_triggered_task.py output:
+Running on microcontroller. Pins are available.
+START ...... : Used: 8080 bytes, Free: 384624 bytes
+begin
+end
+begin
+end
+begin
+end
+begin
+end
+begin
+end
+begin
+end
+begin
+end
+begin
+end
+begin
+CYCLES ..... : 17.2 K/s
+BEFORE GC .. : Used: 8816 bytes, Free: 383888 bytes
+AFTER GC ... : Used: 8128 bytes, Free: 384576 bytes
+START ...... : Used: 8192 bytes, Free: 384512 bytes
+CRITICAL : Heap details: Total: 392704 bytes, Peak: 11296 bytes, Used: 11296 bytes, Free: 381408 bytes
+end
+begin
+end
+begin
+CRITICAL : Heap details: Total: 392704 bytes, Peak: 15872 bytes, Used: 11456 bytes, Free: 381248 bytes
+end
+begin
+end
+begin
+CRITICAL : Heap details: Total: 392704 bytes, Peak: 15872 bytes, Used: 12448 bytes, Free: 380256 bytes
+end
+begin
+end
+begin
+CRITICAL : Heap details: Total: 392704 bytes, Peak: 15872 bytes, Used: 13344 bytes, Free: 379360 bytes
+end
+begin
+end
+begin
+CRITICAL : Heap details: Total: 392704 bytes, Peak: 15872 bytes, Used: 14432 bytes, Free: 378272 bytes
+end
+CRITICAL : Heap details: Total: 392704 bytes, Peak: 15872 bytes, Used: 12432 bytes, Free: 380272 bytes
+CYCLES ..... : 6.8 K/s
+BEFORE GC .. : Used: 12576 bytes, Free: 380128 bytes
+AFTER GC ... : Used: 11184 bytes, Free: 381520 bytes
+
+Code done running.
+soft reboot
+/validate/performance/j_triggered_task_async.py output:
+Running on microcontroller. Pins are available.
+START ...... : Used: 16704 bytes, Free: 391872 bytes
+begin
+end
+begin
+end
+begin
+end
+begin
+end
+begin
+end
+begin
+end
+begin
+end
+begin
+end
+begin
+end
+CYCLES ..... : n/a K/s
+BEFORE GC .. : Used: 31312 bytes, Free: 377264 bytes
+AFTER GC ... : Used: 18256 bytes, Free: 390320 bytes
+START ...... : Used: 18304 bytes, Free: 390272 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 21536 bytes, Used: 21536 bytes, Free: 387040 bytes
+begin
+end
+begin
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 31360 bytes, Used: 30240 bytes, Free: 378336 bytes
+end
+begin
+end
+begin
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 31360 bytes, Used: 28256 bytes, Free: 380320 bytes
+end
+begin
+end
+begin
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 31360 bytes, Used: 26080 bytes, Free: 382496 bytes
+end
+begin
+end
+begin
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 31456 bytes, Used: 23936 bytes, Free: 384640 bytes
+end
+begin
+end
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 31456 bytes, Used: 27168 bytes, Free: 381408 bytes
+CYCLES ..... : n/a K/s
+BEFORE GC .. : Used: 27312 bytes, Free: 381264 bytes
+AFTER GC ... : Used: 20096 bytes, Free: 388480 bytes
+
+Code done running.
+soft reboot
+/validate/performance/k_output_pin.py output:
+Running on microcontroller. Pins are available.
+Config file loaded.
+Device file loaded.
+LED pin board.GP5
+Button pin board.GP27_A1
+Buzzer pin board.GP3
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
+START ...... : Used: 10944 bytes, Free: 381760 bytes
+CYCLES ..... : 13.6 K/s
+BEFORE GC .. : Used: 11136 bytes, Free: 381568 bytes
+AFTER GC ... : Used: 10992 bytes, Free: 381712 bytes
+START ...... : Used: 11056 bytes, Free: 381648 bytes
+CRITICAL : Heap details: Total: 392704 bytes, Peak: 13248 bytes, Used: 13248 bytes, Free: 379456 bytes
+CRITICAL : Heap details: Total: 392704 bytes, Peak: 15776 bytes, Used: 15200 bytes, Free: 377504 bytes
+CRITICAL : Heap details: Total: 392704 bytes, Peak: 15776 bytes, Used: 13952 bytes, Free: 378752 bytes
+CRITICAL : Heap details: Total: 392704 bytes, Peak: 15872 bytes, Used: 15872 bytes, Free: 376832 bytes
+CRITICAL : Heap details: Total: 392704 bytes, Peak: 15872 bytes, Used: 14624 bytes, Free: 378080 bytes
+CRITICAL : Heap details: Total: 392704 bytes, Peak: 15872 bytes, Used: 14160 bytes, Free: 378544 bytes
+CYCLES ..... : 5.8 K/s
+BEFORE GC .. : Used: 14304 bytes, Free: 378400 bytes
+AFTER GC ... : Used: 13136 bytes, Free: 379568 bytes
+
+Code done running.
+soft reboot
+/validate/performance/k_input_pin.py output:
+Running on microcontroller. Pins are available.
+Config file loaded.
+Device file loaded.
+LED pin board.GP5
+Button pin board.GP27_A1
+Buzzer pin board.GP3
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
+START ...... : Used: 10672 bytes, Free: 382032 bytes
+CYCLES ..... : 20.6 K/s
+BEFORE GC .. : Used: 10864 bytes, Free: 381840 bytes
+AFTER GC ... : Used: 10720 bytes, Free: 381984 bytes
+START ...... : Used: 10784 bytes, Free: 381920 bytes
+CRITICAL : Heap details: Total: 392704 bytes, Peak: 12976 bytes, Used: 12976 bytes, Free: 379728 bytes
+CRITICAL : Heap details: Total: 392704 bytes, Peak: 15856 bytes, Used: 14160 bytes, Free: 378544 bytes
+CRITICAL : Heap details: Total: 392704 bytes, Peak: 15856 bytes, Used: 13392 bytes, Free: 379312 bytes
+CRITICAL : Heap details: Total: 392704 bytes, Peak: 15856 bytes, Used: 13008 bytes, Free: 379696 bytes
+CRITICAL : Heap details: Total: 392704 bytes, Peak: 15856 bytes, Used: 15376 bytes, Free: 377328 bytes
+CRITICAL : Heap details: Total: 392704 bytes, Peak: 15856 bytes, Used: 15136 bytes, Free: 377568 bytes
+CYCLES ..... : 7.1 K/s
+BEFORE GC .. : Used: 15280 bytes, Free: 377424 bytes
+AFTER GC ... : Used: 12864 bytes, Free: 379840 bytes
+
+Code done running.
+soft reboot
+/validate/performance/k_pwm_pin.py output:
+Running on microcontroller. Pins are available.
+Config file loaded.
+Device file loaded.
+LED pin board.GP5
+Button pin board.GP27_A1
+Buzzer pin board.GP3
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
+START ...... : Used: 10848 bytes, Free: 381856 bytes
+CYCLES ..... : 11.1 K/s
+BEFORE GC .. : Used: 11040 bytes, Free: 381664 bytes
+AFTER GC ... : Used: 10896 bytes, Free: 381808 bytes
+START ...... : Used: 10960 bytes, Free: 381744 bytes
+CRITICAL : Heap details: Total: 392704 bytes, Peak: 13152 bytes, Used: 13152 bytes, Free: 379552 bytes
+CRITICAL : Heap details: Total: 392704 bytes, Peak: 14688 bytes, Used: 13952 bytes, Free: 378752 bytes
+CRITICAL : Heap details: Total: 392704 bytes, Peak: 15104 bytes, Used: 15008 bytes, Free: 377696 bytes
+CRITICAL : Heap details: Total: 392704 bytes, Peak: 15104 bytes, Used: 13184 bytes, Free: 379520 bytes
+CRITICAL : Heap details: Total: 392704 bytes, Peak: 15680 bytes, Used: 13952 bytes, Free: 378752 bytes
+CRITICAL : Heap details: Total: 392704 bytes, Peak: 15680 bytes, Used: 15408 bytes, Free: 377296 bytes
+CYCLES ..... : 5.2 K/s
+BEFORE GC .. : Used: 15552 bytes, Free: 377152 bytes
+AFTER GC ... : Used: 13040 bytes, Free: 379664 bytes
+
+Code done running.
+soft reboot
+/validate/performance/k_buzzer_pin.py output:
+Running on microcontroller. Pins are available.
+Config file loaded.
+Device file loaded.
+LED pin board.GP5
+Button pin board.GP27_A1
+Buzzer pin board.GP3
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
+START ...... : Used: 11680 bytes, Free: 381024 bytes
+CYCLES ..... : 26.8 K/s
+BEFORE GC .. : Used: 12304 bytes, Free: 380400 bytes
+AFTER GC ... : Used: 11728 bytes, Free: 380976 bytes
+START ...... : Used: 11824 bytes, Free: 380880 bytes
+CRITICAL : Heap details: Total: 392704 bytes, Peak: 13984 bytes, Used: 13984 bytes, Free: 378720 bytes
+CRITICAL : Heap details: Total: 392704 bytes, Peak: 15776 bytes, Used: 14400 bytes, Free: 378304 bytes
+CRITICAL : Heap details: Total: 392704 bytes, Peak: 15872 bytes, Used: 14112 bytes, Free: 378592 bytes
+CRITICAL : Heap details: Total: 392704 bytes, Peak: 15872 bytes, Used: 14144 bytes, Free: 378560 bytes
+CRITICAL : Heap details: Total: 392704 bytes, Peak: 15872 bytes, Used: 14016 bytes, Free: 378688 bytes
+CRITICAL : Heap details: Total: 392704 bytes, Peak: 15872 bytes, Used: 14032 bytes, Free: 378672 bytes
+CYCLES ..... : 7.0 K/s
+BEFORE GC .. : Used: 14176 bytes, Free: 378528 bytes
+AFTER GC ... : Used: 13872 bytes, Free: 378832 bytes
+
+Code done running.
+soft reboot
+/validate/performance/l_button.py output:
+Running on microcontroller. Pins are available.
+Config file loaded.
+Device file loaded.
+LED pin board.GP5
+Button pin board.GP27_A1
+Buzzer pin board.GP3
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
+START ...... : Used: 15664 bytes, Free: 392912 bytes
+CYCLES ..... : 2.8 K/s
+BEFORE GC .. : Used: 15856 bytes, Free: 392720 bytes
+AFTER GC ... : Used: 15712 bytes, Free: 392864 bytes
+START ...... : Used: 15776 bytes, Free: 392800 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 17920 bytes, Used: 17920 bytes, Free: 390656 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 31168 bytes, Used: 24640 bytes, Free: 383936 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 31392 bytes, Used: 31392 bytes, Free: 377184 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 31392 bytes, Used: 24000 bytes, Free: 384576 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 31392 bytes, Used: 30784 bytes, Free: 377792 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 31392 bytes, Used: 27088 bytes, Free: 381488 bytes
+CYCLES ..... : 2.2 K/s
+BEFORE GC .. : Used: 27232 bytes, Free: 381344 bytes
+AFTER GC ... : Used: 17808 bytes, Free: 390768 bytes
+
+Code done running.
+soft reboot
+/validate/performance/m_led.py output:
+Running on microcontroller. Pins are available.
+Config file loaded.
+Device file loaded.
+LED pin board.GP5
+Button pin board.GP27_A1
+Buzzer pin board.GP3
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
+START ...... : Used: 12736 bytes, Free: 395840 bytes
+CYCLES ..... : 13.3 K/s
+BEFORE GC .. : Used: 12928 bytes, Free: 395648 bytes
+AFTER GC ... : Used: 12784 bytes, Free: 395792 bytes
+START ...... : Used: 12848 bytes, Free: 395728 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 15008 bytes, Used: 15008 bytes, Free: 393568 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 30880 bytes, Used: 17440 bytes, Free: 391136 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 30880 bytes, Used: 23104 bytes, Free: 385472 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 30880 bytes, Used: 18592 bytes, Free: 389984 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 31744 bytes, Used: 31744 bytes, Free: 376832 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 31744 bytes, Used: 30864 bytes, Free: 377712 bytes
+CYCLES ..... : 5.9 K/s
+BEFORE GC .. : Used: 31008 bytes, Free: 377568 bytes
+AFTER GC ... : Used: 14896 bytes, Free: 393680 bytes
+
+Code done running.
+soft reboot
+/validate/performance/m_pixels.py output:
+Running on microcontroller. Pins are available.
+Config file loaded.
+Device file loaded.
+LED pin board.GP5
+Button pin board.GP27_A1
+Buzzer pin board.GP3
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
+START ...... : Used: 12784 bytes, Free: 395792 bytes
+CYCLES ..... : 26.7 K/s
+BEFORE GC .. : Used: 19216 bytes, Free: 389360 bytes
+AFTER GC ... : Used: 12832 bytes, Free: 395744 bytes
+START ...... : Used: 12896 bytes, Free: 395680 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 15072 bytes, Used: 15072 bytes, Free: 393504 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 30592 bytes, Used: 21632 bytes, Free: 386944 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 30592 bytes, Used: 28192 bytes, Free: 380384 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 30592 bytes, Used: 17504 bytes, Free: 391072 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 31456 bytes, Used: 24320 bytes, Free: 384256 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 31568 bytes, Used: 31568 bytes, Free: 377008 bytes
+CYCLES ..... : 9.2 K/s
+BEFORE GC .. : Used: 31712 bytes, Free: 376864 bytes
+AFTER GC ... : Used: 14960 bytes, Free: 393616 bytes
+
+Code done running.
+soft reboot
+/validate/performance/n_buzzer.py output:
+Running on microcontroller. Pins are available.
+Config file loaded.
+Device file loaded.
+LED pin board.GP5
+Button pin board.GP27_A1
+Buzzer pin board.GP3
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
+START ...... : Used: 13408 bytes, Free: 395168 bytes
+CYCLES ..... : 12.8 K/s
+BEFORE GC .. : Used: 26768 bytes, Free: 381808 bytes
+AFTER GC ... : Used: 13520 bytes, Free: 395056 bytes
+START ...... : Used: 13584 bytes, Free: 394992 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 15328 bytes, Used: 15328 bytes, Free: 393248 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 28832 bytes, Used: 15488 bytes, Free: 393088 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 31136 bytes, Used: 16000 bytes, Free: 392576 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 31520 bytes, Used: 15872 bytes, Free: 392704 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 31520 bytes, Used: 16256 bytes, Free: 392320 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 31520 bytes, Used: 23056 bytes, Free: 385520 bytes
+CYCLES ..... : 6.7 K/s
+BEFORE GC .. : Used: 23200 bytes, Free: 385376 bytes
+AFTER GC ... : Used: 15248 bytes, Free: 393328 bytes
+
+Code done running.
+soft reboot
+/validate/performance/n_melody.py output:
+Running on microcontroller. Pins are available.
+Config file loaded.
+Device file loaded.
+LED pin board.GP5
+Button pin board.GP27_A1
+Buzzer pin board.GP3
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
+START ...... : Used: 18288 bytes, Free: 390288 bytes
+CYCLES ..... : 6.9 K/s
+BEFORE GC .. : Used: 19072 bytes, Free: 389504 bytes
+AFTER GC ... : Used: 18368 bytes, Free: 390208 bytes
+START ...... : Used: 18432 bytes, Free: 390144 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 20144 bytes, Used: 20144 bytes, Free: 388432 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 30480 bytes, Used: 21328 bytes, Free: 387248 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 31184 bytes, Used: 22992 bytes, Free: 385584 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 31664 bytes, Used: 24144 bytes, Free: 384432 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 31696 bytes, Used: 25552 bytes, Free: 383024 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 31696 bytes, Used: 29024 bytes, Free: 379552 bytes
+CYCLES ..... : 4.5 K/s
+BEFORE GC .. : Used: 29168 bytes, Free: 379408 bytes
+AFTER GC ... : Used: 20032 bytes, Free: 388544 bytes
+
+Code done running.
+soft reboot
+/validate/performance/n_pwm_audio.py output:
+Running on microcontroller. Pins are available.
+Config file loaded.
+Device file loaded.
+LED pin board.GP5
+Button pin board.GP27_A1
+Buzzer pin board.GP3
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
+START ...... : Used: 47920 bytes, Free: 359632 bytes
+CYCLES ..... : 18.0 K/s
+BEFORE GC .. : Used: 48304 bytes, Free: 351056 bytes
+AFTER GC ... : Used: 47968 bytes, Free: 351392 bytes
+START ...... : Used: 48032 bytes, Free: 351328 bytes
+CRITICAL : Heap details: Total: 399360 bytes, Peak: 50224 bytes, Used: 50224 bytes, Free: 349136 bytes
+CRITICAL : Heap details: Total: 399360 bytes, Peak: 57232 bytes, Used: 55440 bytes, Free: 343920 bytes
+CRITICAL : Heap details: Total: 399360 bytes, Peak: 57232 bytes, Used: 51312 bytes, Free: 348048 bytes
+CRITICAL : Heap details: Total: 399360 bytes, Peak: 57232 bytes, Used: 50352 bytes, Free: 349008 bytes
+CRITICAL : Heap details: Total: 399360 bytes, Peak: 63280 bytes, Used: 63280 bytes, Free: 336080 bytes
+CRITICAL : Heap details: Total: 399360 bytes, Peak: 63280 bytes, Used: 50752 bytes, Free: 348608 bytes
+CYCLES ..... : 6.9 K/s
+BEFORE GC .. : Used: 50896 bytes, Free: 348464 bytes
+AFTER GC ... : Used: 50112 bytes, Free: 349248 bytes
+
+Code done running.
+soft reboot
+/validate/performance/n_i2s_audio.py output:
+Running on microcontroller. Pins are available.
+Config file loaded.
+Device file loaded.
+LED pin board.GP5
+Button pin board.GP27_A1
+Buzzer pin board.GP3
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
+START ...... : Used: 48288 bytes, Free: 359264 bytes
+CYCLES ..... : 17.5 K/s
+BEFORE GC .. : Used: 48672 bytes, Free: 350688 bytes
+AFTER GC ... : Used: 48336 bytes, Free: 351024 bytes
+START ...... : Used: 48400 bytes, Free: 350960 bytes
+CRITICAL : Heap details: Total: 399360 bytes, Peak: 50592 bytes, Used: 50592 bytes, Free: 348768 bytes
+CRITICAL : Heap details: Total: 399360 bytes, Peak: 63104 bytes, Used: 63104 bytes, Free: 336256 bytes
+CRITICAL : Heap details: Total: 399360 bytes, Peak: 63104 bytes, Used: 51488 bytes, Free: 347872 bytes
+CRITICAL : Heap details: Total: 399360 bytes, Peak: 63104 bytes, Used: 55904 bytes, Free: 343456 bytes
+CRITICAL : Heap details: Total: 399360 bytes, Peak: 63104 bytes, Used: 59840 bytes, Free: 339520 bytes
+CRITICAL : Heap details: Total: 399360 bytes, Peak: 63104 bytes, Used: 62640 bytes, Free: 336720 bytes
+CYCLES ..... : 6.8 K/s
+BEFORE GC .. : Used: 62784 bytes, Free: 336576 bytes
+AFTER GC ... : Used: 50480 bytes, Free: 348880 bytes
+
+Code done running.
+soft reboot
+/validate/performance/o_blink.py output:
+Running on microcontroller. Pins are available.
+Config file loaded.
+Device file loaded.
+LED pin board.GP5
+Button pin board.GP27_A1
+Buzzer pin board.GP3
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
+START ...... : Used: 19040 bytes, Free: 389536 bytes
+CYCLES ..... : 9.8 K/s
+BEFORE GC .. : Used: 29200 bytes, Free: 379376 bytes
+AFTER GC ... : Used: 19056 bytes, Free: 389520 bytes
+START ...... : Used: 19120 bytes, Free: 389456 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 21264 bytes, Used: 21264 bytes, Free: 387312 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 30672 bytes, Used: 30672 bytes, Free: 377904 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 31360 bytes, Used: 30672 bytes, Free: 377904 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 31408 bytes, Used: 30672 bytes, Free: 377904 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 31408 bytes, Used: 30832 bytes, Free: 377744 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 31408 bytes, Used: 29616 bytes, Free: 378960 bytes
+CYCLES ..... : 5.4 K/s
+BEFORE GC .. : Used: 29760 bytes, Free: 378816 bytes
+AFTER GC ... : Used: 21152 bytes, Free: 387424 bytes
+
+Code done running.
+soft reboot
+/validate/performance/o_flicker.py output:
+Running on microcontroller. Pins are available.
+Config file loaded.
+Device file loaded.
+LED pin board.GP5
+Button pin board.GP27_A1
+Buzzer pin board.GP3
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
+START ...... : Used: 17536 bytes, Free: 391040 bytes
+CYCLES ..... : 10.1 K/s
+BEFORE GC .. : Used: 18000 bytes, Free: 390576 bytes
+AFTER GC ... : Used: 17584 bytes, Free: 390992 bytes
+START ...... : Used: 17648 bytes, Free: 390928 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 19840 bytes, Used: 19840 bytes, Free: 388736 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 31648 bytes, Used: 30752 bytes, Free: 377824 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 31712 bytes, Used: 28448 bytes, Free: 380128 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 31712 bytes, Used: 26208 bytes, Free: 382368 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 31712 bytes, Used: 24448 bytes, Free: 384128 bytes
+CRITICAL : Heap details: Total: 408576 bytes, Peak: 31712 bytes, Used: 29968 bytes, Free: 378608 bytes
+CYCLES ..... : 5.6 K/s
+BEFORE GC .. : Used: 30112 bytes, Free: 378464 bytes
+AFTER GC ... : Used: 19728 bytes, Free: 388848 bytes
+
+Code done running.
+soft reboot
+/validate/performance/s_client.py output:
+Running on microcontroller. Pins are available.
+START ...... : Used: 22912 bytes, Free: 369280 bytes
+Status ..... : 200
+Reason ..... : bytearray(b'OK')
+Text ....... : {'origin': '86.180.95.193', 'headers': {'User-Agent': 'Adafruit CircuitPython', 'Host': 'httpbin.org'}, 'args': {}, 'method': 'GET', 'url': 'https://httpbin.org/get'}
+Status ..... : 200
+Reason ..... : bytearray(b'OK')
+Text ....... : {'origin': '86.180.95.193', 'headers': {'User-Agent': 'Adafruit CircuitPython', 'Host': 'httpbin.org'}, 'args': {}, 'method': 'GET', 'url': 'https://httpbin.org/get'}
+Status ..... : 200
+Reason ..... : bytearray(b'OK')
+Text ....... : {'origin': '86.180.95.193', 'headers': {'User-Agent': 'Adafruit CircuitPython', 'Host': 'httpbin.org'}, 'args': {}, 'method': 'GET', 'url': 'https://httpbin.org/get'}
+CYCLES ..... : 0.0 K/s
+BEFORE GC .. : Used: 74224 bytes, Free: 314896 bytes
+AFTER GC ... : Used: 57536 bytes, Free: 331584 bytes
+START ...... : Used: 57600 bytes, Free: 331520 bytes
+CRITICAL : Heap details: Total: 389120 bytes, Peak: 61648 bytes, Used: 61648 bytes, Free: 327472 bytes
+Status ..... : 200
+Reason ..... : bytearray(b'OK')
+Text ....... : {'origin': '86.180.95.193', 'headers': {'User-Agent': 'Adafruit CircuitPython', 'Host': 'httpbin.org'}, 'args': {}, 'method': 'GET', 'url': 'https://httpbin.org/get'}
+Status ..... : 200
+Reason ..... : bytearray(b'OK')
+Text ....... : {'origin': '86.180.95.193', 'headers': {'User-Agent': 'Adafruit CircuitPython', 'Host': 'httpbin.org'}, 'args': {}, 'method': 'GET', 'url': 'https://httpbin.org/get'}
+Status ..... : 200
+Reason ..... : bytearray(b'OK')
+Text ....... : {'origin': '86.180.95.193', 'headers': {'User-Agent': 'Adafruit CircuitPython', 'Host': 'httpbin.org'}, 'args': {}, 'method': 'GET', 'url': 'https://httpbin.org/get'}
+Status ..... : 200
+Reason ..... : bytearray(b'OK')
+Text ....... : {'origin': '86.180.95.193', 'headers': {'User-Agent': 'Adafruit CircuitPython', 'Host': 'httpbin.org'}, 'args': {}, 'method': 'GET', 'url': 'https://httpbin.org/get'}
+CRITICAL : Heap details: Total: 389120 bytes, Peak: 85936 bytes, Used: 85936 bytes, Free: 303184 bytes
+Status ..... : 200
+Reason ..... : bytearray(b'OK')
+Text ....... : {'origin': '86.180.95.193', 'headers': {'User-Agent': 'Adafruit CircuitPython', 'Host': 'httpbin.org'}, 'args': {}, 'method': 'GET', 'url': 'https://httpbin.org/get'}
+Status ..... : 200
+Reason ..... : bytearray(b'OK')
+Text ....... : {'origin': '86.180.95.193', 'headers': {'User-Agent': 'Adafruit CircuitPython', 'Host': 'httpbin.org'}, 'args': {}, 'method': 'GET', 'url': 'https://httpbin.org/get'}
+Status ..... : 200
+Reason ..... : bytearray(b'OK')
+Text ....... : {'origin': '86.180.95.193', 'headers': {'User-Agent': 'Adafruit CircuitPython', 'Host': 'httpbin.org'}, 'args': {}, 'method': 'GET', 'url': 'https://httpbin.org/get'}
+Status ..... : 200
+Reason ..... : bytearray(b'OK')
+Text ....... : {'origin': '86.180.95.193', 'headers': {'User-Agent': 'Adafruit CircuitPython', 'Host': 'httpbin.org'}, 'args': {}, 'method': 'GET', 'url': 'https://httpbin.org/get'}
+CRITICAL : Heap details: Total: 389120 bytes, Peak: 110224 bytes, Used: 110224 bytes, Free: 278896 bytes
+Status ..... : 200
+Reason ..... : bytearray(b'OK')
+Text ....... : {'origin': '86.180.95.193', 'headers': {'User-Agent': 'Adafruit CircuitPython', 'Host': 'httpbin.org'}, 'args': {}, 'method': 'GET', 'url': 'https://httpbin.org/get'}
+Status ..... : 200
+Reason ..... : bytearray(b'OK')
+Text ....... : {'origin': '86.180.95.193', 'headers': {'User-Agent': 'Adafruit CircuitPython', 'Host': 'httpbin.org'}, 'args': {}, 'method': 'GET', 'url': 'https://httpbin.org/get'}
+Status ..... : 200
+Reason ..... : bytearray(b'OK')
+Text ....... : {'origin': '86.180.95.193', 'headers': {'User-Agent': 'Adafruit CircuitPython', 'Host': 'httpbin.org'}, 'args': {}, 'method': 'GET', 'url': 'https://httpbin.org/get'}
+Status ..... : 200
+Reason ..... : bytearray(b'OK')
+Text ....... : {'origin': '86.180.95.193', 'headers': {'User-Agent': 'Adafruit CircuitPython', 'Host': 'httpbin.org'}, 'args': {}, 'method': 'GET', 'url': 'https://httpbin.org/get'}
+CRITICAL : Heap details: Total: 389120 bytes, Peak: 122416 bytes, Used: 73616 bytes, Free: 315504 bytes
+Status ..... : 200
+Reason ..... : bytearray(b'OK')
+Text ....... : {'origin': '86.180.95.193', 'headers': {'User-Agent': 'Adafruit CircuitPython', 'Host': 'httpbin.org'}, 'args': {}, 'method': 'GET', 'url': 'https://httpbin.org/get'}
+Status ..... : 200
+Reason ..... : bytearray(b'OK')
+Text ....... : {'origin': '86.180.95.193', 'headers': {'User-Agent': 'Adafruit CircuitPython', 'Host': 'httpbin.org'}, 'args': {}, 'method': 'GET', 'url': 'https://httpbin.org/get'}
+Status ..... : 200
+Reason ..... : bytearray(b'OK')
+Text ....... : {'origin': '86.180.95.193', 'headers': {'User-Agent': 'Adafruit CircuitPython', 'Host': 'httpbin.org'}, 'args': {}, 'method': 'GET', 'url': 'https://httpbin.org/get'}
+Status ..... : 200
+Reason ..... : bytearray(b'OK')
+Text ....... : {'origin': '86.180.95.193', 'headers': {'User-Agent': 'Adafruit CircuitPython', 'Host': 'httpbin.org'}, 'args': {}, 'method': 'GET', 'url': 'https://httpbin.org/get'}
+CRITICAL : Heap details: Total: 389120 bytes, Peak: 122416 bytes, Used: 97904 bytes, Free: 291216 bytes
+CRITICAL : Heap details: Total: 389120 bytes, Peak: 122416 bytes, Used: 98016 bytes, Free: 291104 bytes
+CYCLES ..... : 0.0 K/s
+BEFORE GC .. : Used: 98160 bytes, Free: 290960 bytes
+AFTER GC ... : Used: 61504 bytes, Free: 327616 bytes
+
+Code done running.
+soft reboot
+/validate/performance/s_server.py output:
+Running on microcontroller. Pins are available.
+Config file loaded.
+Device file loaded.
+LED pin board.GP5
+Button pin board.GP27_A1
+Buzzer pin board.GP3
+Pixels pin board.GP28_A2
+I2S audio pins board.GP0 board.GP1 board.GP2
+Starting mDNS at app.local (IP address 192.168.1.109)
+START ...... : Used: 17296 bytes, Free: 382832 bytes
+CYCLES ..... : 5.3 K/s
+BEFORE GC .. : Used: 18592 bytes, Free: 381536 bytes
+AFTER GC ... : Used: 17344 bytes, Free: 382784 bytes
+START ...... : Used: 17408 bytes, Free: 382720 bytes
+CRITICAL : Heap details: Total: 400128 bytes, Peak: 19216 bytes, Used: 19216 bytes, Free: 380912 bytes
+CRITICAL : Heap details: Total: 400128 bytes, Peak: 25808 bytes, Used: 22928 bytes, Free: 377200 bytes
+CRITICAL : Heap details: Total: 400128 bytes, Peak: 27712 bytes, Used: 25216 bytes, Free: 374912 bytes
+CRITICAL : Heap details: Total: 400128 bytes, Peak: 30208 bytes, Used: 27088 bytes, Free: 373040 bytes
+CRITICAL : Heap details: Total: 400128 bytes, Peak: 31456 bytes, Used: 29584 bytes, Free: 370544 bytes
+CRITICAL : Heap details: Total: 400128 bytes, Peak: 31456 bytes, Used: 26480 bytes, Free: 373648 bytes
+CYCLES ..... : 3.5 K/s
+BEFORE GC .. : Used: 26624 bytes, Free: 373504 bytes
+AFTER GC ... : Used: 19104 bytes, Free: 381024 bytes
+
+Code done running.
+soft reboot
+/validate/performance/z_finish.py output:
+FINISHED
+
+Code done running.
+Auto-reload is on. Simply save files over USB to run them or enter REPL to disable.
+
+Press any key to enter the REPL. Use CTRL-D to reload.
+
