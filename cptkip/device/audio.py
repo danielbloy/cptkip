@@ -118,7 +118,7 @@ def PwmAudio(pin) -> Audio:
             try:
                 from audiopwmio import PWMAudioOut as AudioOut
             except ImportError:
-                raise ValueError("audioio and audiopwmio are not supported on this board.")
+                raise ValueError("audioio and audiopwmio are not supported on this device.")
 
         audio_out = AudioOut(pin)
 
