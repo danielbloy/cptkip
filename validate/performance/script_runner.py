@@ -16,6 +16,8 @@ def execute_next_script(current_script: str | None = None):
         "/validate/performance/g_adafruit_asyncio.py",
         "/validate/performance/h_basic_runner.py",
         "/validate/performance/h_basic_runner_async.py",
+        "/validate/performance/h_reliable_runner.py",
+        "/validate/performance/h_reliable_runner_async.py",
         "/validate/performance/i_periodic_task.py",
         "/validate/performance/i_periodic_task_async.py",
         "/validate/performance/j_triggered_events_task.py",

@@ -14,9 +14,8 @@
 #
 from cptkip.core.environment import is_running_on_desktop, is_running_under_test
 
-# collections.abc is not available in CircuitPython.
 if is_running_on_desktop():
-    from collections.abc import Callable
+    from typing import Callable
 else:
     # noinspection shadowing-builtins
     class BlockingIOError(OSError):

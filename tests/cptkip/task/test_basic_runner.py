@@ -1,6 +1,7 @@
 import pytest
 
 from cptkip.task.basic_runner import run
+from cptkip.task.limiters import count_limiter
 
 
 class TestBasicRunner:
@@ -77,6 +78,17 @@ class TestBasicRunner:
         assert two_count == 22
         assert three_count == 33
 
+        # Now try with a continue function provided.
+        one_count: int = 0
+        two_count: int = 0
+        three_count: int = 0
+
+        run(three, one, two, continue_func=lambda: True)
+
+        assert one_count == 11
+        assert two_count == 22
+        assert three_count == 33
+
     def test_run_with_three_tasks_round_robin(self):
         """
         Runs three tasks and validates they run in a round-robin fashion.
@@ -114,8 +126,46 @@ class TestBasicRunner:
         basic runner has no error handling.
         """
 
+        call_count: int = 0
+
         def raise_exception() -> bool:
+            nonlocal call_count
+            call_count += 1
             raise Exception
 
         with pytest.raises(Exception):
             run(raise_exception)
+
+        assert call_count == 1
+
+    def test_funcs_never_called(self) -> None:
+        """
+        Validates that the runner terminates straight away
+        when the continue_func always returns False.
+        """
+        called = False
+
+        def task() -> bool:
+            nonlocal called
+            called = True
+            return True
+
+        run(task, continue_func=lambda: False)
+
+        assert not called
+
+    def test_runner_stops(self):
+        """
+        Validates that the runner terminates when the continue_func returns False.
+        """
+        call_count_1: int = 0
+
+        def runaway() -> bool:
+            nonlocal call_count_1
+            call_count_1 += 1
+            return True  # runaway
+
+        continue_fn = count_limiter(40)
+
+        run(runaway, continue_func=continue_fn)
+        assert call_count_1 == 40

@@ -120,6 +120,21 @@ You can find more information about using this at:
 
 Each release is made available in the `releases` directory as a zip file.
 
+### Version information
+
+The `package.py` file updates the `__version__` property in the file `cptkip.__init__.py` after it
+has copied it across to the `package` directory. To ensure the file is easy to read, it is not run
+through `mpy-cross` so it stays as text. The version information is taken from the `pyproject.toml`
+file.
+
+## Officially supported microcontrollers
+
+The `cptkip` should work on most supported CircuitPython microcontroller boards. There are however
+differences between these boards so support for all functionality cannot be guaranteed. As part
+of the release process I do run and validate against a set of microcontrollers that I use. These can
+be considered "officially supported". Using a board that is a variation of one of the vanilla boards
+should also be fine in almost all circumstances.
+
 ## License
 
 Copyright 2026 Daniel Bloy

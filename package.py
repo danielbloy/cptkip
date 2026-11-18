@@ -8,11 +8,35 @@
 # The directory structure is mirrored under the output directory, which defaults
 # to a "package" directory alongside the source directory, so by default
 # cptkip/foo/bar.py compiles to package/cptkip/foo/bar.mpy.
+#
+# The top-level __init__.py of the source directory is the exception: it is copied
+# (not compiled) so it stays readable, and its __version__ is set to the version in
+# pyproject.toml. Only the packaged copy is changed; the source file is left untouched.
 import argparse
+import re
 import shutil
 import subprocess
 import sys
+import tomllib
 from pathlib import Path
+
+PYPROJECT = Path(__file__).resolve().parent / "pyproject.toml"
+VERSION_PATTERN = re.compile(r'^__version__\s*=.*$', re.MULTILINE)
+
+
+def read_version() -> str:
+    with PYPROJECT.open("rb") as file:
+        return tomllib.load(file)["project"]["version"]
+
+
+def write_versioned_init(source: Path, destination: Path, version: str) -> bool:
+    text = source.read_text()
+    text, count = VERSION_PATTERN.subn(f'__version__ = "{version}"', text)
+    if count == 0:
+        print(f"No __version__ assignment found in {source}")
+        return False
+    destination.write_text(text)
+    return True
 
 
 def main() -> int:
@@ -36,11 +60,18 @@ def main() -> int:
         print(f"No files found under {source}")
         return 1
 
+    version = read_version()
+    init_file = source / "__init__.py"
+
     failures = 0
     for file in files:
         destination = output / file.relative_to(source)
         destination.parent.mkdir(parents=True, exist_ok=True)
-        if file.suffix == ".py":
+        if file == init_file:
+            print(f"{file.relative_to(source.parent)} -> {destination} (copied, version {version})")
+            if not write_versioned_init(file, destination, version):
+                failures += 1
+        elif file.suffix == ".py":
             destination = destination.with_suffix(".mpy")
             print(f"{file.relative_to(source.parent)} -> {destination}")
             result = subprocess.run([args.mpy_cross, str(file), "-o", str(destination)])

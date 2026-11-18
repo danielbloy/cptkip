@@ -37,4 +37,5 @@ async def two() -> None:
         await asyncio.sleep(0.5)
 
 
+log.set_log_level(log.INFO)
 runner.run(one, two)

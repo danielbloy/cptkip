@@ -22,6 +22,7 @@ def execute():
         next_change = monotonic() + 0.25
         print("LED will pulse")
         utils.execute(task)
+        utils.execute(task, use_reliable_runner=True)
 
 
 if __name__ == '__main__':

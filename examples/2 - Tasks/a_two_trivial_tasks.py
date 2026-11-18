@@ -44,4 +44,5 @@ def two() -> bool:
     return time.monotonic() < finish
 
 
+log.set_log_level(log.INFO)
 runner.run(one, two)

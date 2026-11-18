@@ -2,8 +2,8 @@ import asyncio
 from time import monotonic_ns
 
 import cptkip.core.memory as memory
-import tests.cptkip.utilities as utils
 from cptkip.core.control import NS_PER_SECOND
+from cptkip.task.limiters import count_limiter
 from cptkip.task.memory_monitor_task_async import create
 
 
@@ -50,7 +50,7 @@ class TestMemoryMonitorTaskAsync:
         """
         memory.reset_memory_usage()
 
-        task = create(1, 1, continue_func=utils.stop)
+        task = create(1, 1, continue_func=lambda: False)
         asyncio.run(task())
 
         assert memory.peak_used_heap != 0
@@ -63,12 +63,12 @@ class TestMemoryMonitorTaskAsync:
         """
         Validates that memory monitor correct uses the continue_func.
         """
-        continue_func = utils.count_limiter(1)
+        continue_func = count_limiter(1)
         task = create(1, 1, continue_func=continue_func)
         asyncio.run(task())
         assert not continue_func()
 
-        continue_func = utils.count_limiter(3)
+        continue_func = count_limiter(3)
         task = create(1, 1, continue_func=continue_func)
         asyncio.run(task())
         assert not continue_func()
@@ -143,10 +143,10 @@ class TestMemoryMonitorTaskAsync:
         Validates that using invalid values for sample and reporting get defaulted to 1.
         """
         # First validate that we do not get errors.
-        task = create(0, 0, continue_func=utils.stop)
+        task = create(0, 0, continue_func=lambda: False)
         asyncio.run(task())
 
-        task = create(-1, -1, continue_func=utils.stop)
+        task = create(-1, -1, continue_func=lambda: False)
         asyncio.run(task())
 
         count = 0

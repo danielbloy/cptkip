@@ -10,6 +10,8 @@ import cptkip.task.basic_runner_async as runner
 import cptkip.task.periodic_task_async as periodic_task
 from cptkip.pin.output_pin import OutputPin
 
+log.set_log_level(log.INFO)
+
 with OutputPin(config.LED_PIN, invert=config.LED_INVERT) as led:
     log.info("Using value to control the LED")
     finish = time.monotonic() + 3

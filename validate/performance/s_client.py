@@ -11,10 +11,10 @@ from validate.performance.task_runner import execute
 
 
 def task():
-    with requests.request("GET", "http://www.adafruit.com/api/quotes.php") as response:
+    with requests.request("GET", "https://httpbin.org/get") as response:
         print(f"Status ..... : {response.status_code}")
         print(f"Reason ..... : {response.reason}")
-        print(f"Text ....... : {response.json()[0]['text']}")
+        print(f"Text ....... : {response.json()}")
 
 
 execute(task, False)

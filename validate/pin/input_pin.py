@@ -14,6 +14,7 @@ def execute():
         value = pin.value
         print("Press the button to validate")
         utils.execute(task)
+        utils.execute(task, use_reliable_runner=True)
 
 
 if __name__ == '__main__':

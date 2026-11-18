@@ -116,10 +116,9 @@ def PwmAudio(pin) -> Audio:
             from audioio import AudioOut
         except ImportError:
             try:
-                # noinspection PyUnresolvedReferences
                 from audiopwmio import PWMAudioOut as AudioOut
             except ImportError:
-                pass  # not always supported by every board!
+                raise ValueError("audioio and audiopwmio are not supported on this board.")
 
         audio_out = AudioOut(pin)
 

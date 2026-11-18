@@ -55,8 +55,11 @@ if environment.are_pins_available():
 BUZZER_PIN = None
 
 if environment.are_pins_available():
-    # noinspection PyUnresolvedReferences
-    BUZZER_PIN = board.GP3
+    try:
+        # noinspection PyUnresolvedReferences
+        BUZZER_PIN = board.GP3
+    except:
+        pass
 
 ################################################################################
 # N E O P I X E L S
@@ -65,8 +68,11 @@ PIXELS_PIN = None
 PIXELS_COUNT = 8
 
 if environment.are_pins_available():
-    # noinspection PyUnresolvedReferences
-    PIXELS_PIN = board.GP28
+    try:
+        # noinspection PyUnresolvedReferences
+        PIXELS_PIN = board.GP28
+    except:
+        pass
 
 ################################################################################
 # I 2 S    A U D I O
@@ -76,9 +82,12 @@ I2S_LEFT_RIGHT_CLOCK = None
 I2S_DATA = None
 
 if environment.are_pins_available():
-    # noinspection unresolved-references
-    I2S_BIT_CLOCK = board.GP0
-    # noinspection unresolved-references
-    I2S_LEFT_RIGHT_CLOCK = board.GP1
-    # noinspection unresolved-references
-    I2S_DATA = board.GP2
+    try:
+        # noinspection unresolved-references
+        I2S_BIT_CLOCK = board.GP0
+        # noinspection unresolved-references
+        I2S_LEFT_RIGHT_CLOCK = board.GP1
+        # noinspection unresolved-references
+        I2S_DATA = board.GP2
+    except:
+        pass

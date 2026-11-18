@@ -3,10 +3,8 @@ from time import monotonic
 import cptkip.core.environment as environment
 from cptkip.core.logging import debug
 
-# collections.abc is not available in CircuitPython.
 if environment.is_running_on_desktop():
-    from collections.abc import Callable
-    from typing import Any, Tuple
+    from typing import Any, Tuple, Callable
 
 
 class Trigger:

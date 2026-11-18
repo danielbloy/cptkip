@@ -5,10 +5,8 @@ import cptkip.core.environment as environment
 from cptkip.core.control import ASYNC_LOOP_SLEEP_INTERVAL
 from cptkip.core.logging import debug
 
-# collections.abc is not available in CircuitPython.
 if environment.is_running_on_desktop():
-    from collections.abc import Callable, Awaitable
-    from typing import Any, Tuple
+    from typing import Any, Tuple, Callable, Awaitable
 
 
 class Trigger:

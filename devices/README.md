@@ -1,1 +1,0 @@
-The Python files in here are `device.py` files for specific microcontrollers.

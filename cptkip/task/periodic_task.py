@@ -3,9 +3,8 @@ from time import monotonic_ns
 import cptkip.core.environment as environment
 from cptkip.core.control import NS_PER_SECOND
 
-# collections.abc is not available in CircuitPython.
 if environment.is_running_on_desktop():
-    from collections.abc import Callable
+    from typing import Callable
 
 
 def create(
