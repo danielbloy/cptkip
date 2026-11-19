@@ -124,7 +124,7 @@ if environment.are_pins_available():
 
             if espressif:
                 # noinspection PyUnresolvedReferences
-                PIXELS_PIN = board.IO2
+                PIXELS_PIN = board.IO10
 
         except AttributeError:
             pass
