@@ -5,7 +5,7 @@ def execute():
     import cptkip.pin.output_pin as output_pin
 
     # Use the LED as an output pin
-    with        output_pin.OutputPin(config.LED_PIN, invert=config.LED_INVERT) as pin:
+    with output_pin.OutputPin(config.LED_PIN, invert=config.LED_INVERT) as pin:
         def task():
             nonlocal next_change
             change = monotonic() >= next_change

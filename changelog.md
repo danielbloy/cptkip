@@ -1,5 +1,7 @@
 # Changelog
 
+## 0.3.5 - Stable
+
 ## 0.3.4 - Stable
 
 Moved `count_limiter` and `duration_limiter` from `test.utilities` into `cptkip.task.limiters` to
@@ -82,7 +84,8 @@ Contains a minor change to the output of the details from the memory logging. No
 
 Renamed `cptkip/device/pwm_audio.py` to `cptkip/device/audio.py` as it contains support for I2S
 audio as well as PWM audio. This is a breaking change. The Audio class no longer takes a pin object (for PWM) but an
-audio_out so that it can be used with PWM or I2S. Two convenience functions (`PwmAudio` and `I2sAudio`) have been added
+audio_out so that it can be used with PWM or I2S. Two convenience functions (`PwmAudio` and
+`I2sAudio`) have been added
 to make it trivial to create the correct audio type.
 Existing code can easily be migrated through a simple change to the import statement from:
 
