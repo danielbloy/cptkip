@@ -2,34 +2,6 @@
 
 ## 0.3.5 - Stable
 
-> > > import sys
-> > > dir(sys)
-> > > ['__class__', '__name__', '
-> > > __dict__', 'argv', 'byteorder', 'exit', 'implementation', 'maxsize', 'modules', 'path', 'platform', 'stderr', 'stdin', 'stdout', 'version', 'version_info']
-
-> > > print(sys.platform)
-> > > Espressif
-> > > Espressif
-> > > RP2040
-> > > RP2350
-
-> > > print(sys.implementation)
-> > > (name='circuitpython', version=(10, 3, 2, ''), _machine='Waveshare ESP32-S3-Zero with ESP32S3', _
-> > > mpy=774, _build='waveshare_esp32_s3_zero')
-> > > (name='circuitpython', version=(10, 3, 2, ''), _machine='Maker Go ESP32C3 Supermini with
-> > > ESP32-C3', _mpy=774, _build='makergo_esp32c3_supermini')
-> > > (name='circuitpython', version=(10, 3, 2, ''), _machine='Raspberry Pi Pico with rp2040', _mpy=
-> > > 4870, _build='raspberry_pi_pico')
-> > > (name='circuitpython', version=(10, 3, 2, ''), _machine='Raspberry Pi Pico 2 with rp2350a', _mpy=
-> > > 7942, _build='raspberry_pi_pico2')
-
-> > > import board
-> > > print(board.board_id)
-> > > waveshare_esp32_s3_zero
-> > > makergo_esp32c3_supermini
-> > > raspberry_pi_pico
-> > > raspberry_pi_pico2
-
 ## 0.3.4 - Stable
 
 Moved `count_limiter` and `duration_limiter` from `test.utilities` into `cptkip.task.limiters` to
@@ -111,8 +83,7 @@ Contains a minor change to the output of the details from the memory logging. No
 ## 0.2.0 - Beta, breaking change to for `cptkip/device/pwm_audio.py`
 
 Renamed `cptkip/device/pwm_audio.py` to `cptkip/device/audio.py` as it contains support for I2S
-audio as well as PWM audio. This is a breaking change. The Audio class no longer takes a pin object
-(for PWM) but an
+audio as well as PWM audio. This is a breaking change. The Audio class no longer takes a pin object (for PWM) but an
 audio_out so that it can be used with PWM or I2S. Two convenience functions (`PwmAudio` and
 `I2sAudio`) have been added
 to make it trivial to create the correct audio type.

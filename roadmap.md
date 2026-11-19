@@ -4,7 +4,6 @@
 
 The following functionality is planned to be implemented in 0.3.x or later:
 
-* Update config.py so that it works with ESP-32 S3 and ESP-32 C3 boards and remove device overrides
 * Upgrade to CircuitPython 11.0.0 at earliest opportunity to support pwmaudio on ESP-32 boards
 * Support for MEMS microphone device
 * Support for Ultrasonic sensor device
