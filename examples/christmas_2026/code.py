@@ -1,11 +1,11 @@
 from adafruit_led_animation.animation.blink import Blink
 
 import cptkip.config.configuration as config
-from cptkip.animation.flicker import Flicker
 from cptkip.device.melody import decode_melody, Melody, MelodySequence
+from cptkip.pin.output_pin import OutputPin
 from cptkip.zero.button import create_button
 from cptkip.zero.buzzer import create_buzzer_pin
-from cptkip.zero.led import create_led, stop_animation, stop_led
+from cptkip.zero.led import create_led, stop_animation
 from cptkip.zero.run import update_for
 
 ################################################################################
@@ -39,36 +39,32 @@ button = create_button(click=single_click_handler, multi_click=multi_click_handl
 ################################################################################
 # L E D S
 ################################################################################
-leds = [create_led(pin) for pin in config.LED_PINS]
-
-# TODO: This may not be needed either
-for led in leds:
-    led.off()
+# leds = [create_led(pin) for pin in config.LED_PINS]
+leds = [OutputPin(pin, invert=config.LED_INVERT) for pin in config.LEDS]
 
 # TODO: Individually select
 animations = [
-    Flicker(leds[config.TL], speed=0.5, color=(255, 255, 255), base=100, flame=155),
-    Blink(leds[config.TR], speed=0.5, color=(255, 255, 255))
+    Blink(create_led(config.MIDDLE_LEFT_LED_PIN), speed=0.5, color=255),
+    Blink(create_led(config.MIDDLE_CENTRE_LED_PIN), speed=0.5, color=255),
+    # Flicker(create_led(config.MIDDLE_RIGHT_LED_PIN), speed=0.5, color=255, base=100, flame=155),
 ]
 
 # TODO: All animations are uniform
-animations = [Flicker(led, speed=0.5, color=(255, 255, 255), base=100, flame=155) for led in leds]
-animations = [Blink(led, speed=0.5, color=(255, 255, 255)) for led in leds]
+# animations = [Flicker(led, speed=0.1, color=255, base=100, flame=155) for led in leds]
+# animations = [Blink(led, speed=0.1, color=255) for led in leds]
+
 
 # TODO: Control the animations
-animations[config.TL].freeze()
-animations[config.TL].resume()
-animations[config.TL].speed(1.0)
-animations[config.TL].color((0, 0, 0))  # This might turn it off.
+# animations[config.TL].freeze()
+# animations[config.TL].resume()
+animations[0].speed = 0.1
+animations[0].color = 30
+# This turns the LED off
+# leds[config.TL].off()
+# leds[config.TL].show()
 
-# TODO: Migrate the zero/led change to core cptkip.
-
-
-update_for(3, *animations)
+update_for(3, button, songs, *animations)
+songs.pause()
 
 for animation in animations:
     stop_animation(animation)
-
-# TODO: This may not be needed
-for led in leds:
-    stop_led(led)
