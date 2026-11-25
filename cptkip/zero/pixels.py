@@ -6,11 +6,12 @@ from cptkip.device.pixels import OFF
 from cptkip.device.pixels import create, Pixels
 
 
-def create_pixels(brightness: float = 1.0) -> Pixels:
+def create_pixels(brightness: float = 1.0, pin=None, count=None) -> Pixels:
     """
     Simple wrapper to create Pixels based on the configuration values.
+    If no pin is specified, it defaults to the config value PIXELS_PIN and count to PIXELS_COUNT.
     """
-    return create(config.PIXELS_PIN, config.PIXELS_COUNT, brightness=brightness)
+    return create(pin or config.PIXELS_PIN, count or config.PIXELS_COUNT, brightness=brightness)
 
 
 def stop_animation(animation: Animation | AnimationSequence):

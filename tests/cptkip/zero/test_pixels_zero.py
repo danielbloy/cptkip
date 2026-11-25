@@ -31,6 +31,20 @@ class TestPixelsZero:
         assert pixels.n == config.PIXELS_COUNT == 37
         assert pixels.brightness == 0.1
 
+        # No brightness
+        pixels = create_pixels(pin="pin", count=3)
+        assert pixels
+        assert pixels.pin == "pin"
+        assert pixels.n == 3
+        assert pixels.brightness == 1.0
+
+        # with brightness
+        pixels = create_pixels(0.1, pin="pin", count=3)
+        assert pixels
+        assert pixels.pin == "pin"
+        assert pixels.n == 3
+        assert pixels.brightness == 0.1
+
     def test_stop_pixels(self):
         """
         Validates that a Pixel object gets stopped (turned off) correctly.

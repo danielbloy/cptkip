@@ -15,11 +15,17 @@ class TestAudioZero:
         audio = create_pwm_audio()
         assert audio
 
+        audio = create_pwm_audio(pin="pin")
+        assert audio
+
     def test_create_i2s_audio(self):
         """
         Validates that I2S audio is created "properly".
         """
         audio = create_i2s_audio()
+        assert audio
+
+        audio = create_i2s_audio(clock="clock", lr="lr", data="data")
         assert audio
 
     def test_create_pwm_queue(self):
@@ -30,10 +36,18 @@ class TestAudioZero:
         assert queue
         assert queue._audio
 
+        queue = create_pwm_queue(pin="pin")
+        assert queue
+        assert queue._audio
+
     def test_create_i2s_queue(self):
         """
         Validates that I2S audio queue is created "properly".
         """
         queue = create_i2s_queue()
+        assert queue
+        assert queue._audio
+
+        queue = create_i2s_queue(clock="clock", lr="lr", data="data")
         assert queue
         assert queue._audio
