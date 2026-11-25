@@ -6,18 +6,20 @@ from cptkip.device.led import Led
 from cptkip.pin.pwm_pin import PwmPin
 
 
-def create_led_pin() -> PwmPin:
+def create_led_pin(pin=None) -> PwmPin:
     """
     Simple utility function to make it easy to create the LED Pin object.
+    If no pin is specified, it defaults to the config value LED_PIN.
     """
-    return PwmPin(config.LED_PIN, invert=config.LED_INVERT)
+    return PwmPin(pin or config.LED_PIN, invert=config.LED_INVERT)
 
 
-def create_led() -> Led:
+def create_led(pin=None) -> Led:
     """
     Simple utility function to make it easy to create a LED based on configuration.
+    If no pin is specified, it defaults to the config value LED_PIN.
     """
-    return Led(create_led_pin())
+    return Led(create_led_pin(pin))
 
 
 def stop_animation(animation: Animation | AnimationSequence):

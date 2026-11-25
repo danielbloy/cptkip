@@ -2,6 +2,8 @@
 
 ## 0.3.5 - Stable
 
+Improved `cptkip/zero` to optionally accept pins.
+
 ## 0.3.4 - Stable
 
 Moved `count_limiter` and `duration_limiter` from `test.utilities` into `cptkip.task.limiters` to
