@@ -9,7 +9,7 @@ if environment.are_pins_available():
 
     MIDDLE_LEFT_LED_PIN = board.IO6
     MIDDLE_CENTRE_LED_PIN = board.TX
-    MIDDLE_RIGHT_LED_PIN = board.IO9
+    MIDDLE_RIGHT_LED_PIN = board.IO10
 
     BOTTOM_LEFT_LED_PIN = board.IO2
     BOTTOM_CENTRE_LED_PIN = board.IO0

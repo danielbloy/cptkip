@@ -21,3 +21,29 @@ animations[0].color = 30
 # This turns the LED off
 # leds[config.TL].off()
 # leds[config.TL].show()
+
+
+animations = []
+for data in leds.values():
+    pwm = data.get("pwm", False)
+    pin = data["pin"]
+
+    led = create_led(pin) if pwm else OutputPin(pin, invert=config.LED_INVERT)
+    data["led"] = led
+
+    animation = data.get("animation", BLINK)
+    if pwm and data["animation"] == FLICKER:
+        data["animation"] = Flicker(led, speed=0.5, color=255, base=100, flame=155),
+
+    if pwm and data["animation"] == BLINK:
+        data["animation"] = Blink(led, speed=0.5, color=255)
+
+    if pwm:
+        animations.append(data["animation"])
+
+    if not pwm:
+        data["animation"] = Blink(led, speed=0.5, color=255)
+
+flicker = Flicker(leds["tl"]["pin"], speed=0.5, color=255, base=100, flame=155)
+update_for(3, button, songs)
+songs.pause()

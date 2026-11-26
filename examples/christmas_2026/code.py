@@ -1,13 +1,14 @@
 from adafruit_led_animation.animation.blink import Blink
 
 import cptkip.config.configuration as config
+import cptkip.task.periodic_task as periodic_task
 from cptkip.animation.flicker import Flicker
 from cptkip.device.melody import decode_melody, Melody, MelodySequence
 from cptkip.pin.output_pin import OutputPin
 from cptkip.zero.button import create_button
 from cptkip.zero.buzzer import create_buzzer_pin
 from cptkip.zero.led import stop_animation, create_led
-from cptkip.zero.run import update_for
+from cptkip.zero.run import run_for
 from songs import JINGLE_BELLS, RUDOLPH, SANTA_GOT_STUCK, MERRY_CHRISTMAS
 
 ################################################################################
@@ -48,19 +49,25 @@ leds = {
     "tl": {
         "pin": config.TOP_LEFT_LED_PIN,
         "pwm": True,
-        "animation": FLICKER,
+        "animation": BLINK,
     },
     "tc": {
         "pin": config.TOP_CENTRE_LED_PIN,
+        "pwm": True,
+        "animation": BLINK,
     },
     "tr": {
         "pin": config.TOP_RIGHT_LED_PIN,
+        "pwm": True,
+        "animation": BLINK,
     },
     "ml": {
         "pin": config.MIDDLE_LEFT_LED_PIN,
     },
     "mc": {
         "pin": config.MIDDLE_CENTRE_LED_PIN,
+        "pwm": True,
+        "animation": BLINK,
     },
     "mr": {
         "pin": config.MIDDLE_RIGHT_LED_PIN,
@@ -70,12 +77,26 @@ leds = {
     },
     "bc": {
         "pin": config.BOTTOM_CENTRE_LED_PIN,
+
     },
     "br": {
         "pin": config.BOTTOM_RIGHT_LED_PIN,
+        "pwm": True,
+        "animation": BLINK,
+
     },
 }
 
+
+def create_blink(led, frequency):
+    def operation() -> None:
+        led.toggle()
+
+    return periodic_task.create(operation, frequency=frequency)
+
+
+animations = []
+tasks = []
 for data in leds.values():
     pwm = data.get("pwm", False)
     pin = data["pin"]
@@ -85,17 +106,27 @@ for data in leds.values():
 
     animation = data.get("animation", BLINK)
     if pwm and data["animation"] == FLICKER:
-        data["animation"] = Flicker(led, speed=0.5, color=255, base=100, flame=155),
+        animations.append(Flicker(led, speed=0.5, color=255, base=100, flame=155))
 
     if pwm and data["animation"] == BLINK:
-        data["animation"] = Blink(led, speed=0.5, color=255)
+        animations.append(Blink(led, speed=0.5, color=255))
 
     if not pwm:
-        data["animation"] = Blink(led, speed=0.5, color=255)
+        tasks.append(create_blink(led, 8))
 
-animations = [led["animation"] for led in leds if "animation" in led]
 
-update_for(3, button, songs, *animations)
+def func():
+    button.update()
+    songs.update()
+
+    for task in tasks:
+        task()
+    for animation in animations:
+        animation.animate()
+
+
+run_for(3, func)
+
 songs.pause()
 
 for animation in animations:
