@@ -45,47 +45,47 @@ button = create_button(click=single_click_handler, multi_click=multi_click_handl
 FLICKER = "Flicker"
 BLINK = "BLink"
 
-leds = {
-    "tl": {
+leds = [
+    {
         "pin": config.TOP_LEFT_LED_PIN,
         "pwm": True,
         "animation": BLINK,
     },
-    "tc": {
+    {
         "pin": config.TOP_CENTRE_LED_PIN,
         "pwm": True,
         "animation": BLINK,
     },
-    "tr": {
+    {
         "pin": config.TOP_RIGHT_LED_PIN,
         "pwm": True,
         "animation": BLINK,
     },
-    "ml": {
+    {
         "pin": config.MIDDLE_LEFT_LED_PIN,
     },
-    "mc": {
+    {
         "pin": config.MIDDLE_CENTRE_LED_PIN,
         "pwm": True,
         "animation": BLINK,
     },
-    "mr": {
+    {
         "pin": config.MIDDLE_RIGHT_LED_PIN,
     },
-    "bl": {
+    {
         "pin": config.BOTTOM_LEFT_LED_PIN,
     },
-    "bc": {
+    {
         "pin": config.BOTTOM_CENTRE_LED_PIN,
 
     },
-    "br": {
+    {
         "pin": config.BOTTOM_RIGHT_LED_PIN,
         "pwm": True,
         "animation": BLINK,
 
     },
-}
+]
 
 
 def create_blink(led, frequency):
@@ -97,7 +97,7 @@ def create_blink(led, frequency):
 
 animations = []
 tasks = []
-for data in leds.values():
+for data in leds:
     pwm = data.get("pwm", False)
     pin = data["pin"]
 
