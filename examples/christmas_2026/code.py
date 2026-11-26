@@ -1,8 +1,12 @@
+from adafruit_led_animation.animation.blink import Blink
+
 import cptkip.config.configuration as config
+from cptkip.animation.flicker import Flicker
 from cptkip.device.melody import decode_melody, Melody, MelodySequence
+from cptkip.pin.output_pin import OutputPin
 from cptkip.zero.button import create_button
 from cptkip.zero.buzzer import create_buzzer_pin
-from cptkip.zero.led import stop_animation
+from cptkip.zero.led import stop_animation, create_led
 from cptkip.zero.run import update_for
 from songs import JINGLE_BELLS, RUDOLPH, SANTA_GOT_STUCK, MERRY_CHRISTMAS
 
@@ -37,9 +41,14 @@ button = create_button(click=single_click_handler, multi_click=multi_click_handl
 ################################################################################
 # L E D S
 ################################################################################
+FLICKER = "Flicker"
+BLINK = "BLink"
+
 leds = {
     "tl": {
         "pin": config.TOP_LEFT_LED_PIN,
+        "pwm": True,
+        "animation": FLICKER,
     },
     "tc": {
         "pin": config.TOP_CENTRE_LED_PIN,
@@ -48,7 +57,7 @@ leds = {
         "pin": config.TOP_RIGHT_LED_PIN,
     },
     "ml": {
-        "pin:": config.MIDDLE_LEFT_LED_PIN,
+        "pin": config.MIDDLE_LEFT_LED_PIN,
     },
     "mc": {
         "pin": config.MIDDLE_CENTRE_LED_PIN,
@@ -67,14 +76,25 @@ leds = {
     },
 }
 
-for led in leds.values():
-    led["animation"] = "a"
-for led in leds:
-    leds[led]["animation"] = "a"
+for data in leds.values():
+    pwm = data.get("pwm", False)
+    pin = data["pin"]
 
-print(leds)
-animations = [led.animation for led in leds if led["animation"]]
-print(animations)
+    led = create_led(pin) if pwm else OutputPin(pin, invert=config.LED_INVERT)
+    data["led"] = led
+
+    animation = data.get("animation", BLINK)
+    if pwm and data["animation"] == FLICKER:
+        data["animation"] = Flicker(led, speed=0.5, color=255, base=100, flame=155),
+
+    if pwm and data["animation"] == BLINK:
+        data["animation"] = Blink(led, speed=0.5, color=255)
+
+    if not pwm:
+        data["animation"] = Blink(led, speed=0.5, color=255)
+
+animations = [led["animation"] for led in leds if "animation" in led]
+
 update_for(3, button, songs, *animations)
 songs.pause()
 
