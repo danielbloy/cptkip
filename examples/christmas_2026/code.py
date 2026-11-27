@@ -45,45 +45,55 @@ button = create_button(click=single_click_handler, multi_click=multi_click_handl
 FLICKER = "Flicker"
 BLINK = "BLink"
 
+# TODO: Change to be flicker or blink, hard code to a maximum of 5 flicker.
+# TODO: Make flicker settings configurable - fast or slow
+# TODO: Make blink settings configurable - fast or slow
+
 leds = [
     {
         "pin": config.TOP_LEFT_LED_PIN,
         "pwm": True,
-        "animation": BLINK,
+        "animation": FLICKER,
     },
     {
         "pin": config.TOP_CENTRE_LED_PIN,
         "pwm": True,
-        "animation": BLINK,
+        "animation": FLICKER,
     },
     {
         "pin": config.TOP_RIGHT_LED_PIN,
         "pwm": True,
-        "animation": BLINK,
+        "animation": FLICKER,
     },
     {
         "pin": config.MIDDLE_LEFT_LED_PIN,
+        "pwm": False,
+        "animation": FLICKER,
     },
     {
         "pin": config.MIDDLE_CENTRE_LED_PIN,
-        "pwm": True,
-        "animation": BLINK,
+        "pwm": False,
+        "animation": FLICKER,
     },
     {
         "pin": config.MIDDLE_RIGHT_LED_PIN,
+        "pwm": True,
+        "animation": FLICKER,
     },
     {
         "pin": config.BOTTOM_LEFT_LED_PIN,
+        "pwm": False,
+        "animation": FLICKER,
     },
     {
         "pin": config.BOTTOM_CENTRE_LED_PIN,
-
+        "pwm": False,
+        "animation": FLICKER,
     },
     {
         "pin": config.BOTTOM_RIGHT_LED_PIN,
         "pwm": True,
-        "animation": BLINK,
-
+        "animation": FLICKER,
     },
 ]
 
@@ -121,6 +131,7 @@ def func():
 
     for task in tasks:
         task()
+
     for animation in animations:
         animation.animate()
 
@@ -131,3 +142,7 @@ songs.pause()
 
 for animation in animations:
     stop_animation(animation)
+
+for data in leds:
+    led = data["led"]
+    led.off()
