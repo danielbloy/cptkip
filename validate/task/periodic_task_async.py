@@ -24,7 +24,10 @@ def execute():
     utils.execute_async(task)
 
     assert begin_count == 1
-    assert task_count > 1
+    # 3Hz after a 1 second delay for the remaining ~3 seconds of a 4 second run
+    # gives about 10 calls; allow some slack for slower devices and other runtimes.
+    expected = 1 + 3 * (utils.RUNTIME - 1)
+    assert expected - 2 <= task_count <= expected + 1, f"task_count {task_count}, expected about {expected}"
     
 
 if __name__ == '__main__':

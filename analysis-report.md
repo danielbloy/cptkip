@@ -420,9 +420,9 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **V4** – Open – `validate/network-local`
 
-- **V5** – Open – `validate/stronger-task-asserts`
+- **V5** – PR open – `validate/stronger-task-asserts`
 
-- **V6** – Open – `validate/stronger-task-asserts`
+- **V6** – PR open – `validate/stronger-task-asserts`
 
 - **V7** – Open – `validate/harness`
 
