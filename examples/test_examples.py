@@ -4,6 +4,7 @@ Script to execute all Python files in subdirectories of the examples folder.
 This will loop through each subdirectory and run each Python file in turn.
 """
 
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -31,12 +32,16 @@ def execute_python_file(file_path):
     print(f"{'=' * 40}")
 
     try:
-        # Execute the Python file
+        # Execute the Python file. CI is set so the examples behave exactly as they do in
+        # the CI build: is_running_under_test() is otherwise False in a subprocess when run
+        # locally, and examples such as the network servers then run for 60 seconds and
+        # exceed the timeout below.
         result = subprocess.run(
             [sys.executable, str(file_path)],
             cwd=file_path.parent,
             capture_output=True,
             text=True,
+            env={**os.environ, "CI": "true"},
             timeout=20  # 20 second timeout per script
         )
 
