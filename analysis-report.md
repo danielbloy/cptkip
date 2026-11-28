@@ -258,9 +258,9 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 ### Defects
 
-- **D1** – Open – `fix/packaging`
+- **D1** – PR open – `fix/packaging`
 
-- **D2** – Open – `fix/packaging`
+- **D2** – PR open – `fix/packaging`
 
 - **D3** – Open – `fix/melody-reset-first-note`
 
@@ -354,7 +354,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **T6** – Open – `fix/runner-shutdown-end-callbacks`
 
-- **T7** – Open – `fix/packaging`
+- **T7** – PR open – `fix/packaging`
 
 - **T8** – Withdrawn – with D6.
 
@@ -388,7 +388,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **F9** – Open – placeholder file in `fix/audio-file-handling`; looping queue in `feat/audio-queue-loop`
 
-- **F10** – Open – `fix/packaging`
+- **F10** – PR open – `fix/packaging`
 
 - **F11** – No action – already on `roadmap.md`.
 

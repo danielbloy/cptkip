@@ -52,6 +52,15 @@ jobs:
           # The PYTHONPATH needs setting to make the config.py file available.
           PYTHONPATH=../.. pytest examples/
 
+      - name: Check the packaged wheel installs and imports
+        run: |
+          # Catches packaging mistakes hidden by the editable install above, such as
+          # subpackages or data files missing from the wheel.
+          pip wheel --no-deps -w dist .
+          python -m venv /tmp/wheel-venv
+          /tmp/wheel-venv/bin/pip install dist/*.whl
+          cd /tmp && /tmp/wheel-venv/bin/python -c "import importlib.resources as r; import cptkip.task.basic_runner, cptkip.device.melody, cptkip.animation.flicker; assert r.files('cptkip').joinpath('mp3.mp3').is_file()"
+
       - name: Run validation
         run: |
           PYTHONPATH=. python validate/validate_all.py
