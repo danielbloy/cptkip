@@ -11,4 +11,4 @@ import validate.utils as utils
 modules = [environment, logging, config, cpu]
 
 if __name__ == '__main__':
-    utils.execute_modules(modules)
+    utils.exit_on_failure(utils.execute_modules(modules))

@@ -5,6 +5,8 @@ def execute():
     import cptkip.config.configuration as config
     import cptkip.pin.buzzer_pin as buzzer_pin
 
+    utils.require_pins(config.BUZZER_PIN)
+
     with buzzer_pin.BuzzerPin(config.BUZZER_PIN) as pin:
 
         def task():

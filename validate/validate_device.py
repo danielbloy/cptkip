@@ -10,4 +10,4 @@ import validate.utils as utils
 modules = [button, led, pixels, buzzer, melody, pwm_audio, i2s_audio]
 
 if __name__ == '__main__':
-    utils.execute_modules(modules)
+    utils.exit_on_failure(utils.execute_modules(modules))

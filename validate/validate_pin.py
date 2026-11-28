@@ -7,4 +7,4 @@ import validate.utils as utils
 modules = [input_pin, output_pin, pwm_pin, buzzer_pin]
 
 if __name__ == '__main__':
-    utils.execute_modules(modules)
+    utils.exit_on_failure(utils.execute_modules(modules))
