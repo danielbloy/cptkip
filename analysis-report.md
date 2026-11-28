@@ -372,7 +372,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **F1** – Open – `feat/memory-monitor-slow-rates`
 
-- **F2** – Open – `feat/ticks-helper`
+- **F2** – PR open – `feat/ticks-helper`
 
 - **F3** – Open – `fix/runner-shutdown-end-callbacks`
 
