@@ -336,7 +336,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **P9** – Open – `fix/led-getitem-and-parse`
 
-- **P10** – Open – `refactor/shared-trigger`
+- **P10** – PR open – `refactor/shared-trigger`
 
 - **P11** – Open – `perf/zero-lazy-animation-imports`
 
@@ -402,7 +402,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **I4** (docstrings/messages: I2sAudio, Queue) – Open – `fix/audio-file-handling`
 
-- **I5** (error text "start, run or stop") – Open – `refactor/shared-trigger`
+- **I5** (error text "start, run or stop") – PR open – `refactor/shared-trigger`
 
 - **I6** (cancellation logged at ERROR) – Open – `fix/runner-shutdown-end-callbacks`
 

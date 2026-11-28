@@ -2,24 +2,12 @@ from time import monotonic
 
 import cptkip.core.environment as environment
 from cptkip.core.logging import debug
+# Trigger is defined once in cptkip.task.trigger and re-exported here so that
+# "from cptkip.task.triggered_task import Trigger" keeps working.
+from cptkip.task.trigger import Trigger  # noqa: F401
 
 if environment.is_running_on_desktop():
     from typing import Callable
-
-
-class Trigger:
-    """
-    A simple trigger that automatically resets once read.
-    """
-    triggered: bool
-
-    def __init__(self, triggered: bool) -> None:
-        self.triggered = triggered
-
-    def __call__(self) -> bool:
-        result = self.triggered
-        self.triggered = False
-        return result
 
 
 def create(
@@ -54,7 +42,7 @@ def create(
     """
 
     if begin is None and func is None and end is None:
-        raise ValueError("at least one of start, run or stop must be specified")
+        raise ValueError("at least one of begin, func or end must be specified")
 
     running = False
     stop_time = 0
