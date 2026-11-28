@@ -56,12 +56,18 @@ class Flicker(Animation):
             self.set(i, colour)  # show all colors
 
     def draw(self):
+        # Integer maths only: the RP2040 has no FPU so float multiply/divide is done in
+        # software. For non-negative values, // gives the same result as the previous
+        # int(x * level / 255). Attribute lookups are hoisted out of the loop.
+        red, green, blue = self._red, self._green, self._blue
+        base, flame = self._base, self._flame
+        pixels = self.pixel_object
+        randint = random.randint
         for i in range(0, self._size, self._spacing):
-            brightness = random.randint(0, self._flame)
-            r = min(int(self._red[i] * (self._base + brightness) / 255), 0xFF)  # 8-bit red dimmed to brightness
-            g = min(int(self._green[i] * (self._base + brightness) / 255), 0xFF)  # 8-bit green dimmed to brightness
-            b = min(int(self._blue[i] * (self._base + brightness) / 255), 0xFF)  # 8-bit blue dimmed to brightness
-            self.pixel_object[i] = (r, g, b)
+            level = base + randint(0, flame)  # brightness out of 255
+            pixels[i] = (min(red[i] * level // 255, 0xFF),
+                         min(green[i] * level // 255, 0xFF),
+                         min(blue[i] * level // 255, 0xFF))
 
     def __len__(self):
         """
