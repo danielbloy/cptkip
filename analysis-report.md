@@ -272,11 +272,11 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **D7** – Open – `fix/pin-deinit-idempotent`
 
-- **D8** – Open – `fix/audio-file-handling`
+- **D8** – PR open – `fix/audio-file-handling`
 
-- **D9** – Open – `fix/audio-file-handling`
+- **D9** – PR open – `fix/audio-file-handling`
 
-- **D10** – Open – `fix/audio-file-handling`
+- **D10** – PR open – `fix/audio-file-handling`
 
 - **D11** – Open – `fix/biplane`
 
@@ -308,7 +308,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **D25** – Open – `fix/led-getitem-and-parse`
 
-- **D26** – Open – `fix/audio-file-handling`
+- **D26** – PR open – `fix/audio-file-handling`
 
 - **D27** – Open – `fix/triggered-events-task`
 
@@ -386,7 +386,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **F8** – Open – `feat/network-wifi-settings`
 
-- **F9** – Open – placeholder file in `fix/audio-file-handling`; looping queue in `feat/audio-queue-loop`
+- **F9** – Open – placeholder kept but now located relative to the package (`fix/audio-file-handling`); looping queue in `feat/audio-queue-loop`
 
 - **F10** – Open – `fix/packaging`
 
@@ -400,7 +400,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **I3** (docstrings: decode_melody) – Open – `fix/melody-note-parsing`
 
-- **I4** (docstrings/messages: I2sAudio, Queue) – Open – `fix/audio-file-handling`
+- **I4** (docstrings/messages: I2sAudio, Queue) – PR open – `fix/audio-file-handling`
 
 - **I5** (error text "start, run or stop") – Open – `refactor/shared-trigger`
 
