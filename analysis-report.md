@@ -366,7 +366,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **T12** – Open – `fix/periodic-task-timing`
 
-- **T13** – Open – `ci/lint-all-trees`
+- **T13** – PR open – `ci/lint-all-trees`
 
 ### Missing functionality
 

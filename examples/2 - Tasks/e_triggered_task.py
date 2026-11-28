@@ -22,7 +22,7 @@ trigger = False
 
 
 def delay() -> bool:
-    global trigger, trigger_time
+    global trigger
 
     if not trigger and time.monotonic() >= trigger_time:
         log.info(f"{time.monotonic()}: trigger")

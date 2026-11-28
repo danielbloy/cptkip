@@ -117,7 +117,6 @@ class TestTriggeredEventsTaskAsync:
         values = []
 
         async def callback(value: Any):
-            nonlocal values
             values.append(value)
 
         trigger = Trigger(triggered=True)
@@ -135,7 +134,7 @@ class TestTriggeredEventsTaskAsync:
         values = []
 
         async def callback(value: str) -> None:
-            nonlocal values, keep_going
+            nonlocal keep_going
             values.append(value)
             keep_going = value != "STOP"
 

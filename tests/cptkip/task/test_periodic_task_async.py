@@ -54,7 +54,7 @@ class TestPeriodicTaskAsync:
 
         async def func() -> None:
             now = time.monotonic_ns()
-            nonlocal count, first, last, periods
+            nonlocal count, first, last
             count += 1
             if first is None:
                 first = now
@@ -64,7 +64,6 @@ class TestPeriodicTaskAsync:
                 last = now
 
         def count_invocations() -> bool:
-            nonlocal count
             return count != 11
 
         # With a frequency of 10 and allow for 11 invocations of func(). This should span exactly
@@ -204,7 +203,6 @@ class TestPeriodicTaskAsync:
             begin_time = time.monotonic_ns()
 
         def continue_until_called() -> bool:
-            nonlocal func_time
             return func_time is None
 
         begin_time = None
