@@ -1,4 +1,4 @@
-from asyncio import sleep
+from asyncio import sleep, CancelledError
 from time import monotonic
 
 import cptkip.core.environment as environment
@@ -62,28 +62,35 @@ def create(
         running = False
         stop_time = 0
 
-        while not continue_func or continue_func():
-            await sleep(ASYNC_LOOP_SLEEP_INTERVAL)
+        try:
+            while not continue_func or continue_func():
+                await sleep(ASYNC_LOOP_SLEEP_INTERVAL)
 
-            now = monotonic()
+                now = monotonic()
 
-            if trigger() and not running:
-                debug("Start running trigger event")
+                if trigger() and not running:
+                    debug("Start running trigger event")
 
-                stop_time = now + duration
-                running = True
-                if begin:
-                    await begin()
+                    stop_time = now + duration
+                    running = True
+                    if begin:
+                        await begin()
 
-            if running and now >= stop_time:
-                debug("Stop running trigger event")
+                if running and now >= stop_time:
+                    debug("Stop running trigger event")
 
-                running = False
-                if end:
-                    await end()
+                    running = False
+                    if end:
+                        await end()
 
-            if running and func is not None:
-                await func()
+                if running and func is not None:
+                    await func()
+
+        except CancelledError:
+            # A cancelled task that is mid-trigger still gets its end callback.
+            if end and running:
+                await end()
+            raise
 
         if end and running:
             await end()

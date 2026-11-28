@@ -1,4 +1,4 @@
-from asyncio import sleep
+from asyncio import sleep, CancelledError
 from time import monotonic_ns
 
 import cptkip.core.environment as environment
@@ -31,7 +31,8 @@ def create(
         and before any initial delay. It always runs before continue_func is
         first consulted, so it runs even if continue_func would immediately
         return False - in that case end (if specified) then runs right after.
-    :param end: If specified, this will be executed once at the end.
+    :param end: If specified, this will be executed once at the end. This includes
+        when the task is cancelled, e.g. by an async runner's continue_func.
     :param initial_delay: If specified, this will delay the first invocation of
         func by the specified number of seconds. A value of less than zero is ignored.
     """
@@ -54,17 +55,26 @@ def create(
         next_callback_ns = monotonic_ns() + int(
             max(initial_delay, 0.0) * NS_PER_SECOND)
 
-        while not continue_func or continue_func():
+        try:
+            while not continue_func or continue_func():
 
-            now = monotonic_ns()
+                now = monotonic_ns()
 
-            if now >= next_callback_ns:
-                if frequency > 0:
-                    while now >= next_callback_ns:
-                        next_callback_ns += interval_ns
-                await func()
+                if now >= next_callback_ns:
+                    if frequency > 0:
+                        while now >= next_callback_ns:
+                            next_callback_ns += interval_ns
+                    await func()
 
-            await sleep(ASYNC_LOOP_SLEEP_INTERVAL)
+                await sleep(ASYNC_LOOP_SLEEP_INTERVAL)
+
+        except CancelledError:
+            # Run end before propagating the cancellation, so cancelling the task
+            # (as the async runners do) still gives it the chance to clean up.
+            if end and call_end:
+                call_end = False
+                await end()
+            raise
 
         if end and call_end:
             call_end = False

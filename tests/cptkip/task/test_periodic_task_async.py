@@ -268,3 +268,21 @@ class TestPeriodicTaskAsync:
         run(task_one, task_two, task_three)
 
         assert call_order == ["one", "two", "three", "one", "two", "two"]
+
+    def test_end_is_called_when_cancelled_by_runner(self) -> None:
+        """
+        When an async runner's continue_func stops execution it cancels the tasks;
+        the periodic task must still run its end callback.
+        """
+        end_count = 0
+
+        async def func() -> None:
+            pass
+
+        async def end() -> None:
+            nonlocal end_count
+            end_count += 1
+
+        task = create(func, frequency=100, end=end)
+        run(task, continue_func=count_limiter(20))
+        assert end_count == 1
