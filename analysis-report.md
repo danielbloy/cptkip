@@ -296,7 +296,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **D19** – Open – `fix/melody-reset-first-note`
 
-- **D20** – Open – `fix/memory-report-text`
+- **D20** – PR open – `fix/memory-report-text`
 
 - **D21** – Open – `fix/melody-note-parsing`
 
