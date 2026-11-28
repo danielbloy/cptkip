@@ -338,7 +338,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **P10** – Open – `refactor/shared-trigger`
 
-- **P11** – Open – `perf/zero-lazy-animation-imports`
+- **P11** – PR open – `perf/zero-lazy-animation-imports`
 
 ### Tests
 

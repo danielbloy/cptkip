@@ -1,6 +1,3 @@
-from adafruit_led_animation.animation import Animation
-from adafruit_led_animation.sequence import AnimationSequence
-
 import cptkip.config.configuration as config
 from cptkip.device.led import Led
 from cptkip.pin.pwm_pin import PwmPin
@@ -22,10 +19,14 @@ def create_led(pin=None, invert=None) -> Led:
     return Led(create_led_pin(pin, invert))
 
 
-def stop_animation(animation: Animation | AnimationSequence):
+def stop_animation(animation: "Animation | AnimationSequence"):
     """
     Simple utility function to make it easy to turn off LED animations.
     """
+    # Imported here rather than at module level so that using only the create_*
+    # helpers does not load adafruit_led_animation.
+    from adafruit_led_animation.sequence import AnimationSequence
+
     animation.freeze()
     if isinstance(animation, AnimationSequence):
         animation = animation.current_animation
