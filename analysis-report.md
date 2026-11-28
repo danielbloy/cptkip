@@ -278,11 +278,11 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **D10** – Open – `fix/audio-file-handling`
 
-- **D11** – Open – `fix/biplane`
+- **D11** – PR open – `fix/biplane`
 
-- **D12** – Open – `fix/biplane`
+- **D12** – PR open – `fix/biplane`
 
-- **D13** – Open – `fix/biplane`
+- **D13** – PR open – `fix/biplane`
 
 - **D14** – Open – `fix/runner-shutdown-end-callbacks`
 
@@ -358,7 +358,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **T8** – Withdrawn – with D6.
 
-- **T9** – Open – `fix/biplane`
+- **T9** – PR open – `fix/biplane`
 
 - **T10** – Open – `feat/environment-accessors`
 
