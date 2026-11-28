@@ -328,7 +328,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **P5** – Open – `perf/lazy-stacktrace`
 
-- **P6** – Open – `perf/quiet-config-and-defaults`
+- **P6** – PR open – `perf/quiet-config-and-defaults`
 
 - **P7** – Open – `perf/flicker-integer-maths`
 
@@ -362,7 +362,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **T10** – Open – `feat/environment-accessors`
 
-- **T11** – Open – `perf/quiet-config-and-defaults`
+- **T11** – PR open – `perf/quiet-config-and-defaults`
 
 - **T12** – Open – `fix/periodic-task-timing`
 
@@ -380,7 +380,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **F5** – Open – `feat/environment-accessors`
 
-- **F6** – Open – `perf/quiet-config-and-defaults`
+- **F6** – PR open – `perf/quiet-config-and-defaults`
 
 - **F7** – Open – `feat/pixels-desktop-stub-state`
 
