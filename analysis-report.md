@@ -436,7 +436,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **V12** – Open – `validate/performance-tidy`
 
-- **V13** – Open – `validate/performance-compare`
+- **V13** – PR open – `validate/performance-compare`
 
 - **V14** – Open – `validate/new-scripts`
 
