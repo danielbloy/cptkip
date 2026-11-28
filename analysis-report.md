@@ -264,7 +264,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **D3** – Open – `fix/melody-reset-first-note`
 
-- **D4** – Open – `fix/buzzer-volume-restarts-tone`
+- **D4** – PR open – `fix/buzzer-volume-restarts-tone`
 
 - **D5** – Open – `fix/zero-falsy-overrides`
 
@@ -344,7 +344,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **T1** – Open – `fix/melody-reset-first-note`
 
-- **T2** – Open – `fix/buzzer-volume-restarts-tone`
+- **T2** – PR open – `fix/buzzer-volume-restarts-tone`
 
 - **T3** – Open – `fix/zero-falsy-overrides`
 
