@@ -250,7 +250,7 @@ dependencies against the CC BY-NC-SA licence.
 ## 8. Fix tracking
 
 Every finding has one entry below, with a blank line between entries so that PRs touching different
-entries merge without conflicts. Each fix PR branches from `develop`, targets `develop`, and updates
+entries merge without conflicts. Each fix PR targets `develop` and is branched from `docs/report-fix-tracking` (this section). Its diff will include this commit until that PR is merged. Each PR updates
 only its own entries. Closely coupled findings (same function or same lines) are fixed together in
 one PR to avoid conflicting edits. The branch name says which.
 
