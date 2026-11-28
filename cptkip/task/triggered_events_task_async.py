@@ -1,4 +1,4 @@
-from asyncio import sleep
+from asyncio import sleep, CancelledError
 from time import monotonic
 
 import cptkip.core.environment as environment
@@ -94,50 +94,57 @@ def create(
         remaining = []
         start_time = 0
 
-        while not continue_func or continue_func():
-            await sleep(ASYNC_LOOP_SLEEP_INTERVAL)
+        try:
+            while not continue_func or continue_func():
+                await sleep(ASYNC_LOOP_SLEEP_INTERVAL)
 
-            if trigger() and not running:
-                debug("Start running trigger event")
+                if trigger() and not running:
+                    debug("Start running trigger event")
 
-                remaining = events.copy()
-                start_time = monotonic()
-                running = True
-                if begin:
-                    await begin()
+                    remaining = events.copy()
+                    start_time = monotonic()
+                    running = True
+                    if begin:
+                        await begin()
 
-            if running and not remaining:
-                debug("Stop running trigger event")
+                if running and not remaining:
+                    debug("Stop running trigger event")
 
-                running = False
-                if end:
-                    await end()
+                    running = False
+                    if end:
+                        await end()
 
-            if running:
-                now = monotonic()
-                diff = now - start_time
-                # We are tolerant of the number of values in an event but the first
-                # value must be a time.
-                events_to_fire = [event for event in remaining if diff >= event[0]]
+                if running:
+                    now = monotonic()
+                    diff = now - start_time
+                    # We are tolerant of the number of values in an event but the first
+                    # value must be a time.
+                    events_to_fire = [event for event in remaining if diff >= event[0]]
 
-                for event in events_to_fire:
+                    for event in events_to_fire:
 
-                    obj = None
-                    func = None
+                        obj = None
+                        func = None
 
-                    if len(event) > 1:
-                        obj = event[1]
+                        if len(event) > 1:
+                            obj = event[1]
 
-                    if len(event) > 2:
-                        func = event[2]
+                        if len(event) > 2:
+                            func = event[2]
 
-                    if not func:
-                        func = callback
+                        if not func:
+                            func = callback
 
-                    await func(obj)
+                        await func(obj)
 
-                for event in events_to_fire:
-                    remaining.remove(event)
+                    for event in events_to_fire:
+                        remaining.remove(event)
+
+        except CancelledError:
+            # A cancelled task that is mid-trigger still gets its end callback.
+            if end and running:
+                await end()
+            raise
 
         if end and running:
             await end()

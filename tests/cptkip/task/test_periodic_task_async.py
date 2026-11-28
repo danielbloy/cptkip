@@ -268,3 +268,42 @@ class TestPeriodicTaskAsync:
         run(task_one, task_two, task_three)
 
         assert call_order == ["one", "two", "three", "one", "two", "two"]
+
+    def test_end_is_called_when_cancelled_by_runner(self) -> None:
+        """
+        When an async runner's continue_func stops execution it cancels the tasks;
+        the periodic task must still run its end callback.
+        """
+        end_count = 0
+
+        async def func() -> None:
+            pass
+
+        async def end() -> None:
+            nonlocal end_count
+            end_count += 1
+
+        task = create(func, frequency=100, end=end)
+        run(task, continue_func=count_limiter(20))
+        assert end_count == 1
+
+    def test_does_not_busy_wait_between_calls(self) -> None:
+        """
+        Between calls the task sleeps until func is next due (capped at a fraction of
+        the period) rather than spinning with ~1us sleeps. At 10Hz over ~1s the loop
+        should only check continue_func a few hundred times at most (8 checks per
+        period with PERIODIC_LOOP_WAIT_RATIO=8); busy-waiting gave tens of thousands.
+        """
+        checks = 0
+        finish = time.monotonic() + 1
+
+        def continue_func() -> bool:
+            nonlocal checks
+            checks += 1
+            return time.monotonic() < finish
+
+        async def func() -> None:
+            pass
+
+        run(create(func, frequency=10, continue_func=continue_func))
+        assert checks < 500
