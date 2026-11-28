@@ -38,19 +38,26 @@ __are_pins_available: bool = __is_running_on_microcontroller
 #
 # NOTE: We cannot simply try and import adafruit_blinka and check for that as
 #       we make use of blinka even when pins are not available. Therefore, we
-#       check to for the environment variable that determines if a blinka
-#       device is available first.
-if not __are_pins_available and os.getenv("BLINKA_U2IF") == "1":
+#       check for one of the environment variables that Blinka uses to select a
+#       USB/desktop pin backend first. CPTKIP_PINS=1 can be set to opt in on
+#       other Blinka platforms, such as a Raspberry Pi or other single board
+#       computer, where Blinka needs no environment variable.
+__BLINKA_ENVIRONMENT_VARIABLES = (
+    "BLINKA_U2IF", "BLINKA_FT232H", "BLINKA_FT2232H", "BLINKA_FT4232H",
+    "BLINKA_MCP2221", "BLINKA_GREATFET", "CPTKIP_PINS")
+
+if not __are_pins_available and any(os.getenv(name) == "1" for name in __BLINKA_ENVIRONMENT_VARIABLES):
 
     try:
-        # If this works, we assume this means that we have access to pins either
-        # through Blinka on a Desktop or because we are running on a microcontroller.
+        # If this works, we assume this means that we have access to pins through
+        # Blinka on a Desktop. Blinka raises errors other than ImportError (e.g.
+        # NotImplementedError or RuntimeError) when no supported board is found.
         # noinspection PyPackageRequirements
         import board
 
         __are_pins_available = True
 
-    except ImportError:
+    except Exception:
         __are_pins_available = False
 
 ################################################################################
@@ -113,12 +120,34 @@ def is_running_on_desktop() -> bool:
     return not __is_running_on_microcontroller
 
 
+def is_running_on_linux() -> bool:
+    """
+    Returns whether the code is running on a Linux desktop (always True in CI).
+    """
+    return __is_running_on_linux
+
+
+def is_running_on_mac() -> bool:
+    """
+    Returns whether the code is running on a Mac desktop.
+    """
+    return __is_running_on_mac
+
+
+def is_running_on_windows() -> bool:
+    """
+    Returns whether the code is running on a Windows desktop.
+    """
+    return __is_running_on_windows
+
+
 def are_pins_available() -> bool:
     """
     Returns whether pins are available or not. This will be true when the code is
     running in one of the following environment:
     * On an actual microcontroller.
-    * On a desktop with Blinka or equivalent available.
+    * On a desktop with Blinka or equivalent available (selected by one of the Blinka
+      environment variables such as BLINKA_U2IF=1, or CPTKIP_PINS=1).
     """
     return __are_pins_available
 
