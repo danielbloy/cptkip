@@ -1507,3 +1507,37 @@ class TestNoteToFrequency:
         assert note_to_frequency("A#", 8) == 7459
         assert note_to_frequency("Bb", 8) == 7459
         assert note_to_frequency("B", 8) == 7902
+
+    def test_enharmonic_naturals(self) -> None:
+        """
+        Cb, Fb, E# and B# are valid notes equivalent to B, E, F and C.
+        """
+        assert standardise_note("Cb") == "B"
+        assert standardise_note("Fb") == "E"
+        assert standardise_note("E#") == "F"
+        assert standardise_note("B#") == "C"
+        assert standardise_note("ES") == "F"
+        assert standardise_note("FF") == "E"
+
+
+class TestNoteToFrequencyEnharmonics:
+    def test_octave_crossing_enharmonics(self) -> None:
+        """
+        Cb is the B in the octave below and B# is the C in the octave above.
+        """
+        assert note_to_frequency("Cb", 5) == note_to_frequency("B", 4)
+        assert note_to_frequency("B#", 3) == note_to_frequency("C", 4)
+        assert note_to_frequency("Fb", 4) == note_to_frequency("E", 4)
+        assert note_to_frequency("E#", 4) == note_to_frequency("F", 4)
+
+
+class TestDecodeMelodyErrors:
+    def test_missing_separator_raises_value_error(self) -> None:
+        with pytest.raises(ValueError):
+            decode_melody(["C4-1"])
+
+        with pytest.raises(ValueError):
+            decode_melody(["C4:1:2"])
+
+    def test_multi_digit_octave(self) -> None:
+        assert decode_melody(["C10:1"]) == [(note_to_frequency("C", 10), 1)]

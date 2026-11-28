@@ -317,8 +317,8 @@ class MelodySequence:
 def decode_melody(song: list[str]) -> list[tuple[int, int]]:
     """
     Coverts a song of encoded notes into pairs of (tone, duration). The song
-    is a list of strings with each string representing a note and it's duration
-    separated by a comma. The Note can optionally also specify the Octave. If no
+    is a list of strings with each string representing a note and its duration
+    separated by a colon. The Note can optionally also specify the Octave. If no
     octave is specified, then the octave will be the last octave set or 4 if it
     is the first note in the melody. The duration is the number of beats the note
     should last for. An example of a simple C scale:
@@ -330,6 +330,9 @@ def decode_melody(song: list[str]) -> list[tuple[int, int]]:
     Sharps and Flats can be specified using #, S, F or B respectively. For example:
 
     song = ["C#3:4", "FS7:2", "Eb3:1", "AF1:1"]
+
+    Octaves can have more than one digit (e.g. "C10:1"). A malformed note raises
+    ValueError.
     """
     if song is None:
         return list()
@@ -343,19 +346,22 @@ def decode_melody(song: list[str]) -> list[tuple[int, int]]:
     for encoded_note in song:
 
         if not encoded_note or len(encoded_note) < 3:
-            raise ValueError("encoded_note must be of length 3")
+            raise ValueError("encoded_note must be at least 3 characters, e.g. C:1")
 
         # The encoded note can be one of:
         #   <note>:<duration>
         #   <note><octave>:<duration>
         parts = encoded_note.split(":")
+        if len(parts) != 2:
+            raise ValueError("encoded_note must be of the form <note>[<octave>]:<duration>")
+
         note = parts[0]
         duration = int(parts[1])
 
-        # The note can optionally contain an octave indicator so look to split that out here.
+        # The note can optionally contain an octave (one or more digits) so split that out here.
         for i, char in enumerate(note):
             if char.isdigit():
-                octave = int(note[i])
+                octave = int(note[i:])
                 note = note[:i]
                 break
 
@@ -367,6 +373,43 @@ def decode_melody(song: list[str]) -> list[tuple[int, int]]:
     return result
 
 
+# Semitones from C for each natural note.
+_LETTER_TO_N = {"C": 0, "D": 2, "E": 4, "F": 5, "G": 7, "A": 9, "B": 11}
+
+# Maps a semitone from C (0 to 11) to its standardised note.
+_N_TO_NOTE = ("C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B")
+
+
+def _semitone(note: str) -> int | None:
+    """
+    Returns the number of semitones the note is from C in the same octave, or None
+    for a rest. Sharps and flats are applied arithmetically, so the result can be -1
+    (Cb, i.e. B in the octave below) or 12 (B#, i.e. C in the octave above).
+    """
+    length = len(note)
+    if length == 0 or length > 2:
+        raise ValueError("note has invalid length")
+
+    note = note.upper()
+    if note == "R" or note == "P":
+        return None
+
+    n = _LETTER_TO_N.get(note[0])
+    if n is None:
+        raise ValueError("note is invalid")
+
+    if length == 2:
+        accidental = note[1]
+        if accidental == "#" or accidental == "S":
+            n += 1
+        elif accidental == "B" or accidental == "F":
+            n -= 1
+        else:
+            raise ValueError("note is invalid")
+
+    return n
+
+
 def standardise_note(note: str) -> str:
     """
     Converts the given note to a standardised code.
@@ -376,39 +419,16 @@ def standardise_note(note: str) -> str:
 
     The returned code will be an uppercase letter A to G with optional sharp indicator.
     Sharps are always indicated by #. Any flats are switched to their equivalent sharps.
+    Notes such as Cb, Fb, E# and B# are converted to their natural equivalent (B, E, F
+    and C). Note that Cb and B# also change octave; note_to_frequency() accounts for that.
 
     Rests can be input as p, P, r or R and are converted to R.
     """
-    length = len(note)
-    if length == 0 or length > 2:
-        raise ValueError("note has invalid length")
+    n = _semitone(note)
+    if n is None:
+        return "R"
 
-    note = note.upper().replace("P", "R")
-
-    if length == 1:
-        if note in _NOTE_TO_N or note == "R":
-            return note
-
-        raise ValueError("note is invalid")
-
-    note = note[0] + note[-1].replace("S", "#").replace("F", "B")
-
-    # Convert flats to sharps.
-    if note[-1] == "B":
-        if note[0] == "A":
-            note = "G#"
-        else:
-            note = chr(ord(note[0]) - 1) + "#"
-
-    if note in _NOTE_TO_N:
-        return note
-
-    raise ValueError("note is invalid")
-
-
-# Maps a standardised note to it's n value representing a semi-tone from C.
-_NOTE_TO_N = {"C": 0, "C#": 1, "D": 2, "D#": 3, "E": 4, "F": 5, "F#": 6, "G": 7, "G#": 8, "A": 9,
-              "A#": 10, "B": 11}
+    return _N_TO_NOTE[n % 12]
 
 
 def note_to_frequency(note: str, octave: int) -> int:
@@ -420,12 +440,9 @@ def note_to_frequency(note: str, octave: int) -> int:
     Where:
      * N is the number of notes away from the starting note. N may be positive, negative or zero.
     """
-
-    note = standardise_note(note)
-    if note == "R":
+    n = _semitone(note)
+    if n is None:
         return 0
-
-    n = _NOTE_TO_N[note]
 
     # Using A4 (note number 9, octave 4) as a reference as it is roughly in the middle
     semitone_offset = ((octave - 4) * 12) + (n - 9)
