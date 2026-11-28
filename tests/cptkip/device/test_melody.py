@@ -419,6 +419,10 @@ class TestMelody:
     def test_tempo(self) -> None:
         """
         Validates that changing the tempo plays the song faster.
+
+        The tolerance is 20% because a single 125ms note was occasionally measured at
+        over 131ms (the default 5%) on a busy machine or CI runner, mostly from timer
+        granularity and loop overhead rather than from the melody itself.
         """
         tempo = 480  # 8 beats per second.
         beats_per_second = tempo / 60
@@ -432,7 +436,7 @@ class TestMelody:
             melody.update()
 
         duration = time.monotonic_ns() - start
-        assert_duration_within_tolerance(duration, nanoseconds_per_beat)
+        assert_duration_within_tolerance(duration, nanoseconds_per_beat, percentage=20)
 
         assert melody.tempo == tempo
 
@@ -444,7 +448,7 @@ class TestMelody:
             melody.update()
 
         duration = time.monotonic_ns() - start
-        assert_duration_within_tolerance(duration, nanoseconds_per_beat * 2)
+        assert_duration_within_tolerance(duration, nanoseconds_per_beat * 2, percentage=20)
         assert melody.tempo == tempo / 2
 
         # Play original tempo
@@ -455,7 +459,7 @@ class TestMelody:
             melody.update()
 
         duration = time.monotonic_ns() - start
-        assert_duration_within_tolerance(duration, nanoseconds_per_beat)
+        assert_duration_within_tolerance(duration, nanoseconds_per_beat, percentage=20)
         assert melody.tempo == tempo
 
     def test_changing_tempo_during_song(self) -> None:
