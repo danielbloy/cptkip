@@ -1,5 +1,4 @@
 import asyncio
-from math import trunc
 from time import monotonic
 from typing import Any
 
@@ -338,10 +337,13 @@ class TestTriggeredEventsTaskAsync:
 
         assert values == ["a", "b", "c", "d", "e"]
 
-        # Validate that times are correct to within 3 decimal places
-        times = [trunc(time * 100) for time in times]
-        times = [time / 100 for time in times]
-        assert times == [0.00, 0.23, 0.80, 1.10, 1.20]
+        # Validate that each event fired within 20ms after its scheduled time.
+        # (This previously truncated to 0.01s, which failed whenever an event
+        # fired a fraction early in the truncation, e.g. 0.2299s for 0.23.)
+        expected = [0.00, 0.23, 0.80, 1.10, 1.20]
+        assert len(times) == len(expected)
+        for actual, scheduled in zip(times, expected):
+            assert scheduled - 0.001 <= actual <= scheduled + 0.02
 
     def test_correct_callback_is_called(self) -> None:
         """
@@ -486,3 +488,14 @@ class TestTriggeredEventsTaskAsync:
         task = create(Trigger(True), [(60.0,)], callback=callback, end=end)
         run(task, continue_func=count_limiter(20))
         assert end_count == 1
+
+    def test_empty_event_tuple_raises_value_error(self) -> None:
+        """
+        An empty event tuple is invalid and must raise ValueError (not IndexError).
+        """
+
+        async def callback(value) -> None:
+            pass
+
+        with pytest.raises(ValueError):
+            create(Trigger(True), [()], callback=callback)

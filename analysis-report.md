@@ -302,7 +302,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **D22** – Open – `fix/melody-note-parsing`
 
-- **D23** – Open – `fix/triggered-events-task`
+- **D23** – PR open – `fix/triggered-events-task` – stacked on fix/runner-shutdown-end-callbacks; also fixed new finding N1 (flaky interval test)
 
 - **D24** – Open – `fix/periodic-task-timing`
 
@@ -310,7 +310,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **D26** – Open – `fix/audio-file-handling`
 
-- **D27** – Open – `fix/triggered-events-task`
+- **D27** – PR open – `fix/triggered-events-task` – stacked on fix/runner-shutdown-end-callbacks; also fixed new finding N1 (flaky interval test)
 
 - **D28** – Question – is leaving brightness at 0 after `stop_pixels()` intended?
 
@@ -322,7 +322,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **P2** – Open – `perf/buzzer-pin-persistent-pwm`
 
-- **P3** – Open – `fix/triggered-events-task`
+- **P3** – PR open – `fix/triggered-events-task` – stacked on fix/runner-shutdown-end-callbacks; also fixed new finding N1 (flaky interval test)
 
 - **P4** – Open – `fix/periodic-task-timing`
 
