@@ -270,7 +270,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **D6** – Withdrawn – nested f-strings confirmed working on-device by the maintainer.
 
-- **D7** – Open – `fix/pin-deinit-idempotent`
+- **D7** – PR open – `fix/pin-deinit-idempotent`
 
 - **D8** – Open – `fix/audio-file-handling`
 
@@ -348,7 +348,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **T3** – Open – `fix/zero-falsy-overrides`
 
-- **T4** – Open – `fix/pin-deinit-idempotent`
+- **T4** – PR open – `fix/pin-deinit-idempotent`
 
 - **T5** – Open – split across `fix/biplane`, `fix/melody-note-parsing`, `fix/triggered-events-task`
 

@@ -42,7 +42,10 @@ class InputPin:
         self.deinit()
 
     def deinit(self) -> None:
-        if environment.are_pins_available():
+        """
+        Releases the underlying pin. Safe to call multiple times.
+        """
+        if self._pin:
             self._pin.deinit()
 
         self._pin = None

@@ -1,7 +1,9 @@
 import pytest
 
 import cptkip.core.environment as environment
+import cptkip.pin.output_pin as output_pin
 from cptkip.pin.output_pin import OutputPin
+from tests.cptkip.utilities import FakeDigitalio
 
 
 class TestOutputPin:
@@ -122,3 +124,20 @@ class TestOutputPin:
         monkeypatch.setattr(environment, "are_pins_available", lambda: True)
         with pytest.raises(ValueError):
             OutputPin(None)
+
+    def test_deinit_twice_with_pins_available(self, monkeypatch):
+        """
+        deinit() must be safe to call more than once when real pins are in use
+        (e.g. an explicit deinit() followed by a context manager exit). The
+        hardware module is faked so the "pins available" path runs on a desktop.
+        """
+        monkeypatch.setattr(environment, "are_pins_available", lambda: True)
+        monkeypatch.setattr(output_pin, "digitalio", FakeDigitalio(), raising=False)
+
+        with OutputPin("GP1") as pin:
+            hardware = pin._pin
+            pin.deinit()
+            pin.deinit()
+
+        assert hardware.deinit_count == 1
+        assert pin._pin is None
