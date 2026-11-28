@@ -141,17 +141,15 @@ class Melody:
         self._time_left_at_pause = 0
         self._paused = False
 
-        # Cope with zero length songs.
-        if self._song_length <= 0:
+        # At the start of the song (including zero length songs, after reset() or
+        # after a non-looping song has finished) there is no interrupted note to
+        # resume, so leave update() to play the first note for its full duration.
+        if self._song_length <= 0 or self._index == 0:
             self._index = 0
             return
 
-        # As index points to the next note to play, we need the previous note.
-        index = self._index - 1
-        if index < 0:
-            index = self._song_length - 1
-
-        frequency, _ = self._song[index]
+        # As index points to the next note to play, resume the previous (interrupted) note.
+        frequency, _ = self._song[self._index - 1]
         self._buzzer.play(frequency)
 
     @property
@@ -177,13 +175,7 @@ class Melody:
         """
         self._buzzer.off()
         self._time_left_at_pause = 0
-
-        # Because index points to the next note to play, resetting a paused song
-        # requires us to advance the note past the first note.
-        if self.paused:
-            self._index = 1
-        else:
-            self._index = 0
+        self._index = 0
 
 
 class MelodySequence:
