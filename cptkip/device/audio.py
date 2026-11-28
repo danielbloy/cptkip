@@ -1,11 +1,27 @@
 import cptkip.core.environment as environment
 
+MP3Decoder = None
 if environment.are_pins_available():
     try:
         # noinspection PyUnresolvedReferences
         from audiomp3 import MP3Decoder
     except ImportError:
         pass
+
+
+def _placeholder_mp3() -> str:
+    """
+    Returns the path of the placeholder mp3.mp3 file that ships in the cptkip package
+    directory. It is located relative to this module so it is found wherever cptkip is
+    installed (drive root, /lib, or a desktop site-packages) rather than relative to the
+    current working directory. CircuitPython has no os.path, so this is done by hand and
+    copes with both forward and back slash separators.
+    """
+    path = __file__
+    for _ in range(2):  # strip "device/audio.py"
+        i = max(path.rfind("/"), path.rfind("\\"))
+        path = path[:i] if i >= 0 else ""
+    return path + "/mp3.mp3" if path else "mp3.mp3"
 
 
 class Audio:
@@ -18,14 +34,18 @@ class Audio:
     def __init__(self, audio_out):
         self.audio_out = audio_out
         self.decoder = None
+        self._file = None
 
         if environment.are_pins_available() and audio_out is None:
             raise ValueError("audio cannot be None")
 
         if audio_out is not None:
+            if MP3Decoder is None:
+                raise ValueError("audiomp3 (MP3 decoding) is not supported on this device.")
+
             # You have to specify some mp3 file when creating the decoder
-            decoder = MP3Decoder(open("cptkip/mp3.mp3", "rb"))
-            self.decoder = decoder
+            self._file = open(_placeholder_mp3(), "rb")
+            self.decoder = MP3Decoder(self._file)
 
     def __enter__(self):
         return self
@@ -42,7 +62,13 @@ class Audio:
             self.audio_out.deinit()
             self.decoder = None
             self.audio_out = None
-            self.pin = None
+
+        self._close_file()
+
+    def _close_file(self) -> None:
+        if self._file:
+            self._file.close()
+            self._file = None
 
     def play(self, filename: str) -> None:
         """
@@ -54,7 +80,14 @@ class Audio:
             raise ValueError("filename must be specified")
 
         if self.audio_out:
-            self.decoder.file = open(filename, "rb")
+            # Stop first so the decoder is not reading the old file while it is swapped
+            # out, then close the old file rather than leaving it for the GC; file
+            # handles are a scarce resource on CircuitPython.
+            self.audio_out.stop()
+            new_file = open(filename, "rb")
+            self.decoder.file = new_file
+            self._close_file()
+            self._file = new_file
             self.audio_out.play(self.decoder)
 
     @property
@@ -132,7 +165,7 @@ def PwmAudio(pin) -> Audio:
 # noinspection pep8-naming
 def I2sAudio(bit_clock, left_right_clock, data) -> Audio:
     """
-    Returns an Audio that uses three pins to play music via PWM.
+    Returns an Audio that uses three pins to play music via I2S.
     """
     if environment.are_pins_available():
         if bit_clock is None:
@@ -166,7 +199,7 @@ class Queue:
             raise ValueError("audio cannot be None")
 
         if not isinstance(audio, Audio):
-            raise ValueError("audio must be of type PwmAudio or I2SAudio")
+            raise ValueError("audio must be an Audio, such as one returned by PwmAudio or I2sAudio")
 
         self._audio = audio
         self._queue = []

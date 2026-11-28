@@ -1,6 +1,98 @@
 import pytest
 
+import cptkip.core.environment as environment
+import cptkip.device.audio as audio_module
 from cptkip.device.audio import Queue, Audio, PwmAudio, I2sAudio
+
+
+class FakeMP3Decoder:
+    """Stand-in for audiomp3.MP3Decoder that records the file it is given."""
+
+    def __init__(self, file):
+        self.file = file
+        self.deinit_count = 0
+
+    def deinit(self) -> None:
+        self.deinit_count += 1
+
+
+class FakeAudioOut:
+    """Stand-in for AudioOut/I2SOut."""
+
+    def __init__(self):
+        self.playing = False
+        self.paused = False
+        self.stop_count = 0
+        self.deinit_count = 0
+
+    def play(self, sample) -> None:
+        self.playing = True
+
+    def stop(self) -> None:
+        self.stop_count += 1
+        self.playing = False
+
+    def deinit(self) -> None:
+        self.deinit_count += 1
+
+
+class TestAudioFileHandling:
+    """
+    Exercises the code paths used when an audio output exists (normally only on a
+    device) by injecting fake decoder/output objects.
+    """
+
+    def test_placeholder_is_found_relative_to_the_package(self, tmp_path, monkeypatch) -> None:
+        """
+        The placeholder mp3 must be found regardless of the current working directory.
+        """
+        monkeypatch.chdir(tmp_path)
+        monkeypatch.setattr(audio_module, "MP3Decoder", FakeMP3Decoder)
+        audio = Audio(FakeAudioOut())
+        assert audio.decoder.file.name.replace("\\", "/").endswith("cptkip/mp3.mp3")
+        audio.deinit()
+
+    def test_play_closes_the_previous_file(self, tmp_path, monkeypatch) -> None:
+        """
+        Each play() must close the file from the previous play() (and the placeholder),
+        and deinit() must close the last one.
+        """
+        monkeypatch.setattr(audio_module, "MP3Decoder", FakeMP3Decoder)
+        first = tmp_path / "first.mp3"
+        second = tmp_path / "second.mp3"
+        first.write_bytes(b"1")
+        second.write_bytes(b"2")
+
+        audio_out = FakeAudioOut()
+        audio = Audio(audio_out)
+        placeholder = audio.decoder.file
+
+        audio.play(str(first))
+        first_file = audio.decoder.file
+        assert placeholder.closed
+        assert not first_file.closed
+        assert audio_out.playing
+
+        audio.play(str(second))
+        second_file = audio.decoder.file
+        assert first_file.closed
+        assert not second_file.closed
+
+        audio.deinit()
+        assert second_file.closed
+        assert audio_out.deinit_count == 1
+        audio.deinit()  # Safe to call again
+        assert audio_out.deinit_count == 1
+
+    def test_missing_mp3_support_raises_value_error(self, monkeypatch) -> None:
+        """
+        If audiomp3 is unavailable on a device, a clear ValueError is raised rather
+        than a NameError.
+        """
+        monkeypatch.setattr(environment, "are_pins_available", lambda: True)
+        monkeypatch.setattr(audio_module, "MP3Decoder", None)
+        with pytest.raises(ValueError):
+            Audio(FakeAudioOut())
 
 
 class TestAudio:
