@@ -54,3 +54,15 @@ class TestDurationLimiter:
         assert limiter() is True
         sleep(0.06)
         assert limiter() is False
+
+    def test_duration_limiter_ignores_wall_clock_changes(self, monkeypatch):
+        """
+        duration_limiter must measure elapsed time with a monotonic clock, so a frozen
+        (or jumping) wall clock does not affect it.
+        """
+        import time
+        monkeypatch.setattr(time, "time", lambda: 0.0)
+        limiter = duration_limiter(0.05)
+        assert limiter()
+        time.sleep(0.1)
+        assert not limiter()
