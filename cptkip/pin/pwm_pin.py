@@ -38,7 +38,10 @@ class PwmPin:
         self.deinit()
 
     def deinit(self) -> None:
-        if environment.are_pins_available():
+        """
+        Releases the underlying pin. Safe to call multiple times.
+        """
+        if self._pwm:
             self._pwm.deinit()
 
         self._pwm = None
