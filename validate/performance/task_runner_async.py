@@ -1,3 +1,7 @@
+# NOTE: This is deliberately a separate, minimal copy of the harness in validate/utils.py
+#       rather than sharing it: each performance script runs after a soft reboot and its
+#       memory figures are compared between releases, so it must import as little as
+#       possible and stay stable over time.
 from time import monotonic
 
 from cptkip.core.environment import is_running_on_desktop
@@ -40,7 +44,7 @@ def execute(task: Callable[[], Awaitable[None]], monitor: bool = True,
 
     tasks.append(update)  # We add the update function last so memory monitor is always first.
 
-    finish = monotonic() + runtime + 0.05  # ake sure we get the start AND finish reports.
+    finish = monotonic() + runtime + 0.05  # Make sure we get the start AND finish reports.
 
     runner_async.run(*tasks)
     if monitor:

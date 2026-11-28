@@ -1,3 +1,7 @@
+# NOTE: This is deliberately a separate, minimal copy of the harness in validate/utils.py
+#       rather than sharing it: each performance script runs after a soft reboot and its
+#       memory figures are compared between releases, so it must import as little as
+#       possible and stay stable over time.
 from time import monotonic
 
 from cptkip.core.environment import is_running_on_desktop
@@ -51,7 +55,8 @@ def execute(task: Callable[[], None] | Callable[[], bool], monitor: bool = True,
 
     tasks.append(update)  # We add the update function last so memory monitor is always first.
 
-    finish = monotonic() + runtime + 0.05  # ake sure we get the start AND finish reports.
+    start = monotonic()
+    finish = start + runtime + 0.05  # Make sure we get the start AND finish reports.
 
     runner.run(*tasks)
 
@@ -59,7 +64,8 @@ def execute(task: Callable[[], None] | Callable[[], bool], monitor: bool = True,
         from cptkip.core.memory import report_memory_usage
         report_memory_usage()
 
-    print(f"CYCLES ..... : {((cycles / runtime) // 100) / 10:,.1f} K/s")
+    elapsed = max(monotonic() - start, 0.001)  # Measured, not the requested runtime.
+    print(f"CYCLES ..... : {((cycles / elapsed) // 100) / 10:,.1f} K/s")
     print("BEFORE GC .. : Used:", gc.mem_alloc(), "bytes, Free:", gc.mem_free(), "bytes")
     gc.collect()
     print("AFTER GC ... : Used:", gc.mem_alloc(), "bytes, Free:", gc.mem_free(), "bytes")

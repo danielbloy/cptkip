@@ -4,6 +4,10 @@ print("START ...... : Used:", gc.mem_alloc(), "bytes, Free:", gc.mem_free(), "by
 
 import cptkip.core.logging as log
 
+# The configuration (and so its LOG_LEVEL) is deliberately not loaded by this script,
+# so set the level the messages below describe explicitly.
+log.set_log_level(log.INFO)
+
 log.critical('This critical text will appear with log level info')
 log.error('This error text will appear with log level info')
 log.warn('This warning text will appear with log level info')
