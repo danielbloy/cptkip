@@ -6,9 +6,6 @@ import validate.utils as utils
 modules = [client, server]
 
 if __name__ == '__main__':
-    try:
-        import wifi
-
-        utils.execute_modules(modules)
-    except ImportError:
-        print("WiFi not available")
+    # Each module skips itself when WiFi is unavailable (on a device) or, for the
+    # external client requests, when running in CI.
+    utils.exit_on_failure(utils.execute_modules(modules))

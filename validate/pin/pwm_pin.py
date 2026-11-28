@@ -5,7 +5,14 @@ def execute():
     import cptkip.config.configuration as config
     import cptkip.pin.pwm_pin as pwm_pin
 
-    with pwm_pin.PwmPin(config.LED_PIN, invert=config.LED_INVERT) as pin:
+    utils.require_pins(config.LED_PIN)
+    try:
+        pin = pwm_pin.PwmPin(config.LED_PIN, invert=config.LED_INVERT)
+    except ValueError as e:
+        # e.g. the Pico W LED is on the WiFi chip and does not support PWM.
+        raise utils.Skip(f"PWM is not supported on LED_PIN: {e}")
+
+    with pin:
 
         def task():
             nonlocal next_change

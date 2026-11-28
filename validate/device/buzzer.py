@@ -4,6 +4,8 @@ def execute():
     import validate.utils as utils
     from cptkip.device.buzzer import Buzzer
 
+    utils.require_pins(config.BUZZER_PIN)
+
     with Buzzer(buzzer_pin.BuzzerPin(config.BUZZER_PIN)) as buzzer:
         buzzer.volume = 0.5
         frequency = 500

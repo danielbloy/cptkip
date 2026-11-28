@@ -3,6 +3,8 @@ def execute():
     import cptkip.config.configuration as config
     import cptkip.pin.input_pin as input_pin
 
+    utils.require_pins(config.BUTTON_PIN)
+
     # Use the BUTTON as an input pin
     with input_pin.InputPin(config.BUTTON_PIN, config.BUTTON_PULLUP) as pin:
         def task():
