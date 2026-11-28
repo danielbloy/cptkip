@@ -386,7 +386,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **F8** – Open – `feat/network-wifi-settings`
 
-- **F9** – Open – placeholder kept but now located relative to the package (`fix/audio-file-handling`); looping queue in `feat/audio-queue-loop`
+- **F9** – PR open – placeholder kept but now located relative to the package (`fix/audio-file-handling`); looping queue in `feat/audio-queue-loop`; MP3 volume control not added (needs audiomixer – decision)
 
 - **F10** – Open – `fix/packaging`
 
