@@ -158,10 +158,11 @@ class Queue:
     the MP3 files to be queued; these will then be picked up in turn and
     played through the Audio instance. Basic controls to pause, resume and
     stop are provided along with a cancel option which stops the music and
-    clears the queue.
+    clears the queue. If loop is True, each file is added back to the end of the
+    queue when it starts playing, so the queue repeats until cancelled.
     """
 
-    def __init__(self, audio: Audio):
+    def __init__(self, audio: Audio, loop: bool = False):
         if audio is None:
             raise ValueError("audio cannot be None")
 
@@ -170,6 +171,7 @@ class Queue:
 
         self._audio = audio
         self._queue = []
+        self.loop = loop
 
     def __enter__(self):
         return self
@@ -238,4 +240,6 @@ class Queue:
         """
         if not self._audio.playing and len(self._queue) > 0:
             song = self._queue.pop(0)
+            if self.loop:
+                self._queue.append(song)
             self._audio.play(song)
