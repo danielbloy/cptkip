@@ -23,13 +23,16 @@ def duration_limiter(seconds: float) -> Callable[[], bool]:
     """
     Returns a function that returns true for the specified number of seconds
     after the first time it is called.
+
+    Uses time.monotonic() rather than time.time(): the wall clock can jump (e.g. NTP
+    or RTC updates) and on CircuitPython time.time() only has whole-second resolution.
     """
-    from time import time
+    from time import monotonic
     first = None
 
     def func() -> bool:
         nonlocal first
-        now = time()
+        now = monotonic()
         if first is None:
             first = now
         return (now - first) <= seconds

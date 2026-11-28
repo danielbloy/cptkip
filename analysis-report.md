@@ -288,7 +288,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **D15** – Open – `perf/lazy-stacktrace`
 
-- **D16** – Open – `fix/duration-limiter-monotonic`
+- **D16** – PR open – `fix/duration-limiter-monotonic`
 
 - **D17** – Deferred – adopt the F2 ticks helper in triggered tasks after the task PRs merge (touches the same lines).
 
