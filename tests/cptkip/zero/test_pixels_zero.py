@@ -82,3 +82,17 @@ class TestPixelsZero:
         stop_animation(animation)
         assert animation._paused
         assert pixels.brightness == 0.0
+
+    def test_module_does_not_load_animation_library(self, monkeypatch):
+        """
+        Importing cptkip.zero.pixels must not import adafruit_led_animation (it is only
+        needed by stop_animation), to save memory when only the create_* helpers are used.
+        """
+        import importlib
+        import sys
+        for name in list(sys.modules):
+            if name.startswith("adafruit_led_animation") or name == "cptkip.zero.pixels":
+                monkeypatch.delitem(sys.modules, name)
+
+        importlib.import_module("cptkip.zero.pixels")
+        assert not any(name.startswith("adafruit_led_animation") for name in sys.modules)

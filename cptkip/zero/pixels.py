@@ -1,6 +1,3 @@
-from adafruit_led_animation.animation import Animation
-from adafruit_led_animation.sequence import AnimationSequence
-
 import cptkip.config.configuration as config
 from cptkip.device.pixels import OFF
 from cptkip.device.pixels import create, Pixels
@@ -14,10 +11,16 @@ def create_pixels(brightness: float = 1.0, pin=None, count=None) -> Pixels:
     return create(pin or config.PIXELS_PIN, count or config.PIXELS_COUNT, brightness=brightness)
 
 
-def stop_animation(animation: Animation | AnimationSequence):
+def stop_animation(animation):
     """
     Simple utility function to make it easy to turn off Pixel animations.
+
+    :param animation: An Animation or AnimationSequence from adafruit_led_animation.
     """
+    # Imported here rather than at module level so that using only the create_*
+    # helpers does not load adafruit_led_animation.
+    from adafruit_led_animation.sequence import AnimationSequence
+
     animation.freeze()
     if isinstance(animation, AnimationSequence):
         animation = animation.current_animation
