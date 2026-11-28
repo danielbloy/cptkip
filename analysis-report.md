@@ -406,7 +406,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **I6** (cancellation logged at ERROR) – Open – `fix/runner-shutdown-end-callbacks`
 
-- **I7** (validate pixel count hard-coded) – Open – `validate/harness`
+- **I7** (validate pixel count hard-coded) – PR open – `validate/harness`
 
 - **I8** (mixed timing sources / units) – Deferred – resolved by P1 adoption of F2.
 
@@ -414,9 +414,9 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **V1** – Open – `perf/cpu-info-single-read`
 
-- **V2** – Open – `validate/harness`
+- **V2** – PR open – `validate/harness`
 
-- **V3** – Open – `validate/harness`
+- **V3** – PR open – `validate/harness`
 
 - **V4** – Open – `validate/network-local`
 
@@ -424,13 +424,13 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **V6** – Open – `validate/stronger-task-asserts`
 
-- **V7** – Open – `validate/harness`
+- **V7** – PR open – `validate/harness`
 
-- **V8** – Open – `validate/harness`
+- **V8** – PR open – `validate/harness`
 
-- **V9** – Open – `validate/harness`
+- **V9** – PR open – `validate/harness`
 
-- **V10** – Open – `validate/harness`
+- **V10** – PR open – `validate/harness`
 
 - **V11** – Open – `validate/performance-tidy`
 

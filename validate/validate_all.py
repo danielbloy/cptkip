@@ -11,11 +11,18 @@ import validate.validate_task as task
 scripts = [core, task, pin, device, animation, network]
 
 
-def execute():
+def execute() -> list:
+    """
+    Runs every validation module, then prints an overall summary. Returns the results.
+    """
+    results = []
     for script in scripts:
-        modules = script.modules
-        utils.execute_modules(modules)
+        results += utils.execute_modules(script.modules)
+
+    print("\nOverall:")
+    utils.print_summary(results)
+    return results
 
 
 if __name__ == '__main__':
-    execute()
+    utils.exit_on_failure(execute())

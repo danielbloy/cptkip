@@ -20,4 +20,4 @@ modules = [basic_runner, basic_runner_async,
            triggered_events_task, triggered_events_task_async]
 
 if __name__ == '__main__':
-    utils.execute_modules(modules)
+    utils.exit_on_failure(utils.execute_modules(modules))

@@ -4,6 +4,8 @@ def execute():
     import cptkip.config.configuration as config
     import cptkip.pin.output_pin as output_pin
 
+    utils.require_pins(config.LED_PIN)
+
     # Use the LED as an output pin
     with output_pin.OutputPin(config.LED_PIN, invert=config.LED_INVERT) as pin:
         def task():

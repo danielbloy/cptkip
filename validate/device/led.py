@@ -7,7 +7,14 @@ def execute():
     import cptkip.pin.pwm_pin as pwm_pin
     import validate.utils as utils
 
-    with led.Led(pwm_pin.PwmPin(config.LED_PIN, invert=config.LED_INVERT)) as onboard_led:
+    utils.require_pins(config.LED_PIN)
+    try:
+        pin = pwm_pin.PwmPin(config.LED_PIN, invert=config.LED_INVERT)
+    except ValueError as e:
+        # e.g. the Pico W LED is on the WiFi chip and does not support PWM.
+        raise utils.Skip(f"PWM is not supported on LED_PIN: {e}")
+
+    with led.Led(pin) as onboard_led:
         onboard_led.off()
         animation = Pulse(onboard_led, speed=1 / 30, color=WHITE)
 
