@@ -382,7 +382,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **F6** – Open – `perf/quiet-config-and-defaults`
 
-- **F7** – Open – `feat/pixels-desktop-stub-state`
+- **F7** – PR open – `feat/pixels-desktop-stub-state`
 
 - **F8** – Open – `feat/network-wifi-settings`
 

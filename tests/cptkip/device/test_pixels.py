@@ -63,3 +63,25 @@ class TestPixels:
             assert pix.num_pixels == 8
             assert pix.brightness == 1.0
             assert pix.auto_write
+
+    def test_desktop_stub_keeps_pixel_colours(self):
+        """
+        The desktop stub stores pixel colours so animations can be checked without
+        hardware.
+        """
+        pix = pixels.Pixels(None, 4, 1.0)
+        assert pix[0] == (0, 0, 0)
+        assert len(pix[0]) == 3
+
+        pix.fill(0x102030)
+        assert pix[3] == (0x10, 0x20, 0x30)
+
+        pix[1] = (1, 2, 3)
+        assert pix[1] == (1, 2, 3)
+
+        pix[2:4] = [(4, 5, 6), 0x070809]
+        assert pix[2] == (4, 5, 6)
+        assert pix[3] == (7, 8, 9)
+        assert pix[0:2] == [(0x10, 0x20, 0x30), (1, 2, 3)]
+
+        assert pixels.create(None, 2)[1] == (0, 0, 0)
