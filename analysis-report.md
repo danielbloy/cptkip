@@ -266,7 +266,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **D4** – Open – `fix/buzzer-volume-restarts-tone`
 
-- **D5** – Open – `fix/zero-falsy-overrides`
+- **D5** – PR open – `fix/zero-falsy-overrides` – pullup=None still means 'use config' (needs API decision)
 
 - **D6** – Withdrawn – nested f-strings confirmed working on-device by the maintainer.
 
@@ -346,7 +346,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **T2** – Open – `fix/buzzer-volume-restarts-tone`
 
-- **T3** – Open – `fix/zero-falsy-overrides`
+- **T3** – PR open – `fix/zero-falsy-overrides` – pullup=None still means 'use config' (needs API decision)
 
 - **T4** – Open – `fix/pin-deinit-idempotent`
 

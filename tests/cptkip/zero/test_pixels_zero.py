@@ -45,6 +45,14 @@ class TestPixelsZero:
         assert pixels.n == 3
         assert pixels.brightness == 0.1
 
+    def test_create_pixels_honours_falsy_overrides(self):
+        """
+        Validates that an explicit count=0 is used rather than being replaced by
+        the config value (only None selects the config value).
+        """
+        pixels = create_pixels(count=0)
+        assert len(pixels) == 0
+
     def test_stop_pixels(self):
         """
         Validates that a Pixel object gets stopped (turned off) correctly.

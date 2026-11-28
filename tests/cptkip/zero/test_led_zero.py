@@ -27,6 +27,14 @@ class TestLedZero:
         assert pin.pin == "pin"
         assert pin.invert == "invert"
 
+    def test_create_led_pin_honours_falsy_overrides(self):
+        """
+        Validates that an explicit invert=False is used rather than being replaced
+        by the config value (only None selects the config value).
+        """
+        pin = create_led_pin(invert=False)
+        assert pin.invert is False
+
     def test_create_led(self):
         """
         Validates that a led is created "properly".

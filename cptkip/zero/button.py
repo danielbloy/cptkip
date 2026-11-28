@@ -11,8 +11,10 @@ def create_button_pin(pin=None, pullup=None) -> InputPin:
     """
     Simple utility function to make it easy to create a Button InputPin based on configuration.
     If no pin is specified, it defaults to the config value BUTTON_PIN and pullup to BUTTON_PULLUP.
+    Only None selects the config value, so an explicit pullup=False is honoured.
     """
-    return InputPin(pin or config.BUTTON_PIN, pullup or config.BUTTON_PULLUP)
+    return InputPin(config.BUTTON_PIN if pin is None else pin,
+                    config.BUTTON_PULLUP if pullup is None else pullup)
 
 
 def create_button(click: Callable[[], None] | None = None,
