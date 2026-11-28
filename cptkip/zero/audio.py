@@ -7,7 +7,7 @@ def create_pwm_audio(pin=None) -> Audio:
     Simple utility function to make it easy to create a PwmAudio.
     If no pin is specified, it defaults to the config value BUZZER_PIN.
     """
-    return PwmAudio(pin or config.BUZZER_PIN)
+    return PwmAudio(config.BUZZER_PIN if pin is None else pin)
 
 
 def create_i2s_audio(clock=None, lr=None, data=None) -> Audio:
@@ -16,7 +16,9 @@ def create_i2s_audio(clock=None, lr=None, data=None) -> Audio:
     If no pins are specified, they default to the config values I2S_BIT_CLOCK,
     I2S_LEFT_RIGHT_CLOCK and I2S_DATA.
     """
-    return I2sAudio(clock or config.I2S_BIT_CLOCK, lr or config.I2S_LEFT_RIGHT_CLOCK, data or config.I2S_DATA)
+    return I2sAudio(config.I2S_BIT_CLOCK if clock is None else clock,
+                    config.I2S_LEFT_RIGHT_CLOCK if lr is None else lr,
+                    config.I2S_DATA if data is None else data)
 
 
 def create_pwm_queue(pin=None) -> Queue:

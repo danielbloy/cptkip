@@ -11,7 +11,9 @@ def create_pixels(brightness: float = 1.0, pin=None, count=None) -> Pixels:
     Simple wrapper to create Pixels based on the configuration values.
     If no pin is specified, it defaults to the config value PIXELS_PIN and count to PIXELS_COUNT.
     """
-    return create(pin or config.PIXELS_PIN, count or config.PIXELS_COUNT, brightness=brightness)
+    return create(config.PIXELS_PIN if pin is None else pin,
+                  config.PIXELS_COUNT if count is None else count,
+                  brightness=brightness)
 
 
 def stop_animation(animation: Animation | AnimationSequence):

@@ -10,8 +10,10 @@ def create_led_pin(pin=None, invert=None) -> PwmPin:
     """
     Simple utility function to make it easy to create the LED Pin object.
     If no pin is specified, it defaults to the config value LED_PIN and invert is LED_INVERT.
+    Only None selects the config value, so an explicit invert=False is honoured.
     """
-    return PwmPin(pin or config.LED_PIN, invert=invert or config.LED_INVERT)
+    return PwmPin(config.LED_PIN if pin is None else pin,
+                  invert=config.LED_INVERT if invert is None else invert)
 
 
 def create_led(pin=None, invert=None) -> Led:

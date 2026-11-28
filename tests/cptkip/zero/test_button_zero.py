@@ -23,6 +23,17 @@ class TestButtonZero:
         assert pin.pin == "pin"
         assert pin.pullup == "pullup"
 
+    def test_create_button_pin_honours_falsy_overrides(self):
+        """
+        Validates that an explicit pullup=False is used rather than being replaced
+        by the config value (only None selects the config value).
+        """
+        pin = create_button_pin(pullup=False)
+        assert pin.pullup is False
+
+        btn = create_button(pullup=False)
+        assert btn.pin.pullup is False
+
     def test_create_button(self):
         """
         Validates that a button is created "properly".

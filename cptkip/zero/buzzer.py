@@ -8,7 +8,7 @@ def create_buzzer_pin(pin=None) -> BuzzerPin:
     Simple utility function to make it easy to create a BuzzerPin based on configuration.
     If no pin is specified, it defaults to the config value BUZZER_PIN.
     """
-    return BuzzerPin(pin or config.BUZZER_PIN)
+    return BuzzerPin(config.BUZZER_PIN if pin is None else pin)
 
 
 def create_buzzer(pin=None) -> Buzzer:
