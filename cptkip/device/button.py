@@ -17,12 +17,19 @@ class Button:
     def __init__(self, pin: InputPin,
                  click: Callable[[], None] | None = None,
                  multi_click: Callable[[], None] | None = None,
-                 long_click: Callable[[], None] | None = None):
+                 long_click: Callable[[], None] | None = None,
+                 long_duration_ms: int = 2000,
+                 press: Callable[[], None] | None = None,
+                 release: Callable[[], None] | None = None):
         """
-        :param pin:         The InputPin the button is connected to.
-        :param click:       Called on a single short press, if specified.
-        :param multi_click: Called on two or more short presses in quick succession, if specified.
-        :param long_click:  Called when the button is held down for a long press (2 seconds), if specified.
+        :param pin:              The InputPin the button is connected to.
+        :param click:            Called on a single short press, if specified.
+        :param multi_click:      Called on two or more short presses in quick succession, if
+                                 specified. The number of presses is available from click_count.
+        :param long_click:       Called when the button is held down for a long press, if specified.
+        :param long_duration_ms: How long the button must be held for a long press (default 2 seconds).
+        :param press:            Called as soon as the button is pressed down, if specified.
+        :param release:          Called as soon as the button is released, if specified.
         """
         if pin is None:
             raise ValueError("pin cannot be None")
@@ -31,9 +38,13 @@ class Button:
         self.click = click
         self.multi_click = multi_click
         self.long_click = long_click
+        self.press = press
+        self.release = release
+        # The number of short presses in the most recent click / multi-click.
+        self.click_count = 0
         # If the pin does not have a value for pullup then we assume it is a pullup
         value_when_pressed = not pin.pullup if pin.pullup is not None else False
-        self.button = DebounceButton(pin, long_duration_ms=2000,
+        self.button = DebounceButton(pin, long_duration_ms=long_duration_ms,
                                      value_when_pressed=value_when_pressed)
 
     def __enter__(self):
@@ -55,8 +66,15 @@ class Button:
         """
         self.button.update()
 
+        if self.press and self.button.pressed:
+            self.press()
+
+        if self.release and self.button.released:
+            self.release()
+
         short_count = self.button.short_count
         if short_count != 0:
+            self.click_count = short_count
 
             if short_count == 1 and self.click:
                 self.click()

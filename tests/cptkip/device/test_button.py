@@ -197,3 +197,46 @@ class TestButton:
             asyncio.run(task())
 
             assert single_click_count == 2
+
+    def test_press_release_and_click_count(self):
+        """
+        Validates press/release callbacks fire on each transition and click_count
+        records the number of presses in a multi-click.
+        """
+        events = []
+        pin = MockInputPin(value=True, pullup=True)
+        btn = button.Button(pin,
+                            multi_click=lambda: events.append(("multi", btn.click_count)),
+                            press=lambda: events.append("press"),
+                            release=lambda: events.append("release"))
+
+        async def update() -> None:
+            btn.update()
+
+        task = periodic_task.create(update,
+                                    continue_func=utils.value_flip(1.0, pin, [0.1, 0.2, 0.3, 0.4, 0.5, 0.6]))
+        asyncio.run(task())
+
+        assert events == ["press", "release", "press", "release", "press", "release", ("multi", 3)]
+
+    def test_long_duration_is_configurable(self):
+        """
+        Validates a shorter long_duration_ms triggers a long click sooner.
+        """
+        long_clicks = 0
+
+        def long_click() -> None:
+            nonlocal long_clicks
+            long_clicks += 1
+
+        pin = MockInputPin(value=True, pullup=True)
+        btn = button.Button(pin, long_click=long_click, long_duration_ms=300)
+
+        async def update() -> None:
+            btn.update()
+
+        # Held down for 0.5 seconds: long enough for 300ms but not the 2 second default.
+        task = periodic_task.create(update, continue_func=utils.value_flip(0.8, pin, [0.1, 0.6]))
+        asyncio.run(task())
+
+        assert long_clicks == 1

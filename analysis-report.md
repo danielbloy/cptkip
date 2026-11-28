@@ -376,7 +376,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **F3** – Open – `fix/runner-shutdown-end-callbacks`
 
-- **F4** – Open – `feat/button-options`
+- **F4** – PR open – `feat/button-options`
 
 - **F5** – Open – `feat/environment-accessors`
 
