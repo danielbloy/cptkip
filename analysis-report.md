@@ -410,6 +410,18 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **I8** (mixed timing sources / units) – Deferred – resolved by P1 adoption of F2.
 
+### New findings (found while fixing)
+
+- **N1** – PR open – `fix/triggered-events-task` (#77): `test_callbacks_at_correct_interval` (sync and async) truncated elapsed times to 0.01s and compared exactly, so an event firing at 0.2299s for 0.23s failed intermittently; now uses a 0-20ms tolerance.
+
+- **N2** – PR open – `fix/melody-tempo-test-flaky` (#105): `TestMelody::test_tempo` allowed only 5% on a 125ms note and failed intermittently from timer granularity; now 20%.
+
+- **N3** – PR open – `fix/examples-local-test-timeout` (#104): running `pytest examples/` locally always failed - the network server examples run 60s unless `is_running_under_test()`, which is only true in CI for a subprocess, exceeding the 20s timeout; the example runner now sets `CI`.
+
+- **N4** – PR open – `fix/biplane` (#74): on Linux an accepted client socket is blocking even though the listening socket is not (OS dependent), so biplane's `recv_into()` stalled the whole server on an idle client; accepted sockets are now set non-blocking.
+
+- **N5** – PR open – `fix/biplane` (#74): `run_biplane_test` could connect before the server thread was listening, giving intermittent `ConnectionRefusedError` in `test_create_task` (seen failing CI on #81 and #102).
+
 ### Validate
 
 - **V1** – Open – `perf/cpu-info-single-read`
