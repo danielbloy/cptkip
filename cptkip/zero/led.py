@@ -19,9 +19,11 @@ def create_led(pin=None, invert=None) -> Led:
     return Led(create_led_pin(pin, invert))
 
 
-def stop_animation(animation: "Animation | AnimationSequence"):
+def stop_animation(animation):
     """
     Simple utility function to make it easy to turn off LED animations.
+
+    :param animation: An Animation or AnimationSequence from adafruit_led_animation.
     """
     # Imported here rather than at module level so that using only the create_*
     # helpers does not load adafruit_led_animation.
