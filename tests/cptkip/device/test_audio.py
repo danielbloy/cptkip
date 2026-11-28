@@ -236,6 +236,36 @@ class TestQueue:
         assert audio.playing_count <= 0
         assert audio.playing_called
 
+    def test_looping_queue_repeats_until_cancelled(self) -> None:
+        """
+        Validates a looping Queue plays its songs in order repeatedly, and that
+        cancel() empties it.
+        """
+        audio = MockAudio()
+        queue = Queue(audio, loop=True)
+        assert queue.loop
+
+        queue.queue("track-1.mp3")
+        queue.queue("track-2.mp3")
+
+        for x in range(35):
+            queue.update()
+        assert audio.files == ["track-1.mp3", "track-2.mp3", "track-1.mp3", "track-2.mp3"]
+
+        queue.cancel()
+        for x in range(30):
+            queue.update()
+        assert len(audio.files) == 4
+
+    def test_queue_does_not_loop_by_default(self) -> None:
+        audio = MockAudio()
+        queue = Queue(audio)
+        assert not queue.loop
+        queue.queue("track-1.mp3")
+        for x in range(30):
+            queue.update()
+        assert audio.files == ["track-1.mp3"]
+
     def test_controls_are_called_correctly(self) -> None:
         """
         Validates the Queue correctly passes on controls such
