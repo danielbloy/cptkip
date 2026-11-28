@@ -1,4 +1,3 @@
-from math import trunc
 from time import monotonic
 from typing import Any
 
@@ -341,10 +340,13 @@ class TestTriggeredEventsTask:
 
         assert values == ["a", "b", "c", "d", "e"]
 
-        # Validate that times are correct to within 3 decimal places
-        times = [trunc(time * 100) for time in times]
-        times = [time / 100 for time in times]
-        assert times == [0.00, 0.23, 0.80, 1.10, 1.20]
+        # Validate that each event fired within 20ms after its scheduled time.
+        # (This previously truncated to 0.01s, which failed whenever an event
+        # fired a fraction early in the truncation, e.g. 0.2299s for 0.23.)
+        expected = [0.00, 0.23, 0.80, 1.10, 1.20]
+        assert len(times) == len(expected)
+        for actual, scheduled in zip(times, expected):
+            assert scheduled - 0.001 <= actual <= scheduled + 0.02
 
     def test_correct_callback_is_called(self) -> None:
         """
@@ -472,3 +474,43 @@ class TestTriggeredEventsTask:
         run(trigger_task, restart)
 
         assert begin_count == 3
+
+    def test_empty_event_tuple_raises_value_error(self) -> None:
+        """
+        An empty event tuple is invalid and must raise ValueError (not IndexError).
+        """
+        with pytest.raises(ValueError):
+            create(Trigger(True), [()], callback=lambda value: None)
+
+    def test_end_is_only_called_once_if_invoked_after_stopping(self) -> None:
+        """
+        If the handler is called again after it has returned False (continue_func
+        returned False while running), end must not be called a second time.
+        """
+        end_count = 0
+
+        def end() -> None:
+            nonlocal end_count
+            end_count += 1
+
+        carry_on = True
+        task = create(Trigger(True), [(60.0,)], callback=lambda value: None, end=end,
+                      continue_func=lambda: carry_on)
+        assert task()  # Triggered and running
+
+        carry_on = False
+        assert not task()
+        assert not task()
+        assert end_count == 1
+
+    def test_events_list_is_not_modified(self) -> None:
+        """
+        The events passed in are not modified (they are sorted into a private copy).
+        """
+        events = [(0.2, "b"), (0.0, "a")]
+        values = []
+        task = create(Trigger(True), events, callback=values.append,
+                      continue_func=duration_limiter(0.4))
+        run(task)
+        assert values == ["a", "b"]
+        assert events == [(0.2, "b"), (0.0, "a")]

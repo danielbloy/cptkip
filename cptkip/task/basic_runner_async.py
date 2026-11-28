@@ -1,7 +1,7 @@
 import asyncio
 
 from cptkip.core.environment import is_running_on_desktop
-from cptkip.core.logging import error, info
+from cptkip.core.logging import info
 
 if is_running_on_desktop():
     from typing import Callable, Awaitable
@@ -18,7 +18,11 @@ def run(*funcs: Callable[[], Awaitable[None]],
     Functions should play nicely and ensure they regularly sleep with at least:
         await asyncio.sleep(0)
 
-    :param continue_func: A function that returns whether to continue executing not.
+    When continue_func returns False the remaining tasks are cancelled. The async
+    tasks in cptkip.task handle the cancellation by running their end callback
+    (if any) before finishing.
+
+    :param continue_func: A function that returns whether to continue executing or not.
     """
     running_tasks: int = len(funcs)
 
@@ -35,7 +39,7 @@ def run(*funcs: Callable[[], Awaitable[None]],
                 return
 
             except asyncio.CancelledError:
-                error('Caught CancelledError exception for task -', task)
+                info('Task cancelled -', task)
                 return
 
             finally:

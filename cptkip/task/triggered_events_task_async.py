@@ -1,4 +1,4 @@
-from asyncio import sleep
+from asyncio import sleep, CancelledError
 from time import monotonic
 
 import cptkip.core.environment as environment
@@ -58,6 +58,8 @@ def create(
     and been deactivated. The trigger function is used to activate the trigger by returning
     True.
 
+    Events fire in time order (events with the same time fire in the order given).
+
     :param trigger: Function that triggers when it returns True.
     :param events: The events to execute when the trigger is activated. Each event is a
         tuple with at least one value and up to three values. The first value is the
@@ -74,7 +76,7 @@ def create(
     # then error if func is not specific. This also validates that each event
     # contains a tuple.
     for event in events:
-        if not isinstance(event, tuple) or len(event) > 3:
+        if not isinstance(event, tuple) or not 1 <= len(event) <= 3:
             raise ValueError("All events must be tuples with one to three elements")
 
         # First parameter must be a number
@@ -89,55 +91,56 @@ def create(
             if not callable(event[2]):
                 raise ValueError("Event callbacks must be callable functions")
 
+
+    # Sort once by time (stable, so events with the same time keep their order). The
+    # handler then walks the events with an index, so nothing is copied when triggered
+    # and no lists are allocated on each invocation.
+    events = sorted(events, key=lambda e: e[0])
+    event_count = len(events)
+
+    def fire(event):
+        """Returns the callback and argument for an event."""
+        obj = event[1] if len(event) > 1 else None
+        func = event[2] if len(event) > 2 else None
+        return func or callback, obj
+
     async def handler() -> None:
         running = False
-        remaining = []
+        next_event = 0  # Index of the next event to fire.
         start_time = 0
 
-        while not continue_func or continue_func():
-            await sleep(ASYNC_LOOP_SLEEP_INTERVAL)
+        try:
+            while not continue_func or continue_func():
+                await sleep(ASYNC_LOOP_SLEEP_INTERVAL)
 
-            if trigger() and not running:
-                debug("Start running trigger event")
+                if trigger() and not running:
+                    debug("Start running trigger event")
 
-                remaining = events.copy()
-                start_time = monotonic()
-                running = True
-                if begin:
-                    await begin()
+                    next_event = 0
+                    start_time = monotonic()
+                    running = True
+                    if begin:
+                        await begin()
 
-            if running and not remaining:
-                debug("Stop running trigger event")
+                if running and next_event >= event_count:
+                    debug("Stop running trigger event")
 
-                running = False
-                if end:
-                    await end()
+                    running = False
+                    if end:
+                        await end()
 
-            if running:
-                now = monotonic()
-                diff = now - start_time
-                # We are tolerant of the number of values in an event but the first
-                # value must be a time.
-                events_to_fire = [event for event in remaining if diff >= event[0]]
+                if running:
+                    diff = monotonic() - start_time
+                    while next_event < event_count and diff >= events[next_event][0]:
+                        func, obj = fire(events[next_event])
+                        next_event += 1
+                        await func(obj)
 
-                for event in events_to_fire:
-
-                    obj = None
-                    func = None
-
-                    if len(event) > 1:
-                        obj = event[1]
-
-                    if len(event) > 2:
-                        func = event[2]
-
-                    if not func:
-                        func = callback
-
-                    await func(obj)
-
-                for event in events_to_fire:
-                    remaining.remove(event)
+        except CancelledError:
+            # A cancelled task that is mid-trigger still gets its end callback.
+            if end and running:
+                await end()
+            raise
 
         if end and running:
             await end()
