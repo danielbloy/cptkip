@@ -438,6 +438,6 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **V13** – Open – `validate/performance-compare`
 
-- **V14** – Open – `validate/new-scripts`
+- **V14** – PR open – `validate/new-scripts` – stacked on validate/harness
 
 - **V15** – Open – `docs/sync-docs`

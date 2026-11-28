@@ -7,8 +7,9 @@ import validate.validate_device as device
 import validate.validate_network as network
 import validate.validate_pin as pin
 import validate.validate_task as task
+import validate.validate_zero as zero
 
-scripts = [core, task, pin, device, animation, network]
+scripts = [core, task, pin, device, animation, zero, network]
 
 
 def execute() -> list:
