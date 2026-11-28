@@ -33,6 +33,9 @@ class BuzzerPin:
         self.deinit()
 
     def deinit(self) -> None:
+        """
+        Silences the buzzer and releases the underlying PWM. Safe to call multiple times.
+        """
         self._playing = False
         if self._buzzer:
             self._buzzer.duty_cycle = 0
@@ -91,23 +94,36 @@ class BuzzerPin:
 
         :param frequency: The frequency to play.
         """
-        # Update the pwm only if the frequency has changed or there is no active buzzer.
+        # Silence before changing note (off() is now just a duty cycle change).
         if self._frequency != frequency or not self._buzzer:
-            self._frequency = frequency
             self.off()
-            if frequency > 0 and environment.are_pins_available():
-                self._buzzer = pwmio.PWMOut(self.pin, frequency=frequency)
 
-        if self._buzzer:
-            self._buzzer.duty_cycle = int(self.volume * (2 ** 10))
-
+        self._frequency = frequency
         self._playing = frequency > 0 and self.volume > 0
+
+        if frequency <= 0:
+            return
+
+        # A single PWMOut is created on first use and kept: changing note just changes
+        # its frequency, and off() just sets the duty cycle to zero. Previously every
+        # note (and every off()) deinitialised and re-created the PWMOut, churning the
+        # heap and re-claiming the pin on each note of a melody.
+        if not self._buzzer:
+            if not environment.are_pins_available():
+                return
+            self._buzzer = pwmio.PWMOut(self.pin, frequency=frequency, variable_frequency=True)
+        elif self._buzzer.frequency != frequency:
+            self._buzzer.frequency = frequency
+
+        self._buzzer.duty_cycle = int(self.volume * (2 ** 10))
 
     def off(self) -> None:
         """
-        Stops the buzzer playing any sound.
+        Stops the buzzer playing any sound. The PWM stays claimed until deinit().
         """
-        self.deinit()
+        self._playing = False
+        if self._buzzer:
+            self._buzzer.duty_cycle = 0
 
     def on(self) -> None:
         """

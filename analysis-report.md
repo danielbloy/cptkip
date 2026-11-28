@@ -320,7 +320,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **P1** – Deferred – adopt the F2 ticks helper across tasks/devices after the task PRs merge (touches the same lines).
 
-- **P2** – Open – `perf/buzzer-pin-persistent-pwm`
+- **P2** – PR open – `perf/buzzer-pin-persistent-pwm`
 
 - **P3** – Open – `fix/triggered-events-task`
 
