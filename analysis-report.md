@@ -332,7 +332,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **P7** – Open – `perf/flicker-integer-maths`
 
-- **P8** – Open – `perf/cpu-info-single-read`
+- **P8** – PR open – `perf/cpu-info-single-read`
 
 - **P9** – Open – `fix/led-getitem-and-parse`
 
@@ -412,7 +412,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 ### Validate
 
-- **V1** – Open – `perf/cpu-info-single-read`
+- **V1** – PR open – `perf/cpu-info-single-read`
 
 - **V2** – Open – `validate/harness`
 

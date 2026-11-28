@@ -74,3 +74,34 @@ class TestCpu:
 
         cpu.restart()
         assert fake.reset_called
+
+    def test_info_reads_each_property_once(self, monkeypatch):
+        """
+        Each microcontroller.cpu property is a hardware read, so info() must read each
+        one exactly once.
+        """
+        reads = []
+
+        class CountingCpu:
+            @property
+            def temperature(self):
+                reads.append("temperature")
+                return 40.0
+
+            @property
+            def frequency(self):
+                reads.append("frequency")
+                return 125_000_000
+
+            @property
+            def voltage(self):
+                reads.append("voltage")
+                return None
+
+        fake = FakeMicrocontroller()
+        fake.cpu = CountingCpu()
+        monkeypatch.setattr(cpu, "microcontroller", fake, raising=False)
+        monkeypatch.setattr(environment, "is_running_on_microcontroller", lambda: True)
+
+        assert cpu.info() == {"temperature": 40.0, "frequency": 125_000_000, "voltage": "n/a"}
+        assert sorted(reads) == ["frequency", "temperature", "voltage"]
