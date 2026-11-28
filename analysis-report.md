@@ -394,9 +394,9 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 ### Inconsistencies (§5)
 
-- **I1** (docs: CLAUDE.md, validation.md, roadmap) – Open – `docs/sync-docs`
+- **I1** (docs: CLAUDE.md, validation.md, roadmap) – PR open – `docs/sync-docs`
 
-- **I2** (requirements.txt encoding/contents) – Open – `docs/sync-docs`
+- **I2** (requirements.txt encoding/contents) – PR open – `docs/sync-docs`
 
 - **I3** (docstrings: decode_melody) – Open – `fix/melody-note-parsing`
 
@@ -440,4 +440,4 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **V14** – Open – `validate/new-scripts`
 
-- **V15** – Open – `docs/sync-docs`
+- **V15** – PR open – `docs/sync-docs`
