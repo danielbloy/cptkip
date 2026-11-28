@@ -298,9 +298,9 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **D20** – Open – `fix/memory-report-text`
 
-- **D21** – Open – `fix/melody-note-parsing`
+- **D21** – PR open – `fix/melody-note-parsing` – new finding N2: TestMelody::test_tempo is intermittently flaky (pre-existing)
 
-- **D22** – Open – `fix/melody-note-parsing`
+- **D22** – PR open – `fix/melody-note-parsing` – new finding N2: TestMelody::test_tempo is intermittently flaky (pre-existing)
 
 - **D23** – Open – `fix/triggered-events-task`
 
@@ -350,7 +350,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **T4** – Open – `fix/pin-deinit-idempotent`
 
-- **T5** – Open – split across `fix/biplane`, `fix/melody-note-parsing`, `fix/triggered-events-task`
+- **T5** – PR open – split across `fix/biplane`, `fix/melody-note-parsing`, `fix/triggered-events-task` – new finding N2: TestMelody::test_tempo is intermittently flaky (pre-existing)
 
 - **T6** – Open – `fix/runner-shutdown-end-callbacks`
 
@@ -398,7 +398,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **I2** (requirements.txt encoding/contents) – Open – `docs/sync-docs`
 
-- **I3** (docstrings: decode_melody) – Open – `fix/melody-note-parsing`
+- **I3** (docstrings: decode_melody) – PR open – `fix/melody-note-parsing` – new finding N2: TestMelody::test_tempo is intermittently flaky (pre-existing)
 
 - **I4** (docstrings/messages: I2sAudio, Queue) – Open – `fix/audio-file-handling`
 
