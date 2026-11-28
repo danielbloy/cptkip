@@ -122,6 +122,7 @@ class Led:
         Converts the passed in value to a 4 digit RGBW tuple. The value can be
         one of the following:
         * A single integer value representing a packed RGB value of 0x000000 to 0xFFFFFF
+          (any higher bits are ignored)
         * A tuple of 3 integers representing RGB, each with an expected value of 0 to 0xFF
         * A tuple of 4 integers representing RGBW, each with an expected value of 0 to 0xFF
 
@@ -143,7 +144,7 @@ class Led:
         If 4 colours are specified in a tuple, they are returned as-is.
         """
         if isinstance(value, int):
-            r = value >> 16
+            r = (value >> 16) & 0xFF
             g = (value >> 8) & 0xFF
             b = value & 0xFF
             # Average out the RBG intensities.
@@ -172,15 +173,15 @@ class Led:
         Equivalent to fill(val) - index/slice is accepted but ignored since
         there is only ever a single logical pixel.
         """
-        r, g, b, w = self._parse_color(val)
-        self.fill((r, g, b, w))
+        self.fill(val)
 
     def __getitem__(self, index: int | slice):
         """
         Returns the current brightness as a grayscale (val, val, val) tuple.
         This is derived purely from brightness, not the original RGB values
         last passed to fill()/__setitem__ - colour information beyond the
-        computed brightness is not retained.
+        computed brightness is not retained. Values are integers (0 to 255), like
+        those returned by NeoPixel strands.
         """
-        val = self.brightness * 255
+        val = int(self.brightness * 255 + 0.5)
         return val, val, val

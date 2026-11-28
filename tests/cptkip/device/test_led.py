@@ -663,3 +663,19 @@ class TestLed:
         led.brightness = 1.0
         led[slice(3, 5)] = (0x40, 0x90, 0x50, 0x80)
         assert led.brightness == 0x80 / 0xFF
+
+    def test_getitem_returns_integers(self) -> None:
+        """
+        led[i] returns integer RGB values (as NeoPixel strands do), not floats.
+        """
+        led = Led(MockPwmPin())
+        led.brightness = 0.5
+        r, g, b = led[0]
+        assert (r, g, b) == (128, 128, 128)
+        assert all(isinstance(v, int) for v in (r, g, b))
+
+    def test_parse_color_ignores_bits_above_24(self) -> None:
+        """
+        A packed integer colour only uses its lowest 24 bits.
+        """
+        assert Led._parse_color(0x1FF0000) == (0xFF, 0x00, 0x00, 0x55)

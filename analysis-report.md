@@ -306,7 +306,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **D24** – Open – `fix/periodic-task-timing`
 
-- **D25** – Open – `fix/led-getitem-and-parse`
+- **D25** – PR open – `fix/led-getitem-and-parse`
 
 - **D26** – Open – `fix/audio-file-handling`
 
@@ -334,7 +334,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **P8** – Open – `perf/cpu-info-single-read`
 
-- **P9** – Open – `fix/led-getitem-and-parse`
+- **P9** – PR open – `fix/led-getitem-and-parse`
 
 - **P10** – Open – `refactor/shared-trigger`
 
