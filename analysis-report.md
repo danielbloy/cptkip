@@ -262,7 +262,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **D2** – Open – `fix/packaging`
 
-- **D3** – Open – `fix/melody-reset-first-note`
+- **D3** – PR open – `fix/melody-reset-first-note`
 
 - **D4** – Open – `fix/buzzer-volume-restarts-tone`
 
@@ -294,7 +294,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **D18** – Open – `fix/periodic-task-timing`
 
-- **D19** – Open – `fix/melody-reset-first-note`
+- **D19** – PR open – `fix/melody-reset-first-note`
 
 - **D20** – Open – `fix/memory-report-text`
 
@@ -342,7 +342,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 ### Tests
 
-- **T1** – Open – `fix/melody-reset-first-note`
+- **T1** – PR open – `fix/melody-reset-first-note`
 
 - **T2** – Open – `fix/buzzer-volume-restarts-tone`
 

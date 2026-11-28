@@ -380,16 +380,41 @@ class TestMelody:
         assert_duration_within_tolerance(melody._time_left_at_pause, nanoseconds_per_beat)
 
         melody.reset()
-        assert melody._index == 1
+        assert melody._index == 0
         assert melody._time_left_at_pause == 0
 
-        # Resume and ensure the first note is played.
+        # Resume and ensure the first note is played for its full duration.
         melody.resume()
+        start = time.monotonic_ns()
 
         while melody.playing and len(pin.frequencies) < 4:  # Stop as soon as the 4th note is played
             melody.update()
 
         assert pin.frequencies == [100, 200, 100, 200]
+        assert_duration_within_tolerance(time.monotonic_ns() - start, nanoseconds_per_beat)
+
+    def test_resume_after_non_looping_song_finishes(self) -> None:
+        """
+        Validates that resuming a finished non-looping melody restarts from the first
+        note without replaying the last note, and the first note gets its full duration.
+        """
+        tempo = 480  # 8 beats per second.
+        nanoseconds_per_beat = NS_PER_SECOND / (tempo / 60)
+
+        pin = MockBuzzerPin()
+        melody = Melody(pin, [(100, 1), (200, 1)], tempo=tempo, loop=False)
+        while melody.playing:
+            melody.update()
+
+        assert pin.frequencies == [100, 200]
+
+        melody.resume()
+        start = time.monotonic_ns()
+        while melody.playing and len(pin.frequencies) < 4:  # Stop as soon as the 2nd note replays
+            melody.update()
+
+        assert pin.frequencies == [100, 200, 100, 200]
+        assert_duration_within_tolerance(time.monotonic_ns() - start, nanoseconds_per_beat)
 
     def test_tempo(self) -> None:
         """
@@ -612,6 +637,37 @@ class TestMelodySequence:
         assert sequence.playing
         assert pin.frequencies == [1, 2, 3, 4, 5, 1, 2, 3]
         assert pin.play_count == 8
+
+    def test_looping_sequence_plays_first_note_for_full_duration(self) -> None:
+        """
+        Validates that when a looping sequence returns to a melody that has already
+        finished, that melody's first note plays for its full duration rather than
+        being cut short by the next note.
+        """
+        tempo = 480  # 8 beats per second.
+        nanoseconds_per_beat = NS_PER_SECOND / (tempo / 60)
+
+        pin = MockBuzzerPin()
+        times = []
+        original_play = pin.play
+
+        def timed_play(frequency: int) -> None:
+            times.append(time.monotonic_ns())
+            original_play(frequency)
+
+        pin.play = timed_play
+
+        sequence = MelodySequence(
+            Melody(pin, [(100, 1), (200, 1)], tempo=tempo),
+            Melody(pin, [(300, 1)], tempo=tempo))
+
+        # Play through once and then return to the first melody, stopping as soon as
+        # the second note of the first melody plays for the second time.
+        while sequence.playing and len(pin.frequencies) < 5:
+            sequence.update()
+
+        assert pin.frequencies == [100, 200, 300, 100, 200]
+        assert_duration_within_tolerance(times[4] - times[3], nanoseconds_per_beat)
 
     def test_update_rolls_over_to_next_song_correctly(self) -> None:
         """
