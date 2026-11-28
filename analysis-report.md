@@ -360,7 +360,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **T9** – Open – `fix/biplane`
 
-- **T10** – Open – `feat/environment-accessors`
+- **T10** – PR open – `feat/environment-accessors`
 
 - **T11** – Open – `perf/quiet-config-and-defaults`
 
@@ -378,7 +378,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **F4** – Open – `feat/button-options`
 
-- **F5** – Open – `feat/environment-accessors`
+- **F5** – PR open – `feat/environment-accessors`
 
 - **F6** – Open – `perf/quiet-config-and-defaults`
 
