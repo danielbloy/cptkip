@@ -10,13 +10,17 @@ if environment.is_running_on_desktop():
 
 
 def create(
-        sample_frequency: int,
-        report_frequency: int,
+        sample_frequency: float,
+        report_frequency: float,
         continue_func: Callable[[], bool] | None = None) -> Callable[[], bool]:
     """
     Provides a relatively simple way to monitor the memory usage on the device over
     time. This monitoring function is susceptible to drift so is not suitable for
-    high-precision monitoring. The minimum sample and report frequency are 1 second.
+    high-precision monitoring.
+
+    Frequencies may be fractional to sample or report less than once per second,
+    e.g. report_frequency=1/60 reports once a minute. A frequency of zero or less
+    defaults to once per second.
 
     :param sample_frequency: The number of memory samples per second.
     :param report_frequency: The number of times to report memory usage per second.
@@ -24,10 +28,10 @@ def create(
         the func should continue to be called.
     """
 
-    sample_period = NS_PER_SECOND // max(sample_frequency, 1)
+    sample_period = _period_ns(sample_frequency)
     last_sample = 0
 
-    reporting_period = NS_PER_SECOND // max(report_frequency, 1)
+    reporting_period = _period_ns(report_frequency)
     last_report = 0
 
     def monitor() -> bool:
@@ -40,14 +44,25 @@ def create(
         sample = (now - last_sample) >= sample_period
         report = (now - last_report) >= reporting_period
 
-        if sample:
+        if report:
+            # report_memory_usage() takes a sample itself, so this also counts as one.
+            last_report = now
+            last_sample = now
+            report_memory_usage()
+        elif sample:
             last_sample = now
             sample_memory_usage()
-
-        if report:
-            last_report = now
-            report_memory_usage()
 
         return not continue_func or continue_func()
 
     return monitor
+
+
+def _period_ns(frequency: float) -> int:
+    """
+    Converts a frequency (per second, may be fractional) to a period in nanoseconds.
+    Integer frequencies give an exact period; zero or less defaults to one second.
+    """
+    if frequency <= 0:
+        return NS_PER_SECOND
+    return max(1, int(NS_PER_SECOND // frequency))

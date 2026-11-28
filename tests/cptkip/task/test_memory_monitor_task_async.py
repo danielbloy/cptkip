@@ -180,3 +180,22 @@ class TestMemoryMonitorTaskAsync:
         task = create(-1, -1, continue_func=tracker)
         asyncio.run(task())
         assert done
+
+    def test_does_not_busy_wait(self):
+        """
+        Between samples the async monitor sleeps until the next one is due (capped at
+        1/8 second) rather than spinning with ~1us sleeps.
+        """
+        import time
+        from cptkip.task.basic_runner_async import run as run_async
+        from cptkip.task.memory_monitor_task_async import create as create_async
+        checks = 0
+        finish = time.monotonic() + 1
+
+        def continue_func() -> bool:
+            nonlocal checks
+            checks += 1
+            return time.monotonic() < finish
+
+        run_async(create_async(2, 1, continue_func=continue_func))
+        assert checks < 100

@@ -153,3 +153,30 @@ class TestMemoryMonitorTask:
         assert memory.used_heap != 0
         assert memory.free_heap != 0
         assert memory.total_heap != 0
+
+    def test_fractional_frequency_reports_less_than_once_a_second(self, monkeypatch):
+        """
+        A fractional report frequency (e.g. 0.5 = every 2 seconds) must be honoured;
+        previously frequencies were clamped to at least once per second.
+        """
+        import cptkip.task.memory_monitor_task as module
+        reports = []
+        monkeypatch.setattr(module, "report_memory_usage", lambda: reports.append(time.monotonic()))
+        monkeypatch.setattr(module, "sample_memory_usage", lambda: None)
+
+        finish = time.monotonic() + 1.3
+        run(create(10, 0.5, continue_func=lambda: time.monotonic() < finish))
+        assert len(reports) == 1  # Only the initial report within 1.3 seconds.
+
+    def test_report_does_not_take_a_second_sample(self, monkeypatch):
+        """
+        report_memory_usage() samples itself, so a tick that reports must not also
+        call sample_memory_usage().
+        """
+        import cptkip.task.memory_monitor_task as module
+        calls = []
+        monkeypatch.setattr(module, "report_memory_usage", lambda: calls.append("report"))
+        monkeypatch.setattr(module, "sample_memory_usage", lambda: calls.append("sample"))
+
+        create(1, 1)()
+        assert calls == ["report"]

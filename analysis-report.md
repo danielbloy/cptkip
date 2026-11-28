@@ -370,7 +370,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 ### Missing functionality
 
-- **F1** – Open – `feat/memory-monitor-slow-rates`
+- **F1** – PR open – `feat/memory-monitor-slow-rates` – also removes the async monitor busy-wait (part of P4)
 
 - **F2** – Open – `feat/ticks-helper`
 
