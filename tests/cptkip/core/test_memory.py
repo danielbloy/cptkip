@@ -78,3 +78,13 @@ class TestMemory:
         memory.report_memory_usage_and_free()
 
         memory.reset_memory_usage()
+
+    def test_report_memory_usage_output(self, capsys):
+        """
+        The report must end with the free heap figure and its units, with no stray
+        trailing label.
+        """
+        memory.report_memory_usage()
+        line = capsys.readouterr().out.strip().splitlines()[-1]
+        assert line.startswith("CRITICAL : Heap details: Total:")
+        assert line.endswith("MB") or line.endswith("bytes")
