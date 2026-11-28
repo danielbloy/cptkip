@@ -46,6 +46,11 @@ class Buzzer:
         """Set the volume of the buzzer"""
         value = min(max(value, 0.0), 1.0)
         self._buzzer.volume = value
+        # BuzzerPin re-applies its output (i.e. starts sounding) whenever its volume
+        # is set. If this Buzzer is not playing, nothing would ever turn that tone
+        # off again in update(), so switch the pin straight back off.
+        if not self._playing:
+            self._buzzer.off()
 
     @property
     def playing(self):

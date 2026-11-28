@@ -91,6 +91,39 @@ class TestBuzzer:
         assert pin.volume == 0.0
         assert buzzer.volume == 0.0
 
+    def test_setting_volume_when_idle_does_not_start_a_tone(self):
+        """
+        Validates that setting the volume on a Buzzer that is not playing does not
+        leave the underlying pin sounding (BuzzerPin re-applies its output when
+        the volume changes, which previously restarted the last tone).
+        """
+        pin = BuzzerPin(None)
+        buzzer = Buzzer(pin)
+
+        buzzer.play(440, 0.01)
+        time.sleep(0.02)
+        buzzer.update()
+        assert not buzzer.playing
+        assert not pin.playing
+
+        buzzer.volume = 0.5
+        assert pin.volume == 0.5
+        assert not buzzer.playing
+        assert not pin.playing
+
+    def test_setting_volume_while_playing_keeps_playing(self):
+        """
+        Validates that changing the volume mid-tone keeps the tone playing.
+        """
+        pin = BuzzerPin(None)
+        buzzer = Buzzer(pin)
+
+        buzzer.play(440, 10)
+        buzzer.volume = 0.5
+        assert buzzer.playing
+        assert pin.playing
+        buzzer.off()
+
     def test_play_once(self):
         """
         Validates that play() plays the tone in the buzzer for the required duration.
