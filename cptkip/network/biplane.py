@@ -126,10 +126,11 @@ class BufferedNonBlockingSocket:
 
 
 class Response:
-    def __init__(self, body, status_code=200, content_type="text/plain", headers={}):
+    def __init__(self, body, status_code=200, content_type="text/plain", headers=None):
         self.body_bytes = body if isinstance(body, bytes) else body.encode("ascii")
         self.status_code = status_code
-        self.headers = headers
+        # ADDITION: avoid a shared mutable default; copy so the caller's dict is not changed.
+        self.headers = dict(headers) if headers else {}
         self.headers["content-length"] = len(self.body_bytes)
         self.headers["content-type"] = content_type
 
@@ -190,6 +191,7 @@ class Server:
             print("received request", start_line)
             if start_line[-1:] != b'\n':
                 print("excessively long or invalid start line, giving up")
+                return  # ADDITION: previously carried on processing the truncated line.
             try:
                 method, target, _ = start_line.decode("ascii").split(" ", 2)
             except (UnicodeError, ValueError):
@@ -258,6 +260,10 @@ class Server:
                     # no connectings pending, try again
                 else:
                     print("accepted connection from", new_client_address)
+                    # ADDITION: whether an accepted socket inherits non-blocking mode is OS
+                    # dependent (on Linux it does not), and a blocking client socket stalls
+                    # the whole server in recv_into() until that client sends something.
+                    new_client_socket.setblocking(False)
                     client_processors.append((time.monotonic(), new_client_socket,
                                               self.process_client_connection(
                                                   BufferedNonBlockingSocket(new_client_socket))))
@@ -312,8 +318,12 @@ class Server:
     ########################################
     # E N D    O F    B I P L A N E
     ########################################
-    def python_start_wifi_station(self, listen_on=(get_host(), get_port())):
+    def python_start_wifi_station(self, listen_on=None):
         import socket
+        # Resolved per call rather than as a default argument, which was evaluated once at
+        # import time (opening a socket to probe the host IP as a side effect of importing).
+        if listen_on is None:
+            listen_on = (get_host(), get_port())
         server_socket = socket.socket()
         server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         print(f"Starting on IP address {listen_on[0]}:{listen_on[1]}")
@@ -321,12 +331,17 @@ class Server:
 
     def create_task(self,
                     continue_func: Callable[[], bool] | None = None,
-                    listen_on=(get_host(), get_port())) -> Callable[[], bool]:
+                    listen_on=None) -> Callable[[], bool]:
         """
         Starts a Biplane server that can be used to listen for requests based on whether we are
         running on Python or CircuitPython. The server is then wrapped in a task that matches
         the form of tasks in `cptkip.tasks` and the runners in `cptkip.task`.
+
+        :param listen_on: (host, port) to listen on. Defaults to (get_host(), get_port()),
+            evaluated when this is called.
         """
+        if listen_on is None:
+            listen_on = (get_host(), get_port())
         if is_running_on_desktop():
             listen = self.python_start_wifi_station(listen_on=listen_on)
         else:
