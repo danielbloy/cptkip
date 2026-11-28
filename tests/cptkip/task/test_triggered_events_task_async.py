@@ -467,3 +467,22 @@ class TestTriggeredEventsTaskAsync:
         asyncio.run(trigger_task())
 
         assert begin_count == 3
+
+    def test_end_is_called_when_cancelled_by_runner_mid_trigger(self) -> None:
+        """
+        When an async runner cancels a task that is mid-trigger, the end callback
+        must still be run.
+        """
+        from cptkip.task.basic_runner_async import run
+        end_count = 0
+
+        async def callback(value) -> None:
+            pass
+
+        async def end() -> None:
+            nonlocal end_count
+            end_count += 1
+
+        task = create(Trigger(True), [(60.0,)], callback=callback, end=end)
+        run(task, continue_func=count_limiter(20))
+        assert end_count == 1

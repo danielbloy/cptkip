@@ -12,6 +12,13 @@ def run(*funcs: Callable[[], bool],
     execute for as long as continue_func returns True and there are
     functions running.
 
+    NOTE: When continue_func returns False the runner returns immediately; the tasks
+    are not called again. A task created with an end callback (periodic_task,
+    triggered_task, triggered_events_task) only runs end when it sees its *own*
+    continue_func return False. To guarantee end callbacks run, give the stop
+    condition to the tasks rather than (or as well as) to the runner, e.g.
+    runner.run(task) where task was created with continue_func=stop_condition.
+
     :param continue_func: A function that returns whether to continue executing or not.
     """
 

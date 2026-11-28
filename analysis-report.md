@@ -284,7 +284,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **D13** – Open – `fix/biplane`
 
-- **D14** – Open – `fix/runner-shutdown-end-callbacks`
+- **D14** – PR open – `fix/runner-shutdown-end-callbacks` – async fixed; sync runners documented, final-pass option awaiting decision
 
 - **D15** – Open – `perf/lazy-stacktrace`
 
@@ -352,7 +352,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **T5** – Open – split across `fix/biplane`, `fix/melody-note-parsing`, `fix/triggered-events-task`
 
-- **T6** – Open – `fix/runner-shutdown-end-callbacks`
+- **T6** – PR open – `fix/runner-shutdown-end-callbacks` – async fixed; sync runners documented, final-pass option awaiting decision
 
 - **T7** – Open – `fix/packaging`
 
@@ -374,7 +374,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **F2** – Open – `feat/ticks-helper`
 
-- **F3** – Open – `fix/runner-shutdown-end-callbacks`
+- **F3** – PR open – `fix/runner-shutdown-end-callbacks` – async fixed; sync runners documented, final-pass option awaiting decision
 
 - **F4** – Open – `feat/button-options`
 
@@ -404,7 +404,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **I5** (error text "start, run or stop") – Open – `refactor/shared-trigger`
 
-- **I6** (cancellation logged at ERROR) – Open – `fix/runner-shutdown-end-callbacks`
+- **I6** (cancellation logged at ERROR) – PR open – `fix/runner-shutdown-end-callbacks` – async fixed; sync runners documented, final-pass option awaiting decision
 
 - **I7** (validate pixel count hard-coded) – Open – `validate/harness`
 
