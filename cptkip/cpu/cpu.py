@@ -13,10 +13,15 @@ def info() -> dict:
     three are always "n/a".
     """
     if environment.is_running_on_microcontroller():
+        # Each property is a hardware read, so read each exactly once.
+        cpu = microcontroller.cpu
+        temperature = cpu.temperature
+        frequency = cpu.frequency
+        voltage = cpu.voltage
         return {
-            "temperature": "n/a" if microcontroller.cpu.temperature is None else microcontroller.cpu.temperature,
-            "frequency": "n/a" if microcontroller.cpu.frequency is None else microcontroller.cpu.frequency,
-            "voltage": "n/a" if microcontroller.cpu.voltage is None else microcontroller.cpu.voltage,
+            "temperature": "n/a" if temperature is None else temperature,
+            "frequency": "n/a" if frequency is None else frequency,
+            "voltage": "n/a" if voltage is None else voltage,
         }
 
     else:
