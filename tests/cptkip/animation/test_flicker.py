@@ -273,3 +273,18 @@ class TestFlicker:
         Flicker(pixels, speed=0.1, color=(0, 0, 0))
 
         assert pixels.auto_write is False
+
+    def test_draw_matches_reference_formula(self, monkeypatch) -> None:
+        """
+        draw() uses integer maths; for every colour channel value and every level it
+        must give the same result as the original float formula int(c * level / 255).
+        """
+        pixels = MockPixels(1)
+        flicker = Flicker(pixels, speed=0.1, color=(0, 0, 0), base=0, flame=255)
+        for level in (0, 1, 100, 150, 254, 255, 300, 360):
+            monkeypatch.setattr(flicker_module.random, "randint", lambda a, b, level=level: level)
+            for c in range(256):
+                flicker.set(0, (c, c, c))
+                flicker.draw()
+                expected = min(int(c * level / 255), 0xFF)
+                assert pixels[0] == (expected, expected, expected)

@@ -330,7 +330,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **P6** – Open – `perf/quiet-config-and-defaults`
 
-- **P7** – Open – `perf/flicker-integer-maths`
+- **P7** – PR open – `perf/flicker-integer-maths`
 
 - **P8** – Open – `perf/cpu-info-single-read`
 
