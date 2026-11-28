@@ -21,6 +21,10 @@ def run_biplane_test(server: Server, test_func: Callable[[str, int], None]):
             pass
 
     running = True
+    # Run the server once on this thread first: that binds and starts listening, so the
+    # test cannot connect before the server is ready (which intermittently gave
+    # ConnectionRefusedError in CI).
+    task()
     thread = Thread(target=run_server)
     try:
         thread.start()

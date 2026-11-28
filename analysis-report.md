@@ -278,7 +278,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **D10** – Open – `fix/audio-file-handling`
 
-- **D11** – PR open – `fix/biplane`
+- **D11** – PR open – `fix/biplane` – also fixes new findings N4 (accepted client sockets are blocking on Linux, stalling the server on an idle client) and N5 (race in the test server start-up giving intermittent ConnectionRefusedError)
 
 - **D12** – PR open – `fix/biplane`
 

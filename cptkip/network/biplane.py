@@ -260,6 +260,10 @@ class Server:
                     # no connectings pending, try again
                 else:
                     print("accepted connection from", new_client_address)
+                    # ADDITION: whether an accepted socket inherits non-blocking mode is OS
+                    # dependent (on Linux it does not), and a blocking client socket stalls
+                    # the whole server in recv_into() until that client sends something.
+                    new_client_socket.setblocking(False)
                     client_processors.append((time.monotonic(), new_client_socket,
                                               self.process_client_connection(
                                                   BufferedNonBlockingSocket(new_client_socket))))
