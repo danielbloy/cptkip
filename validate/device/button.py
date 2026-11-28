@@ -13,6 +13,8 @@ def execute():
     def long_press_handler() -> None:
         print("Long-press event")
 
+    utils.require_pins(config.BUTTON_PIN)
+
     with Button(
             input_pin.InputPin(config.BUTTON_PIN, config.BUTTON_PULLUP),
             click=single_click_handler,

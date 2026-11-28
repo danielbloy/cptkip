@@ -7,15 +7,23 @@ import validate.validate_device as device
 import validate.validate_network as network
 import validate.validate_pin as pin
 import validate.validate_task as task
+import validate.validate_zero as zero
 
-scripts = [core, task, pin, device, animation, network]
+scripts = [core, task, pin, device, animation, zero, network]
 
 
-def execute():
+def execute() -> list:
+    """
+    Runs every validation module, then prints an overall summary. Returns the results.
+    """
+    results = []
     for script in scripts:
-        modules = script.modules
-        utils.execute_modules(modules)
+        results += utils.execute_modules(script.modules)
+
+    print("\nOverall:")
+    utils.print_summary(results)
+    return results
 
 
 if __name__ == '__main__':
-    execute()
+    utils.exit_on_failure(execute())
