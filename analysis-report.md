@@ -384,7 +384,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **F7** – Open – `feat/pixels-desktop-stub-state`
 
-- **F8** – Open – `feat/network-wifi-settings`
+- **F8** – PR open – `feat/network-wifi-settings` – stacked on fix/biplane; import-time connect kept (API decision)
 
 - **F9** – Open – placeholder file in `fix/audio-file-handling`; looping queue in `feat/audio-queue-loop`
 

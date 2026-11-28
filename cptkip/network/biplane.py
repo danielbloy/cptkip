@@ -302,7 +302,8 @@ class Server:
         import wifi
         import mdns
         import socketpool
-        wifi.radio.connect(ssid, password)
+        if not wifi.radio.ipv4_address:  # ADDITION: reuse an existing (e.g. automatic) connection.
+            wifi.radio.connect(ssid, password)
         print(f"Starting mDNS at {mdns_hostname}.local (IP address {wifi.radio.ipv4_address})")
         server = mdns.Server(wifi.radio)
         server.hostname = mdns_hostname
@@ -342,11 +343,8 @@ class Server:
             listen = self.python_start_wifi_station(listen_on=listen_on)
         else:
             from os import getenv
-            if not getenv('WIFI_SSID'):
-                raise ValueError("WIFI_SSID must be specified in settings.toml")
-
-            if not getenv('WIFI_PASSWORD'):
-                raise ValueError("WIFI_PASSWORD must be specified in settings.toml")
+            from cptkip.network.settings import wifi_credentials
+            ssid, password = wifi_credentials()
 
             # For hostname, we use the following order of preference:
             #     * A value specified in setting.toml
@@ -363,7 +361,7 @@ class Server:
 
             # noinspection bad-argument-type
             listen = self.circuitpython_start_wifi_station(
-                getenv('WIFI_SSID'), getenv('WIFI_PASSWORD'), hostname, listen_on=listen_on)
+                ssid, password, hostname, listen_on=listen_on)
 
         def monitor() -> bool:
             listen.__next__()
