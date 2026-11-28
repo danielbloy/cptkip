@@ -19,6 +19,27 @@ class TestLogging:
         except Exception as e:
             log.stacktrace(e)
 
+    def test_stacktrace_is_not_formatted_below_debug(self, monkeypatch):
+        """
+        The traceback must not be formatted (which allocates) when DEBUG output is off,
+        and must be formatted and logged when it is on.
+        """
+        import traceback
+        calls = []
+        monkeypatch.setattr(traceback, "format_exception", lambda e: calls.append(e) or ["line"])
+        original_level = log.LEVEL
+        try:
+            error = Exception("raise error")
+            log.set_log_level(log.WARNING)
+            log.stacktrace(error)
+            assert calls == []
+
+            log.set_log_level(log.DEBUG)
+            log.stacktrace(error)
+            assert calls == [error]
+        finally:
+            log.set_log_level(original_level)
+
     def test_log(self):
         """
         Simply tests there is no error when calling log()

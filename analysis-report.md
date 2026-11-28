@@ -286,7 +286,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **D14** – Open – `fix/runner-shutdown-end-callbacks`
 
-- **D15** – Open – `perf/lazy-stacktrace`
+- **D15** – PR open – `perf/lazy-stacktrace`
 
 - **D16** – Open – `fix/duration-limiter-monotonic`
 
@@ -326,7 +326,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **P4** – Open – `fix/periodic-task-timing`
 
-- **P5** – Open – `perf/lazy-stacktrace`
+- **P5** – PR open – `perf/lazy-stacktrace`
 
 - **P6** – Open – `perf/quiet-config-and-defaults`
 

@@ -31,6 +31,12 @@ def stacktrace(e: Exception) -> None:
 
     :param e: The exception whose stack trace we want to log.
     """
+    # Formatting a traceback allocates several strings; skip it entirely unless the
+    # output would actually be logged. This is called on every exception handled by
+    # reliable_runner, often when memory is already tight.
+    if LEVEL < DEBUG:
+        return
+
     import traceback
     for s in traceback.format_exception(e):
         debug(s)
