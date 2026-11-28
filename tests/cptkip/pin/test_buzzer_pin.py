@@ -244,3 +244,51 @@ class TestBuzzerPin:
         monkeypatch.setattr(environment, "are_pins_available", lambda: True)
         with pytest.raises(ValueError):
             BuzzerPin(None)
+
+    def test_single_pwm_is_reused_across_notes(self, monkeypatch):
+        """
+        With pins available, one variable-frequency PWMOut is created and reused for
+        every note and off(); it is only released by deinit(). (The hardware module is
+        faked so this path runs on a desktop.)
+        """
+        created = []
+
+        class FakePWMOut:
+            def __init__(self, pin, frequency=500, variable_frequency=False):
+                self.frequency = frequency
+                self.variable_frequency = variable_frequency
+                self.duty_cycle = 0
+                self.deinit_count = 0
+                created.append(self)
+
+            def deinit(self):
+                self.deinit_count += 1
+
+        class FakePwmio:
+            PWMOut = FakePWMOut
+
+        import cptkip.pin.buzzer_pin as buzzer_pin
+        monkeypatch.setattr(environment, "are_pins_available", lambda: True)
+        monkeypatch.setattr(buzzer_pin, "pwmio", FakePwmio(), raising=False)
+
+        pin = BuzzerPin("GP3", volume=1.0)
+        pin.play(262)
+        pwm = created[0]
+        assert pwm.variable_frequency
+        assert pwm.duty_cycle == 1024
+
+        pin.off()
+        assert pwm.duty_cycle == 0
+        assert not pin.playing
+
+        pin.play(330)
+        pin.play(392)
+        pin.play(0)
+        assert len(created) == 1
+        assert pwm.frequency == 392
+        assert pwm.duty_cycle == 0
+        assert pwm.deinit_count == 0
+
+        pin.deinit()
+        pin.deinit()
+        assert pwm.deinit_count == 1
