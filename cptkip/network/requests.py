@@ -29,16 +29,11 @@ if is_running_on_microcontroller():
     # gateway =  ipaddress.IPv4Address("192.168.1.1")
     # wifi.radio.set_ipv4_address(ipv4=ipv4,netmask=netmask,gateway=gateway)
 
-    from os import getenv
+    from cptkip.network.settings import connect_wifi
 
-    if not getenv('WIFI_SSID'):
-        raise ValueError("WIFI_SSID must be specified in settings.toml")
-
-    if not getenv('WIFI_PASSWORD'):
-        raise ValueError("WIFI_PASSWORD must be specified in settings.toml")
-
-    # Connect to the Wi-Fi and setup requests
-    wifi.radio.connect(getenv('WIFI_SSID'), getenv('WIFI_PASSWORD'))
+    # Connect to the Wi-Fi (unless already connected) and setup requests. Credentials
+    # come from WIFI_SSID/WIFI_PASSWORD or CIRCUITPY_WIFI_SSID/CIRCUITPY_WIFI_PASSWORD.
+    connect_wifi(wifi.radio)
     info("Connected to WiFi")
 
     pool = socketpool.SocketPool(wifi.radio)
