@@ -46,7 +46,7 @@ Pulled directly from `.github/workflows/python-app.yml` — use these verbatim:
 - Unit tests: `pytest tests/`
 - Example tests: `PYTHONPATH=../.. pytest examples/` (the `PYTHONPATH` is required so
   `config.py` at the repo root is importable — easy to forget)
-- Lint (hard gate): `flake8 cptkip --count --select=E9,F63,F7,F82 --show-source --statistics`
+- Lint (hard gate): `flake8 cptkip examples validate tests --count --select=E9,F63,F7,F82 --show-source --statistics`
 - Lint (informational only, exit-zero): complexity/style pass with
   `--max-complexity=10 --max-line-length=127`
 - Validate (on-device style, not run in CI as a test gate): `PYTHONPATH=. python validate/validate_all.py`
