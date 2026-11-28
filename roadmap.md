@@ -27,8 +27,6 @@ The following functionality is being considered for implementation in 0.3.x or l
 
 ## Test gaps
 
-- **Logging**: `core/logging.py` tests leave `LEVEL=WARNING` throughout, so the
-  `DEBUG`/`INFO` prefix branches and actual `print()` call are never hit.
 - **Sync/async parity untested**: no test confirms `basic_runner`/
   `periodic_task` and their `_async` counterparts behave equivalently for the same parameters; no
   test covers exceptions raised from `periodic_task`'s

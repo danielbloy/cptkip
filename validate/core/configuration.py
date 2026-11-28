@@ -1,5 +1,5 @@
-# NOTE: For the tests in here to pass, the file `validate/config.py` needs to be
-#       copied to the root of the CircuitPython drive.
+# NOTE: For the tests in here to pass, the `config.py` file from the root of the
+#       repository needs to be copied to the root of the CircuitPython drive.
 
 def execute():
     import cptkip.core.logging as log

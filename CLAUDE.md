@@ -12,7 +12,7 @@ project origins/roadmap and `development_environment.md` for dev environment set
 
 ## Module structure
 
-`cptkip/` is organized into 7 submodules, listed in dependency order (each depends only on
+`cptkip/` is organized into 9 submodules, listed in dependency order (each depends only on
 modules above it, except where noted):
 
 - `core` — execution environment, memory, and logging. No dependencies on other `cptkip`
@@ -24,17 +24,22 @@ modules above it, except where noted):
   Depends on `core`.
 - `device` — abstractions for hardware components. Depends on `core` and `pin`.
 - `animation` — additional animations such as `Flicker`.
+- `network` — a vendored `biplane` HTTP server plus a portable `requests` wrapper (WiFi on
+  CircuitPython, the `requests` library on desktop). Depends on `core` and `config`.
+- `zero` — "zero-config" helpers that build devices from `config` values
+  (`create_led()`, `create_button()`, ...). Depends on `config`, `device`, `pin`.
 
 ## Repo layout
 
 - `cptkip/` — the library source.
 - `examples/` — runnable demo scripts organized into numbered topic folders
-  (`1 - Core`, `2 - Tasks`, `3 - Pins`, `4 - Devices`, `5 - Animations`). These double as
+  (`1 - Core`, `2 - Tasks`, `3 - Pins`, `4 - Devices`, `5 - Animations`, `6 - Network`). These double as
   CI integration tests via `examples/test_examples.py`.
 - `tests/` — pytest unit tests, mirroring `cptkip/` structure
   (`tests/cptkip/<module>/test_*.py`), with shared helpers in `tests/cptkip/utilities.py`.
-- `validate/` — manual, on-device validation scripts (`validate_all.py` runs them all);
-  not part of the standard CI test run.
+- `validate/` — on-device validation scripts (`validate_all.py` runs them all). CI also runs
+  `validate_all.py` on desktop as a final step (it fails the build if a script raises), but the
+  scripts are mainly for checking behaviour on real hardware.
 - `CircuitPython/` — vendored compiled libs (`.mpy`) per CircuitPython version — do not edit.
 - `config.py` (repo root) — shared config used by `examples/` and `validate/`.
 
@@ -49,7 +54,7 @@ Pulled directly from `.github/workflows/python-app.yml` — use these verbatim:
 - Lint (hard gate): `flake8 cptkip --count --select=E9,F63,F7,F82 --show-source --statistics`
 - Lint (informational only, exit-zero): complexity/style pass with
   `--max-complexity=10 --max-line-length=127`
-- Validate (on-device style, not run in CI as a test gate): `PYTHONPATH=. python validate/validate_all.py`
+- Validate (also run as the last CI step): `PYTHONPATH=. python validate/validate_all.py`
 - Target Python: 3.12–3.14 (CI matrix runs all three)
 
 ## Conventions
