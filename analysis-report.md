@@ -9,6 +9,8 @@
   `examples/` and `tests/`.
 - Ran the unit tests (`pytest tests/`: **331 passed**, ~113 s on Python 3.13.1) with line coverage
   (**88 % overall**).
+- **Tracking:** fix progress for every item is in [§8 Fix tracking](#8-fix-tracking). Each fix PR
+  updates its own entries there.
 - **Double-checking:** each defect marked ✅ below was reproduced by running a script against the
   current code (desktop Python) or by building the package. Items marked 🔍 were confirmed by reading
   the code, usually because they only occur when `are_pins_available()` is true or on CircuitPython,
@@ -32,7 +34,7 @@ behaviour in less common paths, or a resource leak. **Low** = edge case, cosmeti
 | D3 | `device/melody.py:172-186` (`reset`) + `MelodySequence.activate` | If `reset()` is called while paused, it sets `_index = 1` and `_time_left_at_pause = 0`. `resume()` then plays note 0 with no time left, so the next `update()` jumps straight to note 1. **The first note is effectively skipped.** This happens on every loop of a `MelodySequence` and on `previous()`/`activate()`, because finished melodies are paused. | ✅ 0.1 s first note was replaced by note 2 within 50 ms |
 | D4 | `device/buzzer.py:44-48` + `pin/buzzer_pin.py:51-59` | Setting `Buzzer.volume` after any tone has played **turns the buzzer back on** (`BuzzerPin.volume` calls `play(self.frequency)`), but `Buzzer._playing` stays `False`, so `update()` never turns it off. The tone sounds until something else stops it. | ✅ `buzzer.playing False`, `pin.playing True` |
 | D5 | `zero/button.py:15`, `zero/led.py:14` | The `x or config.X` pattern ignores falsy overrides. `create_button_pin(pullup=False)` and `create_led_pin(invert=False)` silently use the config value instead. Also, `pullup=None` means "external resistor" in `InputPin` but "use config" here, so the zero API can't ask for an external pull. | ✅ both returned `True` |
-| D6 | `validate/core/cpu.py:4-6`, `examples/2 - Tasks/{e,f}_*.py` (4 files) | These use PEP 701 f-strings that reuse the outer quote inside `{}` (`f"…{cpu.info()["temperature"]}"`). That syntax needs CPython 3.12+, and CircuitPython's f-string lexer does not support it, so these are **SyntaxErrors on a device**. `validate_core` (and so `validate_all`) and four examples will not load on hardware. CI can't catch this because it runs CPython 3.12+. | ⚠️ grep found exactly these 7 lines |
+| ~~D6~~ | `validate/core/cpu.py:4-6`, `examples/2 - Tasks/{e,f}_*.py` | **Withdrawn.** I flagged nested-quote f-strings as SyntaxErrors on CircuitPython. The maintainer has confirmed through on-device testing that they work. | ❌ withdrawn |
 | D7 | `pin/input_pin.py:44-48`, `output_pin.py:39-43`, `pwm_pin.py:40-44` | `deinit()` calls `self._pin.deinit()` / `self._pwm.deinit()` without checking for `None`. A **second `deinit()` raises `AttributeError`** when pins are available, e.g. a context manager exit after an explicit `deinit()`, or `Led.deinit()` after the pin was released. `Audio`/`BuzzerPin` say double deinit is safe. These pin classes don't, and the desktop tests that "call deinit multiple times" never reach this branch. | 🔍 |
 
 ### Medium
@@ -110,9 +112,7 @@ core 87 % (environment 73 %), config 82 %, network 60 % (requests 22 %, biplane 
 
 - T7 – **Packaging:** nothing builds and imports the wheel (D1/D2). Add a CI step: `pip wheel . &&`
   install into a fresh venv `&& python -c "import cptkip.task.basic_runner"`.
-- T8 – **CircuitPython syntax:** nothing compiles `cptkip/`, `examples/` and `validate/` with
-  CircuitPython's `mpy-cross`, so CPython-only syntax gets through (D6). `package.py` already wraps
-  `mpy-cross`; running it in CI on all three trees would catch this class of bug.
+- ~~T8~~ – **Withdrawn** together with D6. On-device testing has already confirmed the f-string syntax works.
 - T9 – `network/biplane.py` error paths: 413, malformed start line/headers, too many headers,
   request timeout, 404 vs method mismatch.
 - T10 – `core/environment.py` branches: `BLINKA_U2IF`, CI-forcing, `report()` CI line. Use
@@ -188,7 +188,7 @@ Problems found:
 
 | # | Issue | Suggestion |
 |---|-------|-----------|
-| V1 | `validate/core/cpu.py` doesn't compile on CircuitPython (D6), so `validate_all` fails on a device at the first area. | Use single quotes inside the f-strings, and call `cpu.info()` once. Add the mpy-cross CI check (T8). |
+| V1 | `validate/core/cpu.py` calls `cpu.info()` 8 times; each call builds a dict and does hardware reads. (The f-string concern originally raised here was withdrawn with D6.) | Call `cpu.info()` once. |
 | V2 | `execute_modules()` catches only `MemoryError`. Any other exception (a failed `assert`, a `ValueError` for an unconfigured pin, `ImportError` for `wifi`) **aborts the entire run**, with no summary. | Catch `Exception` per module, record pass/fail/skip, print a final summary table, and exit non-zero on failure (so CI gets a real signal). |
 | V3 | Hardware that isn't configured or supported crashes the run: `i2s_audio` with `None` pins, `pwm_pin`/`led` on a Pico W (CYW LED has no PWM), `pwm_audio` passes the string `"none"` as a pin. | Add a `skip_unless(config.X)` helper that prints `SKIP: <reason>` and returns, and use it consistently. |
 | V4 | **In CI, `validate_all` runs `network/client.py`, which calls `https://httpbin.org/get` in a tight loop for about 4 s on every push × 3 Python versions.** The `import wifi` guard only exists in `validate_network.py`'s `__main__`, which `validate_all` bypasses. If httpbin is down, CI fails (an unhandled `ConnectionError`). The performance `s_client.py` has the same tight loop. | Make one request (or a rate-limited `periodic_task` at 1 Hz) against the **local** biplane server from `validate/network/server.py`, which is self-contained and also proves the server answers. Skip external calls when `is_running_in_ci()`. |
@@ -214,8 +214,7 @@ Problems found:
    and the classifier (D1, D2). Add the wheel-import CI check (T7).
 2. Fix the confirmed behavioural bugs, each with a regression test: D3/D19 (Melody), D4 (Buzzer
    volume), D5 (zero falsy overrides), D7 (idempotent `deinit`), D11 (Response headers), D20–D23.
-3. Make CircuitPython-incompatible f-strings compatible (D6) and add an `mpy-cross` compile of
-   `cptkip/ examples/ validate/` to CI (T8).
+3. ~~CircuitPython f-string compatibility (D6/T8)~~: withdrawn, f-strings confirmed working on-device.
 4. Stop CI hitting httpbin.org (V4), and make `execute_modules` report pass/fail and exit non-zero (V2).
 5. Doc sync: `CLAUDE.md` module list and CI statement, `validation.md`, stale roadmap test-gap entry,
    `requirements.txt` → UTF-8.
@@ -245,3 +244,200 @@ Problems found:
 Pico W CYW LED fallback to `OutputPin` (also fixes V3 on that board), one-shot task, servo,
 ultrasonic, MEMS mic, UART comms, multi-device hierarchy, time-of-day support. Keep checking new
 dependencies against the CC BY-NC-SA licence.
+
+---
+
+## 8. Fix tracking
+
+Every finding has one entry below, with a blank line between entries so that PRs touching different
+entries merge without conflicts. Each fix PR targets `develop` and is branched from `docs/report-fix-tracking` (this section). Its diff will include this commit until that PR is merged. Each PR updates
+only its own entries. Closely coupled findings (same function or same lines) are fixed together in
+one PR to avoid conflicting edits. The branch name says which.
+
+Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** (maintainer decision, no code change).
+
+### Defects
+
+- **D1** – Open – `fix/packaging`
+
+- **D2** – Open – `fix/packaging`
+
+- **D3** – Open – `fix/melody-reset-first-note`
+
+- **D4** – Open – `fix/buzzer-volume-restarts-tone`
+
+- **D5** – Open – `fix/zero-falsy-overrides`
+
+- **D6** – Withdrawn – nested f-strings confirmed working on-device by the maintainer.
+
+- **D7** – Open – `fix/pin-deinit-idempotent`
+
+- **D8** – Open – `fix/audio-file-handling`
+
+- **D9** – Open – `fix/audio-file-handling`
+
+- **D10** – Open – `fix/audio-file-handling`
+
+- **D11** – Open – `fix/biplane`
+
+- **D12** – Open – `fix/biplane`
+
+- **D13** – Open – `fix/biplane`
+
+- **D14** – Open – `fix/runner-shutdown-end-callbacks`
+
+- **D15** – Open – `perf/lazy-stacktrace`
+
+- **D16** – Open – `fix/duration-limiter-monotonic`
+
+- **D17** – Deferred – adopt the F2 ticks helper in triggered tasks after the task PRs merge (touches the same lines).
+
+- **D18** – Open – `fix/periodic-task-timing`
+
+- **D19** – Open – `fix/melody-reset-first-note`
+
+- **D20** – Open – `fix/memory-report-text`
+
+- **D21** – Open – `fix/melody-note-parsing`
+
+- **D22** – Open – `fix/melody-note-parsing`
+
+- **D23** – Open – `fix/triggered-events-task`
+
+- **D24** – Open – `fix/periodic-task-timing`
+
+- **D25** – Open – `fix/led-getitem-and-parse`
+
+- **D26** – Open – `fix/audio-file-handling`
+
+- **D27** – Open – `fix/triggered-events-task`
+
+- **D28** – Question – is leaving brightness at 0 after `stop_pixels()` intended?
+
+- **D29** – Question – is the ~1.6 % maximum buzzer duty cycle intended?
+
+### Performance
+
+- **P1** – Deferred – adopt the F2 ticks helper across tasks/devices after the task PRs merge (touches the same lines).
+
+- **P2** – Open – `perf/buzzer-pin-persistent-pwm`
+
+- **P3** – Open – `fix/triggered-events-task`
+
+- **P4** – Open – `fix/periodic-task-timing`
+
+- **P5** – Open – `perf/lazy-stacktrace`
+
+- **P6** – Open – `perf/quiet-config-and-defaults`
+
+- **P7** – Open – `perf/flicker-integer-maths`
+
+- **P8** – Open – `perf/cpu-info-single-read`
+
+- **P9** – Open – `fix/led-getitem-and-parse`
+
+- **P10** – Open – `refactor/shared-trigger`
+
+- **P11** – Open – `perf/zero-lazy-animation-imports`
+
+### Tests
+
+- **T1** – Open – `fix/melody-reset-first-note`
+
+- **T2** – Open – `fix/buzzer-volume-restarts-tone`
+
+- **T3** – Open – `fix/zero-falsy-overrides`
+
+- **T4** – Open – `fix/pin-deinit-idempotent`
+
+- **T5** – Open – split across `fix/biplane`, `fix/melody-note-parsing`, `fix/triggered-events-task`
+
+- **T6** – Open – `fix/runner-shutdown-end-callbacks`
+
+- **T7** – Open – `fix/packaging`
+
+- **T8** – Withdrawn – with D6.
+
+- **T9** – Open – `fix/biplane`
+
+- **T10** – Open – `feat/environment-accessors`
+
+- **T11** – Open – `perf/quiet-config-and-defaults`
+
+- **T12** – Open – `fix/periodic-task-timing`
+
+- **T13** – Open – `ci/lint-all-trees`
+
+### Missing functionality
+
+- **F1** – Open – `feat/memory-monitor-slow-rates`
+
+- **F2** – Open – `feat/ticks-helper`
+
+- **F3** – Open – `fix/runner-shutdown-end-callbacks`
+
+- **F4** – Open – `feat/button-options`
+
+- **F5** – Open – `feat/environment-accessors`
+
+- **F6** – Open – `perf/quiet-config-and-defaults`
+
+- **F7** – PR open – `feat/pixels-desktop-stub-state`
+
+- **F8** – Open – `feat/network-wifi-settings`
+
+- **F9** – Open – placeholder file in `fix/audio-file-handling`; looping queue in `feat/audio-queue-loop`
+
+- **F10** – Open – `fix/packaging`
+
+- **F11** – No action – already on `roadmap.md`.
+
+### Inconsistencies (§5)
+
+- **I1** (docs: CLAUDE.md, validation.md, roadmap) – Open – `docs/sync-docs`
+
+- **I2** (requirements.txt encoding/contents) – Open – `docs/sync-docs`
+
+- **I3** (docstrings: decode_melody) – Open – `fix/melody-note-parsing`
+
+- **I4** (docstrings/messages: I2sAudio, Queue) – Open – `fix/audio-file-handling`
+
+- **I5** (error text "start, run or stop") – Open – `refactor/shared-trigger`
+
+- **I6** (cancellation logged at ERROR) – Open – `fix/runner-shutdown-end-callbacks`
+
+- **I7** (validate pixel count hard-coded) – Open – `validate/harness`
+
+- **I8** (mixed timing sources / units) – Deferred – resolved by P1 adoption of F2.
+
+### Validate
+
+- **V1** – Open – `perf/cpu-info-single-read`
+
+- **V2** – Open – `validate/harness`
+
+- **V3** – Open – `validate/harness`
+
+- **V4** – Open – `validate/network-local`
+
+- **V5** – Open – `validate/stronger-task-asserts`
+
+- **V6** – Open – `validate/stronger-task-asserts`
+
+- **V7** – Open – `validate/harness`
+
+- **V8** – Open – `validate/harness`
+
+- **V9** – Open – `validate/harness`
+
+- **V10** – Open – `validate/harness`
+
+- **V11** – Open – `validate/performance-tidy`
+
+- **V12** – Open – `validate/performance-tidy`
+
+- **V13** – Open – `validate/performance-compare`
+
+- **V14** – Open – `validate/new-scripts`
+
+- **V15** – Open – `docs/sync-docs`
