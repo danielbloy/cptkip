@@ -292,7 +292,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **D17** – Deferred – adopt the F2 ticks helper in triggered tasks after the task PRs merge (touches the same lines).
 
-- **D18** – Open – `fix/periodic-task-timing`
+- **D18** – PR open – `fix/periodic-task-timing` – stacked on fix/runner-shutdown-end-callbacks
 
 - **D19** – Open – `fix/melody-reset-first-note`
 
@@ -304,7 +304,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **D23** – Open – `fix/triggered-events-task`
 
-- **D24** – Open – `fix/periodic-task-timing`
+- **D24** – PR open – `fix/periodic-task-timing` – stacked on fix/runner-shutdown-end-callbacks
 
 - **D25** – Open – `fix/led-getitem-and-parse`
 
@@ -324,7 +324,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **P3** – Open – `fix/triggered-events-task`
 
-- **P4** – Open – `fix/periodic-task-timing`
+- **P4** – PR open – `fix/periodic-task-timing` – stacked on fix/runner-shutdown-end-callbacks
 
 - **P5** – Open – `perf/lazy-stacktrace`
 
@@ -364,7 +364,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **T11** – Open – `perf/quiet-config-and-defaults`
 
-- **T12** – Open – `fix/periodic-task-timing`
+- **T12** – PR open – `fix/periodic-task-timing` – stacked on fix/runner-shutdown-end-callbacks
 
 - **T13** – Open – `ci/lint-all-trees`
 

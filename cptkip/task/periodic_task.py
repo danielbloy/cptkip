@@ -36,11 +36,13 @@ def create(
         func by the specified number of seconds. A value of less than zero is ignored.
     """
 
-    interval = 0
+    # Integer division keeps the period exact: on CircuitPython floats are only
+    # 30-bit, so (1 / frequency) * NS_PER_SECOND would drift (e.g. 3 Hz gave
+    # 333_333_344 ns). A period of at least 1 ns prevents an endless catch-up loop
+    # for absurdly high frequencies.
+    interval_ns: int = 0
     if frequency > 0:
-        interval = 1 / frequency
-
-    interval_ns: int = int(interval * NS_PER_SECOND)
+        interval_ns = max(1, int(NS_PER_SECOND // frequency))
     next_callback_ns: int = 0
     call_begin: bool = True
     call_end: bool = True
@@ -60,8 +62,8 @@ def create(
             now = monotonic_ns()
             if now >= next_callback_ns:
                 if frequency > 0:
-                    while now >= next_callback_ns:
-                        next_callback_ns += interval_ns
+                    # Skip any missed periods in one step rather than looping.
+                    next_callback_ns += ((now - next_callback_ns) // interval_ns + 1) * interval_ns
                 func()
             return True
 

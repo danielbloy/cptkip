@@ -2,7 +2,7 @@ from asyncio import sleep, CancelledError
 from time import monotonic_ns
 
 import cptkip.core.environment as environment
-from cptkip.core.control import NS_PER_SECOND, ASYNC_LOOP_SLEEP_INTERVAL
+from cptkip.core.control import NS_PER_SECOND, ASYNC_LOOP_SLEEP_INTERVAL, PERIODIC_LOOP_WAIT_RATIO
 
 if environment.is_running_on_desktop():
     from typing import Callable, Awaitable
@@ -37,13 +37,31 @@ def create(
         func by the specified number of seconds. A value of less than zero is ignored.
     """
 
-    interval = 0
+    # Integer division keeps the period exact: on CircuitPython floats are only
+    # 30-bit, so (1 / frequency) * NS_PER_SECOND would drift (e.g. 3 Hz gave
+    # 333_333_344 ns). A period of at least 1 ns prevents an endless catch-up loop
+    # for absurdly high frequencies.
+    interval_ns: int = 0
     if frequency > 0:
-        interval = 1 / frequency
-
-    interval_ns: int = int(interval * NS_PER_SECOND)
+        interval_ns = max(1, int(NS_PER_SECOND // frequency))
     call_begin: bool = True
     call_end: bool = True
+
+    # The longest single sleep: a fraction of the period so continue_func is still
+    # checked regularly. With no frequency the task runs as fast as possible.
+    max_sleep_ns = interval_ns // PERIODIC_LOOP_WAIT_RATIO
+
+    def _sleep_time(next_callback_ns: int) -> float:
+        """
+        Seconds to sleep before the next check: until func is next due, capped at a
+        fraction of the period. Previously this always slept for ~1us, busy-waiting.
+        """
+        if max_sleep_ns <= 0:
+            return ASYNC_LOOP_SLEEP_INTERVAL
+        remaining_ns = next_callback_ns - monotonic_ns()
+        if remaining_ns <= 0:
+            return ASYNC_LOOP_SLEEP_INTERVAL
+        return min(remaining_ns, max_sleep_ns) / NS_PER_SECOND
 
     async def handler() -> None:
         nonlocal call_begin, call_end
@@ -62,11 +80,11 @@ def create(
 
                 if now >= next_callback_ns:
                     if frequency > 0:
-                        while now >= next_callback_ns:
-                            next_callback_ns += interval_ns
+                        # Skip any missed periods in one step rather than looping.
+                        next_callback_ns += ((now - next_callback_ns) // interval_ns + 1) * interval_ns
                     await func()
 
-                await sleep(ASYNC_LOOP_SLEEP_INTERVAL)
+                await sleep(_sleep_time(next_callback_ns))
 
         except CancelledError:
             # Run end before propagating the cancellation, so cancelling the task

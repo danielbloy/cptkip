@@ -286,3 +286,24 @@ class TestPeriodicTaskAsync:
         task = create(func, frequency=100, end=end)
         run(task, continue_func=count_limiter(20))
         assert end_count == 1
+
+    def test_does_not_busy_wait_between_calls(self) -> None:
+        """
+        Between calls the task sleeps until func is next due (capped at a fraction of
+        the period) rather than spinning with ~1us sleeps. At 10Hz over ~1s the loop
+        should only check continue_func a few hundred times at most (8 checks per
+        period with PERIODIC_LOOP_WAIT_RATIO=8); busy-waiting gave tens of thousands.
+        """
+        checks = 0
+        finish = time.monotonic() + 1
+
+        def continue_func() -> bool:
+            nonlocal checks
+            checks += 1
+            return time.monotonic() < finish
+
+        async def func() -> None:
+            pass
+
+        run(create(func, frequency=10, continue_func=continue_func))
+        assert checks < 500

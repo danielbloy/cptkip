@@ -1,6 +1,8 @@
 import statistics
 import time
 
+import pytest
+
 from cptkip.core.control import NS_PER_SECOND
 from cptkip.task.basic_runner import run
 from cptkip.task.limiters import count_limiter
@@ -267,3 +269,59 @@ class TestPeriodicTask:
         run(task_one, task_two, task_three)
 
         assert call_order == ["one", "two", "three", "one", "two", "two"]
+
+    def test_very_high_frequency_does_not_hang(self) -> None:
+        """
+        A frequency so high the period rounds to zero must not loop forever.
+        """
+        calls = 0
+
+        def func() -> None:
+            nonlocal calls
+            calls += 1
+
+        task = create(func, frequency=10 ** 12)
+        for _ in range(5):
+            task()
+        assert calls == 4  # The first invocation runs begin handling only.
+
+    def test_exception_in_func_propagates_and_task_can_continue(self) -> None:
+        """
+        An exception raised by func propagates to the caller (so reliable_runner can
+        handle it) and the task keeps working on the next invocation.
+        """
+        calls = 0
+
+        def func() -> None:
+            nonlocal calls
+            calls += 1
+            if calls == 1:
+                raise RuntimeError("boom")
+
+        task = create(func)
+        assert task()  # begin handling
+        with pytest.raises(RuntimeError):
+            task()
+        assert task()
+        assert calls == 2
+
+    def test_exception_in_begin_end_or_continue_func_propagates(self) -> None:
+        """
+        Exceptions from begin, end and continue_func are not swallowed.
+        """
+
+        def boom() -> None:
+            raise RuntimeError("boom")
+
+        with pytest.raises(RuntimeError):
+            create(lambda: None, begin=boom)()
+
+        task = create(lambda: None, end=boom, continue_func=lambda: False)
+        task()  # begin handling
+        with pytest.raises(RuntimeError):
+            task()
+
+        task = create(lambda: None, continue_func=boom)
+        task()  # begin handling
+        with pytest.raises(RuntimeError):
+            task()
