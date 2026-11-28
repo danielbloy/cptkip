@@ -418,7 +418,7 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **V3** – PR open – `validate/harness`
 
-- **V4** – Open – `validate/network-local`
+- **V4** – PR open – `validate/network-local` – stacked on validate/harness
 
 - **V5** – Open – `validate/stronger-task-asserts`
 
