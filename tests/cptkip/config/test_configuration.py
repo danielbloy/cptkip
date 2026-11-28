@@ -43,3 +43,60 @@ class TestConfiguration:
         finally:
             for name in _MODULES_TO_RELOAD:
                 monkeypatch.delitem(sys.modules, name, raising=False)
+
+    def test_log_level_and_defaults_are_applied(self, monkeypatch, capsys) -> None:
+        """
+        Validates the final LOG_LEVEL (after device.py overrides config.py) is applied to
+        the logger, hardware settings missing from config.py get defaults, and the
+        configuration report is printed at INFO or above.
+        """
+        monkeypatch.syspath_prepend(_FIXTURE_DIR)
+        for name in _MODULES_TO_RELOAD:
+            monkeypatch.delitem(sys.modules, name, raising=False)
+
+        original_level = logging.LEVEL
+        try:
+            import cptkip.config.configuration as configuration
+            assert logging.LEVEL == logging.DEBUG
+
+            # The fixture config.py/device.py do not define any hardware settings.
+            assert configuration.LED_PIN is None
+            assert configuration.LED_INVERT is False
+            assert configuration.BUTTON_PIN is None
+            assert configuration.BUTTON_PULLUP is True
+            assert configuration.BUZZER_PIN is None
+            assert configuration.PIXELS_PIN is None
+            assert configuration.PIXELS_COUNT == 1
+            assert configuration.I2S_DATA is None
+
+            output = capsys.readouterr().out
+            assert "Config file loaded." in output
+            assert "Device file loaded." in output
+            assert "LED not configured" in output
+        finally:
+            logging.set_log_level(original_level)
+            for name in _MODULES_TO_RELOAD:
+                monkeypatch.delitem(sys.modules, name, raising=False)
+
+    def test_report_is_not_printed_below_info(self, monkeypatch, capsys, tmp_path) -> None:
+        """
+        Validates nothing is printed when the configured LOG_LEVEL is below INFO.
+        """
+        (tmp_path / "config.py").write_text("from cptkip.core.logging import WARNING\nLOG_LEVEL = WARNING\n")
+        # Shadow the fixture device.py (which sets DEBUG); pytest puts this test
+        # directory on sys.path.
+        (tmp_path / "device.py").write_text("")
+        monkeypatch.syspath_prepend(str(tmp_path))
+        for name in _MODULES_TO_RELOAD:
+            monkeypatch.delitem(sys.modules, name, raising=False)
+
+        original_level = logging.LEVEL
+        try:
+            capsys.readouterr()
+            import cptkip.config.configuration as configuration
+            assert configuration.LOG_LEVEL == logging.WARNING
+            assert capsys.readouterr().out == ""
+        finally:
+            logging.set_log_level(original_level)
+            for name in _MODULES_TO_RELOAD:
+                monkeypatch.delitem(sys.modules, name, raising=False)

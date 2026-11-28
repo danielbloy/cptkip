@@ -11,58 +11,88 @@ import cptkip.core.logging as log
 
 LOG_LEVEL = log.WARNING
 
+# Defaults for the hardware settings used by cptkip.zero and the examples. A pin of
+# None means the device is not connected/configured. These are overridden by
+# config.py and device.py; defining them here means a config.py that omits one does
+# not cause an AttributeError when it is used.
+LED_PIN = None
+LED_INVERT = False
+
+BUTTON_PIN = None
+BUTTON_PULLUP = True
+
+BUZZER_PIN = None
+
+PIXELS_PIN = None
+PIXELS_COUNT = 1
+
+I2S_BIT_CLOCK = None
+I2S_LEFT_RIGHT_CLOCK = None
+I2S_DATA = None
+
 # Try loading local device settings as overrides.
+__config_loaded = False
 try:
 
     # noinspection PyPackageRequirements
     from config import *
 
-    print("Config file loaded.")
+    __config_loaded = True
 
 except ImportError:
-    print("No config file found.")
+    pass
 
+__device_loaded = False
 try:
 
     # noinspection PyPackageRequirements
     from device import *
 
-    print("Device file loaded.")
+    __device_loaded = True
 
 except ImportError:
-    print("No device file found.")
+    pass
 
-if 'LED_PIN' in locals() and LED_PIN:
-    # noinspection string-conversion-without-dunder-method
-    print("LED pin", LED_PIN)
-else:
-    print('LED not configured')
 
-if 'BUTTON_PIN' in locals() and BUTTON_PIN:
-    # noinspection string-conversion-without-dunder-method
-    print("Button pin", BUTTON_PIN)
-else:
-    print('Button not configured')
+def report() -> None:
+    """
+    Prints which configuration files were loaded and which devices are configured.
+    This is called automatically when the configuration is loaded if LOG_LEVEL is
+    INFO or above; otherwise nothing is printed.
+    """
+    print("Config file loaded." if __config_loaded else "No config file found.")
+    print("Device file loaded." if __device_loaded else "No device file found.")
 
-if 'BUZZER_PIN' in locals() and BUZZER_PIN:
-    # noinspection string-conversion-without-dunder-method
-    print("Buzzer pin", BUZZER_PIN)
-else:
-    print('Buzzer not configured')
+    # print() with multiple args avoids building temporary strings.
+    if LED_PIN:
+        print("LED pin", LED_PIN)
+    else:
+        print("LED not configured")
 
-if 'PIXELS_PIN' in locals() and PIXELS_PIN:
-    # noinspection string-conversion-without-dunder-method
-    print("Pixels pin", PIXELS_PIN)
-else:
-    print('Pixels not configured')
+    if BUTTON_PIN:
+        print("Button pin", BUTTON_PIN)
+    else:
+        print("Button not configured")
 
-if ('I2S_BIT_CLOCK' in locals() and 'I2S_LEFT_RIGHT_CLOCK' in locals() and 'I2S_DATA' in locals()
-        and I2S_BIT_CLOCK and I2S_LEFT_RIGHT_CLOCK and I2S_DATA):
-    # noinspection string-conversion-without-dunder-method
-    print('I2S audio pins', I2S_BIT_CLOCK, I2S_LEFT_RIGHT_CLOCK, I2S_DATA)
-else:
-    print('I2S audio not configured')
+    if BUZZER_PIN:
+        print("Buzzer pin", BUZZER_PIN)
+    else:
+        print("Buzzer not configured")
+
+    if PIXELS_PIN:
+        print("Pixels pin", PIXELS_PIN)
+    else:
+        print("Pixels not configured")
+
+    if I2S_BIT_CLOCK and I2S_LEFT_RIGHT_CLOCK and I2S_DATA:
+        print("I2S audio pins", I2S_BIT_CLOCK, I2S_LEFT_RIGHT_CLOCK, I2S_DATA)
+    else:
+        print("I2S audio not configured")
+
 
 # Apply logging level after both config.py and device.py have had a chance to
 # override LOG_LEVEL.
 log.set_log_level(LOG_LEVEL)
+
+if LOG_LEVEL >= log.INFO:
+    report()
