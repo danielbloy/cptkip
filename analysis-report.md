@@ -432,9 +432,9 @@ Status values: **Open**, **PR open**, **Withdrawn**, **Deferred**, **Question** 
 
 - **V10** – Open – `validate/harness`
 
-- **V11** – Open – `validate/performance-tidy`
+- **V11** – PR open – `validate/performance-tidy`
 
-- **V12** – Open – `validate/performance-tidy`
+- **V12** – PR open – `validate/performance-tidy`
 
 - **V13** – Open – `validate/performance-compare`
 
